@@ -1,14 +1,21 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.rudkids.rudkids.util.BaseEntityId;
+import com.github.f4b6a3.ulid.UlidCreator;
+import com.rudkids.rudkids.domain.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "tbl_user")
-public class User extends BaseEntityId {
+public class User extends AbstractEntity {
+
+    @Id
+    @Column(columnDefinition = "BINARY(16)")
+    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Embedded
     private Email email;
