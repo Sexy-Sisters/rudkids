@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.user.domain;
 
-import com.rudkids.rudkids.user.exception.InvalidPasswordException;
+import com.rudkids.rudkids.domain.user.domain.Password;
+import com.rudkids.rudkids.domain.user.exception.InvalidPasswordException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

@@ -1,6 +1,6 @@
-package com.rudkids.rudkids.user.domain;
+package com.rudkids.rudkids.domain.user.domain;
 
-import com.rudkids.rudkids.user.exception.InvalidEmailFormatException;
+import com.rudkids.rudkids.domain.user.exception.InvalidEmailFormatException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

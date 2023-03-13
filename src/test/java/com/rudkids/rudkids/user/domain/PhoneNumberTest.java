@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.user.domain;
 
-import com.rudkids.rudkids.user.exception.InvalidPhoneNumberFormatException;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
+import com.rudkids.rudkids.domain.user.exception.InvalidPhoneNumberFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
