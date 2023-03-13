@@ -48,7 +48,6 @@ public class User extends AbstractEntity {
     @RequiredArgsConstructor
     public enum RoleType {
         USER("일반 사용자"), ADMIN("관리자");
-
         private final String description;
     }
 
@@ -59,5 +58,4 @@ public class User extends AbstractEntity {
     void getAdminPermission() {
         this.roleType = RoleType.ADMIN;
     }
-
 }
