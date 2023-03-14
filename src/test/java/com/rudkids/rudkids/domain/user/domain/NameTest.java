@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.user.domain;
+package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.domain.user.domain.Name;
 import com.rudkids.rudkids.domain.user.exception.InvalidNameException;

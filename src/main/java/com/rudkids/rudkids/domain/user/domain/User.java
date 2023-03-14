@@ -29,12 +29,11 @@ public class User extends BaseEntityId {
     }
 
     @Builder
-    public User(Email email, Password password, Name name, PhoneNumber phoneNumber, RoleType roleType) {
+    public User(Email email, Password password, Name name, PhoneNumber phoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.roleType = roleType;
     }
 
     @Getter
@@ -53,4 +52,11 @@ public class User extends BaseEntityId {
         this.roleType = RoleType.ADMIN;
     }
 
+    public String getEmail() {
+        return email.getValue();
+    }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
 }
