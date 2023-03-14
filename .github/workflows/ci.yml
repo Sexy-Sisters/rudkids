@@ -38,6 +38,9 @@ jobs:
         mysql user: 'root'
         mysql password: 'nswon0729@'
         mysql root password: 'nswon0729@'
+        
+    - name: Setup Runner Database
+      run: mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS rudkids_test;'
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
