@@ -8,13 +8,15 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
 
-    public void signUp(SignUpRequestDto signUpRequest) {
+    public UUID signUp(SignUpRequestDto signUpRequest) {
         validate(signUpRequest);
 
         User user = User.builder()
@@ -23,7 +25,7 @@ public class UserService {
                 .name(Name.create(signUpRequest.getName()))
                 .phoneNumber(PhoneNumber.create(signUpRequest.getPhoneNumber()))
                 .build();
-        userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 
     private void validate(SignUpRequestDto signUpRequest) {

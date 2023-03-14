@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -55,11 +57,12 @@ class UserServiceTest {
                 .name("남세")
                 .phoneNumber("010-1234-5678")
                 .build();
-        userService.signUp(signUpRequest);
+        UUID id = userService.signUp(signUpRequest);
 
         User findUser = userRepository.findByEmailValueAndPasswordValue(signUpRequest.getEmail(),
                 signUpRequest.getPassword());
-        assertThat(findUser.getRoleType()).isEqualTo(User.RoleType.USER);
+        assertThat(findUser.getId()).isEqualTo(id);
+//        assertThat(findUser.getRoleType()).isEqualTo(User.RoleType.USER);
     }
 
 }

@@ -50,8 +50,4 @@ public class User extends BaseEntityId {
     void getAdminPermission() {
         this.roleType = RoleType.ADMIN;
     }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
 }
