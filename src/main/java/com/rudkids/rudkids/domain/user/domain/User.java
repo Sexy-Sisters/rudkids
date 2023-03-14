@@ -36,6 +36,10 @@ public class User extends BaseEntityId {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getName() {
+        return name.getValue();
+    }
+
     @Getter
     @RequiredArgsConstructor
     public enum RoleType {

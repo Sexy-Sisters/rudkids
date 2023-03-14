@@ -16,7 +16,7 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UUID signUp(SignUpRequestDto signUpRequest) {
+    public void signUp(SignUpRequestDto signUpRequest) {
         validate(signUpRequest);
 
         User user = User.builder()
@@ -25,7 +25,7 @@ public class UserService {
                 .name(Name.create(signUpRequest.getName()))
                 .phoneNumber(PhoneNumber.create(signUpRequest.getPhoneNumber()))
                 .build();
-        return userRepository.save(user).getId();
+        userRepository.save(user);
     }
 
     private void validate(SignUpRequestDto signUpRequest) {
