@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @Embeddable
 @Getter
 public class Email {
-    private static final Pattern PATTERN = Pattern.compile("\\\\w+@\\\\w+\\\\.\\\\w+(\\\\.\\\\w+)?");
+    private static final Pattern PATTERN = Pattern.compile("[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
 
     @Column(name = "email", unique = true)
     private String value;

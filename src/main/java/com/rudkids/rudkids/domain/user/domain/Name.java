@@ -3,8 +3,10 @@ package com.rudkids.rudkids.domain.user.domain;
 import com.rudkids.rudkids.domain.user.exception.InvalidNameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 @Embeddable
+@Getter
 public class Name {
     private static final int MAX_LENGTH = 20;
 

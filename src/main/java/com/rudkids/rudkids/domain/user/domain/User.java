@@ -36,12 +36,15 @@ public class User extends AbstractEntity {
     }
 
     @Builder
-    public User(Email email, Password password, Name name, PhoneNumber phoneNumber, RoleType roleType) {
+    public User(Email email, Password password, Name name, PhoneNumber phoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.roleType = roleType;
+    }
+
+    public String getName() {
+        return name.getValue();
     }
 
     @Getter
