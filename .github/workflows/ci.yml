@@ -38,7 +38,7 @@ jobs:
         mysql root password: 'nswon0729@'
         
     - name: DB Conenction Test
-      run: mysql -h localhost:3306 -u root -p nswon0729@ rudkids_test
+      run: mysql -hlocalhost:3306 -uroot -pnswon0729@ rudkids_test
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
