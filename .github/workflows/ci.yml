@@ -26,14 +26,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Mysql 설치
-      uses: samin/mysql-action@v1
-      with:
-        character set server: 'utf8'
-        mysql database: 'rudkids_test'
-        mysql user: 'root'
-        mysql password: ${{ secrets.MYSQL_PASSWORD }}
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
