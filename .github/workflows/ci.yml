@@ -36,7 +36,7 @@ jobs:
       run: docker ps -a
       
     - name: MySql Connection Text
-      run: mysql -h 127.0.0.1 -P 3306 --protocol=tcp -u root -pnswon0729@
+      run: mysql -h 127.0.0.1 -P 3306 -u root -pnswon0729@
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
