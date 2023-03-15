@@ -36,15 +36,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Mysql 설치
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: 3306
-        container port: 3306
-        mysql version: '8.0'
-        mysql database: rudkids_test
-        mysql user: 'root'
-        mysql password: 'nswon0729@'
+#     - name: Mysql 설치
+#       uses: mirromutth/mysql-action@v1.1
+#       with:
+#         host port: 3306
+#         container port: 3306
+#         mysql version: '8.0'
+#         mysql database: rudkids_test
+#         mysql user: 'root'
+#         mysql password: 'nswon0729@'
     
     - name: Fill Database
       run: |
