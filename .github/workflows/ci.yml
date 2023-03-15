@@ -36,12 +36,6 @@ jobs:
         mysql database: rudkids_test
         mysql user: 'root'
         mysql password: 'nswon0729@'
-        
-    - name: Setup Runner Database
-      run: |
-          apt-get update
-          apt-get install -y mysql-client
-          mysql -u root -p nswon0729@ -e 'show databases;'
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
