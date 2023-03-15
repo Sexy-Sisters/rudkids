@@ -18,6 +18,20 @@ permissions: write-all
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+     mysql:
+      image: mysql:8
+      env:
+       MYSQL_USER: root
+       MYSQL_PASSWORD: nswon0729@
+       options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      ports:
+          - 3306:3306
+    
     steps:
     - uses: actions/checkout@v3
     
