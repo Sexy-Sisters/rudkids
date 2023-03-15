@@ -38,6 +38,9 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '30s'
+        
+    - name: Mysql test
+      run: service mysqld start
       
     - name: Mysql 접속
       run: mysql -u root -pnswon0729@
