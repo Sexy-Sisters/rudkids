@@ -13,9 +13,9 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-permissions:
-      contents: read
-      packages: write
+permissions: |
+  write-all 
+  read-all
 
 jobs:
   test:
