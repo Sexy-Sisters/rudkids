@@ -32,7 +32,7 @@ jobs:
       run: docker ps -a      
       
     - name: MySql Connection Text
-      run: docker exec -i rudkids-test-server mysql -h 172.0.0.1 -u root -pnswon0729@
+      run: docker exec -i rudkids-test-server mysql -h 172.0.0.1 -p 3306 --protocol=tcp -u root -pnswon0729@
       
     - name: DB 생성
       run: create database rudkids_test default character set utf8;
