@@ -34,6 +34,9 @@ jobs:
     - name: MySql Connection Text
       run: docker exec -i rudkids-test-server bash
       
+    - name: Mysql Demon 활성화
+      run: service mysqld start 
+      
     - name: Mysql 접속
       run: mysql -u root -pnswon0729@
       
