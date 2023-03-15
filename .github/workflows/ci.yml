@@ -36,6 +36,12 @@ jobs:
       
     - name: MySql Connection Text
       run: docker exec -i rudkids-test-server bash
+      
+    - name: Mysql 접속
+      run: mysql -u root -pnswon0729@
+      
+    - name: DB 생성
+      run: create database rudkids_test default character set utf8;
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
