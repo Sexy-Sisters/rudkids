@@ -40,7 +40,8 @@ jobs:
         time: '30s'
         
     - name: Mysql test
-      run: sudo service mysqld start
+      run: sudo systemctl start mysqld
+           sudo systemctl enable mysqld
       
     - name: Mysql 접속
       run: mysql -u root -pnswon0729@
