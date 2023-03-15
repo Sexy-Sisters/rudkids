@@ -25,17 +25,17 @@ jobs:
     - name: Mysql 이미지 받아오기
       run: docker pull mysql
       
-    - name: Docker 이미지 list
-      run: docker images
+#     - name: Docker 이미지 list
+#       run: docker images
       
     - name: Docker container 생성
       run: docker run --name rudkids-mysql -e MYSQL_ROOT_PASSWORD=nswon0729@ -d -p 3306:3306 mysql
       
-    - name: Docker Process list
-      run: docker ps -a      
+#     - name: Docker Process list
+#       run: docker ps -a      
       
-#     - name: MySql Connection Text
-#       run: docker exec -it `docker ps -q --filter ancestor=mysql` bash
+    - name: MySql Connection Text
+      run: docker exec -it `rudkids-mysql` bash
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
