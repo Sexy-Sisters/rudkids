@@ -14,7 +14,8 @@ on:
     branches: [ "develop" ]
 
 permissions:
-  packages: write
+  contents: read
+  packages: write-all
 
 jobs:
   test:
@@ -26,14 +27,11 @@ jobs:
     - name: Mysql 이미지 받아오기
       run: docker pull mysql
       
-#     - name: Docker 이미지 list
-#       run: docker images
-      
     - name: Docker container 생성
       run: docker run --name rudkids-test-server -e MYSQL_ROOT_PASSWORD=nswon0729@ -d -p 3306:3306 mysql
       
-#     - name: Docker Process list
-#       run: docker ps -a      
+    - name: Docker Process list
+      run: docker ps -a      
       
     - name: MySql Connection Text
       run: docker exec -i rudkids-test-server bash
