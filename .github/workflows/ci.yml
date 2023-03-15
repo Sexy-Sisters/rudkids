@@ -28,16 +28,14 @@ jobs:
         distribution: 'temurin'
         
     - name: Mysql 설치
-      uses: samin/mysql-action@v1
+      uses: mirromutth/mysql-action@v1.1
       with:
         host port: 3306
         container port: 3306
-        character set server: 'utf8'
         mysql version: '8.0'
-        mysql database: 'rudkids_test'
+        mysql database: rudkids_test
         mysql user: 'root'
         mysql password: 'nswon0729@'
-        mysql root password: 'nswon0729@'
         
     - name: Setup Runner Database
       run: |
