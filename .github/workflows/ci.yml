@@ -36,7 +36,7 @@ jobs:
       run: docker ps -a
       
     - name: MySql Connection Text
-      run: docker exec -it mysql bash
+      run: docker exec -it `docker ps -q --filter ancestor=mysql` bash
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
