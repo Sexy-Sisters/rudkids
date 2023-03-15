@@ -34,13 +34,10 @@ jobs:
     - name: MySql Connection Text
       run: docker exec -i rudkids-test-server bash
       
-    - name: mysql start test
-      run: service mysqld status
-      
-#     - name: Sleep for 10 seconds
-#       uses: jakejarvis/wait-action@master
-#       with:
-#         time: '10s'
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '30s'
       
     - name: Mysql 접속
       run: mysql -u root -pnswon0729@
