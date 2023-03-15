@@ -13,7 +13,8 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-permissions: write-all
+permissions:
+  packages: write
 
 jobs:
   test:
