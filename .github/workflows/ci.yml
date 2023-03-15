@@ -49,7 +49,9 @@ jobs:
     - name: Fill Database
       run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -u root -pnswon0729@ -e 'CREATE DATABASE IF NOT EXISTS rudkids_test;'
+          sudo mysql -u root -p
+          nswon0729@
+          'CREATE DATABASE IF NOT EXISTS rudkids_test;'
       # mysql -uroot -proot rudkids_test < ../database/schema/schema.sql
     - run: mysql test
       env:
