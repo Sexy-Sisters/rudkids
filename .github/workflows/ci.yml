@@ -36,12 +36,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - name: Mysql 설치
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 3306
+        container port: 3306
+        mysql version: '8.0'
+        mysql database: rudkids_test
+        mysql user: 'root'
+        mysql password: 'nswon0729@'
+    
     - name: Fill Database
       run: |
           sudo /etc/init.d/mysql start
           sudo mysql -uroot -proot -e 'CREATE DATABASE IF NOT EXISTS rudkids_test;'
-          mysql -uroot -proot rudkids_test < ../database/schema/schema.sql
-    - run: npm test
+      # mysql -uroot -proot rudkids_test < ../database/schema/schema.sql
+    - run: mysql test
       env:
         DB_USER: root
         DB_PASS: root
@@ -54,16 +64,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        
-    - name: Mysql 설치
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: 3306
-        container port: 3306
-        mysql version: '8.0'
-        mysql database: rudkids_test
-        mysql user: 'root'
-        mysql password: 'nswon0729@'
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
