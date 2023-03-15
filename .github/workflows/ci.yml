@@ -26,10 +26,7 @@ jobs:
       run: docker pull mysql
       
     - name: Docker container 생성
-      run: docker run --name rudkids-test-server -e MYSQL_ROOT_PASSWORD=nswon0729@ -d -p 3306:3306 mysql
-      
-    - name: Mysql restart
-      run: sudo service mysql restart
+      run: docker run --name rudkids-test-server -e MYSQL_ROOT_PASSWORD=nswon0729@ -p 3306:3306 mysql
       
     - name: MySql Connection Text
       run: docker exec -i rudkids-test-server mysql -h 172.0.0.1 -p 3306 --protocol=tcp -u root -pnswon0729@
