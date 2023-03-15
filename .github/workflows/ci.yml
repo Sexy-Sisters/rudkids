@@ -18,46 +18,22 @@ permissions: write-all
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-     mysql:
-      image: mysql:8
-      env:
-       MYSQL_USER: root
-       MYSQL_PASSWORD: nswon0729@
-       MYSQL_ROOT_PASSWORD: nswon0729@
-       options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      ports:
-          - 3306:3306
     
     steps:
     - uses: actions/checkout@v3
     
-#     - name: Mysql 설치
-#       uses: mirromutth/mysql-action@v1.1
-#       with:
-#         host port: 3306
-#         container port: 3306
-#         mysql version: '8.0'
-#         mysql database: rudkids_test
-#         mysql user: 'root'
-#         mysql password: 'nswon0729@'
-    
-    - name: Fill Database
-      run: |
-          sudo /etc/init.d/mysql start
-          sudo mysql -u root -pnswon0729@ -e 'CREATE DATABASE IF NOT EXISTS rudkids_test;'
-      # mysql -uroot -proot rudkids_test < ../database/schema/schema.sql
-    - run: mysql test
-      env:
-        DB_USER: root
-        DB_PASS: root
-        DB_NAME: rudkids_test
-        DB_HOST: 127.0.0.1
-        DB_PORT: 3306
+    - name: Mysql 설치
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 3306
+        container port: 3306
+        mysql version: '8.0'
+        mysql database: rudkids_test
+        mysql user: 'root'
+        mysql password: 'nswon0729@'
+      
+    - name: MySql Test
+      run: docker ps -a
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
