@@ -20,5 +20,5 @@ spring:
     username: root
     password: nswon0729@ #나중에 환경변수 사용해서 가리기
 
-#  profiles:
-#    active: test
+  profiles:
+    active: test

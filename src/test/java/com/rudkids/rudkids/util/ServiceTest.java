@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @SpringBootTest
 @Transactional
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 public @interface ServiceTest {
 }
