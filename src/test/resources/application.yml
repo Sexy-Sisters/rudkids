@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/rudkids_test?serverTimezone=Asia/Seoul;MODE=MYSQL
+    url: jdbc:h2:tcp://localhost/~/rudkidstest?serverTimezone=Asia/Seoul;MODE=MYSQL
     username: sa
     password:
 
@@ -12,7 +12,7 @@ spring:
         user_sql_comments: true
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
 
 logging:
   level:
