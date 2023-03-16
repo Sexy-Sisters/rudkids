@@ -18,22 +18,8 @@ permissions: write-all
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Mysql Set up
-    - uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: 3306 
-        container port: 3306
-        character set server: 'utf8' 
-        collation server: 'utf8_general_ci' 
-        mysql version: '8.0' 
-        mysql database: 'rudkids_test' 
-        mysql root password: ${{ secrets.RootPassword }}
-        mysql user: 'root' 
-        mysql password: ${{ secrets.DatabasePassword }} 
     
     - name: JDK 17 설치
       uses: actions/setup-java@v3
