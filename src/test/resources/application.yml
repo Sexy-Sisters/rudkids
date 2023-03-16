@@ -1,24 +1,25 @@
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/rudkids_test?serverTimezone=Asia/Seoul;MODE=MYSQL
+    username: sa
+    password:
 
   jpa:
-    database: mysql
-    database-platform=org: hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         format_sql: true
-    generate-ddl: true
-    show-sql: true
+        user_sql_comments: true
+
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/rudkids_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: nswon0729@ #나중에 환경변수 사용해서 가리기
+logging:
+  level:
+    org:
+      apache:
+        coyote:
+          http11: debug
 
-  profiles:
-    active: test
+      hiberante:
+        SQL: debug
