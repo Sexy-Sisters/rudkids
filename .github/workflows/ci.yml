@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         
     - name: Setup MySQL
-      uses: mirromutth/mysql-action@v1.1
+      uses: samin/mysql-action@v1
       with:
          host port: 3306 
          container port: 3306
@@ -39,6 +39,9 @@ jobs:
          mysql root password: ${{ secrets.RootPassword }}
          mysql user: 'root' 
          mysql password: ${{ secrets.DatabasePassword }} 
+         
+    - name: container test
+      run: docker ps -a
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
