@@ -27,18 +27,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Mysql Set up
-    - uses: samin/mysql-action@v1
+    - name: Setup MySQL
+      uses: mirromutth/mysql-action@v1.1
       with:
-        host port: 3306 
-        container port: 3306
-        character set server: 'utf8' 
-        collation server: 'utf8_general_ci' 
-        mysql version: '8.0' 
-        mysql database: 'rudkids_test' 
-        mysql root password: ${{ secrets.RootPassword }}
-        mysql user: 'root' 
-        mysql password: ${{ secrets.DatabasePassword }} 
+         host port: 3306 
+         container port: 3306
+         character set server: 'utf8' 
+         collation server: 'utf8_general_ci' 
+         mysql version: '8.0' 
+         mysql database: 'rudkids_test' 
+         mysql root password: ${{ secrets.RootPassword }}
+         mysql user: 'root' 
+         mysql password: ${{ secrets.DatabasePassword }} 
       
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
