@@ -15,7 +15,7 @@ spring:
       ddl-auto: create-drop
 
   datasource:
-    url: jdbc:mysql://localhost:3306/rudkids_test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/rudkids_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: nswon0729@ #나중에 환경변수 사용해서 가리기
