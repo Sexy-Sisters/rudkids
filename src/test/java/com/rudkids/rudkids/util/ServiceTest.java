@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@AutoConfigureTestDatabase(replace = Replace.NONE, connection = EmbeddedDatabaseConnection.H2)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 @SpringBootTest
 @Transactional
 public @interface ServiceTest {

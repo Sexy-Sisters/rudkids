@@ -1,25 +1,18 @@
 spring:
   datasource:
+    url: jdbc:h2:mem:rudkidstest?serverTimezone=Asia/Seoul;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/rudkidstest?serverTimezone=Asia/Seoul;MODE=MYSQL
     username: sa
-    password:
-
   jpa:
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-        user_sql_comments: true
+        jdbc:
+          time_zone: Asia/Seoul
+    show-sql: true
 
-    hibernate:
-      ddl-auto: create-drop
-
-logging:
-  level:
-    org:
-      apache:
-        coyote:
-          http11: debug
-
-      hiberante:
-        SQL: debug
+  h2:
+    console:
+      enabled: true
