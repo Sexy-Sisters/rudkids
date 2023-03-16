@@ -37,7 +37,7 @@ jobs:
          mysql version: '8.0' 
          mysql database: 'rudkids_test'
          mysql root password: ${{ secrets.RootPassword }}
-         mysql user: 'rudkids' 
+         mysql user: 'root' 
          mysql password: ${{ secrets.DatabasePassword }} 
          
     - name: container test
