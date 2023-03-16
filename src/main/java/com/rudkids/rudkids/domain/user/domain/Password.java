@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class Password {
     private static final Pattern PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}$");
 
-    @Column(name = "password", unique = true)
+    @Column(name = "password")
     private String value;
 
     protected Password() {
