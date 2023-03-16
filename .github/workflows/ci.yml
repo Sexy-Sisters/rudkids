@@ -35,7 +35,7 @@ jobs:
          character set server: 'utf8' 
          collation server: 'utf8_general_ci' 
          mysql version: '8.0' 
-         mysql database: 'rudkids'
+         mysql database: 'rudkids_test'
          mysql root password: ${{ secrets.RootPassword }}
          mysql user: 'rudkids' 
          mysql password: ${{ secrets.DatabasePassword }} 
