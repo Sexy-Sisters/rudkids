@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Mysql 설치
+    - name: Mysql Set up
     - uses: mirromutth/mysql-action@v1.1
       with:
        host port: 3306 
