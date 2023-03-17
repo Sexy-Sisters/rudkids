@@ -53,7 +53,7 @@ class UserServiceTest {
                 .email("newTest@gmail.com")
                 .password("test1234")
                 .name("남세")
-                .phoneNumber("010-1234-5678")
+                .phoneNumber("010-9876-5432")
                 .build();
         userService.signUp(signUpRequest);
 
