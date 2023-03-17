@@ -29,7 +29,7 @@ public class Name {
         if(value == null || value.isBlank()) {
             throw new InvalidNameException();
         }
-        if(!PATTERN.matcher(value).matches()) {
+        if(PATTERN.matcher(value).matches()) {
             throw new InvalidNameException();
         }
     }
