@@ -4,9 +4,11 @@ import com.rudkids.rudkids.domain.user.exception.InvalidNameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.util.regex.Pattern;
+
 @Embeddable
 public class Name {
-    private static final int MAX_LENGTH = 20;
+    private static final Pattern PATTERN = Pattern.compile("^{2,20}$");
 
     @Column(name = "name")
     private String value;
@@ -24,7 +26,10 @@ public class Name {
     }
 
     private static void validate(String value) {
-        if(value.length() > MAX_LENGTH) {
+        if(value == null || value.isBlank()) {
+            throw new InvalidNameException();
+        }
+        if(!PATTERN.matcher(value).matches()) {
             throw new InvalidNameException();
         }
     }
