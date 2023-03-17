@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class PhoneNumber {
     private static final Pattern PATTERN = Pattern.compile("^\\d{2,3}-\\d{3,4}-\\d{4}$");
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String value;
 
     protected PhoneNumber() {
