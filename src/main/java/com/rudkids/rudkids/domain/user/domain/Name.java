@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 @Embeddable
 public class Name {
-    private static final Pattern PATTERN = Pattern.compile("^{2,20}$");
+    private static final int MIN_LENGTH = 2;
+    private static final int MAX_LENGTH = 20;
 
     @Column(name = "name")
     private String value;
@@ -29,7 +30,7 @@ public class Name {
         if(value == null || value.isBlank()) {
             throw new InvalidNameException();
         }
-        if(PATTERN.matcher(value).matches()) {
+        if(MIN_LENGTH > value.length() || MAX_LENGTH < value.length()) {
             throw new InvalidNameException();
         }
     }
