@@ -3,12 +3,10 @@ package com.rudkids.rudkids.domain.user.domain;
 import com.rudkids.rudkids.domain.user.exception.InvalidEmailFormatException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
 
 import java.util.regex.Pattern;
 
 @Embeddable
-@Getter
 public class Email {
     private static final Pattern PATTERN = Pattern.compile("[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
 
