@@ -4,10 +4,10 @@ import com.rudkids.rudkids.util.BaseEntityId;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "tbl_user")
+@Getter
 public class User extends BaseEntityId {
 
     @Embedded
@@ -34,21 +34,6 @@ public class User extends BaseEntityId {
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getName() {
-        return name.getValue();
-    }
-
-    @Getter
-    @RequiredArgsConstructor
-    public enum RoleType {
-        USER("일반 사용자"), ADMIN("관리자");
-        private final String description;
-    }
-
-    void getUserPermission() {
-        this.roleType = RoleType.USER;
     }
 
     void getAdminPermission() {

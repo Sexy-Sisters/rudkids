@@ -59,7 +59,7 @@ class UserServiceTest {
 
         User findUser = userRepository.findByEmailValueAndPasswordValue(signUpRequest.getEmail(),
                 signUpRequest.getPassword());
-        assertThat(findUser.getName()).isEqualTo("남세");
+        assertThat(findUser.getRoleType()).isEqualTo(RoleType.USER);
     }
 
 }
