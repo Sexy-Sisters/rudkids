@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.rudkids.rudkids.domain.user.domain.Email;
 import com.rudkids.rudkids.domain.user.exception.InvalidEmailFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

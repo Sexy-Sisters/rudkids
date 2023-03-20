@@ -4,8 +4,6 @@ import com.rudkids.rudkids.domain.user.exception.InvalidNameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.util.regex.Pattern;
-
 @Embeddable
 public class Name {
     private static final int MIN_LENGTH = 2;

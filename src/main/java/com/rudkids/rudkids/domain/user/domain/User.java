@@ -1,16 +1,14 @@
 package com.rudkids.rudkids.domain.user.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.rudkids.rudkids.domain.AbstractEntity;
+import com.rudkids.rudkids.common.AbstractEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_user")
 public class User extends AbstractEntity {
-
     @Id
     @Column(columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
@@ -19,33 +17,25 @@ public class User extends AbstractEntity {
     private Email email;
 
     @Embedded
-    private Password password;
-
-    @Embedded
     private Name name;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
-
     @Enumerated(EnumType.STRING)
-    private RoleType roleType = RoleType.USER;
+    private SocialType socialType;
 
     protected User() {
     }
 
-    @Builder
-    public User(Email email, Password password, Name name, PhoneNumber phoneNumber) {
+    private User(Email email, Name name, SocialType socialType) {
         this.email = email;
-        this.password = password;
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.socialType = socialType;
     }
 
-    public RoleType getRoleType() {
-        return roleType;
+    public static User create(Email email, Name name, SocialType socialType) {
+        return new User(email, name, socialType);
     }
 
-    void getAdminPermission() {
-        this.roleType = RoleType.ADMIN;
+    public UUID getId() {
+        return id;
     }
 }
