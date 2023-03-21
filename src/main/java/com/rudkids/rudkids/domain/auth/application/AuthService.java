@@ -5,8 +5,6 @@ import com.rudkids.rudkids.domain.auth.domain.AuthToken;
 import com.rudkids.rudkids.domain.auth.dto.request.TokenRenewalRequest;
 import com.rudkids.rudkids.domain.auth.dto.response.AccessAndRefreshTokenResponse;
 import com.rudkids.rudkids.domain.auth.dto.response.AccessTokenResponse;
-import com.rudkids.rudkids.domain.user.domain.Email;
-import com.rudkids.rudkids.domain.user.domain.Name;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
@@ -31,16 +29,12 @@ public class AuthService {
     }
 
     private User findUser(OAuthUser oAuthUser) {
-        return userRepository.findByEmailValue(oAuthUser.getEmail())
+        return userRepository.findByEmail(oAuthUser.getEmail())
                 .orElseGet(() -> saveUser(oAuthUser));
     }
 
     private User saveUser(OAuthUser oAuthUser) {
-        User user = User.create(
-                Email.create(oAuthUser.getEmail()),
-                Name.create(oAuthUser.getName()),
-                SocialType.GOOGLE
-        );
+        User user = User.create(oAuthUser.getEmail(), oAuthUser.getName(), SocialType.GOOGLE);
         return userRepository.save(user);
     }
 

@@ -13,11 +13,11 @@ public class User extends AbstractEntity {
     @Column(columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
-    @Embedded
-    private Email email;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    @Embedded
-    private Name name;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
@@ -25,13 +25,13 @@ public class User extends AbstractEntity {
     protected User() {
     }
 
-    private User(Email email, Name name, SocialType socialType) {
+    private User(String email, String name, SocialType socialType) {
         this.email = email;
         this.name = name;
         this.socialType = socialType;
     }
 
-    public static User create(Email email, Name name, SocialType socialType) {
+    public static User create(String email, String name, SocialType socialType) {
         return new User(email, name, socialType);
     }
 
