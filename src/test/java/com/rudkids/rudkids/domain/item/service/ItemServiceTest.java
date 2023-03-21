@@ -2,11 +2,9 @@ package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemReader;
-import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.util.ServiceTest;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
