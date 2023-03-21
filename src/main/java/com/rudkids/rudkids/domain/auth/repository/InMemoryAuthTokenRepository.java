@@ -21,6 +21,4 @@ public class InMemoryAuthTokenRepository implements TokenRepository {
     public Optional<String> findByUserId(UUID userId) {
         return Optional.ofNullable(TOKEN_REPOSITORY.get(userId));
     }
-
-
 }
