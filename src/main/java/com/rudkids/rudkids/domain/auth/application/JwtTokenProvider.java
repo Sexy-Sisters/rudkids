@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.auth.application;
 
+import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -57,7 +58,9 @@ public class JwtTokenProvider implements TokenProvider {
             claims.getBody()
                     .getExpiration()
                     .before(new Date());
-        } catch (final JwtException | IllegalArgumentException e) {
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredTokenException();
+        } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException();
         }
     }

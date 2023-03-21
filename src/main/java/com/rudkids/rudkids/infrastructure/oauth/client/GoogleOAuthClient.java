@@ -54,10 +54,14 @@ public class GoogleOAuthClient implements OAuthClient {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("client_id", properties.getClientId());
         params.add("client_secret", properties.getClientSecret());
-        params.add("code", URLDecoder.decode(code, StandardCharsets.UTF_8));
+        params.add("code", decodeAuthorizationCode(code));
         params.add("grant_type", "authorization_code");
         params.add("redirect_uri", redirectUri);
         return params;
+    }
+
+    private String decodeAuthorizationCode(String code) {
+        return URLDecoder.decode(code, StandardCharsets.UTF_8);
     }
 
     private GoogleTokenResponse fetchGoogleToken(HttpEntity<MultiValueMap<String, String>> request) {
