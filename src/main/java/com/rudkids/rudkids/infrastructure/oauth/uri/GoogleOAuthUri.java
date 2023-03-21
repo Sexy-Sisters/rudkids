@@ -17,7 +17,6 @@ public class GoogleOAuthUri implements OAuthUri {
                 + "redirect_uri=" + redirectUri + "&"
                 + "response_type=code&"
                 + "scope=" + String.join(" ", properties.getScopes()) + "&"
-                + "access_type=" + properties.getAccessType()
-                + "&prompt=consent"; //나중에 운영 시 지워야 할 옵션
+                + "access_type=" + properties.getAccessType();
     }
 }
