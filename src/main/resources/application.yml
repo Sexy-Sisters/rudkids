@@ -12,13 +12,13 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   datasource:
     url: jdbc:mysql://localhost:3306/rudkids?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: jesusisking
+    password: ${MYSQL_PASSWORD}
 
 #  jwt:
 #    access-token-valid-time: ${ACCESS_TOKEN_VALID_TIME}
