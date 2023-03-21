@@ -36,7 +36,7 @@ public class ItemServiceTest {
     @DisplayName("상품 등록 성공")
     @Rollback(false)
     @Test
-    void test() {
+    void registerItem() {
         ItemCommand.CreateRequest command = ItemCommand.CreateRequest.builder()
             .name("Red Pill")
             .price(1_000_000)
