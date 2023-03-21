@@ -7,14 +7,12 @@ import lombok.Getter;
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class GoogleTokenResponse {
-    private String refreshToken;
     private String idToken;
 
     private GoogleTokenResponse() {
     }
 
-    public GoogleTokenResponse(String refreshToken, String idToken) {
-        this.refreshToken = refreshToken;
+    public GoogleTokenResponse(String idToken) {
         this.idToken = idToken;
     }
 }

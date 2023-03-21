@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
 import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
-import com.rudkids.rudkids.domain.auth.dto.response.OAuthAccessTokenResponse;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
 import com.rudkids.rudkids.infrastructure.oauth.dto.GoogleTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
@@ -39,9 +38,7 @@ public class GoogleOAuthClient implements OAuthClient {
         GoogleTokenResponse googleTokenResponse = requestGoogleToken(code, redirectUri);
         String payload = getPayload(googleTokenResponse.getIdToken());
         UserInfo userInfo = parseUserInfo(payload);
-
-        String refreshToken = googleTokenResponse.getRefreshToken();
-        return new OAuthUser(userInfo.getEmail(), userInfo.getName(), refreshToken);
+        return new OAuthUser(userInfo.getEmail(), userInfo.getName());
     }
 
     private GoogleTokenResponse requestGoogleToken(String code, String redirectUri) {
@@ -87,32 +84,5 @@ public class GoogleOAuthClient implements OAuthClient {
 
     private String decodeJwtPayload(final String payload) {
         return new String(Base64.getUrlDecoder().decode(payload), StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public OAuthAccessTokenResponse getAccessToken(String refreshToken) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, String> params = generateAccessTokenParams(refreshToken);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        return fetchGoogleAccessToken(request);
-    }
-
-    private MultiValueMap<String, String> generateAccessTokenParams(final String refreshToken) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("client_id", properties.getClientId());
-        params.add("client_secret", properties.getClientSecret());
-        params.add("refresh_token", refreshToken);
-        params.add("grant_type", "refresh_token");
-        return params;
-    }
-
-    private OAuthAccessTokenResponse fetchGoogleAccessToken(HttpEntity<MultiValueMap<String, String>> request) {
-        try {
-            return restTemplate.postForObject(properties.getTokenUri(), request, OAuthAccessTokenResponse.class);
-        } catch (RestClientException e) {
-            throw new OAuthException();
-        }
     }
 }
