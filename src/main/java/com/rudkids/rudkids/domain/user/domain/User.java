@@ -4,8 +4,6 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
@@ -14,7 +12,7 @@ import java.util.UUID;
 public class User extends AbstractEntity {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Embedded
@@ -45,13 +43,6 @@ public class User extends AbstractEntity {
 
     public String getName() {
         return name.getValue();
-    }
-
-    @Getter
-    @RequiredArgsConstructor
-    public enum RoleType {
-        USER("일반 사용자"), ADMIN("관리자");
-        private final String description;
     }
 
     void getUserPermission() {

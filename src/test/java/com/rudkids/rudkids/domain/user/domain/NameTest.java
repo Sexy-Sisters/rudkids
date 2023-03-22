@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.rudkids.rudkids.domain.user.domain.Name;
-import com.rudkids.rudkids.domain.user.exception.InvalidNameException;
+import com.rudkids.rudkids.domain.user.exception.InvalidUserNameException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ class NameTest {
     void create_Exception_Length() {
         String invalid = "a".repeat(21);
         assertThatThrownBy(() -> Name.create(invalid))
-                .isInstanceOf(InvalidNameException.class);
+                .isInstanceOf(InvalidUserNameException.class);
     }
 
 }
