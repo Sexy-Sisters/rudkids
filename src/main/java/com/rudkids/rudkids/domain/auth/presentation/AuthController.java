@@ -22,14 +22,17 @@ public class AuthController {
     private final OAuthClient oAuthClient;
 
     @GetMapping("/{oauthProvider}/oauth-uri")
-    public OAuthUriResponse generateLink(@PathVariable final String oauthProvider,
-                                         @RequestParam final String redirectUri) {
+    public OAuthUriResponse generateLink(
+            @PathVariable final String oauthProvider,
+            @RequestParam final String redirectUri
+    ) {
         return new OAuthUriResponse(oAuthUri.generate(redirectUri));
     }
 
     @PostMapping("/{oauthProvider}/token")
     public AccessAndRefreshTokenResponse generateAccessAndRefreshToken(
-            @PathVariable final String oauthProvider, @RequestBody TokenRequest tokenRequest
+            @PathVariable final String oauthProvider,
+            @RequestBody TokenRequest tokenRequest
     ) {
         OAuthUser oAuthUser = oAuthClient.getOAuthUser(tokenRequest.getAuthorizationCode(), tokenRequest.getRedirectUri());
         return authServiceImpl.generateAccessAndRefreshToken(oAuthUser);
