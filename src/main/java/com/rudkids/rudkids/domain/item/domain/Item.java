@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.domain.item.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.rudkids.rudkids.domain.AbstractEntity;
+import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.Builder;

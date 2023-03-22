@@ -35,13 +35,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private User saveUser(OAuthUser oAuthUser) {
-        User user = User.create(
-                oAuthUser.getEmail(),
-                oAuthUser.getName(),
-                null,
-                null,
-                SocialType.GOOGLE
-        );
+        User user = User.builder()
+                .email(oAuthUser.getEmail())
+                .name(oAuthUser.getName())
+                .age(null)
+                .gender(null)
+                .socialType(SocialType.GOOGLE)
+                .build();
         return userRepository.save(user);
     }
 

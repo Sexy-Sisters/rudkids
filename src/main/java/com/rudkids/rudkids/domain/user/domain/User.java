@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.user.domain;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.UUID;
 
@@ -34,16 +35,13 @@ public class User extends AbstractEntity {
     protected User() {
     }
 
+    @Builder
     private User(String email, String name, Age age, Gender gender, SocialType socialType) {
         this.email = email;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.socialType = socialType;
-    }
-
-    public static User create(String email, String name, Age age, Gender gender, SocialType socialType) {
-        return new User(email, name, age, gender, socialType);
     }
 
     public UUID getId() {
