@@ -10,7 +10,6 @@ import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,7 +25,6 @@ import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class GoogleOAuthClient implements OAuthClient {
     private static final String JWT_DELIMITER = "\\.";
     private final GoogleProperties properties;
@@ -68,7 +66,6 @@ public class GoogleOAuthClient implements OAuthClient {
         try {
             return restTemplate.postForObject(properties.getTokenUri(), request, GoogleTokenResponse.class);
         } catch (final RestClientException e) {
-            log.info(e.getMessage());
             throw new OAuthException();
         }
     }

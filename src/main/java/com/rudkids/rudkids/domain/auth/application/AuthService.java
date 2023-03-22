@@ -34,7 +34,11 @@ public class AuthService {
     }
 
     private User saveUser(OAuthUser oAuthUser) {
-        User user = User.create(oAuthUser.getEmail(), oAuthUser.getName(), SocialType.GOOGLE);
+        User user = User.create(
+                oAuthUser.getEmail(),
+                oAuthUser.getName(),
+                SocialType.GOOGLE
+        );
         return userRepository.save(user);
     }
 

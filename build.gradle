@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+	//json 파싱
+	implementation 'org.json:json:20200518'
 
 	//ulid
 	implementation "com.github.f4b6a3:ulid-creator:5.0.0"
@@ -26,7 +28,7 @@ dependencies {
 	//test용 DB
 	runtimeOnly 'com.h2database:h2'
 
-	//jwt
+	//jwt 관련
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
