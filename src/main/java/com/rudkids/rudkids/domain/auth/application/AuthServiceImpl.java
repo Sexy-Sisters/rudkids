@@ -38,6 +38,8 @@ public class AuthServiceImpl implements AuthService {
         User user = User.create(
                 oAuthUser.getEmail(),
                 oAuthUser.getName(),
+                null,
+                null,
                 SocialType.GOOGLE
         );
         return userRepository.save(user);
