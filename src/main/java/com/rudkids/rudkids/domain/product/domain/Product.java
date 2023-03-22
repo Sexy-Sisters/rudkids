@@ -27,7 +27,7 @@ public class Product {
     private ProductStatus productStatus = ProductStatus.OPEN;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     protected Product() {
     }
@@ -36,5 +36,13 @@ public class Product {
     public Product(final Title title, final Bio bio) {
         this.title = title;
         this.bio = bio;
+    }
+
+    public String getTitle() {
+        return title.getValue();
+    }
+
+    public String getBio() {
+        return bio.getValue();
     }
 }

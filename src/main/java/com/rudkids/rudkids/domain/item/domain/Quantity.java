@@ -8,7 +8,7 @@ import lombok.Getter;
 @Embeddable
 @Getter
 public class Quantity {
-    private static final int MIN = 0;
+    private static final int MIN_AMOUNT = 0;
 
     @Column(name = "quantity")
     private int value;
@@ -26,7 +26,7 @@ public class Quantity {
     }
 
     private static void validate(int value) {
-        if(value < MIN) {
+        if(value < MIN_AMOUNT) {
             throw new InvalidItemQuantityException();
         }
     }

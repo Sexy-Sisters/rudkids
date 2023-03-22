@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface ProductReader {
     Product getProduct(UUID id);
+    Product getProduct(String title);
 }

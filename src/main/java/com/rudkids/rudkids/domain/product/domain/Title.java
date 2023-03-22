@@ -4,8 +4,10 @@ import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
 import com.rudkids.rudkids.domain.product.exception.InvalidProductTitleException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 @Embeddable
+@Getter
 public class Title {
     private static final int MAX_LENGTH = 20;
 
@@ -25,8 +27,8 @@ public class Title {
     }
 
     private static void validate(String value) {
-        if(value.isBlank()) {
-            throw new InvalidItemNameException();
+        if(value == null || value.isBlank()) {
+            throw new InvalidProductTitleException();
         }
         if(value.length() > MAX_LENGTH) {
             throw new InvalidProductTitleException();

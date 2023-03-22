@@ -18,4 +18,10 @@ public class ProductReaderImpl implements ProductReader {
         return productRepository.findById(id)
             .orElseThrow(ProductNotFoundException::new);
     }
+
+    @Override
+    public Product getProduct(String title) {
+        return productRepository.findByTitleValue(title)
+            .orElseThrow(ProductNotFoundException::new);
+    }
 }
