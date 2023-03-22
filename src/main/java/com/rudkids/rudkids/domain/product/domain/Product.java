@@ -9,6 +9,7 @@ import lombok.Getter;
 import java.util.*;
 
 @Entity
+@Getter
 @Table(name = "tbl_product")
 public class Product {
 
@@ -25,7 +26,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
-    @Getter
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Item> items = new ArrayList<>();
 

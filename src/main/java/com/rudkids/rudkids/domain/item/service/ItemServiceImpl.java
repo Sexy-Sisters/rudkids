@@ -6,6 +6,8 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.Name;
 import com.rudkids.rudkids.domain.item.domain.Price;
 import com.rudkids.rudkids.domain.item.domain.Quantity;
+import com.rudkids.rudkids.domain.product.ProductReader;
+import com.rudkids.rudkids.domain.product.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
+    private final ProductReader productReader;
 
     @Override
     @Transactional
-    public void registerItem(ItemCommand.CreateRequest command) {
+    public void registerItem(ItemCommand.RegisterRequest command) {
         Name name = Name.create(command.getName());
         Price price = Price.create(command.getPrice());
         Quantity quantity = Quantity.create(command.getQuantity());
@@ -28,6 +31,9 @@ public class ItemServiceImpl implements ItemService {
             .quantity(quantity)
             .limitType(command.getLimitType())
             .build();
+
+        Product product = productReader.getProduct(command.getProductId());
+        initItem.changeProduct(product);
 
         itemStore.store(initItem);
     }

@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.item.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.AbstractEntity;
+import com.rudkids.rudkids.domain.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
 
@@ -12,8 +13,8 @@ import java.util.UUID;
 public class Item extends AbstractEntity {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    @Column(name = "item_id", columnDefinition = "BINARY(16)")
+    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Embedded
     private Name name;
@@ -29,6 +30,10 @@ public class Item extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus = ItemStatus.IN_STOCK;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     protected Item() {
     }
@@ -50,6 +55,11 @@ public class Item extends AbstractEntity {
     }
 
     public String getName() {
-        return name.getValue();
+        return this.name.getValue();
+    }
+
+    public void changeProduct(Product product) {
+        this.product = product;
+        product.getItems().add(this);
     }
 }

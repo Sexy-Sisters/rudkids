@@ -7,7 +7,7 @@ import jakarta.persistence.Column;
 public class Bio {
     private static final int MAX_LENGTH = 1000;
 
-    @Column(name = "title", unique = true)
+    @Column(name = "bio", unique = true)
     private String value;
 
     protected Bio() {
