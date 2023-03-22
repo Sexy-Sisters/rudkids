@@ -28,6 +28,9 @@ public class Email {
     }
 
     private static void validate(String value) {
+        if(value.isBlank()) {
+            throw new InvalidEmailFormatException();
+        }
         if(!PATTERN.matcher(value).matches()) {
             throw new InvalidEmailFormatException();
         }

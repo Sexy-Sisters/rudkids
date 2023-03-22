@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.user.domain;
 
+import com.rudkids.rudkids.domain.user.exception.InvalidEmailFormatException;
 import com.rudkids.rudkids.domain.user.exception.InvalidPhoneNumberFormatException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -26,6 +27,9 @@ public class PhoneNumber {
     }
 
     private static void validate(String value) {
+        if(value.isBlank()) {
+            throw new InvalidEmailFormatException();
+        }
         if(!PATTERN.matcher(value).matches()) {
             throw new InvalidPhoneNumberFormatException();
         }
