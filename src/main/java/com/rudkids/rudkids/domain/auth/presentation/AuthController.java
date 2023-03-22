@@ -3,7 +3,7 @@ package com.rudkids.rudkids.domain.auth.presentation;
 import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
 import com.rudkids.rudkids.domain.auth.dto.request.TokenRequest;
 import com.rudkids.rudkids.domain.auth.dto.response.OAuthUriResponse;
-import com.rudkids.rudkids.domain.auth.application.AuthService;
+import com.rudkids.rudkids.domain.auth.application.AuthServiceImpl;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
 import com.rudkids.rudkids.domain.auth.application.OAuthUri;
 import com.rudkids.rudkids.domain.auth.dto.LoginUser;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
     private final OAuthUri oAuthUri;
-    private final AuthService authService;
+    private final AuthServiceImpl authServiceImpl;
     private final OAuthClient oAuthClient;
 
     @GetMapping("/{oauthProvider}/oauth-uri")
@@ -32,12 +32,12 @@ public class AuthController {
             @PathVariable final String oauthProvider, @RequestBody TokenRequest tokenRequest
     ) {
         OAuthUser oAuthUser = oAuthClient.getOAuthUser(tokenRequest.getAuthorizationCode(), tokenRequest.getRedirectUri());
-        return authService.generateAccessAndRefreshToken(oAuthUser);
+        return authServiceImpl.generateAccessAndRefreshToken(oAuthUser);
     }
 
     @PostMapping("/renewal/access")
     public AccessTokenResponse generateRenewalAccessToken(@RequestBody TokenRenewalRequest tokenRenewalRequest) {
-        return authService.generateRenewalAccessToken(tokenRenewalRequest);
+        return authServiceImpl.generateRenewalAccessToken(tokenRenewalRequest);
     }
 
     @GetMapping("/validate/token")

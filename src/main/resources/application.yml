@@ -35,7 +35,7 @@ oauth:
 security:
   jwt:
     token:
-      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      secret-key: ${SECRET_KEY}
       access:
         expire-length: 3600000 #1시간
       refresh:
