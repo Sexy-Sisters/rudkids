@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.product.service;
 
 import com.rudkids.rudkids.domain.product.ProductCommand;
+import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.infrastructure.product.ProductStoreImpl;
 import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductStoreImpl productStoreImpl;
+    private final ProductStore productStore;
 
     @Override
     @Transactional
@@ -24,6 +25,6 @@ public class ProductServiceImpl implements ProductService {
             .title(title)
             .bio(bio)
             .build();
-        productStoreImpl.store(initProduct);
+        productStore.store(initProduct);
     }
 }
