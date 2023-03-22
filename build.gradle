@@ -19,9 +19,6 @@ repositories {
 }
 
 dependencies {
-	//json 파싱
-	implementation 'org.json:json:20200518'
-
 	//ulid
 	implementation "com.github.f4b6a3:ulid-creator:5.0.0"
 

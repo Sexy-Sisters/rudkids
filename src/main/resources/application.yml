@@ -20,6 +20,15 @@ spring:
     username: root
     password: ${MYSQL_PASSWORD}
 
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY}
+      access:
+        expire-length: 3600000 #1시간
+      refresh:
+        expire-length: 1210000000 #14일
+
 oauth:
   google:
     client-id: ${CLIENT_ID}
@@ -31,12 +40,3 @@ oauth:
       - https://www.googleapis.com/auth/userinfo.email
     token-uri: https://oauth2.googleapis.com/token
     access-type: offline
-
-security:
- jwt:
-  token:
-    secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
-    access:
-      expire-length: 3600000 #1시간
-    refresh:
-      expire-length: 1210000000 #14일

@@ -16,3 +16,24 @@ spring:
   h2:
     console:
       enabled: true
+
+security:
+  jwt:
+    token:
+      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      access:
+        expire-length: 3600000 #1시간
+      refresh:
+        expire-length: 1210000000 #14일
+
+oauth:
+  google:
+    client-id: ${CLIENT_ID}
+    client-secret: ${CLIENT_SECRET}
+    oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
+    response-type: code
+    scopes:
+      - https://www.googleapis.com/auth/userinfo.profile
+      - https://www.googleapis.com/auth/userinfo.email
+    token-uri: https://oauth2.googleapis.com/token
+    access-type: offline
