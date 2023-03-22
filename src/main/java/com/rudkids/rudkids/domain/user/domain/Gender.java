@@ -7,18 +7,18 @@ import java.util.Arrays;
 public enum Gender {
     MAIL("MALE"), FEMALE("FEMALE");
 
-    private String name;
+    private String description;
 
     Gender() {
     }
 
-    Gender(String name) {
-        this.name = name;
+    Gender(String description) {
+        this.description = description;
     }
 
-    public static Gender toEnum(String name) {
+    public static Gender toEnum(String description) {
         return Arrays.stream(Gender.values())
-                .filter(direction -> direction.name.equals(name))
+                .filter(gender -> gender.description.equals(description))
                 .findAny()
                 .orElseThrow(InvalidGenderException::new);
     }
