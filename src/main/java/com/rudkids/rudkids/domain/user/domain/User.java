@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "tbl_user")
 public class User extends AbstractEntity {
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Column(name = "email", nullable = false)
@@ -27,6 +27,9 @@ public class User extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType = RoleType.USER;
 
     protected User() {
     }

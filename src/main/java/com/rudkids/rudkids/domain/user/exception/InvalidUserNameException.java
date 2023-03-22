@@ -1,9 +1,9 @@
 package com.rudkids.rudkids.domain.user.exception;
 
-public class InvalidNameException extends RuntimeException {
+public class InvalidUserNameException extends RuntimeException {
     private static final String MESSAGE = "잘못된 이름입니다.";
 
-    public InvalidNameException() {
+    public InvalidUserNameException() {
         super(MESSAGE);
     }
 }
