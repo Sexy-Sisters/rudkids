@@ -12,7 +12,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   datasource:
     url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
@@ -33,10 +33,10 @@ oauth:
     access-type: offline
 
 security:
-  jwt:
-    token:
-      secret-key: ${SECRET_KEY}
-      access:
-        expire-length: 3600000 #1시간
-      refresh:
-        expire-length: 1210000000 #14일
+ jwt:
+  token:
+    secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+    access:
+      expire-length: 3600000 #1시간
+    refresh:
+      expire-length: 1210000000 #14일
