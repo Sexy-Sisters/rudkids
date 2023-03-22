@@ -4,7 +4,12 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.product.ProductStore;
+import com.rudkids.rudkids.domain.product.domain.Bio;
+import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.util.ServiceTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +25,24 @@ public class ItemServiceTest {
     @Autowired
     private ItemReader itemReader;
 
-//    @BeforeEach
-//    void inputData() {
-//        Item item = Item.builder()
-//            .name(Name.create("레드필"))
-//            .price(Price.create(100000))
-//            .quantity(Quantity.create(1))
-//            .limitType(LimitType.LIMITED)
-//            .build();
-//        itemStore.store(item);
-//    }
+    @Autowired
+    private ProductStore productStore;
+
+    Product initProduct = Product.builder()
+        .title(Title.create("약국"))
+        .bio(Bio.create("약국입니다~"))
+        .build();
+
+    @BeforeEach
+    void inputData() {
+        productStore.store(initProduct);
+    }
 
     @DisplayName("상품 등록 성공")
-    @Rollback(false)
     @Test
     void registerItem() {
-        ItemCommand.CreateRequest command = ItemCommand.CreateRequest.builder()
+        ItemCommand.RegisterRequest command = ItemCommand.RegisterRequest.builder()
+            .productId(initProduct.getId())
             .name("Red Pill")
             .price(1_000_000)
             .quantity(1)
