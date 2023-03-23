@@ -3,9 +3,13 @@ package com.rudkids.rudkids.domain.product.service;
 import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.ProductReader;
+import com.rudkids.rudkids.domain.product.ProductStore;
+import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.util.ServiceTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,34 @@ class ProductServiceImplTest {
     @Autowired
     private ProductReader productReader;
 
+    @Autowired
+    private ProductStore productStore;
+    private List<Product> products;
+
+    @BeforeEach
+    void inputData() {
+        products = List.of(
+            Product.builder()
+                .title(Title.create("프로덕트 No.1"))
+                .bio(Bio.create("소개드립니다~"))
+                .build(),
+            Product.builder()
+                .title(Title.create("프로덕트 No.2"))
+                .bio(Bio.create("소개드립니다~"))
+                .build(),
+            Product.builder()
+                .title(Title.create("프로덕트 No.3"))
+                .bio(Bio.create("소개드립니다~"))
+                .build(),
+            Product.builder()
+                .title(Title.create("프로덕트 No.4"))
+                .bio(Bio.create("소개드립니다~"))
+                .build()
+        );
+
+        products.forEach(productStore::store);
+    }
+
     @DisplayName("프로덕트 등록")
     @Test
     void registerProduct() {
@@ -38,5 +70,13 @@ class ProductServiceImplTest {
             () -> assertThat(findProduct.getTitle()).isEqualTo("알약~~"),
             () -> assertThat(findProduct.getBio()).isEqualTo("약쟁이가 약팝니다~~~~")
         );
+    }
+
+    @DisplayName("프로덕트 리스트 조회")
+    @Test
+    void findProducts() {
+        List<ProductInfo.Main> products = productService.findProduct();
+
+        assertThat(products.size()).isEqualTo(4);
     }
 }

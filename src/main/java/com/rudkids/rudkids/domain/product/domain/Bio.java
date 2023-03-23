@@ -11,7 +11,7 @@ import lombok.Getter;
 public class Bio {
     private static final int MAX_LENGTH = 1000;
 
-    @Column(name = "bio", unique = true)
+    @Column(name = "bio")
     private String value;
 
     protected Bio() {

@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -23,5 +24,10 @@ public class ProductReaderImpl implements ProductReader {
     public Product getProduct(String title) {
         return productRepository.findByTitleValue(title)
             .orElseThrow(ProductNotFoundException::new);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return productRepository.findAll();
     }
 }
