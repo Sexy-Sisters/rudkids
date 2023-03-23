@@ -13,7 +13,7 @@ class GenderTest {
 
     @DisplayName("성별 양식에 맞지 않을 시 예외 발생")
     @ParameterizedTest
-    @ValueSource(strings = {"MALEL", "FEMAILL", " "})
+    @ValueSource(strings = {"Male", "Female", " "})
     @NullSource
     @EmptySource
     void create_Exception_Format(String invalid) {
