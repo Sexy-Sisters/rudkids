@@ -12,37 +12,31 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   datasource:
-    url: jdbc:mysql://localhost:3306/rudkids?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${MYSQL_PASSWORD}
 
-#  jwt:
-#    access-token-valid-time: ${ACCESS_TOKEN_VALID_TIME}
-#    refresh-token-valid-time: ${REFRESH_TOKEN_VALID_TIME}
-#    secret: ${JWT_SECRET}
-#
-#oauth:
-#  google:
-#    base-url: ${GOOGLE_BASE_URL}
-#    client-id: ${GOOGLE_CLIENT_ID}
-#    client-secret: ${GOOGLE_CLIENT_SCERET}
-#    redirect-url: ${GOOGLE_REDIRECT_URL}
-#
-#feign:
-#  client:
-#    config:
-#      default:
-#        loggerLevel: full
-#
-#mail-sender:
-#  host: smtp.gmail.com
-#  port: 587
-#  username: ${MAIL_USERNAME}
-#  password: ${MAIL_PASSWORD}
-#  protocol: smtp
-#  auth: true
-#  starttls-enable: true
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY}
+      access:
+        expire-length: 3600000 #1시간
+      refresh:
+        expire-length: 1210000000 #14일
+
+oauth:
+  google:
+    client-id: ${CLIENT_ID}
+    client-secret: ${CLIENT_SECRET}
+    oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
+    response-type: code
+    scopes:
+      - https://www.googleapis.com/auth/userinfo.profile
+      - https://www.googleapis.com/auth/userinfo.email
+    token-uri: https://oauth2.googleapis.com/token
+    access-type: offline
