@@ -1,14 +1,14 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
+import com.rudkids.rudkids.domain.auth.application.AuthCommand;
+import com.rudkids.rudkids.domain.auth.application.AuthService;
+import com.rudkids.rudkids.domain.auth.application.TokenCreator;
 import com.rudkids.rudkids.domain.auth.domain.AuthToken;
-import com.rudkids.rudkids.domain.auth.dto.request.TokenRenewalRequest;
-import com.rudkids.rudkids.domain.auth.dto.response.AccessAndRefreshTokenResponse;
-import com.rudkids.rudkids.domain.auth.dto.response.AccessTokenResponse;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.domain.user.repository.UserRepository;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,18 +23,18 @@ public class AuthServiceImpl implements AuthService {
     private final TokenCreator tokenCreator;
 
     @Override
-    public AccessAndRefreshTokenResponse generateAccessAndRefreshToken(OAuthUser oAuthUser) {
+    public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser) {
         User foundUser = findUser(oAuthUser);
         AuthToken authToken = tokenCreator.createAuthToken(foundUser.getId());
-        return new AccessAndRefreshTokenResponse(authToken.getAccessToken(), authToken.getRefreshToken());
+        return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken());
     }
 
-    private User findUser(OAuthUser oAuthUser) {
+    private User findUser(AuthCommand.OAuthUser oAuthUser) {
         return userRepository.findByEmail(oAuthUser.getEmail())
                 .orElseGet(() -> saveUser(oAuthUser));
     }
 
-    private User saveUser(OAuthUser oAuthUser) {
+    private User saveUser(AuthCommand.OAuthUser oAuthUser) {
         User user = User.builder()
                 .email(oAuthUser.getEmail())
                 .name(oAuthUser.getName())
@@ -46,10 +46,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AccessTokenResponse generateRenewalAccessToken(TokenRenewalRequest tokenRenewalRequest) {
+    public AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalToken tokenRenewalRequest) {
         String refreshToken = tokenRenewalRequest.getRefreshToken();
         AuthToken authToken = tokenCreator.renewAuthToken(refreshToken);
-        return new AccessTokenResponse(authToken.getAccessToken());
+        return new AuthResponse.AccessToken(authToken.getAccessToken());
     }
 
     @Override

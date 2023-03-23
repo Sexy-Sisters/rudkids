@@ -1,7 +1,7 @@
-package com.rudkids.rudkids.domain.auth.presentation;
+package com.rudkids.rudkids.interfaces.auth;
 
 import com.rudkids.rudkids.domain.auth.application.AuthServiceImpl;
-import com.rudkids.rudkids.domain.auth.dto.LoginUser;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -29,6 +29,6 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String accessToken = AuthorizationExtractor.extract(request);
         UUID id = authServiceImpl.extractUserId(accessToken);
-        return new LoginUser(id);
+        return new AuthUser.Login(id);
     }
 }
