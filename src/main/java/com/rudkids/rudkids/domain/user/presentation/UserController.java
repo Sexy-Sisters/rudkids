@@ -3,23 +3,33 @@ package com.rudkids.rudkids.domain.user.presentation;
 import com.rudkids.rudkids.domain.auth.dto.LoginUser;
 import com.rudkids.rudkids.domain.auth.presentation.AuthenticationPrincipal;
 import com.rudkids.rudkids.domain.user.application.UserService;
-import com.rudkids.rudkids.domain.user.dto.request.UserUpdateRequest;
+import com.rudkids.rudkids.domain.user.application.dto.request.UserUpdateServiceDto;
+import com.rudkids.rudkids.domain.user.presentation.dto.UserDtoMapper;
+import com.rudkids.rudkids.domain.user.presentation.dto.request.SignUpRequest;
+import com.rudkids.rudkids.domain.user.presentation.dto.request.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserDtoMapper userDtoMapper;
 
-    @PostMapping("/update")
+    @PostMapping("/signUp")
+    public void signUp(
+            @AuthenticationPrincipal LoginUser loginUser,
+            @RequestBody SignUpRequest request) {
+        UserUpdateServiceDto serviceRequestDto = userDtoMapper.of(request);
+        userService.update(loginUser.getId(), serviceRequestDto);
+    }
+
+    @PutMapping("/update")
     public void update(
             @AuthenticationPrincipal LoginUser loginUser,
-            @RequestBody UserUpdateRequest request) {
-        userService.update(loginUser.getId(), request);
+            @RequestBody UserUpdateDto request) {
+        UserUpdateServiceDto serviceRequestDto = userDtoMapper.of(request);
+        userService.update(loginUser.getId(), serviceRequestDto);
     }
 }
