@@ -54,12 +54,32 @@ public class Item extends AbstractEntity {
         this.itemStatus = ItemStatus.IN_STOCK;
     }
 
+    public void changeProduct(Product product) {
+        this.product = product;
+        product.getItems().add(this);
+    }
+
     public String getName() {
         return this.name.getValue();
     }
 
-    public void changeProduct(Product product) {
-        this.product = product;
-        product.getItems().add(this);
+    public int getPrice() {
+        return this.price.getValue();
+    }
+
+    public int getQuantity() {
+        return this.quantity.getValue();
+    }
+
+    public LimitType getLimitType() {
+        return limitType;
+    }
+
+    public ItemStatus getItemStatus() {
+        return itemStatus;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 }
