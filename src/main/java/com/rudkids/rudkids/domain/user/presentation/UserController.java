@@ -20,7 +20,8 @@ public class UserController {
     @PostMapping("/signUp")
     public void signUp(
             @AuthenticationPrincipal LoginUser loginUser,
-            @RequestBody SignUpRequest request) {
+            @RequestBody SignUpRequest request
+    ) {
         UserUpdateRequestServiceDto serviceRequest = userDtoMapper.of(request);
         userService.update(loginUser.getId(), serviceRequest);
     }
@@ -28,7 +29,8 @@ public class UserController {
     @PutMapping("/update")
     public void update(
             @AuthenticationPrincipal LoginUser loginUser,
-            @RequestBody UserUpdateRequest request) {
+            @RequestBody UserUpdateRequest request
+    ) {
         UserUpdateRequestServiceDto serviceRequest = userDtoMapper.of(request);
         userService.update(loginUser.getId(), serviceRequest);
     }
