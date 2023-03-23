@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.user.application;
 
-import com.rudkids.rudkids.domain.user.application.dto.request.UserUpdateServiceDto;
+import com.rudkids.rudkids.domain.user.application.dto.request.UserUpdateRequestServiceDto;
 import com.rudkids.rudkids.domain.user.domain.Age;
 import com.rudkids.rudkids.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserReader userReader;
 
     @Override
-    public void update(UUID id, UserUpdateServiceDto request) {
+    public void update(UUID id, UserUpdateRequestServiceDto request) {
         User findUser = userReader.getUser(id);
 
         Age age = Age.create(request.getAge());

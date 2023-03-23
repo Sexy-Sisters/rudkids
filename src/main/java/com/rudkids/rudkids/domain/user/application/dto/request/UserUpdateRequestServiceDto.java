@@ -1,13 +1,13 @@
-package com.rudkids.rudkids.domain.user.presentation.dto.request;
+package com.rudkids.rudkids.domain.user.application.dto.request;
 
-public class UserUpdateDto {
+public class UserUpdateRequestServiceDto {
     private int age;
     private String gender;
 
-    private UserUpdateDto() {
+    private UserUpdateRequestServiceDto() {
     }
 
-    public UserUpdateDto(int age, String gender) {
+    public UserUpdateRequestServiceDto(int age, String gender) {
         this.age = age;
         this.gender = gender;
     }
