@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.product.ProductReader;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.util.ServiceTest;
 import org.junit.jupiter.api.Assertions;
@@ -76,7 +77,34 @@ class ProductServiceImplTest {
     @Test
     void findProducts() {
         List<ProductInfo.Main> products = productService.findProduct();
-
         assertThat(products.size()).isEqualTo(4);
+    }
+
+    @DisplayName("프로덕트 종료")
+    @Test
+    void closeProduct() {
+        Product product = products.get(0);
+        Product findProduct = productReader.getProduct(product.getId());
+        findProduct.close();
+
+        assertAll(
+            () -> assertThat(findProduct.getProductStatus()).isEqualTo(ProductStatus.CLOSED),
+            () -> assertThat(findProduct.getTitle()).isEqualTo("프로덕트 No.1"),
+            () -> assertThat(findProduct.getBio()).isEqualTo("소개드립니다~")
+        );
+    }
+
+    @DisplayName("프로덕트 오픈")
+    @Test
+    void openProduct() {
+        Product product = products.get(0);
+        Product findProduct = productReader.getProduct(product.getId());
+        findProduct.open();
+
+        assertAll(
+            () -> assertThat(findProduct.getProductStatus()).isEqualTo(ProductStatus.OPEN),
+            () -> assertThat(findProduct.getTitle()).isEqualTo("프로덕트 No.1"),
+            () -> assertThat(findProduct.getBio()).isEqualTo("소개드립니다~")
+        );
     }
 }

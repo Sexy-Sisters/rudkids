@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +38,19 @@ public class ProductServiceImpl implements ProductService {
         return productReader.getProducts().stream()
             .map(productMapper::toEntity)
             .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void closeProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        product.close();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void openProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        product.open();
     }
 }
