@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductStore productStore;
@@ -20,7 +21,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    @Transactional
     public void registerProduct(ProductCommand.RegisterRequest command) {
         Title title = Title.create(command.getTitle());
         Bio bio = Bio.create(command.getBio());
@@ -41,14 +41,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public void closeProduct(UUID productId) {
         Product product = productReader.getProduct(productId);
         product.close();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public void openProduct(UUID productId) {
         Product product = productReader.getProduct(productId);
         product.open();
