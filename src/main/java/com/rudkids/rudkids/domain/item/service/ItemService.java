@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ItemService {
     void registerItem(ItemCommand.RegisterRequest command);
     List<ItemInfo.Main> findItems(UUID productId);
+    ItemInfo.Detail findItemDetail(UUID id);
 }

@@ -1,9 +1,6 @@
 package com.rudkids.rudkids.domain.item.service;
 
-import com.rudkids.rudkids.domain.item.ItemCommand;
-import com.rudkids.rudkids.domain.item.ItemInfo;
-import com.rudkids.rudkids.domain.item.ItemMapper;
-import com.rudkids.rudkids.domain.item.ItemStore;
+import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.Name;
 import com.rudkids.rudkids.domain.item.domain.Price;
@@ -21,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
+    private final ItemReader itemReader;
     private final ItemMapper itemMapper;
     private final ProductReader productReader;
 
@@ -48,7 +46,13 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemInfo.Main> findItems(UUID productId) {
         Product product = productReader.getProduct(productId);
         return product.getItems().stream()
-            .map(itemMapper::of)
+            .map(itemMapper::toMain)
             .toList();
+    }
+
+    @Override
+    public ItemInfo.Detail findItemDetail(UUID id) {
+        Item item = itemReader.getItem(id);
+        return itemMapper.toDetail(item);
     }
 }

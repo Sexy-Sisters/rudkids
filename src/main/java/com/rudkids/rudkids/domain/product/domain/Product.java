@@ -21,7 +21,7 @@ public class Product {
     private Title title;
 
     @Embedded
-    private Bio bio;
+    private ProductBio bio;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
@@ -33,7 +33,7 @@ public class Product {
     }
 
     @Builder
-    public Product(final Title title, final Bio bio) {
+    public Product(final Title title, final ProductBio bio) {
         this.title = title;
         this.bio = bio;
     }
