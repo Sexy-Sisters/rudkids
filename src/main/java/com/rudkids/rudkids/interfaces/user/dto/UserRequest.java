@@ -7,6 +7,7 @@ public class UserRequest {
     @Getter
     public static class SignUp {
         private int age;
+
         private String gender;
 
         private SignUp() {
@@ -21,6 +22,7 @@ public class UserRequest {
     @Getter
     public static class Update {
         private int age;
+
         private String gender;
 
         private Update() {
