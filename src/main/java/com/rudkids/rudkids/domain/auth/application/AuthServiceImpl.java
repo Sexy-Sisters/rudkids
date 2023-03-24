@@ -1,27 +1,25 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.domain.auth.application.AuthCommand;
-import com.rudkids.rudkids.domain.auth.application.AuthService;
-import com.rudkids.rudkids.domain.auth.application.TokenCreator;
 import com.rudkids.rudkids.domain.auth.domain.AuthToken;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.domain.user.repository.UserRepository;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final TokenCreator tokenCreator;
 
+    @Transactional
     @Override
     public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser) {
         User foundUser = findUser(oAuthUser);

@@ -7,7 +7,7 @@ import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.domain.user.repository.UserRepository;
-import com.rudkids.rudkids.util.ServiceTest;
+import com.rudkids.rudkids.common.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

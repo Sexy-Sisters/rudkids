@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.auth;
 
-import com.rudkids.rudkids.domain.auth.application.AuthServiceImpl;
+import com.rudkids.rudkids.domain.auth.application.AuthService;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
-    private final AuthServiceImpl authServiceImpl;
+    private final AuthService authService;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -28,7 +28,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String accessToken = AuthorizationExtractor.extract(request);
-        UUID id = authServiceImpl.extractUserId(accessToken);
+        UUID id = authService.extractUserId(accessToken);
         return new AuthUser.Login(id);
     }
 }

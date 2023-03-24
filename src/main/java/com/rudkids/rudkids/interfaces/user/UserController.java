@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
     private final UserDtoMapper userDtoMapper;
 
-    @PostMapping("/signUp")
+    @PostMapping("/sign-up")
     public void signUp(
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody UserRequest.SignUp request

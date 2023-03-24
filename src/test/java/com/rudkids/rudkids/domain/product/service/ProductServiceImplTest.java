@@ -3,7 +3,7 @@ package com.rudkids.rudkids.domain.product.service;
 import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import com.rudkids.rudkids.domain.product.domain.Product;
-import com.rudkids.rudkids.util.ServiceTest;
+import com.rudkids.rudkids.common.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
