@@ -58,6 +58,14 @@ public class Item extends AbstractEntity {
         return this.name.getValue();
     }
 
+    public int getPrice() {
+        return this.price.getValue();
+    }
+
+    public ItemStatus getItemStatus() {
+        return this.itemStatus;
+    }
+
     public void changeProduct(Product product) {
         this.product = product;
         product.getItems().add(this);

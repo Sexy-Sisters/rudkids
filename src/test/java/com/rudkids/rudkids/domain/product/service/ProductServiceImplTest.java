@@ -23,13 +23,13 @@ class ProductServiceImplTest {
     @Test
     void registerProduct() {
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
-            .title("알약~~")
+            .title("Strange Drugstore")
             .bio("약쟁이가 약팝니다~~~~")
             .build();
         productService.registerProduct(command);
 
         Product findProduct = productReader.getProduct(command.getTitle());
-        assertThat(findProduct.getTitle()).isEqualTo("알약~~");
+        assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore");
         assertThat(findProduct.getBio()).isEqualTo("약쟁이가 약팝니다~~~~");
     }
 }
