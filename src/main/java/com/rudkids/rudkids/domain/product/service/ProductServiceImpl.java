@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.product.service;
 
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.infrastructure.product.ProductStoreImpl;
 import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.Title;
@@ -36,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<ProductInfo.Main> findProduct() {
         return productReader.getProducts().stream()
-            .map(productMapper::toEntity)
+            .map(productMapper::of)
             .toList();
     }
 

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
 
-    public ProductInfo.Main toEntity(Product product) {
+    public ProductInfo.Main of(Product product) {
         return ProductInfo.Main.builder()
             .productId(product.getId())
             .title(product.getTitle())
