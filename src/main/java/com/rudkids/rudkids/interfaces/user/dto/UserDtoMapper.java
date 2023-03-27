@@ -7,10 +7,16 @@ import org.springframework.stereotype.Component;
 public class UserDtoMapper {
 
     public UserCommand.Update of(UserRequest.SignUp request) {
-        return new UserCommand.Update(request.getAge(), request.getGender());
+        return UserCommand.Update.builder()
+                .age(request.age())
+                .gender(request.gender())
+                .build();
     }
 
     public UserCommand.Update of(UserRequest.Update request) {
-        return new UserCommand.Update(request.getAge(), request.getGender());
+        return UserCommand.Update.builder()
+                .age(request.age())
+                .gender(request.gender())
+                .build();
     }
 }

@@ -28,14 +28,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private User findUser(AuthCommand.OAuthUser oAuthUser) {
-        return userRepository.findByEmail(oAuthUser.getEmail())
+        return userRepository.findByEmail(oAuthUser.email())
                 .orElseGet(() -> saveUser(oAuthUser));
     }
 
     private User saveUser(AuthCommand.OAuthUser oAuthUser) {
         User user = User.builder()
-                .email(oAuthUser.getEmail())
-                .name(oAuthUser.getName())
+                .email(oAuthUser.email())
+                .name(oAuthUser.name())
                 .age(null)
                 .gender(null)
                 .socialType(SocialType.GOOGLE)
@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalToken tokenRenewalRequest) {
-        String refreshToken = tokenRenewalRequest.getRefreshToken();
+        String refreshToken = tokenRenewalRequest.refreshToken();
         AuthToken authToken = tokenCreator.renewAuthToken(refreshToken);
         return new AuthResponse.AccessToken(authToken.getAccessToken());
     }

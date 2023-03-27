@@ -6,11 +6,8 @@ public class AuthResponse {
 
     @Getter
     public static class AccessAndRefreshToken {
-        private String accessToken;
-        private String refreshToken;
-
-        private AccessAndRefreshToken() {
-        }
+        private final String accessToken;
+        private final String refreshToken;
 
         public AccessAndRefreshToken(String accessToken, String refreshToken) {
             this.accessToken = accessToken;
@@ -20,10 +17,7 @@ public class AuthResponse {
 
     @Getter
     public static class AccessToken {
-        private String accessToken;
-
-        private AccessToken() {
-        }
+        private final String accessToken;
 
         public AccessToken(String accessToken) {
             this.accessToken = accessToken;
@@ -32,10 +26,7 @@ public class AuthResponse {
 
     @Getter
     public static class OAuthUri {
-        private String oAuthUri;
-
-        private OAuthUri() {
-        }
+        private final String oAuthUri;
 
         public OAuthUri(String oAuthUri) {
             this.oAuthUri = oAuthUri;
