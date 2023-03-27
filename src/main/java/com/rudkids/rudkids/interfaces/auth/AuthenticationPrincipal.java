@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.auth.presentation;
+package com.rudkids.rudkids.interfaces.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
