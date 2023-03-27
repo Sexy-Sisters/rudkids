@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthDtoMapper {
 
-    public AuthCommand.RenewalToken of(AuthRequest.RenewalToken request) {
-        return new AuthCommand.RenewalToken(request.getRefreshToken());
+    public AuthCommand.RenewalAccessToken of(AuthRequest.RenewalToken request) {
+        return new AuthCommand.RenewalAccessToken(request.refreshToken());
     }
 
     public AuthCommand.OAuthUser of(AuthUser.OAuth oAuthUser) {

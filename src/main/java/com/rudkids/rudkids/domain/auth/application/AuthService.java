@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface AuthService {
     AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser);
-    AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalToken tokenRenewalRequest);
+    AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalAccessToken tokenRenewalRequest);
     UUID extractUserId(String accessToken);
 }

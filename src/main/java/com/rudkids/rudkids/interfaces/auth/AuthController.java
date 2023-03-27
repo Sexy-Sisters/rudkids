@@ -33,14 +33,14 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestBody AuthRequest.Token tokenRequest
     ) {
-        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.getAuthorizationCode(), tokenRequest.getRedirectUri());
+        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
         AuthCommand.OAuthUser serviceRequestDto = authDtoMapper.of(oAuthUser);
         return authService.generateAccessAndRefreshToken(serviceRequestDto);
     }
 
     @PostMapping("/renewal/access")
     public AuthResponse.AccessToken generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
-        AuthCommand.RenewalToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
+        AuthCommand.RenewalAccessToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
         return authService.generateRenewalAccessToken(serviceRequestDto);
     }
 

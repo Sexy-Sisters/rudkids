@@ -13,7 +13,6 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider implements TokenProvider {
-    private static final String EMPTY_PAYLOAD = "";
     private final SecretKey key;
     private final long accessTokenValidityInMilliseconds;
     private final long refreshTokenValidityInMilliseconds;
@@ -34,8 +33,8 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public String createRefreshToken() {
-        return createToken(EMPTY_PAYLOAD, refreshTokenValidityInMilliseconds);
+    public String createRefreshToken(String payload) {
+        return createToken(payload, refreshTokenValidityInMilliseconds);
     }
 
     private String createToken(final String payload, final Long validityInMilliseconds) {

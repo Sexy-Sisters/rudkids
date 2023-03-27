@@ -23,7 +23,7 @@ public class AuthTokenCreator implements TokenCreator {
     private String createRefreshToken(UUID userId) {
         return tokenRepository.findByUserId(userId)
                 .orElseGet(() -> {
-                    String refreshToken = tokenProvider.createRefreshToken();
+                    String refreshToken = tokenProvider.createRefreshToken(String.valueOf(userId));
                     return tokenRepository.save(userId, refreshToken);
                 });
     }
