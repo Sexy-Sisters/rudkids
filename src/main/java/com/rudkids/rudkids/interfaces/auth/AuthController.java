@@ -33,7 +33,7 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestBody AuthRequest.Token tokenRequest
     ) {
-        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.getAuthorizationCode(), tokenRequest.getRedirectUri());
+        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
         AuthCommand.OAuthUser serviceRequestDto = authDtoMapper.of(oAuthUser);
         return authService.generateAccessAndRefreshToken(serviceRequestDto);
     }
