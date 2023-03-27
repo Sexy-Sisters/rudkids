@@ -37,7 +37,7 @@ public class ControllerAdvice {
     @ExceptionHandler(InternalException.class)
     public ResponseEntity<ErrorResponse> handleInternalException(InternalException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
     @ExceptionHandler(RuntimeException.class)

@@ -40,8 +40,8 @@ class AuthServiceImplTest {
         AuthResponse.AccessAndRefreshToken actual = authService.generateAccessAndRefreshToken(oAuthUser);
 
         assertAll(() -> {
-            assertThat(actual.getAccessToken()).isNotEmpty();
-            assertThat(actual.getRefreshToken()).isNotEmpty();
+            assertThat(actual.accessToken()).isNotEmpty();
+            assertThat(actual.refreshToken()).isNotEmpty();
             assertThat(userRepository.findAll()).hasSize(1);
         });
     }
@@ -64,18 +64,18 @@ class AuthServiceImplTest {
 
         AuthResponse.AccessAndRefreshToken expect = authService.generateAccessAndRefreshToken(oAuthUser);
 
-        assertThat(expect.getRefreshToken()).isEqualTo(actual.getRefreshToken());
+        assertThat(expect.refreshToken()).isEqualTo(actual.refreshToken());
     }
 
     @DisplayName("리프래쉬 토큰으로 새로운 에세스 토큰을 발급한다.")
     @Test
     void 리프래쉬_토큰으로_새로운_에세스_토큰을_발급한다() {
         AuthResponse.AccessAndRefreshToken response = authService.generateAccessAndRefreshToken(oAuthUser);
-        AuthCommand.RenewalAccessToken request = new AuthCommand.RenewalAccessToken(response.getRefreshToken());
+        AuthCommand.RenewalAccessToken request = new AuthCommand.RenewalAccessToken(response.refreshToken());
 
         AuthResponse.AccessToken renewalAccessToken = authService.generateRenewalAccessToken(request);
 
-        assertThat(renewalAccessToken.getAccessToken()).isNotEmpty();
+        assertThat(renewalAccessToken.accessToken()).isNotEmpty();
     }
 
     @DisplayName("리프래쉬 토큰으로 새로운 에세스 토큰을 발급할 때 존재하지 않거나 잘못된 리프래쉬 토큰이면 예외가 발생한다.")

@@ -1,10 +1,14 @@
 package com.rudkids.rudkids.interfaces.auth.dto;
 
+import lombok.Builder;
+
 public class AuthRequest {
 
-        public record RenewalToken(String refreshToken) {
+    @Builder
+    public record RenewalToken(String refreshToken) {
     }
 
-        public record Token(String authorizationCode, String redirectUri) {
+    @Builder
+    public record Token(String authorizationCode, String redirectUri) {
     }
 }
