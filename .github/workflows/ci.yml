@@ -27,6 +27,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Gradle Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
     - name: Gradle 명령 실행을 위한 권한을 부여
       run: chmod +x gradlew
 
@@ -34,7 +44,7 @@ jobs:
       run: ./gradlew build
 
     - name: 테스트 결과를 PR에 코멘트로 등록
-      uses: EnricoMi/publish-unit-test-result-action@v1
+      uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
        files: '**/build/test-results/test/TEST-*.xml'
