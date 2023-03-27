@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.interfaces.auth;
 
+import com.rudkids.rudkids.common.ResponseEntity;
 import com.rudkids.rudkids.domain.auth.application.AuthCommand;
 import com.rudkids.rudkids.domain.auth.application.AuthService;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
@@ -21,27 +22,39 @@ public class AuthController {
     private final AuthDtoMapper authDtoMapper;
 
     @GetMapping("/{oauthProvider}/oauth-uri")
-    public AuthResponse.OAuthUri generateLink(
+    public ResponseEntity generateLink(
             @PathVariable final String oauthProvider,
             @RequestParam final String redirectUri
     ) {
-        return new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
+        AuthResponse.OAuthUri response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
+
+        return ResponseEntity.builder()
+                .data(response)
+                .build();
     }
 
     @PostMapping("/{oauthProvider}/token")
-    public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(
+    public ResponseEntity generateAccessAndRefreshToken(
             @PathVariable final String oauthProvider,
             @RequestBody AuthRequest.Token tokenRequest
     ) {
         AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
         AuthCommand.OAuthUser serviceRequestDto = authDtoMapper.of(oAuthUser);
-        return authService.generateAccessAndRefreshToken(serviceRequestDto);
+        AuthResponse.AccessAndRefreshToken response = authService.generateAccessAndRefreshToken(serviceRequestDto);
+
+        return ResponseEntity.builder()
+                .data(response)
+                .build();
     }
 
     @PostMapping("/renewal/access")
-    public AuthResponse.AccessToken generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
+    public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
         AuthCommand.RenewalAccessToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
-        return authService.generateRenewalAccessToken(serviceRequestDto);
+        AuthResponse.AccessToken response = authService.generateRenewalAccessToken(serviceRequestDto);
+
+        return ResponseEntity.builder()
+                .data(response)
+                .build();
     }
 
     @GetMapping("/validate/token")
