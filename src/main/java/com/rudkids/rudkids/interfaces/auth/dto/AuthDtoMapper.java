@@ -15,7 +15,7 @@ public class AuthDtoMapper {
     public AuthCommand.OAuthUser of(AuthUser.OAuth oAuthUser) {
         return AuthCommand.OAuthUser.builder()
                 .email(oAuthUser.email())
-                .name(oAuthUser.getName())
+                .name(oAuthUser.name())
                 .build();
     }
 }
