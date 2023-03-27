@@ -7,10 +7,16 @@ import org.springframework.stereotype.Component;
 public class AuthDtoMapper {
 
     public AuthCommand.RenewalAccessToken of(AuthRequest.RenewalToken request) {
-        return new AuthCommand.RenewalAccessToken(request.refreshToken());
+        return AuthCommand.RenewalAccessToken.builder()
+                .refreshToken(request.refreshToken())
+                .build();
+
     }
 
     public AuthCommand.OAuthUser of(AuthUser.OAuth oAuthUser) {
-        return new AuthCommand.OAuthUser(oAuthUser.getEmail(), oAuthUser.getName());
+        return AuthCommand.OAuthUser.builder()
+                .email(oAuthUser.email())
+                .name(oAuthUser.name())
+                .build();
     }
 }

@@ -22,7 +22,7 @@ public class UserController {
             @RequestBody UserRequest.SignUp request
     ) {
         UserCommand.Update serviceRequest = userDtoMapper.of(request);
-        userService.update(loginUser.getId(), serviceRequest);
+        userService.update(loginUser.id(), serviceRequest);
     }
 
     @PutMapping("/update")
@@ -31,6 +31,6 @@ public class UserController {
             @RequestBody UserRequest.Update request
     ) {
         UserCommand.Update serviceRequest = userDtoMapper.of(request);
-        userService.update(loginUser.getId(), serviceRequest);
+        userService.update(loginUser.id(), serviceRequest);
     }
 }
