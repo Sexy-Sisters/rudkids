@@ -38,6 +38,7 @@ class AuthControllerTest extends ControllerTest {
                 .willReturn(MEMBER_토큰_응답());
 
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
                 .andDo(print())
@@ -52,6 +53,7 @@ class AuthControllerTest extends ControllerTest {
                 .generateAccessAndRefreshToken(any());
 
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
                 .andDo(print())
@@ -65,6 +67,7 @@ class AuthControllerTest extends ControllerTest {
                 .willReturn(에세스_토큰_재발급_응답());
 
         mockMvc.perform(post("/api/auth/renewal/access")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
                 .andDo(print())
@@ -79,6 +82,7 @@ class AuthControllerTest extends ControllerTest {
                 .generateRenewalAccessToken(any());
 
         mockMvc.perform(post("/api/auth/renewal/access")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
                 .andDo(print())
