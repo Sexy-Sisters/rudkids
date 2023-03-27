@@ -14,36 +14,36 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Slf4j
 public class ControllerAdvice {
+    private static final String ERROR_MESSAGE_FORM = "에러 메세지 : ";
     private static final String UNKNOWN_PROBLEM = "알 수 없는 에러가 발생하였습니다.";
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
-        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        log.error(ERROR_MESSAGE_FORM + e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException e) {
-        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-        return ResponseEntity.badRequest().body(errorResponse);
+        log.error(ERROR_MESSAGE_FORM + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorizedException(UnauthorizedException e) {
-        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        log.error(ERROR_MESSAGE_FORM + e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler(InternalException.class)
     public ResponseEntity<ErrorResponse> handleInternalException(InternalException e) {
-        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        log.error(ERROR_MESSAGE_FORM + e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(e.getMessage()));
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
-        ErrorResponse errorResponse = new ErrorResponse(UNKNOWN_PROBLEM);
-        log.error(UNKNOWN_PROBLEM + e.getMessage());
-        return ResponseEntity.internalServerError().body(errorResponse);
+        log.error(e.getMessage());
+        return ResponseEntity.internalServerError().body(new ErrorResponse(UNKNOWN_PROBLEM));
     }
 }

@@ -5,16 +5,20 @@ import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.Title;
-import com.rudkids.rudkids.common.ServiceTest;
+import com.rudkids.rudkids.util.ServiceTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

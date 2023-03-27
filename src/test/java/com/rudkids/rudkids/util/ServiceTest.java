@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.common;
+package com.rudkids.rudkids.util;
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;

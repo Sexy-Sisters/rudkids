@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.interfaces.auth;
+package com.rudkids.rudkids.domain.auth.presentation;
 
 import com.rudkids.rudkids.domain.auth.exception.EmptyAuthorizationHeaderException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;

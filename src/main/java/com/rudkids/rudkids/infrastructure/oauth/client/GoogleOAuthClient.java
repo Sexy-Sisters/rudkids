@@ -3,12 +3,12 @@ package com.rudkids.rudkids.infrastructure.oauth.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
+import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
 import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;
 import com.rudkids.rudkids.infrastructure.oauth.dto.GoogleTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
-import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,11 +32,11 @@ public class GoogleOAuthClient implements OAuthClient {
     private final ObjectMapper objectMapper;
 
     @Override
-    public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
+    public OAuthUser getOAuthUser(String code, String redirectUri) {
         GoogleTokenResponse googleTokenResponse = requestGoogleToken(code, redirectUri);
         String payload = getPayload(googleTokenResponse.getIdToken());
         UserInfo userInfo = parseUserInfo(payload);
-        return new AuthUser.OAuth(userInfo.getEmail(), userInfo.getName());
+        return new OAuthUser(userInfo.getEmail(), userInfo.getName());
     }
 
     private GoogleTokenResponse requestGoogleToken(String code, String redirectUri) {

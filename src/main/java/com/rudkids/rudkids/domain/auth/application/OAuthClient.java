@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
+import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
 
 public interface OAuthClient {
-    AuthUser.OAuth getOAuthUser(String code, String redirectUri);
+    OAuthUser getOAuthUser(String code, String redirectUri);
 }

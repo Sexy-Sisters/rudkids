@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Age {
-    private static final int MIN_AGE = 2;
+    private static final int MIN_AGE = 1;
     private static final int MAX_AGE = 100;
 
     @Column(name = "age")
@@ -28,9 +28,5 @@ public class Age {
         if(value < MIN_AGE || value > MAX_AGE) {
             throw new InvalidAgeRangeException();
         }
-    }
-
-    public int getValue() {
-        return value;
     }
 }
