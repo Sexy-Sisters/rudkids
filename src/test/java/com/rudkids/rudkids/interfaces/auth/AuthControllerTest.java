@@ -35,12 +35,12 @@ class AuthControllerTest extends ControllerTest {
     @Test
     void 로그인_요청하면_토큰_발급() throws Exception {
         given(authService.generateAccessAndRefreshToken(any()))
-                .willReturn(MEMBER_토큰_응답());
+                .willReturn(USER_토큰_응답());
 
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
+                        .content(objectMapper.writeValueAsString(USER_토큰_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -55,7 +55,7 @@ class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
+                        .content(objectMapper.writeValueAsString(USER_토큰_요청())))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
     }
@@ -69,7 +69,7 @@ class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
+                        .content(objectMapper.writeValueAsString(USER_에세스_토큰_재발급_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -84,7 +84,7 @@ class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
+                        .content(objectMapper.writeValueAsString(USER_에세스_토큰_재발급_요청())))
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
