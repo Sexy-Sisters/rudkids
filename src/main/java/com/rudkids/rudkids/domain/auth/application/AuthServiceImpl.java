@@ -44,8 +44,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalToken tokenRenewalRequest) {
-        String refreshToken = tokenRenewalRequest.refreshToken();
+    public AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalAccessToken request) {
+        String refreshToken = request.refreshToken();
         AuthToken authToken = tokenCreator.renewAuthToken(refreshToken);
         return new AuthResponse.AccessToken(authToken.getAccessToken());
     }

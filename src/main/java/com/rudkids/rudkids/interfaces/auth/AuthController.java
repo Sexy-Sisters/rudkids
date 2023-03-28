@@ -49,7 +49,7 @@ public class AuthController {
 
     @PostMapping("/renewal/access")
     public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
-        AuthCommand.RenewalToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
+        AuthCommand.RenewalAccessToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
         AuthResponse.AccessToken response = authService.generateRenewalAccessToken(serviceRequestDto);
 
         return ResponseEntity.builder()

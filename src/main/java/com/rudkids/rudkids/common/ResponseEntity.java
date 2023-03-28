@@ -2,11 +2,8 @@ package com.rudkids.rudkids.common;
 
 import lombok.Builder;
 
-public class ResponseEntity<T> {
-    private final T data;
-
+public record ResponseEntity<T>(T data) {
     @Builder
-    public ResponseEntity(T data) {
-        this.data = data;
+    public ResponseEntity {
     }
 }
