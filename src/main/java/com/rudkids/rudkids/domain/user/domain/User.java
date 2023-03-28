@@ -2,9 +2,12 @@ package com.rudkids.rudkids.domain.user.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.Builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +34,9 @@ public class User extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 
     protected User() {
     }
@@ -59,5 +65,9 @@ public class User extends AbstractEntity {
     public void updateAdditionalInfo(Age age, String gender) {
         this.age = age;
         this.gender = Gender.toEnum(gender);
+    }
+
+    public void order(Order order) {
+        orders.add(order);
     }
 }
