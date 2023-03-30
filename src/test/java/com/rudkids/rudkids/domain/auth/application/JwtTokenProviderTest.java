@@ -21,9 +21,9 @@ class JwtTokenProviderTest {
             REFRESH_TOKEN_EXPIRE_TIME
     );
 
-    @DisplayName("에세스 토큰 생성")
+    @DisplayName("엑세스 토큰 생성")
     @Test
-    void 에세스_토큰_생성() {
+    void 엑세스_토큰_생성() {
         String accessToken = jwtTokenProvider.createAccessToken(PAYLOAD);
 
         assertThat(accessToken.split("\\.")).hasSize(3);
@@ -47,9 +47,9 @@ class JwtTokenProviderTest {
         assertThat(payload).isEqualTo(PAYLOAD);
     }
 
-    @DisplayName("에세스 토큰이 만료되면 예외 발생")
+    @DisplayName("엑세스 토큰이 만료되면 예외 발생")
     @Test
-    void 에세스_토큰이_만료되면_예외_발생() {
+    void 엑세스_토큰이_만료되면_예외_발생() {
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(
                 JWT_SECRET_KEY, 0, 0
         );

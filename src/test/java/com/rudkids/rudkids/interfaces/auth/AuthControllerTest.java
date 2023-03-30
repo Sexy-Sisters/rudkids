@@ -35,12 +35,12 @@ class AuthControllerTest extends ControllerTest {
     @Test
     void 로그인_요청하면_토큰_발급() throws Exception {
         given(authService.generateAccessAndRefreshToken(any()))
-                .willReturn(MEMBER_토큰_응답());
+                .willReturn(USER_토큰_응답());
 
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
+                        .content(objectMapper.writeValueAsString(USER_토큰_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -55,28 +55,28 @@ class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_토큰_요청())))
+                        .content(objectMapper.writeValueAsString(USER_토큰_요청())))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
     }
 
-    @DisplayName("리프래쉬 토큰을 요청해서 새로운 에세스 토큰 요청 발급")
+    @DisplayName("리프래쉬 토큰을 요청해서 새로운 엑세스 토큰 요청 발급")
     @Test
-    void 리프래쉬_토큰을_요청해서_새로운_에세스_토큰_요청_발급() throws Exception {
+    void 리프래쉬_토큰을_요청해서_새로운_엑세스_토큰_요청_발급() throws Exception {
         given(authService.generateRenewalAccessToken(any()))
-                .willReturn(에세스_토큰_재발급_응답());
+                .willReturn(엑세스_토큰_재발급_응답());
 
         mockMvc.perform(post("/api/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
+                        .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("잘못된 리프래쉬 토큰으로 요청해서 새로운 에세스 토큰 요청시 상태코드 401 반환")
+    @DisplayName("잘못된 리프래쉬 토큰으로 요청해서 새로운 엑세스 토큰 요청시 상태코드 401 반환")
     @Test
-    void 잘못된_리프래쉬_토큰으로_요청해서_새로운_에세스_토큰_요청시_상태코드_401_반환() throws Exception {
+    void 잘못된_리프래쉬_토큰으로_요청해서_새로운_엑세스_토큰_요청시_상태코드_401_반환() throws Exception {
         doThrow(new InvalidTokenException())
                 .when(authService)
                 .generateRenewalAccessToken(any());
@@ -84,7 +84,7 @@ class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/api/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(MEMBER_에세스_토큰_재발급_요청())))
+                        .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
