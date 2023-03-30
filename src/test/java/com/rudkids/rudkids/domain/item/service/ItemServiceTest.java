@@ -110,4 +110,18 @@ public class ItemServiceTest {
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED)
         );
     }
+
+    @DisplayName("아이템 판매 종료")
+    @Test
+    void openItem() {
+        String itemStatus = itemService.openItem(item.getId());
+        assertThat(itemStatus).isEqualTo("IN_STOCK");
+    }
+
+    @DisplayName("아이템 판매 종료")
+    @Test
+    void closeItem() {
+        String itemStatus = itemService.closeItem(item.getId());
+        assertThat(itemStatus).isEqualTo("SOLD_OUT");
+    }
 }

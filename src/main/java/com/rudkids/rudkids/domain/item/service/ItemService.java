@@ -10,4 +10,6 @@ public interface ItemService {
     void registerItem(ItemCommand.RegisterRequest command);
     List<ItemInfo.Main> findItems(UUID productId);
     ItemInfo.Detail findItemDetail(UUID id);
+    String openItem(UUID id);
+    String closeItem(UUID id);
 }

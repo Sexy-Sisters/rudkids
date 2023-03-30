@@ -55,4 +55,18 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemReader.getItem(id);
         return itemMapper.toDetail(item);
     }
+
+    @Override
+    public String openItem(UUID id) {
+        Item item = itemReader.getItem(id);
+        item.changeInStock();
+        return item.getItemStatus().name();
+    }
+
+    @Override
+    public String closeItem(UUID id) {
+        Item item = itemReader.getItem(id);
+        item.changeSoldOut();
+        return item.getItemStatus().name();
+    }
 }

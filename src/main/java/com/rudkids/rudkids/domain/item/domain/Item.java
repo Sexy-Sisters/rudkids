@@ -28,7 +28,6 @@ public class Item extends AbstractEntity {
     @Embedded
     private Quantity quantity;
 
-
     @Enumerated(EnumType.STRING)
     private LimitType limitType;
 
@@ -51,11 +50,11 @@ public class Item extends AbstractEntity {
         this.limitType = limitType;
     }
 
-    void changeSoldOut() {
+    public void changeSoldOut() {
         this.itemStatus = ItemStatus.SOLD_OUT;
     }
 
-    void changeInStock() {
+    public void changeInStock() {
         this.itemStatus = ItemStatus.IN_STOCK;
     }
 
