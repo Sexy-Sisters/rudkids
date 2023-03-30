@@ -10,14 +10,17 @@ import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.util.ServiceTest;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @ServiceTest
@@ -77,14 +80,14 @@ public class ItemServiceTest {
         List<ItemCommand.RegisterRequest> commandList = List.of(
             ItemCommand.RegisterRequest.builder()
                 .productId(product.getId())
-                .name("No.1")
+                .name("No.2")
                 .price(2_990)
                 .quantity(1_000)
                 .limitType(LimitType.NORMAL)
                 .build(),
             ItemCommand.RegisterRequest.builder()
                 .productId(product.getId())
-                .name("No.2")
+                .name("No.3")
                 .price(2_990)
                 .quantity(1_000)
                 .limitType(LimitType.NORMAL)
@@ -93,8 +96,7 @@ public class ItemServiceTest {
         commandList.forEach(itemService::registerItem);
 
         List<ItemInfo.Main> items = itemService.findItems(product.getId());
-
-        assertThat(items.size()).isEqualTo(2);
+        MatcherAssert.assertThat(items, hasSize(2));
     }
 
     @DisplayName("아이템 상세 조회")
