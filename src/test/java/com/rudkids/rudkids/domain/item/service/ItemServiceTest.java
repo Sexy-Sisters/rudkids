@@ -10,18 +10,18 @@ import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.util.ServiceTest;
-import org.hamcrest.MatcherAssert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertAll;
+
 
 @ServiceTest
 public class ItemServiceTest {
@@ -96,7 +96,7 @@ public class ItemServiceTest {
         commandList.forEach(itemService::registerItem);
 
         List<ItemInfo.Main> items = itemService.findItems(product.getId());
-        MatcherAssert.assertThat(items, hasSize(2));
+        assertThat(items).hasSize(2);
     }
 
     @DisplayName("아이템 상세 조회")
