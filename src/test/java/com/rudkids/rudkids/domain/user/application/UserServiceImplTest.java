@@ -19,9 +19,7 @@ class UserServiceImplTest extends UserServiceFixtures {
     @DisplayName("올바른 요청을 보냈을 때 수정 완료")
     @Test
     void update() {
-        final int age = 18;
-        final String gender = "MALE";
-        UserCommand.Update request = new UserCommand.Update(age, gender);
+        UserCommand.Update request = new UserCommand.Update(유저_나이, 유저_성별);
         userService.update(user.getId(), request);
 
         User findUser = userRepository.findById(user.getId())
@@ -36,9 +34,7 @@ class UserServiceImplTest extends UserServiceFixtures {
     @DisplayName("올바르지 않는 나이를 입력하고 요청하면 예외 발생")
     @Test
     void create_InvalidAgeRangeException_when_update() {
-        final int age = 103;
-        final String gender = "MALE";
-        UserCommand.Update request = new UserCommand.Update(age, gender);
+        UserCommand.Update request = new UserCommand.Update(잘못된_유저_나이, 유저_성별);
 
         assertThatThrownBy(() -> userService.update(user.getId(), request))
                 .isInstanceOf(InvalidAgeRangeException.class);
@@ -47,9 +43,7 @@ class UserServiceImplTest extends UserServiceFixtures {
     @DisplayName("올바르지 않는 성별을 입력하고 요청하면 예외 발생")
     @Test
     void create_InvalidGenderException_when_update() {
-        final int age = 18;
-        final String gender = "ALPHA_MALE";
-        UserCommand.Update request = new UserCommand.Update(age, gender);
+        UserCommand.Update request = new UserCommand.Update(유저_나이, 잘못된_유저_성별);
 
         assertThatThrownBy(() -> userService.update(user.getId(), request))
                 .isInstanceOf(InvalidGenderException.class);
