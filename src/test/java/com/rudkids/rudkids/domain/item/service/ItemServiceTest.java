@@ -47,7 +47,7 @@ public class ItemServiceTest {
     void inputData() {
         product = Product.builder()
             .title(Title.create("Strange Drugstore"))
-            .bio(ProductBio.create("약국입니다~"))
+            .productBio(ProductBio.create("약국입니다~"))
             .build();
         productStore.store(product);
 

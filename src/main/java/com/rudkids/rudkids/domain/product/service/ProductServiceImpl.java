@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product initProduct = Product.builder()
             .title(title)
-            .bio(bio)
+            .productBio(bio)
             .build();
         productStore.store(initProduct);
     }
