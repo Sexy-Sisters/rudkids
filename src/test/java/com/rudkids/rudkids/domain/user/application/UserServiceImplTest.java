@@ -1,45 +1,20 @@
 package com.rudkids.rudkids.domain.user.application;
 
+import com.rudkids.rudkids.common.fixtures.user.UserServiceFixtures;
 import com.rudkids.rudkids.domain.user.domain.Gender;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
-import com.rudkids.rudkids.common.ServiceTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ServiceTest
-class UserServiceImplTest {
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    private User user;
-
-    @BeforeEach
-    void setUp() {
-        user = User.builder()
-                .email("namsewon@gmail.com")
-                .name("남세")
-                .age(null)
-                .gender(null)
-                .socialType(SocialType.GOOGLE)
-                .build();
-
-        userRepository.save(user);
-    }
+class UserServiceImplTest extends UserServiceFixtures {
 
     @DisplayName("올바른 요청을 보냈을 때 수정 완료")
     @Test

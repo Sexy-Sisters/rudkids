@@ -1,9 +1,9 @@
-package com.rudkids.rudkids.common.fixtures;
+package com.rudkids.rudkids.common.fixtures.auth;
 
 import com.rudkids.rudkids.interfaces.auth.dto.AuthRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 
-public class AuthFixtures {
+public class AuthControllerFixtures {
 
     public static final String GOOGLE_PROVIDER = "google";
     public static final String OAuth_로그인_링크 = "https://accounts.google.com/o/oauth2/v2/auth";
