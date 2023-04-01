@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.common.ServiceTest;
+import com.rudkids.rudkids.common.fixtures.auth.JwtTokenProviderFixtures;
 import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import org.junit.jupiter.api.DisplayName;
@@ -8,18 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
-@ServiceTest
-class JwtTokenProviderTest {
-    private static final String JWT_SECRET_KEY = "a".repeat(32); // Secret Key는 최소 32바이트 이상이어야함.
-    private static final int ACCESS_TOKEN_EXPIRE_TIME = 3600;
-    private static final int REFRESH_TOKEN_EXPIRE_TIME = 3600;
-    private static final String PAYLOAD = "payload";
-
-    private final JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(
-            JWT_SECRET_KEY,
-            ACCESS_TOKEN_EXPIRE_TIME,
-            REFRESH_TOKEN_EXPIRE_TIME
-    );
+class JwtTokenProviderTest extends JwtTokenProviderFixtures {
 
     @DisplayName("에세스 토큰 생성")
     @Test
