@@ -1,13 +1,7 @@
 package com.rudkids.rudkids.domain.product.service;
 
-<<<<<<< HEAD
-import com.rudkids.rudkids.domain.product.ProductCommand;
-import com.rudkids.rudkids.domain.product.ProductStore;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
-=======
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.Bio;
->>>>>>> develop
+import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import lombok.RequiredArgsConstructor;
