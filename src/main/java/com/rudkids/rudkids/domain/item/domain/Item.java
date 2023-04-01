@@ -20,6 +20,9 @@ public class Item extends AbstractEntity {
     private Name name;
 
     @Embedded
+    private ItemBio itemBio;
+
+    @Embedded
     private Price price;
 
     @Embedded
@@ -39,18 +42,19 @@ public class Item extends AbstractEntity {
     }
 
     @Builder
-    public Item(Name name, Price price, Quantity quantity, LimitType limitType) {
+    public Item(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
         this.name = name;
+        this.itemBio = itemBio;
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
     }
 
-    void changeSoldOut() {
+    public void changeSoldOut() {
         this.itemStatus = ItemStatus.SOLD_OUT;
     }
 
-    void changeInStock() {
+    public void changeInStock() {
         this.itemStatus = ItemStatus.IN_STOCK;
     }
 
@@ -59,16 +63,24 @@ public class Item extends AbstractEntity {
         product.getItems().add(this);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public String getName() {
-        return this.name.getValue();
+        return name.getValue();
     }
 
     public int getPrice() {
-        return this.price.getValue();
+        return price.getValue();
     }
 
     public int getQuantity() {
-        return this.quantity.getValue();
+        return quantity.getValue();
+    }
+
+    public String getBio() {
+        return itemBio.getValue();
     }
 
     public LimitType getLimitType() {

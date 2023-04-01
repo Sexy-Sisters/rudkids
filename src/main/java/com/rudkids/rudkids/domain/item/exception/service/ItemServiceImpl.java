@@ -1,7 +1,6 @@
-package com.rudkids.rudkids.domain.item.service;
+package com.rudkids.rudkids.domain.item.exception.service;
 
-import com.rudkids.rudkids.domain.item.ItemCommand;
-import com.rudkids.rudkids.domain.item.ItemStore;
+import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.Name;
 import com.rudkids.rudkids.domain.item.domain.Price;
@@ -12,10 +11,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
+    private final ItemReader itemReader;
+    private final ItemMapper itemMapper;
     private final ProductReader productReader;
 
     @Override
@@ -36,5 +41,33 @@ public class ItemServiceImpl implements ItemService {
         initItem.changeProduct(product);
 
         itemStore.store(initItem);
+    }
+
+    @Override
+    public List<ItemInfo.Main> findItems(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        return product.getItems().stream()
+            .map(itemMapper::toMain)
+            .toList();
+    }
+
+    @Override
+    public ItemInfo.Detail findItemDetail(UUID id) {
+        Item item = itemReader.getItem(id);
+        return itemMapper.toDetail(item);
+    }
+
+    @Override
+    public String openItem(UUID id) {
+        Item item = itemReader.getItem(id);
+        item.changeInStock();
+        return item.getItemStatus().name();
+    }
+
+    @Override
+    public String closeItem(UUID id) {
+        Item item = itemReader.getItem(id);
+        item.changeSoldOut();
+        return item.getItemStatus().name();
     }
 }

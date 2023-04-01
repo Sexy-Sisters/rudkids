@@ -6,10 +6,18 @@ import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class ItemReaderImpl implements ItemReader {
     private final ItemRepository itemRepository;
+
+    @Override
+    public Item getItem(UUID id) {
+        return itemRepository.findById(id)
+            .orElseThrow(ItemNotFoundException::new);
+    }
 
     @Override
     public Item getItem(String name) {
