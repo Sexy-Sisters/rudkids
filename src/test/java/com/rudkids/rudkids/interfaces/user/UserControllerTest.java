@@ -2,7 +2,6 @@ package com.rudkids.rudkids.interfaces.user;
 
 import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
-import com.rudkids.rudkids.interfaces.user.dto.UserRequest;
 import com.rudkids.rudkids.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class UserControllerTest extends ControllerTest {
-    private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-    private static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
 
     @DisplayName("유저정보를 등록한다.")
     @Test
     void 유저정보를_등록한다() throws Exception {
-        UserRequest.SignUp request = new UserRequest.SignUp(유저_나이, 유저_성별);
         willDoNothing()
                 .given(userService)
                 .update(any(), any());
@@ -33,7 +29,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_회원가입_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -41,9 +37,7 @@ class UserControllerTest extends ControllerTest {
     @DisplayName("잘못된 나이를 입력하고 유저정보를 등록하면 상태코드 400 반환")
     @Test
     void 잘못된_나이를_입력하고_유저정보를_등록하면_상태코드_400_반환() throws Exception {
-        UserRequest.SignUp request = new UserRequest.SignUp(잘못된_유저_나이, 유저_성별);
-
-        doThrow(new InvalidAgeRangeException(), new InvalidGenderException())
+        doThrow(new InvalidAgeRangeException())
                 .when(userService)
                 .update(any(), any());
 
@@ -51,7 +45,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_잘못된_나이_회원가입_요청())))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -59,9 +53,7 @@ class UserControllerTest extends ControllerTest {
     @DisplayName("잘못된 성별을 입력하고 유저정보를 등록하면 상태코드 400 반환")
     @Test
     void 잘못된_성별을_입력하고_유저정보를_등록하면_상태코드_400_반환() throws Exception {
-        UserRequest.SignUp request = new UserRequest.SignUp(유저_나이, 잘못된_유저_성별);
-
-        doThrow(new InvalidAgeRangeException(), new InvalidGenderException())
+        doThrow(new InvalidGenderException())
                 .when(userService)
                 .update(any(), any());
 
@@ -69,7 +61,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_잘못된_성별_회원가입_요청())))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -77,7 +69,6 @@ class UserControllerTest extends ControllerTest {
     @DisplayName("유저정보를 수정한다.")
     @Test
     void 유저정보를_수정한다() throws Exception {
-        UserRequest.Update request = new UserRequest.Update(유저_나이, 유저_성별);
         willDoNothing()
                 .given(userService)
                 .update(any(), any());
@@ -86,7 +77,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_정보_수정_요청())))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -94,9 +85,7 @@ class UserControllerTest extends ControllerTest {
     @DisplayName("잘못된 나이를 입력하고 유저정보를 수정하면 상태코드 400 반환")
     @Test
     void 잘못된_나이를_입력하고_유저정보를_수정하면_상태코드_400_반환() throws Exception {
-        UserRequest.Update request = new UserRequest.Update(잘못된_유저_나이, 유저_성별);
-
-        doThrow(new InvalidAgeRangeException(), new InvalidGenderException())
+        doThrow(new InvalidAgeRangeException())
                 .when(userService)
                 .update(any(), any());
 
@@ -104,7 +93,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_잘못된_유저_나이_정보_수정_요청())))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -112,9 +101,7 @@ class UserControllerTest extends ControllerTest {
     @DisplayName("잘못된 성별을 입력하고 유저정보를 수정하면 상태코드 400 반환")
     @Test
     void 잘못된_성별을_입력하고_유저정보를_수정하면_상태코드_400_반환() throws Exception {
-        UserRequest.Update request = new UserRequest.Update(유저_나이, 잘못된_유저_성별);
-
-        doThrow(new InvalidAgeRangeException(), new InvalidGenderException())
+        doThrow(new InvalidGenderException())
                 .when(userService)
                 .update(any(), any());
 
@@ -122,7 +109,7 @@ class UserControllerTest extends ControllerTest {
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(USER_잘못된_유저_성별_정보_수정_요청())))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

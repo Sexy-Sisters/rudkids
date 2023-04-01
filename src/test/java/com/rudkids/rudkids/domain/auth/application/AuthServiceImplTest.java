@@ -51,9 +51,9 @@ class AuthServiceImplTest extends AuthServiceFixtures {
         assertThat(expect.refreshToken()).isEqualTo(actual.refreshToken());
     }
 
-    @DisplayName("리프래쉬 토큰으로 새로운 에세스 토큰을 발급한다.")
+    @DisplayName("리프래쉬 토큰으로 새로운 엑세스 토큰을 발급한다.")
     @Test
-    void 리프래쉬_토큰으로_새로운_에세스_토큰을_발급한다() {
+    void 리프래쉬_토큰으로_새로운_엑세스_토큰을_발급한다() {
         AuthResponse.AccessAndRefreshToken response = authService.generateAccessAndRefreshToken(oAuthUser);
         AuthCommand.RenewalAccessToken request = new AuthCommand.RenewalAccessToken(response.refreshToken());
 
@@ -62,10 +62,10 @@ class AuthServiceImplTest extends AuthServiceFixtures {
         assertThat(renewalAccessToken.accessToken()).isNotEmpty();
     }
 
-    @DisplayName("리프래쉬 토큰으로 새로운 에세스 토큰을 발급할 때 존재하지 않거나 잘못된 리프래쉬 토큰이면 예외가 발생한다.")
+    @DisplayName("리프래쉬 토큰으로 새로운 엑세스 토큰을 발급할 때 존재하지 않거나 잘못된 리프래쉬 토큰이면 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "invalid"})
-    void 리프래쉬_토큰으로_새로운_에세스_토큰을_발급할_때_존재하지_않으면_예외가_발생한다(String invalid) {
+    void 리프래쉬_토큰으로_새로운_엑세스_토큰을_발급할_때_존재하지_않으면_예외가_발생한다(String invalid) {
         authService.generateAccessAndRefreshToken(oAuthUser);
         AuthCommand.RenewalAccessToken request = new AuthCommand.RenewalAccessToken(invalid);
 

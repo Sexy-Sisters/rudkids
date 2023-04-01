@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @ServiceTest
 class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
 
-    @DisplayName("유저 id로 에세스 토큰과 리프래쉬토큰을 생성한다.")
+    @DisplayName("유저 id로 엑세스 토큰과 리프래쉬토큰을 생성한다.")
     @Test
-    void 유저_id로_에세스_토큰과_래프래쉬_토큰을_생성한다() {
+    void 유저_id로_엑세스_토큰과_래프래쉬_토큰을_생성한다() {
         UUID userId = UUID.randomUUID();
 
         AuthToken authToken = tokenCreator.createAuthToken(userId);
@@ -39,9 +39,9 @@ class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
         assertThat(authToken.getRefreshToken()).isEqualTo("refresh");
     }
 
-    @DisplayName("리프래쉬 토큰으로 에세스 토큰 재발급")
+    @DisplayName("리프래쉬 토큰으로 엑세스 토큰 재발급")
     @Test
-    void 래프래쉬_토큰으로_에세스_토큰_재발급() {
+    void 래프래쉬_토큰으로_엑세스_토큰_재발급() {
         UUID userId = UUID.randomUUID();
         AuthToken saveToken = tokenCreator.createAuthToken(userId);
 
