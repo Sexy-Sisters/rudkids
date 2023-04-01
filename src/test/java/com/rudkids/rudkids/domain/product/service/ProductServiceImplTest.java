@@ -4,9 +4,9 @@ import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import com.rudkids.rudkids.domain.product.ProductStore;
-import com.rudkids.rudkids.domain.product.domain.Bio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.common.ServiceTest;
+import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,19 +38,19 @@ class ProductServiceImplTest {
         products = List.of(
             Product.builder()
                 .title(Title.create("프로덕트 No.1"))
-                .bio(Bio.create("소개드립니다~"))
+                .productBio(ProductBio.create("소개드립니다~"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.2"))
-                .bio(Bio.create("소개드립니다~"))
+                .productBio(ProductBio.create("소개드립니다~"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.3"))
-                .bio(Bio.create("소개드립니다~"))
+                .productBio(ProductBio.create("소개드립니다~"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.4"))
-                .bio(Bio.create("소개드립니다~"))
+                .productBio(ProductBio.create("소개드립니다~"))
                 .build()
         );
 
@@ -61,15 +61,15 @@ class ProductServiceImplTest {
     @Test
     void registerProduct() {
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
-            .title("알약~~")
+            .title("Strange Drugstore")
             .bio("약쟁이가 약팝니다~~~~")
             .build();
         productService.registerProduct(command);
 
         Product findProduct = productReader.getProduct(command.getTitle());
         assertAll(
-            () -> assertThat(findProduct.getTitle()).isEqualTo("알약~~"),
-            () -> assertThat(findProduct.getBio()).isEqualTo("약쟁이가 약팝니다~~~~")
+            () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore"),
+            () -> assertThat(findProduct.getProductBio()).isEqualTo("약쟁이가 약팝니다~~~~")
         );
     }
 
@@ -90,7 +90,7 @@ class ProductServiceImplTest {
         assertAll(
             () -> assertThat(findProduct.getProductStatus()).isEqualTo(ProductStatus.CLOSED),
             () -> assertThat(findProduct.getTitle()).isEqualTo("프로덕트 No.1"),
-            () -> assertThat(findProduct.getBio()).isEqualTo("소개드립니다~")
+            () -> assertThat(findProduct.getProductBio()).isEqualTo("소개드립니다~")
         );
     }
 
@@ -104,7 +104,7 @@ class ProductServiceImplTest {
         assertAll(
             () -> assertThat(findProduct.getProductStatus()).isEqualTo(ProductStatus.OPEN),
             () -> assertThat(findProduct.getTitle()).isEqualTo("프로덕트 No.1"),
-            () -> assertThat(findProduct.getBio()).isEqualTo("소개드립니다~")
+            () -> assertThat(findProduct.getProductBio()).isEqualTo("소개드립니다~")
         );
     }
 }

@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -21,7 +23,7 @@ public class Product {
     private Title title;
 
     @Embedded
-    private Bio bio;
+    private ProductBio productBio;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
@@ -33,9 +35,9 @@ public class Product {
     }
 
     @Builder
-    public Product(final Title title, final Bio bio) {
+    public Product(final Title title, final ProductBio productBio) {
         this.title = title;
-        this.bio = bio;
+        this.productBio = productBio;
     }
 
     public void open() {
@@ -50,7 +52,7 @@ public class Product {
         return title.getValue();
     }
 
-    public String getBio() {
-        return bio.getValue();
+    public String getProductBio() {
+        return productBio.getValue();
     }
 }
