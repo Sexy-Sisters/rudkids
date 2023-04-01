@@ -38,6 +38,14 @@ public class Product {
         this.bio = bio;
     }
 
+    public void open() {
+        this.productStatus = ProductStatus.OPEN;
+    }
+
+    public void close() {
+        this.productStatus = ProductStatus.CLOSED;
+    }
+
     public String getTitle() {
         return title.getValue();
     }

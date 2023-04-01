@@ -90,4 +90,8 @@ public class Item extends AbstractEntity {
     public ItemStatus getItemStatus() {
         return itemStatus;
     }
+
+    public Product getProduct() {
+        return product;
+    }
 }

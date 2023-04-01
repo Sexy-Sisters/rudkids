@@ -3,13 +3,14 @@ package com.rudkids.rudkids.infrastructure.oauth.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
-import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
 import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;
 import com.rudkids.rudkids.infrastructure.oauth.dto.GoogleTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class GoogleOAuthClient implements OAuthClient {
     private static final String JWT_DELIMITER = "\\.";
     private final GoogleProperties properties;
@@ -32,11 +34,11 @@ public class GoogleOAuthClient implements OAuthClient {
     private final ObjectMapper objectMapper;
 
     @Override
-    public OAuthUser getOAuthUser(String code, String redirectUri) {
+    public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         GoogleTokenResponse googleTokenResponse = requestGoogleToken(code, redirectUri);
         String payload = getPayload(googleTokenResponse.getIdToken());
         UserInfo userInfo = parseUserInfo(payload);
-        return new OAuthUser(userInfo.getEmail(), userInfo.getName());
+        return new AuthUser.OAuth(userInfo.getEmail(), userInfo.getName());
     }
 
     private GoogleTokenResponse requestGoogleToken(String code, String redirectUri) {
@@ -66,6 +68,7 @@ public class GoogleOAuthClient implements OAuthClient {
         try {
             return restTemplate.postForObject(properties.getTokenUri(), request, GoogleTokenResponse.class);
         } catch (final RestClientException e) {
+            log.error(e.getMessage());
             throw new OAuthException();
         }
     }
@@ -79,6 +82,7 @@ public class GoogleOAuthClient implements OAuthClient {
         try {
             return objectMapper.readValue(decodedPayload, UserInfo.class);
         } catch (final JsonProcessingException e) {
+            log.error(e.getMessage());
             throw new NotReadOAuthIdTokenException();
         }
     }

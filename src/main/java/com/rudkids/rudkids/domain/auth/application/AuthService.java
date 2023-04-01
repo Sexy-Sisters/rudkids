@@ -1,14 +1,11 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.domain.auth.dto.OAuthUser;
-import com.rudkids.rudkids.domain.auth.dto.request.TokenRenewalRequest;
-import com.rudkids.rudkids.domain.auth.dto.response.AccessAndRefreshTokenResponse;
-import com.rudkids.rudkids.domain.auth.dto.response.AccessTokenResponse;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 
 import java.util.UUID;
 
 public interface AuthService {
-    AccessAndRefreshTokenResponse generateAccessAndRefreshToken(OAuthUser oAuthUser);
-    AccessTokenResponse generateRenewalAccessToken(TokenRenewalRequest tokenRenewalRequest);
+    AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser);
+    AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalAccessToken tokenRenewalRequest);
     UUID extractUserId(String accessToken);
 }

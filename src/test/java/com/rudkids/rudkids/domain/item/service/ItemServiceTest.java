@@ -5,12 +5,14 @@ import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
+import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
-import com.rudkids.rudkids.util.ServiceTest;
-import org.assertj.core.api.Assertions;
+import com.rudkids.rudkids.common.ServiceTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,6 +58,7 @@ public class ItemServiceTest {
             .limitType(LimitType.LIMITED)
             .build();
         itemStore.store(item);
+
     }
 
     @DisplayName("상품 등록 성공")
@@ -71,7 +74,13 @@ public class ItemServiceTest {
         itemService.registerItem(command);
 
         Item findItem = itemReader.getItem(command.getName());
-        assertThat(findItem.getName()).isEqualTo("Red Pill");
+        assertAll(
+            () -> assertThat(findItem.getName()).isEqualTo("Red Pill"),
+            () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
+            () -> assertThat(findItem.getQuantity()).isEqualTo(1),
+            () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
+            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.IN_STOCK)
+        );
     }
 
     @DisplayName("특정 프로덕트의 아이템 리스트 조회")
