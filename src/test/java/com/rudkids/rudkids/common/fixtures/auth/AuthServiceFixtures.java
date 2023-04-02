@@ -16,10 +16,8 @@ public class AuthServiceFixtures {
     @Autowired
     protected UserRepository userRepository;
 
-    protected AuthCommand.OAuthUser oAuthUser;
-
-    @BeforeEach
-    void setUp() {
-        oAuthUser = new AuthCommand.OAuthUser("namse@gmail.com", "남세");
-    }
+    protected AuthCommand.OAuthUser oAuthUser = AuthCommand.OAuthUser.builder()
+            .email("namse@gmail.com")
+            .name("남세")
+            .build();
 }

@@ -11,24 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ServiceTest
 public class UserServiceFixtures {
 
+    protected static final int 유저_나이 = 18;
+    protected static final String 유저_성별 = "MALE";
+    protected static final int 잘못된_유저_나이 = 103;
+    protected static final String 잘못된_유저_성별 = "Male";
+
     @Autowired
     protected UserService userService;
 
     @Autowired
     protected UserRepository userRepository;
 
-    protected User user;
+    protected User user = User.builder()
+            .email("namsewon@gmail.com")
+            .name("남세")
+            .age(null)
+            .gender(null)
+            .socialType(SocialType.GOOGLE)
+            .build();
 
     @BeforeEach
     void setUp() {
-        user = User.builder()
-                .email("namsewon@gmail.com")
-                .name("남세")
-                .age(null)
-                .gender(null)
-                .socialType(SocialType.GOOGLE)
-                .build();
-
         userRepository.save(user);
     }
 }
