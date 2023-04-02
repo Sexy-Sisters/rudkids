@@ -2,13 +2,20 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.rudkids'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
 configurations {
+	asciidoctorExtensions
+
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -19,16 +26,20 @@ repositories {
 }
 
 dependencies {
-	//ulid
+	//ulid 의존성
 	implementation "com.github.f4b6a3:ulid-creator:5.0.0"
 
-	//test용 DB
+	//test용 DB 의존성
 	runtimeOnly 'com.h2database:h2'
 
-	//jwt 관련
+	//jwt 관련 의존성
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	//Restdocs 관련 의존성
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -41,5 +52,28 @@ dependencies {
 }
 
 tasks.named('test') {
+	outputs.dir snippetsDir
 	useJUnitPlatform()
+//	finalizedBy 'jacocoTestReport'
+}
+
+asciidoctor {
+	configurations 'asciidoctorExtensions'
+	baseDirFollowsSourceFile()
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/docs/asciidoc")
+	into file("src/main/resources/static/docs")
+}
+
+bootJar {
+	dependsOn copyDocument
 }

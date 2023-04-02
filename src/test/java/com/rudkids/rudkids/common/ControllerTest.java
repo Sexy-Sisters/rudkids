@@ -11,11 +11,13 @@ import com.rudkids.rudkids.interfaces.user.UserController;
 import com.rudkids.rudkids.interfaces.user.dto.UserDtoMapper;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.test.web.servlet.MockMvc;
 
+@AutoConfigureRestDocs
 @WebMvcTest({
         UserController.class,
         AuthController.class
