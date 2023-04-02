@@ -62,11 +62,11 @@ class ProductServiceImplTest {
     void registerProduct() {
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
             .title("Strange Drugstore")
-            .bio("약쟁이가 약팝니다~~~~")
+            .productBio("약쟁이가 약팝니다~~~~")
             .build();
         productService.registerProduct(command);
 
-        Product findProduct = productReader.getProduct(command.getTitle());
+        Product findProduct = productReader.getProduct(command.title());
         assertAll(
             () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore"),
             () -> assertThat(findProduct.getProductBio()).isEqualTo("약쟁이가 약팝니다~~~~")
