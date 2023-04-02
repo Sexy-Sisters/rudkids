@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductInfo.Main> findProduct() {
+    public List<ProductInfo.Main> findProducts() {
         return productReader.getProducts().stream()
             .map(productMapper::of)
             .toList();

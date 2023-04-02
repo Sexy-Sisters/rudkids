@@ -76,7 +76,7 @@ class ProductServiceImplTest {
     @DisplayName("프로덕트 리스트 조회")
     @Test
     void findProducts() {
-        List<ProductInfo.Main> products = productService.findProduct();
+        List<ProductInfo.Main> products = productService.findProducts();
         assertThat(products.size()).isEqualTo(4);
     }
 
