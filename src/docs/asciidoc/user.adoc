@@ -1,0 +1,10 @@
+[[User-API]]
+== User API
+
+[[User-회원가입]]
+=== User 회원가입
+operation::user/sign-up[snippets='http-request,request-headers,request-fields,http-response']
+
+[[User-수정]]
+=== User 수정
+operation::user/update[snippets='http-request,request-headers,request-fields,http-response']
