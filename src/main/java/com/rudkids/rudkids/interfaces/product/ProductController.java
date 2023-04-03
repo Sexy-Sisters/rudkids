@@ -6,6 +6,7 @@ import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,10 +26,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponse.Main> findProducts() {
-        return productService.findProducts().stream()
+    public ResponseEntity<List<ProductResponse.Main>> findProducts() {
+        var response = productService.findProducts().stream()
             .map(productDtoMapper::to)
             .toList();
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
