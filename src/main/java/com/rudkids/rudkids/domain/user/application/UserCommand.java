@@ -5,6 +5,6 @@ import lombok.Builder;
 public class UserCommand {
 
     @Builder
-        public record Update(int age, String gender) {
+    public record Update(int age, String gender) {
     }
 }
