@@ -14,12 +14,11 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private final UserReader userReader;
 
-
     @Override
     public void update(UUID id, UserCommand.Update request) {
-        User findUser = userReader.getUser(id);
+        var findUser = userReader.getUser(id);
 
-        Age age = Age.create(request.age());
+        var age = Age.create(request.age());
         findUser.updateAdditionalInfo(age, request.gender());
     }
 }
