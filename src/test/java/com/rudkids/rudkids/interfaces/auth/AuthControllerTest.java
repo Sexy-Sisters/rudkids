@@ -24,7 +24,7 @@ class AuthControllerTest extends ControllerTest {
         given(oAuthUri.generate(any())).willReturn(OAuth_로그인_링크);
 
         mockMvc.perform(get(
-                "/api/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
+                "/api/v1/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
                         GOOGLE_PROVIDER,
                         REDIRECT_URI))
                 .andDo(print())
@@ -37,7 +37,7 @@ class AuthControllerTest extends ControllerTest {
         given(authService.generateAccessAndRefreshToken(any()))
                 .willReturn(USER_토큰_응답());
 
-        mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+        mockMvc.perform(post("/api/v1/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_토큰_요청())))
@@ -52,7 +52,7 @@ class AuthControllerTest extends ControllerTest {
                 .when(authService)
                 .generateAccessAndRefreshToken(any());
 
-        mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+        mockMvc.perform(post("/api/v1/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_토큰_요청())))
@@ -66,7 +66,7 @@ class AuthControllerTest extends ControllerTest {
         given(authService.generateRenewalAccessToken(any()))
                 .willReturn(엑세스_토큰_재발급_응답());
 
-        mockMvc.perform(post("/api/auth/renewal/access")
+        mockMvc.perform(post("/api/v1/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
@@ -81,7 +81,7 @@ class AuthControllerTest extends ControllerTest {
                 .when(authService)
                 .generateRenewalAccessToken(any());
 
-        mockMvc.perform(post("/api/auth/renewal/access")
+        mockMvc.perform(post("/api/v1/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
