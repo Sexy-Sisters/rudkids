@@ -1,11 +1,10 @@
-package com.rudkids.rudkids.domain.product;
+package com.rudkids.rudkids.interfaces.product.dto;
 
 import lombok.Builder;
-import lombok.Getter;
 
 import java.util.UUID;
 
-public class ProductInfo {
+public class ProductResponse {
 
     @Builder
     public record Main(UUID productId, String title, String productBio) {

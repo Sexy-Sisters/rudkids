@@ -10,7 +10,7 @@ public class ProductMapper {
         return ProductInfo.Main.builder()
             .productId(product.getId())
             .title(product.getTitle())
-            .bio(product.getProductBio())
+            .productBio(product.getProductBio())
             .build();
     }
 }

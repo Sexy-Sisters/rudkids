@@ -1,16 +1,13 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.common.ServiceTest;
+import com.rudkids.rudkids.common.fixtures.auth.AuthServiceFixtures;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -19,20 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@ServiceTest
-class AuthServiceImplTest {
-    @Autowired
-    private AuthService authService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    private AuthCommand.OAuthUser oAuthUser;
-
-    @BeforeEach
-    void setUp() {
-        oAuthUser = new AuthCommand.OAuthUser("namse@gmail.com", "남세");
-    }
+class AuthServiceImplTest extends AuthServiceFixtures {
 
     @DisplayName("토큰 생성을 하면 OAuth에서 인증 후 토큰을 반환한다.")
     @Test

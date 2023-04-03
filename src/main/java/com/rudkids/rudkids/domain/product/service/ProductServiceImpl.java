@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void registerProduct(ProductCommand.RegisterRequest command) {
-        Title title = Title.create(command.getTitle());
-        ProductBio bio = ProductBio.create(command.getBio());
+        Title title = Title.create(command.title());
+        ProductBio bio = ProductBio.create(command.productBio());
 
         Product initProduct = Product.builder()
             .title(title)
@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductInfo.Main> findProduct() {
+    public List<ProductInfo.Main> findProducts() {
         return productReader.getProducts().stream()
             .map(productMapper::of)
             .toList();
