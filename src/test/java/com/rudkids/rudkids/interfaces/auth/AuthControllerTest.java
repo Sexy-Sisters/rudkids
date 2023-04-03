@@ -28,8 +28,7 @@ class AuthControllerTest extends ControllerTest {
     void 로그인창_링크를_생성하고_반환한다() throws Exception {
         given(oAuthUri.generate(any())).willReturn(OAuth_로그인_링크);
 
-        mockMvc.perform(get(
-                "/api/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
+        mockMvc.perform(get("/api/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
                         GOOGLE_PROVIDER,
                         REDIRECT_URI))
                 .andDo(print())
