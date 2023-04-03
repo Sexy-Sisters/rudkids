@@ -21,10 +21,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void registerProduct(ProductCommand.RegisterRequest command) {
-        Title title = Title.create(command.title());
-        ProductBio bio = ProductBio.create(command.productBio());
+        var title = Title.create(command.title());
+        var bio = ProductBio.create(command.productBio());
 
-        Product initProduct = Product.builder()
+        var initProduct = Product.builder()
             .title(title)
             .productBio(bio)
             .build();
@@ -41,13 +41,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void closeProduct(UUID productId) {
-        Product product = productReader.getProduct(productId);
+        var product = productReader.getProduct(productId);
         product.close();
     }
 
     @Override
     public void openProduct(UUID productId) {
-        Product product = productReader.getProduct(productId);
+        var product = productReader.getProduct(productId);
         product.open();
     }
 }
