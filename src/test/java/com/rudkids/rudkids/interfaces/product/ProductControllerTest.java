@@ -24,10 +24,10 @@ class ProductControllerTest extends ControllerTest {
             .registerProduct(any());
 
         mockMvc.perform(post("/api/v1/product")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(PRODUCT_등록_요청())))
-            .andDo(print())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
+            ).andDo(print())
             .andExpect(status().isOk());
     }
 
@@ -37,7 +37,7 @@ class ProductControllerTest extends ControllerTest {
         given(productService.findProducts())
             .willReturn(PRODUCT_리스트_조회_응답());
 
-         mockMvc.perform(get("/api/v1/product"))
+        mockMvc.perform(get("/api/v1/product"))
             .andDo(print())
             .andExpect(status().isOk());
     }

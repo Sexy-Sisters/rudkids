@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.exception.service;
+package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.Item;
@@ -6,7 +6,6 @@ import com.rudkids.rudkids.domain.item.domain.Name;
 import com.rudkids.rudkids.domain.item.domain.Price;
 import com.rudkids.rudkids.domain.item.domain.Quantity;
 import com.rudkids.rudkids.domain.product.ProductReader;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,18 +25,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void registerItem(ItemCommand.RegisterRequest command) {
-        Name name = Name.create(command.getName());
-        Price price = Price.create(command.getPrice());
-        Quantity quantity = Quantity.create(command.getQuantity());
+        var name = Name.create(command.getName());
+        var price = Price.create(command.getPrice());
+        var quantity = Quantity.create(command.getQuantity());
 
-        Item initItem = Item.builder()
+        var initItem = Item.builder()
             .name(name)
             .price(price)
             .quantity(quantity)
             .limitType(command.getLimitType())
             .build();
 
-        Product product = productReader.getProduct(command.getProductId());
+        var product = productReader.getProduct(command.getProductId());
         initItem.changeProduct(product);
 
         itemStore.store(initItem);
@@ -45,7 +44,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemInfo.Main> findItems(UUID productId) {
-        Product product = productReader.getProduct(productId);
+        var product = productReader.getProduct(productId);
         return product.getItems().stream()
             .map(itemMapper::toMain)
             .toList();
@@ -53,20 +52,20 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemInfo.Detail findItemDetail(UUID id) {
-        Item item = itemReader.getItem(id);
+        var item = itemReader.getItem(id);
         return itemMapper.toDetail(item);
     }
 
     @Override
     public String openItem(UUID id) {
-        Item item = itemReader.getItem(id);
+        var item = itemReader.getItem(id);
         item.changeInStock();
         return item.getItemStatus().name();
     }
 
     @Override
     public String closeItem(UUID id) {
-        Item item = itemReader.getItem(id);
+        var item = itemReader.getItem(id);
         item.changeSoldOut();
         return item.getItemStatus().name();
     }
