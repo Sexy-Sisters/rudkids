@@ -21,8 +21,8 @@ public class UserController {
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody UserRequest.SignUp request
     ) {
-        UserCommand.Update serviceRequest = userDtoMapper.toServiceDto(request);
-        userService.update(loginUser.id(), serviceRequest);
+        var command = userDtoMapper.to(request);
+        userService.update(loginUser.id(), command);
     }
 
     @PutMapping("/update")
@@ -30,7 +30,7 @@ public class UserController {
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody UserRequest.Update request
     ) {
-        UserCommand.Update serviceRequest = userDtoMapper.toServiceDto(request);
-        userService.update(loginUser.id(), serviceRequest);
+        var command = userDtoMapper.to(request);
+        userService.update(loginUser.id(), command);
     }
 }
