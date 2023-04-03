@@ -1,14 +1,14 @@
 package com.rudkids.rudkids.interfaces.item;
 
-import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/item")
@@ -23,4 +23,12 @@ public class ItemController {
         itemService.registerItem(command);
     }
 
+    @GetMapping("/{product-id}")
+    public ResponseEntity findItems(@PathVariable(name = "product-id") UUID productId) {
+        var infoList = itemService.findItems(productId);
+        var response = infoList.stream()
+            .map(itemDtoMapper::to)
+            .toList();
+        return ResponseEntity.ok(response);
+    }
 }
