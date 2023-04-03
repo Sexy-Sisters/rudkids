@@ -45,7 +45,7 @@ class AuthControllerTest extends ControllerTest {
                                         .description("OAuth Redirect URI")
                         ),
                         responseFields(
-                                fieldWithPath("data.oAuthUri")
+                                fieldWithPath("oAuthUri")
                                         .type(JsonFieldType.STRING)
                                         .description("OAuth 소셜 로그인 링크")
                         )
@@ -81,11 +81,11 @@ class AuthControllerTest extends ControllerTest {
                                         .description("OAuth Redirect URI")
                         ),
                         responseFields(
-                                fieldWithPath("data.accessToken")
+                                fieldWithPath("accessToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 Access Token"),
 
-                                fieldWithPath("data.refreshToken")
+                                fieldWithPath("refreshToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 Refresh Token")
                         )
@@ -145,7 +145,7 @@ class AuthControllerTest extends ControllerTest {
                                         .description("리프래쉬 토큰")
                         ),
                         responseFields(
-                                fieldWithPath("data.accessToken")
+                                fieldWithPath("accessToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 새로운 Access Token")
                         )
