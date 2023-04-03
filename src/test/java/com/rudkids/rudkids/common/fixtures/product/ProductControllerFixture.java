@@ -2,9 +2,7 @@ package com.rudkids.rudkids.common.fixtures.product;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
-import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 
 import java.util.List;
 import java.util.UUID;

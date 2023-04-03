@@ -4,7 +4,6 @@ import com.rudkids.rudkids.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixture.*;
 import static org.mockito.ArgumentMatchers.any;
