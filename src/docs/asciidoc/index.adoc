@@ -1,4 +1,4 @@
-= Rudkids REST Docs 문서
+= Rudkids REST Docs
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs // 문서에 표기되는 코드들의 하이라이팅을 highlightjs를 사용
