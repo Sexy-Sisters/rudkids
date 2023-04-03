@@ -141,7 +141,7 @@ class AuthControllerTest extends ControllerTest {
                         requestFields(
                                 fieldWithPath("refreshToken")
                                         .type(JsonFieldType.STRING)
-                                        .description("OAuth 리프래쉬 토큰")
+                                        .description("리프래쉬 토큰")
                         ),
                         responseFields(
                                 fieldWithPath("data.accessToken")
@@ -170,7 +170,7 @@ class AuthControllerTest extends ControllerTest {
                         requestFields(
                                 fieldWithPath("refreshToken")
                                         .type(JsonFieldType.STRING)
-                                        .description("OAuth 리프래쉬 토큰")
+                                        .description("잘못된 리프래쉬 토큰")
                         )
                 ))
                 .andExpect(status().isUnauthorized());
