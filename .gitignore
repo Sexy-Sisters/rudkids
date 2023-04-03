@@ -38,3 +38,6 @@ out/
 
 ### DS_Store ###
 .DS_Store
+
+### REST Docs ###
+/src/main/resources/static/docs/**
