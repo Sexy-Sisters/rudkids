@@ -8,7 +8,6 @@ import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
-import com.rudkids.rudkids.domain.item.exception.service.ItemService;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;

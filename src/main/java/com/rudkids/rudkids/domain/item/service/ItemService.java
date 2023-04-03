@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.exception.service;
+package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
