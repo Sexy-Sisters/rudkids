@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDtoMapper {
 
-    public UserCommand.Update of(UserRequest.SignUp request) {
+    public UserCommand.Update toServiceDto(UserRequest.SignUp request) {
         return UserCommand.Update.builder()
                 .age(request.age())
                 .gender(request.gender())
                 .build();
     }
 
-    public UserCommand.Update of(UserRequest.Update request) {
+    public UserCommand.Update toServiceDto(UserRequest.Update request) {
         return UserCommand.Update.builder()
                 .age(request.age())
                 .gender(request.gender())
