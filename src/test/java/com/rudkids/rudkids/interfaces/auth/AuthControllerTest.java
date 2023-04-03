@@ -164,7 +164,7 @@ class AuthControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
                 .andDo(print())
-                .andDo(document("auth/generateRenewalAccessToken/invalidTokenError",
+                .andDo(document("auth/generateRenewalAccessToken/failByinvalidTokenError",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestFields(

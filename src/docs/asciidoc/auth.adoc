@@ -9,6 +9,14 @@ operation::auth/generateLink[snippets='http-request,path-parameters,query-parame
 === Auth 로그인 요청
 operation::auth/generateAccessAndRefreshToken[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
 
+[[Auth-로그인-요청-에러-OAuth-통신-에러]]
+=== Auth 로그인 요청 에러 (OAuth 통신 에러)
+operation::auth/generateAccessAndRefreshToken/failByResourceServerError[snippets='http-request,path-parameters,request-fields,http-response']
+
 [[Auth-엑세스토큰-재발급]]
 === Auth 엑세스토큰 재발급
 operation::auth/generateRenewalAccessToken[snippets='http-request,request-fields,http-response,response-fields']
+
+[[Auth-엑세스토큰-재발급-에러-잘못된-리프래쉬토큰]]
+=== Auth 엑세스토큰 재발급 에러 (잘못된 리프래쉬토큰)
+operation::auth/generateRenewalAccessToken/failByinvalidTokenError[snippets='http-request,request-fields,http-response']

@@ -5,6 +5,22 @@
 === User 회원가입
 operation::user/sign-up[snippets='http-request,request-headers,request-fields,http-response']
 
+[[User-회원가입-에러-잘못된-나이]]
+=== User 회원가입 에러 (잘못된 나이)
+operation::user/sign-up/failByInvalidAgeRangeError[snippets='http-request,request-headers,request-fields,http-response']
+
+[[User-회원가입-에러-잘못된-성별]]
+=== User 회원가입 에러 (잘못된 성별)
+operation::user/sign-up/failByInvalidGenderError[snippets='http-request,request-headers,request-fields,http-response']
+
 [[User-수정]]
 === User 수정
 operation::user/update[snippets='http-request,request-headers,request-fields,http-response']
+
+[[User-수정-에러-잘못된-나이]]
+=== User 수정 에러 (잘못된 나이)
+operation::user/update/failByInvalidAgeRangeError[snippets='http-request,request-headers,request-fields,http-response']
+
+[[User-수정-에러-잘못된-성별]]
+=== User 수정 에러 (잘못된 성별)
+operation::user/update/failByInvalidGenderError[snippets='http-request,request-headers,request-fields,http-response']
