@@ -1,7 +1,5 @@
 package com.rudkids.rudkids.interfaces.auth;
 
-import com.rudkids.rudkids.common.ResponseEntity;
-import com.rudkids.rudkids.domain.auth.application.AuthCommand;
 import com.rudkids.rudkids.domain.auth.application.AuthService;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
 import com.rudkids.rudkids.domain.auth.application.OAuthUri;
@@ -10,10 +8,11 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final OAuthUri oAuthUri;
@@ -26,11 +25,8 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestParam final String redirectUri
     ) {
-        AuthResponse.OAuthUri response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
-
-        return ResponseEntity.builder()
-                .data(response)
-                .build();
+        var response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{oauthProvider}/token")
@@ -38,23 +34,19 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestBody AuthRequest.Token tokenRequest
     ) {
-        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
-        AuthCommand.OAuthUser serviceRequestDto = authDtoMapper.of(oAuthUser);
-        AuthResponse.AccessAndRefreshToken response = authService.generateAccessAndRefreshToken(serviceRequestDto);
+        var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
+        var command = authDtoMapper.to(oAuthUser);
+        var response = authService.generateAccessAndRefreshToken(command);
 
-        return ResponseEntity.builder()
-                .data(response)
-                .build();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/renewal/access")
     public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
-        AuthCommand.RenewalAccessToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
-        AuthResponse.AccessToken response = authService.generateRenewalAccessToken(serviceRequestDto);
+        var command = authDtoMapper.to(tokenRenewalRequest);
+        var response = authService.generateRenewalAccessToken(command);
 
-        return ResponseEntity.builder()
-                .data(response)
-                .build();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/validate/token")

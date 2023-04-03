@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -21,8 +21,8 @@ public class UserController {
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody UserRequest.SignUp request
     ) {
-        UserCommand.Update serviceRequest = userDtoMapper.of(request);
-        userService.update(loginUser.id(), serviceRequest);
+        var command = userDtoMapper.to(request);
+        userService.update(loginUser.id(), command);
     }
 
     @PutMapping("/update")
@@ -30,7 +30,7 @@ public class UserController {
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody UserRequest.Update request
     ) {
-        UserCommand.Update serviceRequest = userDtoMapper.of(request);
-        userService.update(loginUser.id(), serviceRequest);
+        var command = userDtoMapper.to(request);
+        userService.update(loginUser.id(), command);
     }
 }
