@@ -19,20 +19,20 @@ public class ItemDtoMapper {
 
     public ItemResponse.Main to(ItemInfo.Main info) {
         return ItemResponse.Main.builder()
-            .name(info.getName())
-            .price(info.getPrice())
-            .itemStatus(info.getItemStatus())
+            .name(info.name())
+            .price(info.price())
+            .itemStatus(info.itemStatus())
             .build();
     }
 
     public ItemResponse.Detail to(ItemInfo.Detail info) {
         return ItemResponse.Detail.builder()
-            .name(info.getName())
-            .price(info.getPrice())
-            .bio(info.getBio())
-            .quantity(info.getQuantity())
-            .limitType(info.getLimitType())
-            .itemStatus(info.getItemStatus())
+            .name(info.name())
+            .price(info.price())
+            .bio(info.bio())
+            .quantity(info.quantity())
+            .limitType(info.limitType())
+            .itemStatus(info.itemStatus())
             .build();
     }
 }
