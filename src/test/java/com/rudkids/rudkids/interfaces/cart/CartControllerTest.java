@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.CART_DEFAULT_URL;
 import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.CART_아이템_추가_요청;
 import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +31,7 @@ class CartControllerTest extends ControllerTest {
                 .given(cartService)
                 .addCartItem(any(), any());
 
-        mockMvc.perform(post("/api/v1/cart")
+        mockMvc.perform(post(CART_DEFAULT_URL)
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)

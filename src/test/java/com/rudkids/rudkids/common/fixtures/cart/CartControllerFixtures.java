@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public class CartControllerFixtures {
 
+    public static final String CART_DEFAULT_URL = "/api/v1/cart";
     public static final UUID 아이템_ID = UUID.randomUUID();
     public static final int 아이템_수량 = 2;
 
