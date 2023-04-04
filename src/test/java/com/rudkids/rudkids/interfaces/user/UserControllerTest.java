@@ -32,7 +32,7 @@ class UserControllerTest extends ControllerTest {
                 .given(userService)
                 .update(any(), any());
 
-        mockMvc.perform(post("/api/user/sign-up")
+        mockMvc.perform(post("/api/v1/user/sign-up")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ class UserControllerTest extends ControllerTest {
                 .when(userService)
                 .update(any(), any());
 
-        mockMvc.perform(post("/api/user/sign-up")
+        mockMvc.perform(post("/api/v1/user/sign-up")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ class UserControllerTest extends ControllerTest {
                 .when(userService)
                 .update(any(), any());
 
-        mockMvc.perform(post("/api/user/sign-up")
+        mockMvc.perform(post("/api/v1/user/sign-up")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -131,7 +131,7 @@ class UserControllerTest extends ControllerTest {
                 .given(userService)
                 .update(any(), any());
 
-        mockMvc.perform(put("/api/user/update")
+        mockMvc.perform(put("/api/v1/user/update")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -164,7 +164,7 @@ class UserControllerTest extends ControllerTest {
                 .when(userService)
                 .update(any(), any());
 
-        mockMvc.perform(put("/api/user/update")
+        mockMvc.perform(put("/api/v1/user/update")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -197,7 +197,7 @@ class UserControllerTest extends ControllerTest {
                 .when(userService)
                 .update(any(), any());
 
-        mockMvc.perform(put("/api/user/update")
+        mockMvc.perform(put("/api/v1/user/update")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)

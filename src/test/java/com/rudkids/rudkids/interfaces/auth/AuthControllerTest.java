@@ -28,7 +28,8 @@ class AuthControllerTest extends ControllerTest {
     void 로그인창_링크를_생성하고_반환한다() throws Exception {
         given(oAuthUri.generate(any())).willReturn(OAuth_로그인_링크);
 
-        mockMvc.perform(get("/api/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
+        mockMvc.perform(get(
+                "/api/v1/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",
                         GOOGLE_PROVIDER,
                         REDIRECT_URI))
                 .andDo(print())
@@ -44,7 +45,7 @@ class AuthControllerTest extends ControllerTest {
                                         .description("OAuth Redirect URI")
                         ),
                         responseFields(
-                                fieldWithPath("data.oAuthUri")
+                                fieldWithPath("oAuthUri")
                                         .type(JsonFieldType.STRING)
                                         .description("OAuth 소셜 로그인 링크")
                         )
@@ -58,7 +59,7 @@ class AuthControllerTest extends ControllerTest {
         given(authService.generateAccessAndRefreshToken(any()))
                 .willReturn(USER_토큰_응답());
 
-        mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+        mockMvc.perform(post("/api/v1/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_토큰_요청())))
@@ -80,11 +81,11 @@ class AuthControllerTest extends ControllerTest {
                                         .description("OAuth Redirect URI")
                         ),
                         responseFields(
-                                fieldWithPath("data.accessToken")
+                                fieldWithPath("accessToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 Access Token"),
 
-                                fieldWithPath("data.refreshToken")
+                                fieldWithPath("refreshToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 Refresh Token")
                         )
@@ -99,7 +100,7 @@ class AuthControllerTest extends ControllerTest {
                 .when(authService)
                 .generateAccessAndRefreshToken(any());
 
-        mockMvc.perform(post("/api/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
+        mockMvc.perform(post("/api/v1/auth/{oauthProvider}/token", GOOGLE_PROVIDER)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_토큰_요청())))
@@ -130,7 +131,7 @@ class AuthControllerTest extends ControllerTest {
         given(authService.generateRenewalAccessToken(any()))
                 .willReturn(엑세스_토큰_재발급_응답());
 
-        mockMvc.perform(post("/api/auth/renewal/access")
+        mockMvc.perform(post("/api/v1/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
@@ -144,7 +145,7 @@ class AuthControllerTest extends ControllerTest {
                                         .description("리프래쉬 토큰")
                         ),
                         responseFields(
-                                fieldWithPath("data.accessToken")
+                                fieldWithPath("accessToken")
                                         .type(JsonFieldType.STRING)
                                         .description("루키즈 새로운 Access Token")
                         )
@@ -159,7 +160,7 @@ class AuthControllerTest extends ControllerTest {
                 .when(authService)
                 .generateRenewalAccessToken(any());
 
-        mockMvc.perform(post("/api/auth/renewal/access")
+        mockMvc.perform(post("/api/v1/auth/renewal/access")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
