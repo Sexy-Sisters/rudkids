@@ -10,3 +10,7 @@ include::user.adoc[]
 
 include::auth.adoc[]
 
+include::cart.adoc[]
+
+
+

@@ -4,11 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.auth.application.AuthService;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
 import com.rudkids.rudkids.domain.auth.application.OAuthUri;
+import com.rudkids.rudkids.domain.cart.application.CartService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.domain.user.application.UserService;
 import com.rudkids.rudkids.interfaces.auth.AuthController;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
+import com.rudkids.rudkids.interfaces.cart.CartController;
+import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;
 import com.rudkids.rudkids.interfaces.item.ItemController;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
@@ -28,7 +31,8 @@ import org.springframework.test.web.servlet.MockMvc;
     UserController.class,
     AuthController.class,
     ProductController.class,
-    ItemController.class
+    ItemController.class,
+    CartController.class
 })
 public abstract class ControllerTest {
 
@@ -50,6 +54,9 @@ public abstract class ControllerTest {
     @MockBean
     protected ItemService itemService;
 
+    @MockBean
+    protected CartService cartService;
+
 
     // dto mapper
 
@@ -64,6 +71,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ItemDtoMapper itemDtoMapper;
+
+    @MockBean
+    protected CartDtoMapper cartDtoMapper;
 
 
     // etc
