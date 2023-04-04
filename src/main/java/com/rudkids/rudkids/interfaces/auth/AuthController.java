@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.interfaces.auth;
 
-import com.rudkids.rudkids.domain.auth.application.AuthCommand;
 import com.rudkids.rudkids.domain.auth.application.AuthService;
 import com.rudkids.rudkids.domain.auth.application.OAuthClient;
 import com.rudkids.rudkids.domain.auth.application.OAuthUri;
@@ -26,7 +25,7 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestParam final String redirectUri
     ) {
-        AuthResponse.OAuthUri response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
+        var response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
         return ResponseEntity.ok(response);
     }
 
@@ -35,16 +34,16 @@ public class AuthController {
             @PathVariable final String oauthProvider,
             @RequestBody AuthRequest.Token tokenRequest
     ) {
-        AuthUser.OAuth oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
-        AuthCommand.OAuthUser serviceRequestDto = authDtoMapper.of(oAuthUser);
-        AuthResponse.AccessAndRefreshToken response = authService.generateAccessAndRefreshToken(serviceRequestDto);
+        var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
+        var command = authDtoMapper.of(oAuthUser);
+        var response = authService.generateAccessAndRefreshToken(command);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/renewal/access")
-    public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
-        AuthCommand.RenewalAccessToken serviceRequestDto = authDtoMapper.of(tokenRenewalRequest);
-        AuthResponse.AccessToken response = authService.generateRenewalAccessToken(serviceRequestDto);
+    public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken request) {
+        var command = authDtoMapper.of(request);
+        var response = authService.generateRenewalAccessToken(command);
         return ResponseEntity.ok(response);
     }
 
