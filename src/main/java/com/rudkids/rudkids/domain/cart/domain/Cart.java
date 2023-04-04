@@ -42,4 +42,12 @@ public class Cart {
     public void addCartItemCount(int amount) {
         cartItemCount += amount;
     }
+
+    public int getCartItemCount() {
+        return cartItemCount;
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
 }

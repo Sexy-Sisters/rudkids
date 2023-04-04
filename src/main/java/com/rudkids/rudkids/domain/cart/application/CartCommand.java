@@ -7,6 +7,6 @@ import java.util.UUID;
 public class CartCommand {
 
     @Builder
-    public record AddCartItem(UUID cartId, int amount) {
+    public record AddCartItem(UUID itemId, int amount) {
     }
 }

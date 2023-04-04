@@ -27,12 +27,11 @@ public class CartServiceImpl implements CartService {
     public void addCartItem(UUID id, CartCommand.AddCartItem command) {
         var findUser = userReader.getUser(id);
         var findCart = findCart(findUser);
-        var findItem = itemReader.getItem(command.cartId());
+        var findItem = itemReader.getItem(command.itemId());
 
         var cartItem = findCartItem(findCart, findItem);
         cartItem.addAmount(command.amount());
 
-        findCart.addCartItem(cartItem);
         findCart.addCartItemCount(command.amount());
     }
 
@@ -56,6 +55,8 @@ public class CartServiceImpl implements CartService {
                 .cart(cart)
                 .item(item)
                 .build();
+
+        cart.addCartItem(cartItem);
         return cartItemRepository.save(cartItem);
     }
 }

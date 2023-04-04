@@ -8,7 +8,7 @@ public class CartDtoMapper {
 
     public CartCommand.AddCartItem to(CartRequest.AddCartItem request) {
         return CartCommand.AddCartItem.builder()
-                .cartId(request.itemId())
+                .itemId(request.itemId())
                 .amount(request.amount())
                 .build();
     }
