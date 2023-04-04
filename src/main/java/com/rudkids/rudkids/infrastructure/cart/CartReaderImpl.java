@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.infrastructure.cart;
 
 import com.rudkids.rudkids.domain.cart.application.CartReader;
+import com.rudkids.rudkids.domain.cart.application.CartStore;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.repository.CartRepository;
 import com.rudkids.rudkids.domain.user.domain.User;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CartReaderImpl implements CartReader {
     private final CartRepository cartRepository;
+    private final CartStore cartStore;
 
     @Override
     public Cart getCart(User user) {
@@ -20,6 +22,6 @@ public class CartReaderImpl implements CartReader {
 
     private Cart createCart(User user) {
         var cart = Cart.create(user);
-        return cartRepository.save(cart);
+        return cartStore.store(cart);
     }
 }
