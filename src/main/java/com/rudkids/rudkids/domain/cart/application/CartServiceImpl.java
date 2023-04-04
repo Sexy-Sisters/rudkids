@@ -2,8 +2,6 @@ package com.rudkids.rudkids.domain.cart.application;
 
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.domain.CartItem;
-import com.rudkids.rudkids.domain.cart.repository.CartItemRepository;
-import com.rudkids.rudkids.domain.cart.repository.CartRepository;
 import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.user.application.UserReader;
@@ -20,8 +18,10 @@ import java.util.UUID;
 public class CartServiceImpl implements CartService {
     private final UserReader userReader;
     private final ItemReader itemReader;
-    private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
+    private final CartReader cartReader;
+    private final CartItemReader cartItemReader;
+    private final CartItemStore cartItemStore;
+    private final CartStore cartStore;
 
     @Override
     public void addCartItem(UUID id, CartCommand.AddCartItem command) {
@@ -36,17 +36,17 @@ public class CartServiceImpl implements CartService {
     }
 
     private Cart findCart(User user) {
-        return cartRepository.findByUserId(user.getId())
+        return cartReader.getCart(user.getId())
                 .orElseGet(() -> createCart(user));
     }
 
     private Cart createCart(User user) {
         var cart = Cart.create(user);
-        return cartRepository.save(cart);
+        return cartStore.store(cart);
     }
 
     private CartItem findCartItem(Cart cart, Item item) {
-        return cartItemRepository.findByCartAndItem(cart, item)
+        return cartItemReader.getCartItem(cart, item)
                 .orElseGet(() -> createCartItem(cart, item));
     }
 
@@ -57,6 +57,6 @@ public class CartServiceImpl implements CartService {
                 .build();
 
         cart.addCartItem(cartItem);
-        return cartItemRepository.save(cartItem);
+        return cartItemStore.store(cartItem);
     }
 }
