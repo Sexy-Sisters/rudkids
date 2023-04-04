@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.auth.application;
 
-import com.rudkids.rudkids.domain.auth.domain.AuthToken;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
@@ -22,8 +21,8 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser) {
-        User foundUser = findUser(oAuthUser);
-        AuthToken authToken = tokenCreator.createAuthToken(foundUser.getId());
+        var foundUser = findUser(oAuthUser);
+        var authToken = tokenCreator.createAuthToken(foundUser.getId());
         return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken());
     }
 
@@ -33,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private User saveUser(AuthCommand.OAuthUser oAuthUser) {
-        User user = User.builder()
+        var user = User.builder()
                 .email(oAuthUser.email())
                 .name(oAuthUser.name())
                 .age(null)
@@ -46,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalAccessToken request) {
         String refreshToken = request.refreshToken();
-        AuthToken authToken = tokenCreator.renewAuthToken(refreshToken);
+        var authToken = tokenCreator.renewAuthToken(refreshToken);
         return new AuthResponse.AccessToken(authToken.getAccessToken());
     }
 

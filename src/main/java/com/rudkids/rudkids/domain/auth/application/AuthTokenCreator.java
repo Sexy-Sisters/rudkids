@@ -34,7 +34,7 @@ public class AuthTokenCreator implements TokenCreator {
         UUID userId = UUID.fromString(tokenProvider.getPayload(refreshToken));
 
         String accessTokenForRenew = tokenProvider.createAccessToken(String.valueOf(userId));
-        AuthToken renewalAuthToken = new AuthToken(accessTokenForRenew, refreshToken);
+        var renewalAuthToken = new AuthToken(accessTokenForRenew, refreshToken);
         renewalAuthToken.validateHasSameRefreshToken(refreshToken);
         return renewalAuthToken;
     }
