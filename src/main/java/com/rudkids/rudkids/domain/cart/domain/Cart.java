@@ -19,7 +19,7 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private int count;
+    private int cartItemCount;
 
     @OneToMany(mappedBy = "cart")
     private final List<CartItem> cartItems = new ArrayList<>();
@@ -27,12 +27,19 @@ public class Cart {
     protected Cart() {
     }
 
-    public Cart(User user, int count) {
+    private Cart(User user) {
         this.user = user;
-        this.count = count;
+    }
+
+    public static Cart create(User user) {
+        return new Cart(user);
     }
 
     public void addCartItem(CartItem cartItem) {
         cartItems.add(cartItem);
+    }
+
+    public void addCartItemCount(int amount) {
+        cartItemCount += amount;
     }
 }
