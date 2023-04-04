@@ -22,8 +22,8 @@ public class CartServiceImpl implements CartService {
         var user = userReader.getUser(id);
         var cart = cartReader.getCart(user);
         var item = itemReader.getItem(command.itemId());
-
         var cartItem = cartItemReader.getCartItem(cart, item);
+
         int cartItemAmount = command.amount();
         cartItem.addAmount(cartItemAmount);
         cart.addCartItemCount(cartItemAmount);
