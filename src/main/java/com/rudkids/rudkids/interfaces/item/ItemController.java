@@ -38,4 +38,14 @@ public class ItemController {
         var response = itemDtoMapper.to(info);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}/open")
+    public void openItem(@PathVariable UUID id) {
+        itemService.openItem(id);
+    }
+
+    @DeleteMapping("/{id}/close")
+    public void closeItem(@PathVariable UUID id) {
+        itemService.closeItem(id);
+    }
 }

@@ -20,6 +20,8 @@ public class ItemControllerFixture {
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
     public static final ItemStatus 아이템_상태 = ItemStatus.IN_STOCK;
+    public static final String 아이템_상태_판매중 = ItemStatus.IN_STOCK.name();
+    public static final String 아이템_상태_솔드아웃 = ItemStatus.SOLD_OUT.name();
 
     public static ItemCommand.RegisterRequest ITEM_등록_요청() {
         return ItemCommand.RegisterRequest.builder()
