@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final OAuthUri oAuthUri;
@@ -22,8 +22,8 @@ public class AuthController {
 
     @GetMapping("/{oauthProvider}/oauth-uri")
     public ResponseEntity generateLink(
-            @PathVariable final String oauthProvider,
-            @RequestParam final String redirectUri
+        @PathVariable final String oauthProvider,
+        @RequestParam final String redirectUri
     ) {
         var response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
         return ResponseEntity.ok(response);
@@ -31,18 +31,18 @@ public class AuthController {
 
     @PostMapping("/{oauthProvider}/token")
     public ResponseEntity generateAccessAndRefreshToken(
-            @PathVariable final String oauthProvider,
-            @RequestBody AuthRequest.Token request
+        @PathVariable final String oauthProvider,
+        @RequestBody AuthRequest.Token tokenRequest
     ) {
-        var oAuthUser = oAuthClient.getOAuthUser(request.authorizationCode(), request.redirectUri());
-        var command = authDtoMapper.of(oAuthUser);
+        var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
+        var command = authDtoMapper.to(oAuthUser);
         var response = authService.generateAccessAndRefreshToken(command);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/renewal/access")
-    public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken request) {
-        var command = authDtoMapper.of(request);
+    public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
+        var command = authDtoMapper.to(tokenRenewalRequest);
         var response = authService.generateRenewalAccessToken(command);
         return ResponseEntity.ok(response);
     }
