@@ -32,9 +32,9 @@ public class AuthController {
     @PostMapping("/{oauthProvider}/token")
     public ResponseEntity generateAccessAndRefreshToken(
             @PathVariable final String oauthProvider,
-            @RequestBody AuthRequest.Token tokenRequest
+            @RequestBody AuthRequest.Token request
     ) {
-        var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
+        var oAuthUser = oAuthClient.getOAuthUser(request.authorizationCode(), request.redirectUri());
         var command = authDtoMapper.of(oAuthUser);
         var response = authService.generateAccessAndRefreshToken(command);
         return ResponseEntity.ok(response);
