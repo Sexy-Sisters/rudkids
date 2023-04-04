@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
     }
 
     private Cart findCart(User user) {
-        return cartReader.getCart(user.getId())
+        return cartReader.findCart(user.getId())
                 .orElseGet(() -> createCart(user));
     }
 
@@ -46,7 +46,7 @@ public class CartServiceImpl implements CartService {
     }
 
     private CartItem findCartItem(Cart cart, Item item) {
-        return cartItemReader.getCartItem(cart, item)
+        return cartItemReader.findCartItem(cart, item)
                 .orElseGet(() -> createCartItem(cart, item));
     }
 

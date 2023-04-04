@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface CartItemReader {
 
-    Optional<CartItem> getCartItem(Cart cart, Item item);
+    Optional<CartItem> findCartItem(Cart cart, Item item);
 }

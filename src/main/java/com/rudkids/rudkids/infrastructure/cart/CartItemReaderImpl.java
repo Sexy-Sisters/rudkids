@@ -16,7 +16,7 @@ public class CartItemReaderImpl implements CartItemReader {
     private final CartItemRepository cartItemRepository;
 
     @Override
-    public Optional<CartItem> getCartItem(Cart cart, Item item) {
+    public Optional<CartItem> findCartItem(Cart cart, Item item) {
         return cartItemRepository.findByCartAndItem(cart, item);
     }
 }

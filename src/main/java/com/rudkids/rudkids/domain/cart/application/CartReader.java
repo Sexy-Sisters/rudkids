@@ -6,5 +6,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CartReader {
-    Optional<Cart> getCart(UUID userId);
+    Optional<Cart> findCart(UUID userId);
 }

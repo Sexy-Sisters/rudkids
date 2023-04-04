@@ -15,7 +15,7 @@ public class CartReaderImpl implements CartReader {
     private final CartRepository cartRepository;
 
     @Override
-    public Optional<Cart> getCart(UUID userId) {
+    public Optional<Cart> findCart(UUID userId) {
         return cartRepository.findByUserId(userId);
     }
 }
