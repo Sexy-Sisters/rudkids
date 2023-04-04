@@ -19,6 +19,7 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "cart_item_count")
     private int cartItemCount;
 
     @OneToMany(mappedBy = "cart")

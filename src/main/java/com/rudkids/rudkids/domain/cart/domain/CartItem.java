@@ -11,7 +11,7 @@ import java.util.UUID;
 @Table(name = "tbl_cart_item")
 public class CartItem {
     @Id
-    @Column(name = "tbl_cart_item_id", columnDefinition = "BINARY(16)")
+    @Column(name = "cart_item_id", columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,6 +22,7 @@ public class CartItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @Column(name = "amount")
     private int amount;
 
     protected CartItem() {
