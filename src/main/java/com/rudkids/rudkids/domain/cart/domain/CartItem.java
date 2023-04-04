@@ -3,7 +3,6 @@ package com.rudkids.rudkids.domain.cart.domain;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import jakarta.persistence.*;
-import lombok.Builder;
 
 import java.util.UUID;
 
@@ -28,11 +27,13 @@ public class CartItem {
     protected CartItem() {
     }
 
-    @Builder
-    public CartItem(Cart cart, Item item, int amount) {
+    private CartItem(Cart cart, Item item) {
         this.cart = cart;
         this.item = item;
-        this.amount = amount;
+    }
+
+    public static CartItem create(Cart cart, Item item) {
+        return new CartItem(cart, item);
     }
 
     public void addAmount(int amount) {

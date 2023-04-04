@@ -1,10 +1,8 @@
 package com.rudkids.rudkids.domain.cart.application;
 
 import com.rudkids.rudkids.domain.cart.domain.Cart;
-
-import java.util.Optional;
-import java.util.UUID;
+import com.rudkids.rudkids.domain.user.domain.User;
 
 public interface CartReader {
-    Optional<Cart> findCart(UUID userId);
+    Cart getCart(User user);
 }
