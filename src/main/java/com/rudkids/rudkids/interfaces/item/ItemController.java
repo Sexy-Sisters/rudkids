@@ -31,4 +31,11 @@ public class ItemController {
             .toList();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/detail")
+    public ResponseEntity findItem(@PathVariable UUID id) {
+        var info = itemService.findItemDetail(id);
+        var response = itemDtoMapper.to(info);
+        return ResponseEntity.ok(response);
+    }
 }

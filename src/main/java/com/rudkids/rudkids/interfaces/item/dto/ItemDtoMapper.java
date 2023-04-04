@@ -24,4 +24,15 @@ public class ItemDtoMapper {
             .itemStatus(info.getItemStatus())
             .build();
     }
+
+    public ItemResponse.Detail to(ItemInfo.Detail info) {
+        return ItemResponse.Detail.builder()
+            .name(info.getName())
+            .price(info.getPrice())
+            .bio(info.getBio())
+            .quantity(info.getQuantity())
+            .limitType(info.getLimitType())
+            .itemStatus(info.getItemStatus())
+            .build();
+    }
 }
