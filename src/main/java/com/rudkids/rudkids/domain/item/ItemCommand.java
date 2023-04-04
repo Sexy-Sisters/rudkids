@@ -8,13 +8,12 @@ import java.util.UUID;
 
 public class ItemCommand {
 
-    @Getter
     @Builder
-    public static class RegisterRequest {
-        private UUID productId;
-        private String name;
-        private int price;
-        private int quantity;
-        private LimitType limitType;
-    }
+    public record RegisterRequest(
+        UUID productId,
+        String name,
+        int price,
+        int quantity,
+        LimitType limitType
+    ) {}
 }

@@ -25,18 +25,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void registerItem(ItemCommand.RegisterRequest command) {
-        var name = Name.create(command.getName());
-        var price = Price.create(command.getPrice());
-        var quantity = Quantity.create(command.getQuantity());
+        var name = Name.create(command.name());
+        var price = Price.create(command.price());
+        var quantity = Quantity.create(command.quantity());
 
         var initItem = Item.builder()
             .name(name)
             .price(price)
             .quantity(quantity)
-            .limitType(command.getLimitType())
+            .limitType(command.limitType())
             .build();
 
-        var product = productReader.getProduct(command.getProductId());
+        var product = productReader.getProduct(command.productId());
         initItem.changeProduct(product);
 
         itemStore.store(initItem);
