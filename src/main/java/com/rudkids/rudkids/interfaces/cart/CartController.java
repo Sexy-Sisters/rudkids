@@ -17,12 +17,13 @@ public class CartController {
     private final CartDtoMapper cartDtoMapper;
 
     @PostMapping
-    public void addCartItem(
+    public ResponseEntity addCartItem(
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody CartRequest.AddCartItem request
     ) {
         var command = cartDtoMapper.to(request);
         cartService.addCartItem(loginUser.id(), command);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
