@@ -22,8 +22,8 @@ public class AuthController {
 
     @GetMapping("/{oauthProvider}/oauth-uri")
     public ResponseEntity generateLink(
-            @PathVariable final String oauthProvider,
-            @RequestParam final String redirectUri
+        @PathVariable final String oauthProvider,
+        @RequestParam final String redirectUri
     ) {
         var response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
         return ResponseEntity.ok(response);
@@ -31,13 +31,12 @@ public class AuthController {
 
     @PostMapping("/{oauthProvider}/token")
     public ResponseEntity generateAccessAndRefreshToken(
-            @PathVariable final String oauthProvider,
-            @RequestBody AuthRequest.Token tokenRequest
+        @PathVariable final String oauthProvider,
+        @RequestBody AuthRequest.Token tokenRequest
     ) {
         var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
         var command = authDtoMapper.to(oAuthUser);
         var response = authService.generateAccessAndRefreshToken(command);
-
         return ResponseEntity.ok(response);
     }
 
@@ -45,7 +44,6 @@ public class AuthController {
     public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken tokenRenewalRequest) {
         var command = authDtoMapper.to(tokenRenewalRequest);
         var response = authService.generateRenewalAccessToken(command);
-
         return ResponseEntity.ok(response);
     }
 

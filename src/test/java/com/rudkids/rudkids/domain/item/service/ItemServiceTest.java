@@ -73,7 +73,7 @@ public class ItemServiceTest {
             .build();
         itemService.registerItem(command);
 
-        Item findItem = itemReader.getItem(command.getName());
+        Item findItem = itemReader.getItem(command.name());
         assertAll(
             () -> assertThat(findItem.getName()).isEqualTo("Red Pill"),
             () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
@@ -114,11 +114,11 @@ public class ItemServiceTest {
         ItemInfo.Detail findItem = itemService.findItemDetail(item.getId());
 
         assertAll(
-            () -> assertThat(findItem.getName()).isEqualTo("No.1"),
-            () -> assertThat(findItem.getBio()).isEqualTo("소개글입니다~"),
-            () -> assertThat(findItem.getPrice()).isEqualTo(2_990),
-            () -> assertThat(findItem.getQuantity()).isEqualTo(1_000),
-            () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED)
+            () -> assertThat(findItem.name()).isEqualTo("No.1"),
+            () -> assertThat(findItem.bio()).isEqualTo("소개글입니다~"),
+            () -> assertThat(findItem.price()).isEqualTo(2_990),
+            () -> assertThat(findItem.quantity()).isEqualTo(1_000),
+            () -> assertThat(findItem.limitType()).isEqualTo(LimitType.LIMITED)
         );
     }
 
