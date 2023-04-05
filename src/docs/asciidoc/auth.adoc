@@ -20,3 +20,7 @@ operation::auth/generateRenewalAccessToken[snippets='http-request,request-fields
 [[Auth-엑세스토큰-재발급-에러-잘못된-리프래쉬토큰]]
 === Auth 엑세스토큰 재발급 에러 (잘못된 리프래쉬토큰)
 operation::auth/generateRenewalAccessToken/failByinvalidTokenError[snippets='http-request,request-fields,http-response']
+
+[[Auth-엑세스토큰-재발급-에러-만료된-리프래쉬토큰]]
+=== Auth 엑세스토큰 재발급 에러 (만료된 리프래쉬토큰)
+operation::auth/generateRenewalAccessToken/failByExpireTokenError[snippets='http-request,request-fields,http-response']
