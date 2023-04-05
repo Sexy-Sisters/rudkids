@@ -1,10 +1,10 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
-import com.rudkids.rudkids.domain.item.domain.item.Item;
-import com.rudkids.rudkids.domain.item.domain.item.Name;
-import com.rudkids.rudkids.domain.item.domain.item.Price;
-import com.rudkids.rudkids.domain.item.domain.item.Quantity;
+import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.Name;
+import com.rudkids.rudkids.domain.item.domain.Price;
+import com.rudkids.rudkids.domain.item.domain.Quantity;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,20 +25,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void registerItem(ItemCommand.RegisterRequest command) {
-        var name = Name.create(command.name());
-        var price = Price.create(command.price());
-        var quantity = Quantity.create(command.quantity());
-
-        var initItem = Item.builder()
-            .name(name)
-            .price(price)
-            .quantity(quantity)
-            .limitType(command.limitType())
-            .build();
-
+        var initItem = itemMapper.toEntity(command);
         var product = productReader.getProduct(command.productId());
         initItem.changeProduct(product);
-
         itemStore.store(initItem);
     }
 
