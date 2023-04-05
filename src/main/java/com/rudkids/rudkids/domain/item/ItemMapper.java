@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.item.Item;
 import org.springframework.stereotype.Component;
 
 @Component

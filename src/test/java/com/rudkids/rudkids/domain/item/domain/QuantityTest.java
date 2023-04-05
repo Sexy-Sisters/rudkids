@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.item.domain;
 
+import com.rudkids.rudkids.domain.item.domain.item.Quantity;
 import com.rudkids.rudkids.domain.item.exception.InvalidItemQuantityException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

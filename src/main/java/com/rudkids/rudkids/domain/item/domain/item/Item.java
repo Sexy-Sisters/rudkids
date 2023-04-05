@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.domain;
+package com.rudkids.rudkids.domain.item.domain.item;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
@@ -32,7 +32,7 @@ public class Item extends AbstractEntity {
     private LimitType limitType;
 
     @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus = ItemStatus.IN_STOCK;
+    private ItemStatus itemStatus = ItemStatus.ON_SALES;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -50,13 +50,18 @@ public class Item extends AbstractEntity {
         this.limitType = limitType;
     }
 
-    public void changeSoldOut() {
-        this.itemStatus = ItemStatus.SOLD_OUT;
+    public void changePrepare() {
+        this.itemStatus = ItemStatus.PREPARE;
     }
 
-    public void changeInStock() {
-        this.itemStatus = ItemStatus.IN_STOCK;
+    public void changeOnSales() {
+        this.itemStatus = ItemStatus.ON_SALES;
     }
+
+    public void changeEndOfSales() {
+        this.itemStatus = ItemStatus.END_OF_SALES;
+    }
+
 
     public void changeProduct(Product product) {
         this.product = product;

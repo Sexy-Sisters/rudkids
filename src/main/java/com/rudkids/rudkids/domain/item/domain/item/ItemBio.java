@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.domain;
+package com.rudkids.rudkids.domain.item.domain.item;
 
 import com.rudkids.rudkids.domain.product.exception.InvalidBioException;
 import jakarta.persistence.Column;

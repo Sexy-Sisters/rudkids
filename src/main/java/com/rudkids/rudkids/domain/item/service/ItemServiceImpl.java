@@ -1,10 +1,10 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
-import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.Name;
-import com.rudkids.rudkids.domain.item.domain.Price;
-import com.rudkids.rudkids.domain.item.domain.Quantity;
+import com.rudkids.rudkids.domain.item.domain.item.Item;
+import com.rudkids.rudkids.domain.item.domain.item.Name;
+import com.rudkids.rudkids.domain.item.domain.item.Price;
+import com.rudkids.rudkids.domain.item.domain.item.Quantity;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -59,14 +59,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public String openItem(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeInStock();
+        item.changeOnSales();
         return item.getItemStatus().name();
     }
 
     @Override
     public String closeItem(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeSoldOut();
+        item.changeEndOfSales();
         return item.getItemStatus().name();
     }
 }

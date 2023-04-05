@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.item.dto;
 
-import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.item.LimitType;
 import lombok.Builder;
 
 import java.util.UUID;

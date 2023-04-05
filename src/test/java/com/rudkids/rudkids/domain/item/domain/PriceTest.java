@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.item.domain;
 
+import com.rudkids.rudkids.domain.item.domain.item.Price;
 import com.rudkids.rudkids.domain.item.exception.InvalidItemPriceException;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;

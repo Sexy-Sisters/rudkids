@@ -3,8 +3,8 @@ package com.rudkids.rudkids.common.fixtures.item;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
-import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.item.ItemStatus;
+import com.rudkids.rudkids.domain.item.domain.item.LimitType;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,9 +19,9 @@ public class ItemControllerFixture {
     public static final int 아이템_가격 = 10_000;
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
-    public static final ItemStatus 아이템_상태 = ItemStatus.IN_STOCK;
-    public static final String 아이템_상태_판매중 = ItemStatus.IN_STOCK.name();
-    public static final String 아이템_상태_솔드아웃 = ItemStatus.SOLD_OUT.name();
+    public static final ItemStatus 아이템_상태 = ItemStatus.ON_SALES;
+    public static final String 아이템_상태_판매중 = ItemStatus.ON_SALES.name();
+    public static final String 아이템_상태_솔드아웃 = ItemStatus.END_OF_SALES.name();
 
     public static ItemCommand.RegisterRequest ITEM_등록_요청() {
         return ItemCommand.RegisterRequest.builder()

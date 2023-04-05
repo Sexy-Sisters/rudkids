@@ -4,10 +4,7 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.ItemStore;
-import com.rudkids.rudkids.domain.item.domain.*;
-import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.item.*;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
@@ -79,7 +76,7 @@ public class ItemServiceTest {
             () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
-            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.IN_STOCK)
+            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES)
         );
     }
 
@@ -126,13 +123,13 @@ public class ItemServiceTest {
     @Test
     void openItem() {
         String itemStatus = itemService.openItem(item.getId());
-        assertThat(itemStatus).isEqualTo("IN_STOCK");
+        assertThat(itemStatus).isEqualTo("ON_SALES");
     }
 
     @DisplayName("아이템 판매 종료")
     @Test
     void closeItem() {
         String itemStatus = itemService.closeItem(item.getId());
-        assertThat(itemStatus).isEqualTo("SOLD_OUT");
+        assertThat(itemStatus).isEqualTo("END_OF_SALES");
     }
 }

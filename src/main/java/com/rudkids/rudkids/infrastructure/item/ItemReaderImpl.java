@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.infrastructure.item;
 
 import com.rudkids.rudkids.domain.item.ItemReader;
-import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.item.Item;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,7 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.item.LimitType;
 import lombok.Builder;
-import lombok.Getter;
 
 import java.util.UUID;
 
