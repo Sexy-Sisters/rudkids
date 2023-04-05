@@ -18,7 +18,7 @@ public class ItemController {
     private final ItemDtoMapper itemDtoMapper;
 
     @PostMapping
-    public void registerItem(@RequestBody ItemRequest.Register request) {
+    public void registerItem(@RequestBody ItemRequest.RegisterItem request) {
         var command = itemDtoMapper.to(request);
         itemService.registerItem(command);
     }

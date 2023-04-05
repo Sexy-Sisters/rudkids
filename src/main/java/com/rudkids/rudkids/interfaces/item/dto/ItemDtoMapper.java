@@ -4,16 +4,44 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ItemDtoMapper {
 
-    public ItemCommand.RegisterRequest to(ItemRequest.Register request) {
-        return ItemCommand.RegisterRequest.builder()
+    public ItemCommand.RegisterItemRequest to(ItemRequest.RegisterItem request) {
+        var itemOptionGroupRequestList = request.itemOptionGroupList().stream()
+            .map(this::to)
+            .toList();
+
+        return ItemCommand.RegisterItemRequest.builder()
             .productId(request.productId())
             .name(request.name())
             .price(request.price())
             .quantity(request.quantity())
             .limitType(request.limitType())
+            .itemOptionGroupList(itemOptionGroupRequestList)
+            .build();
+    }
+
+    public ItemCommand.RegisterItemOptionGroupRequest to(ItemRequest.RegisterItemOptionGroup request) {
+        var itemOptionList = request.itemOptionList().stream()
+            .map(this::to)
+            .toList();
+
+
+        return ItemCommand.RegisterItemOptionGroupRequest.builder()
+            .ordering(request.ordering())
+            .itemOptionGroupName(request.itemOptionGroupName())
+            .itemOptionList(itemOptionList)
+            .build();
+    }
+
+    public ItemCommand.RegisterItemOptionRequest to(ItemRequest.RegisterItemOption request) {
+        return ItemCommand.RegisterItemOptionRequest.builder()
+            .ordering(request.ordering())
+            .itemOptionName(request.itemOptionName())
+            .itemOptionPrice(request.itemOptionPrice())
             .build();
     }
 
