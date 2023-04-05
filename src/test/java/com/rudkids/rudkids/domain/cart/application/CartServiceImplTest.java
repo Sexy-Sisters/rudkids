@@ -111,4 +111,39 @@ class CartServiceImplTest extends CartServiceFixtures {
             assertThat(findCart.getCartItems()).hasSize(1);
         });
     }
+
+    @DisplayName("장바구니에 담겨있는 아이템 리스트를 조회한다.")
+    @Test
+    void 장바구니에_담겨있는_아이템_리스트를_조회한다() {
+        //given
+        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .amount(2)
+                .build();
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        Item newItem = Item.builder()
+                .name(Name.create("No.2"))
+                .price(Price.create(1_000))
+                .quantity(Quantity.create(3_000))
+                .itemBio(ItemBio.create("옷 팝니다!"))
+                .limitType(LimitType.LIMITED)
+                .build();
+        itemRepository.save(newItem);
+
+        CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(newItem.getId())
+                .amount(4)
+                .build();
+        cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
+
+        //when
+        CartInfo.Main actual = cartService.findCartItems(user.getId());
+
+        //then
+        assertAll(() -> {
+            assertThat(actual.totalCartItemPrice()).isEqualTo(9980);
+            assertThat(actual.cartItems()).hasSize(2);
+        });
+    }
 }

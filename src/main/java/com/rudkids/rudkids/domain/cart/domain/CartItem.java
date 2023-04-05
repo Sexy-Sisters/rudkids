@@ -28,17 +28,14 @@ public class CartItem {
     protected CartItem() {
     }
 
-    private CartItem(Cart cart, Item item) {
+    private CartItem(Cart cart, Item item, int amount) {
         this.cart = cart;
         this.item = item;
+        this.amount = amount;
     }
 
-    public static CartItem create(Cart cart, Item item) {
-        return new CartItem(cart, item);
-    }
-
-    public void addAmount(int amount) {
-        this.amount += amount;
+    public static CartItem create(Cart cart, Item item, int amount) {
+        return new CartItem(cart, item, amount);
     }
 
     public String getName() {
@@ -51,6 +48,10 @@ public class CartItem {
 
     public ItemStatus getItemStatus() {
         return item.getItemStatus();
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public int getCartItemPrice() {

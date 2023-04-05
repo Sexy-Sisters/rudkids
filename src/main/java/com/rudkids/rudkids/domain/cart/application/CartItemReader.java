@@ -6,5 +6,5 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 
 public interface CartItemReader {
 
-    CartItem getCartItem(Cart cart, Item item);
+    CartItem getCartItem(Cart cart, Item item, int amount);
 }
