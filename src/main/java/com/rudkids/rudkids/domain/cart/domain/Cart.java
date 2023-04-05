@@ -51,4 +51,10 @@ public class Cart {
     public List<CartItem> getCartItems() {
         return cartItems;
     }
+
+    public int getTotalCartItemPrice() {
+        return cartItems.stream()
+                .mapToInt(CartItem::getCartItemPrice)
+                .sum();
+    }
 }

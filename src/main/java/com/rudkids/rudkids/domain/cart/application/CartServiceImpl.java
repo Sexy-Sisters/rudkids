@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -16,10 +17,11 @@ public class CartServiceImpl implements CartService {
     private final ItemReader itemReader;
     private final CartReader cartReader;
     private final CartItemReader cartItemReader;
+    private final CartItemMapper cartItemMapper;
 
     @Override
-    public void addCartItem(UUID id, CartCommand.AddCartItem command) {
-        var user = userReader.getUser(id);
+    public void addCartItem(UUID userId, CartCommand.AddCartItem command) {
+        var user = userReader.getUser(userId);
         var cart = cartReader.getCart(user);
         var item = itemReader.getItem(command.itemId());
         var cartItem = cartItemReader.getCartItem(cart, item);
@@ -27,5 +29,22 @@ public class CartServiceImpl implements CartService {
         int cartItemAmount = command.amount();
         cartItem.addAmount(cartItemAmount);
         cart.addCartItemCount(cartItemAmount);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public CartInfo.Main findCartItems(UUID userId) {
+        var user = userReader.getUser(userId);
+        var cart = cartReader.getCart(user);
+        int totalCartItemPrice = cart.getTotalCartItemPrice();
+
+        List<CartItemInfo.Main> cartItems = cart.getCartItems().stream()
+                .map(cartItemMapper::toMain)
+                .toList();
+
+        return CartInfo.Main.builder()
+                .totalCartItemPrice(totalCartItemPrice)
+                .cartItems(cartItems)
+                .build();
     }
 }

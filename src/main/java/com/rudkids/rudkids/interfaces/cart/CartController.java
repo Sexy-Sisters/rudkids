@@ -6,10 +6,8 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;
 import com.rudkids.rudkids.interfaces.cart.dto.CartRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -25,5 +23,11 @@ public class CartController {
     ) {
         var command = cartDtoMapper.to(request);
         cartService.addCartItem(loginUser.id(), command);
+    }
+
+    @GetMapping
+    public ResponseEntity findCartItems(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = cartService.findCartItems(loginUser.id());
+        return ResponseEntity.ok(response);
     }
 }

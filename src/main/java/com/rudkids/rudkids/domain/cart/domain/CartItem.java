@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.cart.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -38,5 +39,21 @@ public class CartItem {
 
     public void addAmount(int amount) {
         this.amount += amount;
+    }
+
+    public String getName() {
+        return item.getName();
+    }
+
+    public int getPrice() {
+        return item.getPrice();
+    }
+
+    public ItemStatus getItemStatus() {
+        return item.getItemStatus();
+    }
+
+    public int getCartItemPrice() {
+        return item.getPrice() * amount;
     }
 }
