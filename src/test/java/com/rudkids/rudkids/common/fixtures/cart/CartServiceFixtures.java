@@ -2,7 +2,6 @@ package com.rudkids.rudkids.common.fixtures.cart;
 
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.application.CartCommand;
-import com.rudkids.rudkids.domain.cart.application.CartItemReader;
 import com.rudkids.rudkids.domain.cart.application.CartReader;
 import com.rudkids.rudkids.domain.cart.application.CartService;
 import com.rudkids.rudkids.domain.cart.repository.CartItemRepository;
@@ -41,10 +40,7 @@ public class CartServiceFixtures {
     protected User user;
     protected Item item;
 
-    protected CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-            .itemId(item.getId())
-            .amount(2)
-            .build();
+    protected CartCommand.AddCartItem CART_아이템_요청;
 
     @BeforeEach
     void setUp() {
@@ -65,5 +61,11 @@ public class CartServiceFixtures {
                 .limitType(LimitType.LIMITED)
                 .build();
         itemRepository.save(item);
+
+        //저장된 itemId 넣음
+        CART_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .amount(2)
+                .build();
     }
 }
