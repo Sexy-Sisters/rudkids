@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.item.Item;
+import com.rudkids.rudkids.domain.item.domain.Item;
 
 public interface ItemStore {
-    void store(Item item);
+    Item store(Item item);
 }

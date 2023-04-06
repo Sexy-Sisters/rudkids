@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.infrastructure.item;
 
-import com.rudkids.rudkids.domain.item.domain.item.Item;
+import com.rudkids.rudkids.domain.item.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

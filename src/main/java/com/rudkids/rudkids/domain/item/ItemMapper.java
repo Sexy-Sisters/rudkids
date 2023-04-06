@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ItemMapper {
 
 
-    public Item toEntity(ItemCommand.RegisterRequest command) {
+    public Item toEntity(ItemCommand.RegisterItemRequest command) {
         var name = Name.create(command.name());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());

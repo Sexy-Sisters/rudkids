@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.domain.product.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.rudkids.rudkids.domain.item.domain.item.Item;
+import com.rudkids.rudkids.domain.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.PERSIST)
     private final List<Item> items = new ArrayList<>();
 
     protected Product() {

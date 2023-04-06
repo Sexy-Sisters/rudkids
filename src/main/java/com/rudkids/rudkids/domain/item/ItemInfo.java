@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.item.ItemStatus;
-import com.rudkids.rudkids.domain.item.domain.item.LimitType;
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
+import com.rudkids.rudkids.domain.item.domain.LimitType;
 import lombok.Builder;
 
 public class ItemInfo {

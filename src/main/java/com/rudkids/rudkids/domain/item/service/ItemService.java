@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ItemService {
-    void registerItem(ItemCommand.RegisterRequest command);
+    void registerItem(ItemCommand.RegisterItemRequest command);
     List<ItemInfo.Main> findItems(UUID productId);
     ItemInfo.Detail findItemDetail(UUID id);
     String openItem(UUID id);
