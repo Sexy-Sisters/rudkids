@@ -78,6 +78,10 @@ class CartControllerTest extends ControllerTest {
                                         .type(JsonFieldType.NUMBER)
                                         .description("장바구니아이템 총 가격"),
 
+                                fieldWithPath("cartItems.[].id")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니아이템 id"),
+
                                 fieldWithPath("cartItems.[].name")
                                         .type(JsonFieldType.STRING)
                                         .description("장바구니아이템 이름"),
