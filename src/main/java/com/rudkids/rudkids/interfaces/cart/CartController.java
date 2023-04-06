@@ -17,18 +17,26 @@ public class CartController {
     private final CartDtoMapper cartDtoMapper;
 
     @PostMapping
-    public ResponseEntity addCartItem(
+    public void addCartItem(
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody CartRequest.AddCartItem request
     ) {
         var command = cartDtoMapper.to(request);
         cartService.addCartItem(loginUser.id(), command);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity findCartItems(@AuthenticationPrincipal AuthUser.Login loginUser) {
         var response = cartService.findCartItems(loginUser.id());
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public void updateCartItemAmount(
+            @AuthenticationPrincipal AuthUser.Login loginUser,
+            @RequestBody CartRequest.UpdateCartItemAmount request
+    ) {
+        var command = cartDtoMapper.to(request);
+        cartService.updateCartItemAmount(loginUser.id(), command);
     }
 }

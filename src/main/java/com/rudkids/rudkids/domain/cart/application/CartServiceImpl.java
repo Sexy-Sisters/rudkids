@@ -45,4 +45,14 @@ public class CartServiceImpl implements CartService {
                 .cartItems(cartItems)
                 .build();
     }
+
+    @Override
+    public void updateCartItemAmount(UUID userId, CartCommand.UpdateCartItemAmount command) {
+        var user = userReader.getUser(userId);
+        var cart = cartReader.getCart(user);
+        cart.validateHasSameUser(user);
+
+        var cartItem = cartItemReader.getCartItem(command.cartItemId());
+        cartItem.updateAmount(command.amount());
+    }
 }

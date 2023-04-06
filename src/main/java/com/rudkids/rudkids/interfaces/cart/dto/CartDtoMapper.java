@@ -12,4 +12,11 @@ public class CartDtoMapper {
                 .amount(request.amount())
                 .build();
     }
+
+    public CartCommand.UpdateCartItemAmount to(CartRequest.UpdateCartItemAmount request) {
+        return CartCommand.UpdateCartItemAmount.builder()
+                .cartItemId(request.cartItemId())
+                .amount(request.amount())
+                .build();
+    }
 }

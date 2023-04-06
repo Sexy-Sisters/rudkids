@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.cart.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -50,6 +51,12 @@ public class Cart {
 
     public List<CartItem> getCartItems() {
         return cartItems;
+    }
+
+    public void validateHasSameUser(User user) {
+        if(!this.user.equals(user)) {
+            throw new DifferentUserException();
+        }
     }
 
     public int getTotalCartItemPrice() {

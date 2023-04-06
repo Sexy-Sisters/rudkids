@@ -9,4 +9,8 @@ public class CartCommand {
     @Builder
     public record AddCartItem(UUID itemId, int amount) {
     }
+
+    @Builder
+    public record UpdateCartItemAmount(UUID cartItemId, int amount) {
+    }
 }

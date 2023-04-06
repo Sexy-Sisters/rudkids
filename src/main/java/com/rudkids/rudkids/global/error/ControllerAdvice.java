@@ -1,10 +1,7 @@
 package com.rudkids.rudkids.global.error;
 
 import com.rudkids.rudkids.global.error.dto.ErrorResponse;
-import com.rudkids.rudkids.global.error.exception.BadRequestException;
-import com.rudkids.rudkids.global.error.exception.InternalException;
-import com.rudkids.rudkids.global.error.exception.NotFoundException;
-import com.rudkids.rudkids.global.error.exception.UnauthorizedException;
+import com.rudkids.rudkids.global.error.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +23,12 @@ public class ControllerAdvice {
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ErrorResponse> handleForbiddenException(ForbiddenException e) {
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
     @ExceptionHandler(UnauthorizedException.class)

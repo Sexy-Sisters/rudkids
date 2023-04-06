@@ -38,6 +38,10 @@ public class CartItem {
         return new CartItem(cart, item, amount);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public String getName() {
         return item.getName();
     }
@@ -56,5 +60,9 @@ public class CartItem {
 
     public int getCartItemPrice() {
         return item.getPrice() * amount;
+    }
+
+    public void updateAmount(int amount) {
+        this.amount = amount;
     }
 }

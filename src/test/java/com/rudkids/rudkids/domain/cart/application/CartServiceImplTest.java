@@ -2,6 +2,8 @@ package com.rudkids.rudkids.domain.cart.application;
 
 import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
+import com.rudkids.rudkids.domain.cart.domain.CartItem;
+import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.domain.*;
 import org.junit.jupiter.api.DisplayName;
@@ -21,10 +23,6 @@ class CartServiceImplTest extends CartServiceFixtures {
         List<Cart> carts = cartRepository.findAll();
 
         //when
-        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .amount(2)
-                .build();
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
@@ -37,15 +35,10 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니에_아이템을_추가한다() {
         //given, when
-        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .amount(2)
-                .build();
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart findCart = cartReader.getCart(user);
 
         assertAll(() -> {
             assertThat(findCart.getCartItemCount()).isEqualTo(2);
@@ -57,10 +50,6 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니에_새로운_아이템을_추가한다() {
         //given
-        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .amount(2)
-                .build();
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
@@ -80,8 +69,7 @@ class CartServiceImplTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart findCart = cartReader.getCart(user);
 
         assertAll(() -> {
             assertThat(findCart.getCartItemCount()).isEqualTo(6);
@@ -93,18 +81,13 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 이미_장바구니에_있는_아이템을_추가하면_장바구니아이템_수량만_증가한다() {
         //given
-        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .amount(2)
-                .build();
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart findCart = cartReader.getCart(user);
 
         assertAll(() -> {
             assertThat(findCart.getCartItemCount()).isEqualTo(4);
@@ -116,10 +99,6 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니에_담겨있는_아이템_리스트를_조회한다() {
         //given
-        CartCommand.AddCartItem CART_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .amount(2)
-                .build();
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Item newItem = Item.builder()
@@ -145,5 +124,26 @@ class CartServiceImplTest extends CartServiceFixtures {
             assertThat(actual.totalCartItemPrice()).isEqualTo(9980);
             assertThat(actual.cartItems()).hasSize(2);
         });
+    }
+
+    @DisplayName("장바구니 아이템의 수량을 변경한다.")
+    @Test
+    void 장바구니_아이템의_수량을_변경한다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        //when
+        Cart cart = cartReader.getCart(user);
+        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
+                .orElseThrow(CartItemNotFoundException::new);
+
+        CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
+                .cartItemId(cartItem.getId())
+                .amount(3)
+                .build();
+        cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
+
+        //then
+        assertThat(cartItem.getAmount()).isEqualTo(3);
     }
 }
