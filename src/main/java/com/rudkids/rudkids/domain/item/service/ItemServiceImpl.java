@@ -24,43 +24,16 @@ public class ItemServiceImpl implements ItemService {
     private final ItemReader itemReader;
     private final ItemMapper itemMapper;
     private final ProductReader productReader;
-    private final ItemOptionGroupStore itemOptionGroupStore;
-    private final ItemOptionStore itemOptionStore;
+    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
     @Transactional
     public void registerItem(ItemCommand.RegisterItemRequest command) {
         var initItem = itemMapper.toEntity(command);
         var item = itemStore.store(initItem);
-
         var product = productReader.getProduct(command.productId());
-        initItem.changeProduct(product);
-
-        command.itemOptionGroupList().forEach(itemOptionGroupRequest -> {
-            var itemOptionGroupOrdering = itemOptionGroupRequest.ordering();
-            var itemOptionGroupName = ItemOptionGroupName.create(itemOptionGroupRequest.itemOptionGroupName());
-
-            var initItemOptionGroup = ItemOptionGroup.builder()
-                .item(item)
-                .ordering(itemOptionGroupOrdering)
-                .itemOptionGroupName(itemOptionGroupName)
-                .build();
-            var itemOptionGroup = itemOptionGroupStore.store(initItemOptionGroup);
-
-            itemOptionGroupRequest.itemOptionList().forEach(itemOptionRequest -> {
-                var itemOptionOrdering = itemOptionRequest.ordering();
-                var itemOptionName = ItemOptionName.create(itemOptionRequest.itemOptionName());
-                var itemOptionPrice = ItemOptionPrice.create(itemOptionRequest.itemOptionPrice());
-
-                var initItemOption = ItemOption.builder()
-                    .itemOptionGroup(itemOptionGroup)
-                    .ordering(itemOptionOrdering)
-                    .itemOptionName(itemOptionName)
-                    .itemOptionPrice(itemOptionPrice)
-                    .build();
-                var itemOption = itemOptionStore.store(initItemOption);
-            });
-        });
+        item.changeProduct(product);
+        itemOptionSeriesFactory.store(command, item);
     }
 
     @Override
