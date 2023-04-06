@@ -97,4 +97,37 @@ class CartControllerTest extends ControllerTest {
                 ))
                 .andExpect(status().isOk());
     }
+
+    @DisplayName("장바구니 아이템 수량을 변경한다.")
+    @Test
+    void 장바구니에_아이템_수량을_변경한다() throws Exception {
+        willDoNothing()
+                .given(cartService)
+                .updateCartItemAmount(any(), any());
+
+        mockMvc.perform(post(CART_DEFAULT_URL)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/updateCartItemAmount",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("JWT Access Token")
+                        ),
+                        requestFields(
+                                fieldWithPath("cartItemId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니아이템 ID"),
+
+                                fieldWithPath("amount")
+                                        .type(JsonFieldType.NUMBER)
+                                        .description("장바구니아이템 수량")
+                        )
+                ))
+                .andExpect(status().isOk());
+    }
 }
