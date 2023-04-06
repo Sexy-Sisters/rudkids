@@ -4,7 +4,7 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.ItemReader;
 import com.rudkids.rudkids.domain.item.ItemStore;
-import com.rudkids.rudkids.domain.item.domain.item.*;
+import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
@@ -61,7 +61,7 @@ public class ItemServiceTest {
     @DisplayName("상품 등록 성공")
     @Test
     void registerItem() {
-        ItemCommand.RegisterRequest command = ItemCommand.RegisterRequest.builder()
+        ItemCommand.RegisterItemRequest command = ItemCommand.RegisterItemRequest.builder()
             .productId(product.getId())
             .name("Red Pill")
             .price(1_000_000)
@@ -83,15 +83,15 @@ public class ItemServiceTest {
     @DisplayName("특정 프로덕트의 아이템 리스트 조회")
     @Test
     void findItems() {
-        List<ItemCommand.RegisterRequest> commandList = List.of(
-            ItemCommand.RegisterRequest.builder()
+        List<ItemCommand.RegisterItemRequest> commandList = List.of(
+            ItemCommand.RegisterItemRequest.builder()
                 .productId(product.getId())
                 .name("No.2")
                 .price(2_990)
                 .quantity(1_000)
                 .limitType(LimitType.NORMAL)
                 .build(),
-            ItemCommand.RegisterRequest.builder()
+            ItemCommand.RegisterItemRequest.builder()
                 .productId(product.getId())
                 .name("No.3")
                 .price(2_990)

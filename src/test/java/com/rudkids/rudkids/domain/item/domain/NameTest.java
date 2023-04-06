@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.item.domain;
 
-import com.rudkids.rudkids.domain.item.domain.item.Name;
 import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
