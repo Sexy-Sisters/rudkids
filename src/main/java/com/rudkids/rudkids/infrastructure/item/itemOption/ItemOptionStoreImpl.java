@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.infrastructure.item.itemOptionGroup.itemOption;
+package com.rudkids.rudkids.infrastructure.item.itemOption;
 
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionStore;
