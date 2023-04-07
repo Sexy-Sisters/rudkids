@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption;
+package com.rudkids.rudkids.domain.item.domain.itemOption;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;

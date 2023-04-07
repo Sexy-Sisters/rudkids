@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption;
+package com.rudkids.rudkids.domain.item.domain.itemOption;
 
 import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
 import jakarta.persistence.Column;

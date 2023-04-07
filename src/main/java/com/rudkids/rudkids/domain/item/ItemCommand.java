@@ -4,9 +4,9 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupName;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOption;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionName;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionPrice;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionName;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionPrice;
 import lombok.Builder;
 
 import java.util.List;

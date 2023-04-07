@@ -3,7 +3,7 @@ package com.rudkids.rudkids.domain.item.domain.itemOptionGroup;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOption;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

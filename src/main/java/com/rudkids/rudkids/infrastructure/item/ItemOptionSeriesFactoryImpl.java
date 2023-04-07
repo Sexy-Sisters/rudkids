@@ -5,7 +5,7 @@ import com.rudkids.rudkids.domain.item.ItemOptionSeriesFactory;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupStore;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionStore;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

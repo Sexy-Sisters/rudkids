@@ -1,13 +1,6 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupName;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupStore;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOption;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionName;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionPrice;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.itemOption.ItemOptionStore;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
