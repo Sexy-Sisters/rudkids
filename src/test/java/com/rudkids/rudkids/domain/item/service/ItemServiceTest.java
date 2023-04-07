@@ -1,83 +1,45 @@
 package com.rudkids.rudkids.domain.item.service;
 
+import com.rudkids.rudkids.common.fixtures.item.ItemServiceFixtures;
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
-import com.rudkids.rudkids.domain.item.ItemReader;
-import com.rudkids.rudkids.domain.item.ItemStore;
-import com.rudkids.rudkids.domain.item.domain.*;
-import com.rudkids.rudkids.domain.product.ProductStore;
-import com.rudkids.rudkids.domain.product.domain.Product;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
-import com.rudkids.rudkids.domain.product.domain.Title;
-import com.rudkids.rudkids.common.ServiceTest;
-import org.junit.jupiter.api.BeforeEach;
+import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
+import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import java.util.List;
 
-
-
-@ServiceTest
-public class ItemServiceTest {
-    @Autowired
-    private ItemService itemService;
-
-    @Autowired
-    private ItemReader itemReader;
-
-    @Autowired
-    private ProductStore productStore;
-
-    @Autowired
-    private ItemStore itemStore;
-
-    private Product product;
-    private Item item;
-
-    @BeforeEach
-    void inputData() {
-        product = Product.builder()
-            .title(Title.create("Strange Drugstore"))
-            .productBio(ProductBio.create("약국입니다~"))
-            .build();
-        productStore.store(product);
-
-        item = Item.builder()
-            .name(Name.create("No.1"))
-            .price(Price.create(2_990))
-            .quantity(Quantity.create(1_000))
-            .itemBio(ItemBio.create("소개글입니다~"))
-            .limitType(LimitType.LIMITED)
-            .build();
-        itemStore.store(item);
-
-    }
+public class ItemServiceTest extends ItemServiceFixtures {
 
     @DisplayName("상품 등록 성공")
     @Test
     void registerItem() {
-        ItemCommand.RegisterItemRequest command = ItemCommand.RegisterItemRequest.builder()
-            .productId(product.getId())
-            .name("Red Pill")
-            .price(1_000_000)
-            .quantity(1)
-            .limitType(LimitType.LIMITED)
-            .build();
-        itemService.registerItem(command);
+        itemService.registerItem(ITEM_등록_요청);
 
-        Item findItem = itemReader.getItem(command.name());
+        Item findItem = itemReader.getItem(ITEM_등록_요청.name());
         assertAll(
             () -> assertThat(findItem.getName()).isEqualTo("Red Pill"),
             () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
+            () -> assertThat(findItem.getItemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
             () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES)
+            // 단방향 매핑이어서 리스트 관련 테스트 불가
+            //  () -> assertThat(findItem.getItemOptionGroups()).hasSize(1)
         );
+//        assertAll(() -> {
+//            ItemOptionGroup itemOptionGroup = findItem.getItemOptionGroups().get(0);
+//            assertThat(itemOptionGroup.getOrdering()).isEqualTo(1);
+//            assertThat(itemOptionGroup.getItemOptionGroupName()).isEqualTo("사이즈");
+//            assertThat(itemOptionGroup.getItemOptions()).hasSize(3);
+//        });
     }
 
     @DisplayName("특정 프로덕트의 아이템 리스트 조회")
@@ -89,6 +51,7 @@ public class ItemServiceTest {
                 .name("No.2")
                 .price(2_990)
                 .quantity(1_000)
+                .itemBio("소개글입니다~")
                 .limitType(LimitType.NORMAL)
                 .build(),
             ItemCommand.RegisterItemRequest.builder()
@@ -96,6 +59,7 @@ public class ItemServiceTest {
                 .name("No.3")
                 .price(2_990)
                 .quantity(1_000)
+                .itemBio("소개글입니다~")
                 .limitType(LimitType.NORMAL)
                 .build()
         );
@@ -112,9 +76,9 @@ public class ItemServiceTest {
 
         assertAll(
             () -> assertThat(findItem.name()).isEqualTo("No.1"),
-            () -> assertThat(findItem.bio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.price()).isEqualTo(2_990),
             () -> assertThat(findItem.quantity()).isEqualTo(1_000),
+            () -> assertThat(findItem.itemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.limitType()).isEqualTo(LimitType.LIMITED)
         );
     }

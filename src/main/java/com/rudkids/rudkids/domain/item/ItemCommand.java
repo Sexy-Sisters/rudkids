@@ -20,6 +20,7 @@ public class ItemCommand {
         String name,
         int price,
         int quantity,
+        String itemBio,
         LimitType limitType,
         List<RegisterItemOptionGroupRequest> itemOptionGroupList
     ) {}

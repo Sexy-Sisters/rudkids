@@ -1,9 +1,6 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.Name;
-import com.rudkids.rudkids.domain.item.domain.Price;
-import com.rudkids.rudkids.domain.item.domain.Quantity;
+import com.rudkids.rudkids.domain.item.domain.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,11 +11,13 @@ public class ItemMapper {
         var name = Name.create(command.name());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());
+        var itemBio = ItemBio.create(command.itemBio());
 
         return Item.builder()
             .name(name)
             .price(price)
             .quantity(quantity)
+            .itemBio(itemBio)
             .limitType(command.limitType())
             .build();
     }
@@ -33,7 +32,7 @@ public class ItemMapper {
     public ItemInfo.Detail toDetail(Item item) {
         return ItemInfo.Detail.builder()
             .name(item.getName())
-            .bio(item.getBio())
+            .itemBio(item.getItemBio())
             .price(item.getPrice())
             .quantity(item.getQuantity())
             .limitType(item.getLimitType())

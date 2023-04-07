@@ -16,7 +16,7 @@ public class ItemInfo {
     @Builder
     public record Detail (
         String name,
-        String bio,
+        String itemBio,
         int price,
         int quantity,
         LimitType limitType,

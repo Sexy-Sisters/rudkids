@@ -4,8 +4,6 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ItemDtoMapper {
 
@@ -57,7 +55,7 @@ public class ItemDtoMapper {
         return ItemResponse.Detail.builder()
             .name(info.name())
             .price(info.price())
-            .bio(info.bio())
+            .bio(info.itemBio())
             .quantity(info.quantity())
             .limitType(info.limitType())
             .itemStatus(info.itemStatus())
