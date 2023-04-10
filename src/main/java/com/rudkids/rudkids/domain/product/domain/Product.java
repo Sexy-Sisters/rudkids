@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.product.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
+import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -13,10 +14,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Table(name = "tbl_product")
-public class Product {
+public class Product extends AbstractEntity{
 
     @Id
-    @Column(name = "product_id", columnDefinition = "BINARY(16)")
+    @Column(name = "product_id")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Embedded

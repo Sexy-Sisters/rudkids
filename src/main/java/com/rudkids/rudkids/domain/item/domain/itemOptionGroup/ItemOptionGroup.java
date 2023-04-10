@@ -6,7 +6,6 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import jakarta.persistence.*;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@Getter
 @Entity
 @Table(name = "item_option_group")
 public class ItemOptionGroup extends AbstractEntity {
@@ -42,5 +40,17 @@ public class ItemOptionGroup extends AbstractEntity {
         this.item = item;
         this.ordering = ordering;
         this.itemOptionGroupName = itemOptionGroupName;
+    }
+
+    public Integer getOrdering() {
+        return ordering;
+    }
+
+    public String getItemOptionGroupName() {
+        return itemOptionGroupName.getValue();
+    }
+
+    public List<ItemOption> getItemOptions() {
+        return itemOptions;
     }
 }

@@ -34,7 +34,7 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}/detail")
+    @GetMapping("/detail/{id}")
     public ResponseEntity findItem(@PathVariable UUID id) {
         var info = itemService.findItemDetail(id);
         var response = itemDtoMapper.to(info);

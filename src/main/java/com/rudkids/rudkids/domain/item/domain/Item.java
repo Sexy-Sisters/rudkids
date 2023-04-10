@@ -6,17 +6,19 @@ import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Getter
 @Table(name = "tbl_item")
 public class Item extends AbstractEntity {
 
     @Id
-    @Column(name = "item_id", columnDefinition = "BINARY(16)")
+    @Column(name = "item_id")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,7 +50,7 @@ public class Item extends AbstractEntity {
     }
 
     @Builder
-    public Item(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+    public Item(final Name name, final ItemBio itemBio, final Price price, final Quantity quantity, final LimitType limitType) {
         this.name = name;
         this.itemBio = itemBio;
         this.price = price;

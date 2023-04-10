@@ -3,6 +3,8 @@ package com.rudkids.rudkids.domain.item;
 import com.rudkids.rudkids.domain.item.domain.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ItemMapper {
 
@@ -21,6 +23,7 @@ public class ItemMapper {
             .limitType(command.limitType())
             .build();
     }
+
     public ItemInfo.Main toMain(Item item) {
         return ItemInfo.Main.builder()
             .name(item.getName())
@@ -29,7 +32,7 @@ public class ItemMapper {
             .build();
     }
 
-    public ItemInfo.Detail toDetail(Item item) {
+    public ItemInfo.Detail toDetail(Item item, List<ItemInfo.ItemOptionGroupInfo> itemOptionSeriesList) {
         return ItemInfo.Detail.builder()
             .name(item.getName())
             .itemBio(item.getItemBio())
@@ -37,6 +40,7 @@ public class ItemMapper {
             .quantity(item.getQuantity())
             .limitType(item.getLimitType())
             .itemStatus(item.getItemStatus())
+            .itemOptionGroupInfoList(itemOptionSeriesList)
             .build();
     }
 }

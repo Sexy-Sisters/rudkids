@@ -4,6 +4,8 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class ItemDtoMapper {
 
@@ -13,10 +15,10 @@ public class ItemDtoMapper {
             .toList();
 
         return ItemCommand.RegisterItemRequest.builder()
-            .productId(request.productId())
             .name(request.name())
             .price(request.price())
             .quantity(request.quantity())
+            .itemBio(request.itemBio())
             .limitType(request.limitType())
             .itemOptionGroupList(itemOptionGroupRequestList)
             .build();
@@ -52,6 +54,10 @@ public class ItemDtoMapper {
     }
 
     public ItemResponse.Detail to(ItemInfo.Detail info) {
+        var itemOptionGroupResponseList = info.itemOptionGroupInfoList().stream()
+            .map(this::to)
+            .toList();
+
         return ItemResponse.Detail.builder()
             .name(info.name())
             .price(info.price())
@@ -59,6 +65,26 @@ public class ItemDtoMapper {
             .quantity(info.quantity())
             .limitType(info.limitType())
             .itemStatus(info.itemStatus())
+            .itemOptionGroupResponseList(itemOptionGroupResponseList)
             .build();
+    }
+
+    private ItemResponse.ItemOptionGroupResponse to(ItemInfo.ItemOptionGroupInfo info) {
+        var itemOptionResponse = info.itemOptionInfoList().stream()
+            .map(this::to)
+            .toList();
+        return new ItemResponse.ItemOptionGroupResponse(
+            info.ordering(),
+            info.itemOptionGroupName(),
+            itemOptionResponse
+        );
+    }
+
+    private ItemResponse.ItemOptionResponse to(ItemInfo.ItemOptionInfo info) {
+        return new ItemResponse.ItemOptionResponse(
+            info.ordering(),
+            info.itemOptionName(),
+            info.itemOptionPrice()
+        );
     }
 }

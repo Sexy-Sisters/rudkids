@@ -40,7 +40,8 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemInfo.Detail findItemDetail(UUID id) {
         var item = itemReader.getItem(id);
-        return itemMapper.toDetail(item);
+        var itemOptionSeriesList = itemReader.getItemOptionSeries(item);
+        return itemMapper.toDetail(item, itemOptionSeriesList);
     }
 
     @Override
