@@ -24,7 +24,7 @@ class ItemControllerTest extends ControllerTest {
             .given(itemService)
             .registerItem(any(), any());
 
-        mockMvc.perform(post(ITEM_DEFAULT_URL)
+        mockMvc.perform(post(ITEM_DEFAULT_URL+"/{productId}", 프로덕트_아이디)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
