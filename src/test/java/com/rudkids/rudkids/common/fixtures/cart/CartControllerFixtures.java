@@ -12,6 +12,7 @@ public class CartControllerFixtures {
 
     public static final String CART_DEFAULT_URL = "/api/v1/cart";
     public static final UUID 아이템_ID = UUID.randomUUID();
+    public static final UUID CART_ID = UUID.randomUUID();
     public static final UUID CART_아이템_ID = UUID.randomUUID();
     public static final int 아이템_수량 = 2;
     public static final int CART_아이템_수량 = 3;
@@ -27,7 +28,7 @@ public class CartControllerFixtures {
     }
 
     public static CartRequest.UpdateCartItemAmount CART_아이템_수량_변경_요청() {
-        return new CartRequest.UpdateCartItemAmount(CART_아이템_ID, CART_아이템_수량);
+        return new CartRequest.UpdateCartItemAmount(CART_ID, CART_아이템_ID, CART_아이템_수량);
     }
 
     public static CartInfo.Main CART_아이템_리스트() {

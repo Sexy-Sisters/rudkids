@@ -5,6 +5,7 @@ import com.rudkids.rudkids.common.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -59,5 +60,24 @@ public class User extends AbstractEntity {
     public void updateAdditionalInfo(Age age, String gender) {
         this.age = age;
         this.gender = Gender.toEnum(gender);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id)
+                && Objects.equals(email, user.email)
+                && Objects.equals(name, user.name)
+                && Objects.equals(age, user.age)
+                && gender == user.gender
+                && socialType == user.socialType
+                && roleType == user.roleType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, name, age, gender, socialType, roleType);
     }
 }

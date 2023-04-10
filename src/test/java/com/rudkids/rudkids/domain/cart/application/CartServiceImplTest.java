@@ -6,12 +6,18 @@ import com.rudkids.rudkids.domain.cart.domain.CartItem;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.user.domain.Age;
+import com.rudkids.rudkids.domain.user.domain.Gender;
+import com.rudkids.rudkids.domain.user.domain.SocialType;
+import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CartServiceImplTest extends CartServiceFixtures {
@@ -147,6 +153,7 @@ class CartServiceImplTest extends CartServiceFixtures {
                 .orElseThrow(CartItemNotFoundException::new);
 
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
+                .cartId(cart.getId())
                 .cartItemId(cartItem.getId())
                 .amount(3)
                 .build();
@@ -163,5 +170,38 @@ class CartServiceImplTest extends CartServiceFixtures {
             assertThat(findCartItem.getAmount()).isEqualTo(3);
 //            assertThat(findCart.getCartItems().get(0).getAmount()).isEqualTo(3);
         });
+    }
+
+    @DisplayName("다른 사용자의 장바구니 아이템의 수량을 변경할 시 예외가 발생한다.")
+    @Test
+    void 다른_사용자의_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        Cart cart = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+
+        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
+                .orElseThrow(CartItemNotFoundException::new);
+
+        //when
+        User anotherUser = User.builder()
+                .email("another@gmail.com")
+                .name("다른사용자")
+                .age(Age.create(18))
+                .gender(Gender.toEnum("MALE"))
+                .socialType(SocialType.GOOGLE)
+                .build();
+        userRepository.save(anotherUser);
+
+        CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
+                .cartId(cart.getId())
+                .cartItemId(cartItem.getId())
+                .amount(3)
+                .build();
+
+        //then
+        assertThatThrownBy(() -> cartService.updateCartItemAmount(anotherUser.getId(), CART_아이템_수량_변경_요청))
+                .isInstanceOf(DifferentUserException.class);
     }
 }

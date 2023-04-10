@@ -7,6 +7,6 @@ public class CartRequest {
     public record AddCartItem(UUID itemId, int amount) {
     }
 
-    public record UpdateCartItemAmount(UUID cartItemId, int amount) {
+    public record UpdateCartItemAmount(UUID cartId, UUID cartItemId, int amount) {
     }
 }

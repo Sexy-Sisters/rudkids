@@ -45,6 +45,10 @@ public class Cart {
         cartItemCount += amount;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public int getCartItemCount() {
         return cartItemCount;
     }

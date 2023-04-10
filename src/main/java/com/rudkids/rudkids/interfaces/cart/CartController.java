@@ -31,7 +31,7 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     public void updateCartItemAmount(
             @AuthenticationPrincipal AuthUser.Login loginUser,
             @RequestBody CartRequest.UpdateCartItemAmount request
