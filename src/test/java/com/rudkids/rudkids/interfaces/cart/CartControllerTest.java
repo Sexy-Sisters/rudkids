@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.interfaces.cart;
 
 import com.rudkids.rudkids.common.ControllerTest;
+import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
+import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -11,6 +13,7 @@ import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -119,6 +122,47 @@ class CartControllerTest extends ControllerTest {
                                         .description("JWT Access Token")
                         ),
                         requestFields(
+                                fieldWithPath("cartId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니 ID"),
+
+                                fieldWithPath("cartItemId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니아이템 ID"),
+
+                                fieldWithPath("amount")
+                                        .type(JsonFieldType.NUMBER)
+                                        .description("장바구니아이템 수량")
+                        )
+                ))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("다른 사용자의 장바구니 아이템 수량을 변경할 시 상태코드 403을 반환한다.")
+    @Test
+    void 다른_사용자의_장바구니에_아이템_수량을_변경할_시_상태코드_403을_반환한다() throws Exception {
+        doThrow(new DifferentUserException())
+                .when(cartService)
+                .updateCartItemAmount(any(), any());
+
+        mockMvc.perform(post(CART_DEFAULT_URL)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/updateCartItemAmount/failByDifferentUserError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("JWT Access Token")
+                        ),
+                        requestFields(
+                                fieldWithPath("cartId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니 ID"),
+
                                 fieldWithPath("cartItemId")
                                         .type(JsonFieldType.STRING)
                                         .description("장바구니아이템 ID"),
