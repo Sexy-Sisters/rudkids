@@ -25,7 +25,6 @@ public class CartServiceImpl implements CartService {
         var cart = cartReader.getCart(user);
         var item = itemReader.getItem(command.itemId());
         var cartItem = cartItemReader.getCartItem(cart, item, command.amount());
-
         cart.addCartItemCount(cartItem.getAmount());
     }
 
@@ -53,6 +52,7 @@ public class CartServiceImpl implements CartService {
         cart.validateHasSameUser(user);
 
         var cartItem = cartItemReader.getCartItem(command.cartItemId());
+        cart.updateCartItemCount(cartItem.getAmount(), command.amount());
         cartItem.updateAmount(command.amount());
     }
 }

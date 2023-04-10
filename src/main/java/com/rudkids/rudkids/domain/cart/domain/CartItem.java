@@ -22,7 +22,6 @@ public class CartItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(name = "amount")
     private int amount;
 
     protected CartItem() {
@@ -65,4 +64,9 @@ public class CartItem {
     public void updateAmount(int amount) {
         this.amount = amount;
     }
+
+    public Cart getCart() {
+        return cart;
+    }
+
 }

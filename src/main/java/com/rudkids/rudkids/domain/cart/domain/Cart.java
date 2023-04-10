@@ -23,7 +23,7 @@ public class Cart {
     @Column(name = "cart_item_count")
     private int cartItemCount;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
     private final List<CartItem> cartItems = new ArrayList<>();
 
     protected Cart() {
@@ -63,5 +63,9 @@ public class Cart {
         return cartItems.stream()
                 .mapToInt(CartItem::getCartItemPrice)
                 .sum();
+    }
+
+    public void updateCartItemCount(int cartItemCount, int newCartItemCount) {
+        this.cartItemCount = (this.cartItemCount - cartItemCount) + newCartItemCount;
     }
 }
