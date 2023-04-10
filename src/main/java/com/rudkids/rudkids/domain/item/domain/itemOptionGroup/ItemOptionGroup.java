@@ -14,11 +14,11 @@ import java.util.UUID;
 
 @Slf4j
 @Entity
-@Table(name = "item_option_group")
+@Table(name = "tbl_item_option_group")
 public class ItemOptionGroup extends AbstractEntity {
 
     @Id
-    @Column(name = "item_option_group_id", columnDefinition = "BINARY(16)")
+    @Column(name = "item_option_group_id")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @ManyToOne(fetch = FetchType.LAZY)
