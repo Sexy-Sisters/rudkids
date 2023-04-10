@@ -23,7 +23,7 @@ public class ItemOptionGroup extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
-    Item item;
+    private Item item;
 
     private Integer ordering;
     @Embedded
