@@ -22,7 +22,7 @@ class ItemControllerTest extends ControllerTest {
     void 아이템을_등록한다() throws Exception {
         willDoNothing()
             .given(itemService)
-            .registerItem(any());
+            .registerItem(any(), any());
 
         mockMvc.perform(post(ITEM_DEFAULT_URL)
                 .accept(MediaType.APPLICATION_JSON)

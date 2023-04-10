@@ -25,7 +25,6 @@ public class ItemControllerFixtures {
 
     public static ItemRequest.RegisterItem ITEM_등록_요청() {
         return ItemRequest.RegisterItem.builder()
-            .productId(프로덕트_아이디)
             .name(아이템_이름)
             .price(아이템_가격)
             .quantity(아이템_수량)

@@ -21,7 +21,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("상품 등록 성공")
     @Test
     void registerItem() {
-        itemService.registerItem(ITEM_등록_요청);
+        itemService.registerItem(ITEM_등록_요청, product.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
         assertAll(
@@ -47,7 +47,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
     void findItems() {
         List<ItemCommand.RegisterItemRequest> commandList = List.of(
             ItemCommand.RegisterItemRequest.builder()
-                .productId(product.getId())
                 .name("No.2")
                 .price(2_990)
                 .quantity(1_000)
@@ -55,7 +54,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
                 .limitType(LimitType.NORMAL)
                 .build(),
             ItemCommand.RegisterItemRequest.builder()
-                .productId(product.getId())
                 .name("No.3")
                 .price(2_990)
                 .quantity(1_000)
@@ -63,7 +61,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
                 .limitType(LimitType.NORMAL)
                 .build()
         );
-        commandList.forEach(itemService::registerItem);
+        commandList.forEach(command -> itemService.registerItem(command, product.getId()));
 
         List<ItemInfo.Main> items = itemService.findItems(product.getId());
         assertThat(items).hasSize(2);

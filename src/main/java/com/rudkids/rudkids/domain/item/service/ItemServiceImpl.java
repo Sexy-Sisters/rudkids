@@ -21,10 +21,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void registerItem(ItemCommand.RegisterItemRequest command) {
+    public void registerItem(ItemCommand.RegisterItemRequest command, UUID productId) {
         var initItem = itemMapper.toEntity(command);
         var item = itemStore.store(initItem);
-        var product = productReader.getProduct(command.productId());
+        var product = productReader.getProduct(productId);
         item.changeProduct(product);
         itemOptionSeriesFactory.store(command, item);
     }

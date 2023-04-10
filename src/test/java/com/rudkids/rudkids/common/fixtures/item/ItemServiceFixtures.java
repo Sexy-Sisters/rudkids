@@ -73,7 +73,6 @@ public class ItemServiceFixtures {
         itemStore.store(item);
 
         ITEM_등록_요청 = ItemCommand.RegisterItemRequest.builder()
-            .productId(product.getId())
             .name("Red Pill")
             .price(1_000_000)
             .quantity(1)
