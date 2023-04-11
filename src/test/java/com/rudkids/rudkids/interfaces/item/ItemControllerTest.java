@@ -32,24 +32,13 @@ class ItemControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("아이템_리스트를_조회한다.")
-    @Test
-    void 아이템_리스트를_조회한다() throws Exception {
-        given(itemService.findItems(any()))
-            .willReturn(ITEM_리스트_조회_응답());
-
-        mockMvc.perform(get(ITEM_DEFAULT_URL+"/{productId}", 프로덕트_아이디))
-            .andDo(print())
-            .andExpect(status().isOk());
-    }
-
     @DisplayName("아이템_상세정보를_조회한다.")
     @Test
     void 아이템_상세정보를_조회한다() throws Exception {
         given(itemService.findItemDetail(any()))
             .willReturn(ITEM_상세정보_조회_응답());
 
-        mockMvc.perform(get(ITEM_DEFAULT_URL+"/{id}", 아이템_아이디))
+        mockMvc.perform(get(ITEM_DEFAULT_URL+"/detail/{id}", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }

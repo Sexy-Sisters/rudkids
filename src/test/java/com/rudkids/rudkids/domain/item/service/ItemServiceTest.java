@@ -41,31 +41,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
 //        });
     }
 
-    @DisplayName("특정 프로덕트의 아이템 리스트 조회")
-    @Test
-    void findItems() {
-        List<ItemCommand.RegisterItemRequest> commandList = List.of(
-            ItemCommand.RegisterItemRequest.builder()
-                .name("No.2")
-                .price(2_990)
-                .quantity(1_000)
-                .itemBio("소개글입니다~")
-                .limitType(LimitType.NORMAL)
-                .build(),
-            ItemCommand.RegisterItemRequest.builder()
-                .name("No.3")
-                .price(2_990)
-                .quantity(1_000)
-                .itemBio("소개글입니다~")
-                .limitType(LimitType.NORMAL)
-                .build()
-        );
-        commandList.forEach(command -> itemService.registerItem(command, product.getId()));
-
-        List<ItemInfo.Main> items = itemService.findItems(product.getId());
-        assertThat(items).hasSize(2);
-    }
-
     @DisplayName("아이템 상세 조회")
     @Test
     void findItemDetail() {
