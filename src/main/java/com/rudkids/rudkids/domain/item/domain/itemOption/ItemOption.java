@@ -5,6 +5,7 @@ import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -14,6 +15,8 @@ import java.util.UUID;
 public class ItemOption extends AbstractEntity {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "item_option_id")
     private UUID id;
 

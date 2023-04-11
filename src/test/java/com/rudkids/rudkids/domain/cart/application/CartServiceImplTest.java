@@ -161,10 +161,11 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         Cart findCart = cartRepository.findByUserId(user.getId())
                         .orElseThrow(CartNotFoundException::new);
+        CartItem actual = findCart.getCartItems().get(0);
 
         assertAll(() -> {
             assertThat(findCartItem.getAmount()).isEqualTo(3);
-            assertThat(findCart.getCartItems().get(0).getAmount()).isEqualTo(3);
+            assertThat(actual.getAmount()).isEqualTo(3);
         });
     }
 
