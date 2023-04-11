@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.cart.domain.CartItem;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import com.rudkids.rudkids.domain.user.domain.Age;
 import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -51,6 +53,20 @@ class CartServiceImplTest extends CartServiceFixtures {
             assertThat(actual.getCartItemCount()).isEqualTo(2);
             assertThat(actual.getCartItems()).hasSize(1);
         });
+    }
+
+    @DisplayName("장바구니에 존재하지 않는 아이템을 추가할 경우 예외가 발생한다.")
+    @Test
+    void 장바구니에_존재하지_않는_아이템을_추가할_경우_예외가_발생한다() {
+        //given, when
+        CartCommand.AddCartItem invalidRequest = CartCommand.AddCartItem.builder()
+                .itemId(UUID.randomUUID())
+                .amount(2)
+                .build();
+
+        //then
+        assertThatThrownBy(() -> cartService.addCartItem(user.getId(), invalidRequest))
+                .isInstanceOf(ItemNotFoundException.class);
     }
 
     @DisplayName("장바구니에 새로운 아이템을 추가한다.")
@@ -200,6 +216,27 @@ class CartServiceImplTest extends CartServiceFixtures {
         //then
         assertThatThrownBy(() -> cartService.updateCartItemAmount(anotherUser.getId(), CART_아이템_수량_변경_요청))
                 .isInstanceOf(DifferentUserException.class);
+    }
+
+    @DisplayName("존재하지 않는 장바구니 아이템의 수량을 변경할 시 예외가 발생한다.")
+    @Test
+    void 존재하지_않는_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        Cart cart = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+
+        UUID invalidCartItemId = UUID.randomUUID();
+        CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
+                .cartId(cart.getId())
+                .cartItemId(invalidCartItemId)
+                .amount(3)
+                .build();
+
+        //then
+        assertThatThrownBy(() -> cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청))
+                .isInstanceOf(CartItemNotFoundException.class);
     }
 
     @DisplayName("장바구니 아이템의 수량을 변경하면 장바구니에 담겨있는 아이템의 총 수량도 변경된다")
