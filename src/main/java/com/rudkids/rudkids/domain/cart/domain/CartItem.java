@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import jakarta.persistence.*;

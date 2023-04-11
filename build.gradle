@@ -26,9 +26,6 @@ repositories {
 }
 
 dependencies {
-	//ulid 의존성
-	implementation "com.github.f4b6a3:ulid-creator:5.0.0"
-
 	//test용 DB 의존성
 	runtimeOnly 'com.h2database:h2'
 
@@ -54,7 +51,6 @@ dependencies {
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
-//	finalizedBy 'jacocoTestReport'
 }
 
 asciidoctor {

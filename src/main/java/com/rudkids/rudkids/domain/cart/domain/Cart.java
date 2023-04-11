@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import jakarta.persistence.*;
@@ -13,6 +12,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tbl_cart")
 public class Cart {
+
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")

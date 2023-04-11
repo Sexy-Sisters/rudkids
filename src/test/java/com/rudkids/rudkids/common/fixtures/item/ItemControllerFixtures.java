@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.common.fixtures.item;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
@@ -12,8 +11,8 @@ import java.util.UUID;
 public class ItemControllerFixtures {
 
     public static final String ITEM_DEFAULT_URL = "/api/v1/item";
-    public static final UUID 프로덕트_아이디 = UlidCreator.getMonotonicUlid().toUuid();
-    public static final UUID 아이템_아이디 = UlidCreator.getMonotonicUlid().toUuid();
+    public static final UUID 프로덕트_아이디 = UUID.randomUUID();
+    public static final UUID 아이템_아이디 = UUID.randomUUID();
     public static final String 아이템_이름 = "No.1";
     public static final String 아이템_소개글 = "소개합니다~~~~";
     public static final int 아이템_가격 = 10_000;

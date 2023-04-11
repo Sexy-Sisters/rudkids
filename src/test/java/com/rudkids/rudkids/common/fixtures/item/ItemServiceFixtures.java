@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.common.fixtures.item;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemReader;
