@@ -164,7 +164,7 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         assertAll(() -> {
             assertThat(findCartItem.getAmount()).isEqualTo(3);
-//            assertThat(findCart.getCartItems().get(0).getAmount()).isEqualTo(3);
+            assertThat(findCart.getCartItems().get(0).getAmount()).isEqualTo(3);
         });
     }
 
