@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Slf4j
 public class ControllerAdvice {
-    private static final String UNKNOWN_PROBLEM = "알 수 없는 에러가 발생하였습니다.";
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
@@ -45,8 +44,8 @@ public class ControllerAdvice {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
-        ErrorResponse errorResponse = new ErrorResponse(UNKNOWN_PROBLEM);
-        log.error(UNKNOWN_PROBLEM + e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("알 수 없는 에러가 발생하였습니다.");
+        log.error(errorResponse.getMessage() + e.getMessage());
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 }

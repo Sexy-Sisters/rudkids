@@ -12,3 +12,7 @@ operation::cart/findCartItems[snippets='http-request,request-headers,http-respon
 [[Cart-아이템-수량-변경]]
 === Cart 아이템 수량 변경
 operation::cart/updateCartItemAmount[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Cart-아이템-수량-변경-권한-에러]]
+=== Cart 아이템 수량 변경 (권한 에러)
+operation::cart/updateCartItemAmount/failByDifferentUserError[snippets='http-request,request-headers,request-fields,http-response']

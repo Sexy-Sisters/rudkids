@@ -10,6 +10,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tbl_cart_item")
 public class CartItem {
+
     @Id
     @Column(name = "cart_item_id", columnDefinition = "BINARY(16)")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();

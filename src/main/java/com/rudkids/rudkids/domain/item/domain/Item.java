@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Item extends AbstractEntity {
 
     @Id
-    @Column(name = "item_id", columnDefinition = "BINARY(16)")
+    @Column(name = "item_id")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
 
     @Embedded

@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.interfaces.cart;
 
 import com.rudkids.rudkids.common.ControllerTest;
-import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +17,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
@@ -108,7 +108,7 @@ class CartControllerTest extends ControllerTest {
                 .given(cartService)
                 .updateCartItemAmount(any(), any());
 
-        mockMvc.perform(post(CART_DEFAULT_URL)
+        mockMvc.perform(patch(CART_DEFAULT_URL)
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -145,7 +145,7 @@ class CartControllerTest extends ControllerTest {
                 .when(cartService)
                 .updateCartItemAmount(any(), any());
 
-        mockMvc.perform(post(CART_DEFAULT_URL)
+        mockMvc.perform(patch(CART_DEFAULT_URL)
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -156,7 +156,7 @@ class CartControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
                                 headerWithName("Authorization")
-                                        .description("JWT Access Token")
+                                        .description("다른 사용자의 JWT Access Token")
                         ),
                         requestFields(
                                 fieldWithPath("cartId")
@@ -172,6 +172,6 @@ class CartControllerTest extends ControllerTest {
                                         .description("장바구니아이템 수량")
                         )
                 ))
-                .andExpect(status().isOk());
+                .andExpect(status().isForbidden());
     }
 }

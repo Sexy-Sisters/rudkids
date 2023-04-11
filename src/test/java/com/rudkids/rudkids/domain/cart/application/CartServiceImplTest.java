@@ -135,10 +135,6 @@ class CartServiceImplTest extends CartServiceFixtures {
         });
     }
 
-    /*
-    2023.04.06 장바구니아이템의 수량을 바꾸면 장바구니 안에있는 해당 아이템의 수량이 바뀌지 않는 버그
-    assertThat(cart.getCartItems().get(0).getAmount()).isEqualTo(3);
-     */
     @DisplayName("장바구니 아이템의 수량을 변경한다.")
     @Test
     void 장바구니_아이템의_수량을_변경한다() {
