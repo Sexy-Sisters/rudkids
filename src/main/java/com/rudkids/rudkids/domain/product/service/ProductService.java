@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface ProductService {
     void registerProduct(ProductCommand.RegisterRequest command);
     List<ProductInfo.Main> findProducts();
+    ProductInfo.Detail findProduct(UUID productId);
     void closeProduct(UUID productId);
     void openProduct(UUID productId);
 }
