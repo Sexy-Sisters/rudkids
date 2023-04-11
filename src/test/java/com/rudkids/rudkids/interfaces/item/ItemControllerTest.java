@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static com.rudkids.rudkids.common.fixtures.item.ItemControllerFixture.*;
+import static com.rudkids.rudkids.common.fixtures.item.ItemControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -22,9 +22,9 @@ class ItemControllerTest extends ControllerTest {
     void 아이템을_등록한다() throws Exception {
         willDoNothing()
             .given(itemService)
-            .registerItem(any());
+            .registerItem(any(), any());
 
-        mockMvc.perform(post(ITEM_DEFAULT_URL)
+        mockMvc.perform(post(ITEM_DEFAULT_URL+"/{productId}", 프로덕트_아이디)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ITEM_등록_요청()))

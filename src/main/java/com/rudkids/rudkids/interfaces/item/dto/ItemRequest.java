@@ -3,17 +3,31 @@ package com.rudkids.rudkids.interfaces.item.dto;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import lombok.Builder;
 
-import java.util.UUID;
+import java.util.List;
 
 public class ItemRequest {
 
     @Builder
-    public record Register(
-        UUID productId,
+    public record RegisterItem(
         String name,
         int price,
         int quantity,
-        LimitType limitType
-    ) {
-    }
+        String itemBio,
+        LimitType limitType,
+        List<ItemRequest.RegisterItemOptionGroup> itemOptionGroupList
+    ) {}
+
+    @Builder
+    public record RegisterItemOptionGroup(
+        Integer ordering,
+        String itemOptionGroupName,
+        List<ItemRequest.RegisterItemOption> itemOptionList
+    ) {}
+
+    @Builder
+    public record RegisterItemOption(
+        Integer ordering,
+        String itemOptionName,
+        int itemOptionPrice
+    ) {}
 }

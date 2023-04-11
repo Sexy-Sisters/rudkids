@@ -10,7 +10,7 @@ import lombok.Getter;
 public class ProductBio {
     private static final int MAX_LENGTH = 1000;
 
-    @Column(name = "bio")
+    @Column(name = "itemBio")
     private String value;
 
     protected ProductBio() {
