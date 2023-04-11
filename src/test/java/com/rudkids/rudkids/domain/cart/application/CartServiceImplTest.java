@@ -59,8 +59,9 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니에_존재하지_않는_아이템을_추가할_경우_예외가_발생한다() {
         //given, when
+        UUID invalidCartItemId = UUID.randomUUID();
         CartCommand.AddCartItem invalidRequest = CartCommand.AddCartItem.builder()
-                .itemId(UUID.randomUUID())
+                .itemId(invalidCartItemId)
                 .amount(2)
                 .build();
 
