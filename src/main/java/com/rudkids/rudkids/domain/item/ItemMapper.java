@@ -1,10 +1,28 @@
 package com.rudkids.rudkids.domain.item;
 
-import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.item.domain.*;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ItemMapper {
+
+
+    public Item toEntity(ItemCommand.RegisterItemRequest command) {
+        var name = Name.create(command.name());
+        var price = Price.create(command.price());
+        var quantity = Quantity.create(command.quantity());
+        var itemBio = ItemBio.create(command.itemBio());
+
+        return Item.builder()
+            .name(name)
+            .price(price)
+            .quantity(quantity)
+            .itemBio(itemBio)
+            .limitType(command.limitType())
+            .build();
+    }
 
     public ItemInfo.Main toMain(Item item) {
         return ItemInfo.Main.builder()
@@ -14,14 +32,15 @@ public class ItemMapper {
             .build();
     }
 
-    public ItemInfo.Detail toDetail(Item item) {
+    public ItemInfo.Detail toDetail(Item item, List<ItemInfo.ItemOptionGroupInfo> itemOptionSeriesList) {
         return ItemInfo.Detail.builder()
             .name(item.getName())
-            .bio(item.getBio())
+            .itemBio(item.getItemBio())
             .price(item.getPrice())
             .quantity(item.getQuantity())
             .limitType(item.getLimitType())
             .itemStatus(item.getItemStatus())
+            .itemOptionGroupInfoList(itemOptionSeriesList)
             .build();
     }
 }

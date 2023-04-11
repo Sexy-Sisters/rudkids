@@ -4,7 +4,6 @@ import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +16,13 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemDtoMapper itemDtoMapper;
 
-    @PostMapping
-    public void registerItem(@RequestBody ItemRequest.Register request) {
+    @PostMapping("/{product-id}")
+    public void registerItem(
+        @PathVariable(name = "product-id") UUID productId,
+        @RequestBody ItemRequest.RegisterItem request
+    ) {
         var command = itemDtoMapper.to(request);
-        itemService.registerItem(command);
+        itemService.registerItem(command, productId);
     }
 
     @GetMapping("/{product-id}")
@@ -32,7 +34,7 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}/detail")
+    @GetMapping("/detail/{id}")
     public ResponseEntity findItem(@PathVariable UUID id) {
         var info = itemService.findItemDetail(id);
         var response = itemDtoMapper.to(info);

@@ -2,19 +2,28 @@ package com.rudkids.rudkids.domain.item.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Getter
 @Table(name = "tbl_item")
 public class Item extends AbstractEntity {
 
     @Id
-    @Column(name = "item_id", columnDefinition = "BINARY(16)")
+    @Column(name = "item_id")
     private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Embedded
     private Name name;
@@ -32,17 +41,16 @@ public class Item extends AbstractEntity {
     private LimitType limitType;
 
     @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus = ItemStatus.IN_STOCK;
+    private ItemStatus itemStatus = ItemStatus.ON_SALES;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
+    private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
     protected Item() {
     }
 
     @Builder
-    public Item(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+    public Item(final Name name, final ItemBio itemBio, final Price price, final Quantity quantity, final LimitType limitType) {
         this.name = name;
         this.itemBio = itemBio;
         this.price = price;
@@ -50,13 +58,18 @@ public class Item extends AbstractEntity {
         this.limitType = limitType;
     }
 
-    public void changeSoldOut() {
-        this.itemStatus = ItemStatus.SOLD_OUT;
+    public void changePrepare() {
+        this.itemStatus = ItemStatus.PREPARE;
     }
 
-    public void changeInStock() {
-        this.itemStatus = ItemStatus.IN_STOCK;
+    public void changeOnSales() {
+        this.itemStatus = ItemStatus.ON_SALES;
     }
+
+    public void changeEndOfSales() {
+        this.itemStatus = ItemStatus.END_OF_SALES;
+    }
+
 
     public void changeProduct(Product product) {
         this.product = product;
@@ -79,10 +92,6 @@ public class Item extends AbstractEntity {
         return quantity.getValue();
     }
 
-    public String getBio() {
-        return itemBio.getValue();
-    }
-
     public LimitType getLimitType() {
         return limitType;
     }
@@ -93,5 +102,13 @@ public class Item extends AbstractEntity {
 
     public Product getProduct() {
         return product;
+    }
+
+    public String getItemBio() {
+        return itemBio.getValue();
+    }
+
+    public List<ItemOptionGroup> getItemOptionGroups() {
+        return itemOptionGroups;
     }
 }

@@ -7,7 +7,7 @@ import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import java.util.List;
 import java.util.UUID;
 
-public class ProductControllerFixture {
+public class ProductControllerFixtures {
 
     public static final UUID  프로덕트_아이디 = UlidCreator.getMonotonicUlid().toUuid();
     public static final String 프로덕트_제목 = "Strange Drugstore";
