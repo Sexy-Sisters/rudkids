@@ -2,15 +2,11 @@ package com.rudkids.rudkids.domain.item;
 
 import com.rudkids.rudkids.common.fixtures.item.ItemOptionSeriesFactoryFixtures;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupStore;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ItemOptionSeriesFactoryTest extends ItemOptionSeriesFactoryFixtures {

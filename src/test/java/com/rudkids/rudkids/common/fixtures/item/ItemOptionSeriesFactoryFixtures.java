@@ -25,7 +25,7 @@ public class ItemOptionSeriesFactoryFixtures {
             .quantity(1)
             .itemBio("소개글입니다~")
             .limitType(LimitType.LIMITED)
-            .itemOptionGroupList(Collections.emptyList())
+            .itemOptionGroupList(null)
             .build();
 
 }
