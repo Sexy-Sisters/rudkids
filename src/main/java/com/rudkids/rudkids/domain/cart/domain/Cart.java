@@ -26,7 +26,7 @@ public class Cart {
     @Column(name = "cart_item_count")
     private int cartItemCount;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final List<CartItem> cartItems = new ArrayList<>();
 
     protected Cart() {
