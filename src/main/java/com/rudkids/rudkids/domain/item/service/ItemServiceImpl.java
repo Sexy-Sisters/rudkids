@@ -6,12 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
     private final ItemReader itemReader;
@@ -20,7 +18,6 @@ public class ItemServiceImpl implements ItemService {
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
-    @Transactional
     public void registerItem(ItemCommand.RegisterItemRequest command, UUID productId) {
         var initItem = itemMapper.toEntity(command);
         var item = itemStore.store(initItem);
@@ -30,14 +27,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemInfo.Main> findItems(UUID productId) {
-        var product = productReader.getProduct(productId);
-        return product.getItems().stream()
-            .map(itemMapper::toMain)
-            .toList();
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public ItemInfo.Detail findItemDetail(UUID id) {
         var item = itemReader.getItem(id);
         var itemOptionSeriesList = itemReader.getItemOptionSeries(item);

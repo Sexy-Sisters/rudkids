@@ -53,16 +53,6 @@ public class ItemControllerFixtures {
                 .build()
         )).build();
 
-    public static List<ItemInfo.Main> ITEM_리스트_조회_응답() {
-        return List.of(
-            ItemInfo.Main.builder()
-                .name(아이템_이름)
-                .price(아이템_가격)
-                .itemStatus(아이템_상태)
-                .build()
-        );
-    }
-
     public static ItemInfo.Detail ITEM_상세정보_조회_응답() {
         return ItemInfo.Detail.builder()
             .name(아이템_이름)

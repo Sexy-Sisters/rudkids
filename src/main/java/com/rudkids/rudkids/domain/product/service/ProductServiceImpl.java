@@ -1,5 +1,7 @@
 package com.rudkids.rudkids.domain.product.service;
 
+import com.rudkids.rudkids.domain.item.ItemInfo;
+import com.rudkids.rudkids.domain.item.ItemMapper;
 import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
@@ -37,6 +39,20 @@ public class ProductServiceImpl implements ProductService {
         return productReader.getProducts().stream()
             .map(productMapper::of)
             .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProductInfo.Detail findProduct(UUID productId) {
+        var product = productReader.getProduct(productId);
+        var items = product.getItems().stream()
+            .map(productMapper::toInfo)
+            .toList();
+        return ProductInfo.Detail.builder()
+            .title(product.getTitle())
+            .bio(product.getProductBio())
+            .items(items)
+            .build();
     }
 
     @Override
