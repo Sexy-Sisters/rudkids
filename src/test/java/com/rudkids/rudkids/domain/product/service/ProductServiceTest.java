@@ -1,61 +1,19 @@
 package com.rudkids.rudkids.domain.product.service;
 
+import com.rudkids.rudkids.common.fixtures.product.ProductServiceFixtures;
 import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.ProductReader;
-import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
-import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.domain.product.domain.Title;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@ServiceTest
-class ProductServiceImplTest {
-
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private ProductReader productReader;
-
-    @Autowired
-    private ProductStore productStore;
-
-    private List<Product> products;
-
-    @BeforeEach
-    void inputData() {
-        products = List.of(
-            Product.builder()
-                .title(Title.create("프로덕트 No.1"))
-                .productBio(ProductBio.create("소개드립니다~"))
-                .build(),
-            Product.builder()
-                .title(Title.create("프로덕트 No.2"))
-                .productBio(ProductBio.create("소개드립니다~"))
-                .build(),
-            Product.builder()
-                .title(Title.create("프로덕트 No.3"))
-                .productBio(ProductBio.create("소개드립니다~"))
-                .build(),
-            Product.builder()
-                .title(Title.create("프로덕트 No.4"))
-                .productBio(ProductBio.create("소개드립니다~"))
-                .build()
-        );
-
-        products.forEach(productStore::store);
-    }
+class ProductServiceTest extends ProductServiceFixtures {
 
     @DisplayName("프로덕트 등록")
     @Test
@@ -78,6 +36,16 @@ class ProductServiceImplTest {
     void findProducts() {
         List<ProductInfo.Main> products = productService.findProducts();
         assertThat(products.size()).isEqualTo(4);
+    }
+
+    @DisplayName("특정 프로덕트 상세 조회")
+    @Test
+    void 특정_프로덕트_상세_조회() {
+        var productDetailInfo = productService.findProduct(products.get(0).getId());
+        assertAll(
+            () -> assertThat(productDetailInfo.title()).isEqualTo("프로덕트 No.1"),
+            () -> assertThat(productDetailInfo.bio()).isEqualTo("소개드립니다~")
+        );
     }
 
     @DisplayName("프로덕트 종료")

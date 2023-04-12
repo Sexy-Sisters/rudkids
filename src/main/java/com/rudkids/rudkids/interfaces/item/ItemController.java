@@ -25,15 +25,6 @@ public class ItemController {
         itemService.registerItem(command, productId);
     }
 
-    @GetMapping("/{product-id}")
-    public ResponseEntity findItems(@PathVariable(name = "product-id") UUID productId) {
-        var infoList = itemService.findItems(productId);
-        var response = infoList.stream()
-            .map(itemDtoMapper::to)
-            .toList();
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/detail/{id}")
     public ResponseEntity findItem(@PathVariable UUID id) {
         var info = itemService.findItemDetail(id);
