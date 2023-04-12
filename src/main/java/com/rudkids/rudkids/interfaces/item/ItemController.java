@@ -32,13 +32,13 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}/open")
-    public void openItem(@PathVariable UUID id) {
-        itemService.openItem(id);
+    @PutMapping("/{id}/on-sales")
+    public void changeOnSales(@PathVariable UUID id) {
+        itemService.changeOnSales(id);
     }
 
-    @DeleteMapping("/{id}/close")
-    public void closeItem(@PathVariable UUID id) {
-        itemService.closeItem(id);
+    @DeleteMapping("/{id}/end-of-sales")
+    public void changeEndOfSales(@PathVariable UUID id) {
+        itemService.changeEndOfSales(id);
     }
 }

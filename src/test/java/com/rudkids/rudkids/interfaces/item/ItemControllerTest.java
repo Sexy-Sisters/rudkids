@@ -58,10 +58,10 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템을_재발매한다.")
     @Test
     void 아이템을_재발매한다() throws Exception {
-        given(itemService.openItem(any()))
+        given(itemService.changeOnSales(any()))
             .willReturn(아이템_상태_판매중);
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/open", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/on-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -71,9 +71,9 @@ class ItemControllerTest extends ControllerTest {
     void 존재하지_않는_아이템을_재발매_할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
-            .openItem(any());
+            .changeOnSales(any());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/open", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/on-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -81,10 +81,10 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템을_판매종료한다.")
     @Test
     void 아이템을_판매종료한다() throws Exception {
-        given(itemService.openItem(any()))
+        given(itemService.changeEndOfSales(any()))
             .willReturn(아이템_상태_솔드아웃);
 
-        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/close", 아이템_아이디))
+        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/end-of-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -94,9 +94,9 @@ class ItemControllerTest extends ControllerTest {
     void 존재하지_않는_아이템을_판매종료_할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
-            .closeItem(any());
+            .changeEndOfSales(any());
 
-        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/close", 아이템_아이디))
+        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/end-of-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }

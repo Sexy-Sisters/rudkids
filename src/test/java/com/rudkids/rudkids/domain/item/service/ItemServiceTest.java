@@ -1,15 +1,12 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.common.fixtures.item.ItemServiceFixtures;
-import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -57,15 +54,15 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
     @DisplayName("아이템 판매 종료")
     @Test
-    void openItem() {
-        String itemStatus = itemService.openItem(item.getId());
+    void changeOnSales() {
+        String itemStatus = itemService.changeOnSales(item.getId());
         assertThat(itemStatus).isEqualTo("ON_SALES");
     }
 
     @DisplayName("아이템 판매 종료")
     @Test
-    void closeItem() {
-        String itemStatus = itemService.closeItem(item.getId());
+    void changeEndOfSales() {
+        String itemStatus = itemService.changeEndOfSales(item.getId());
         assertThat(itemStatus).isEqualTo("END_OF_SALES");
     }
 }
