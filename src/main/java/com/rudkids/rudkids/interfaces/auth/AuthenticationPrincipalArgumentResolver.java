@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.auth;
 
-import com.rudkids.rudkids.domain.auth.application.AuthService;
+import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

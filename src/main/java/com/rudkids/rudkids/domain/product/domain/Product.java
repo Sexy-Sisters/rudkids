@@ -1,11 +1,11 @@
 package com.rudkids.rudkids.domain.product.domain;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,10 @@ import java.util.UUID;
 public class Product extends AbstractEntity{
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "product_id")
-    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    private UUID id;
 
     @Embedded
     private Title title;

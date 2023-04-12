@@ -4,3 +4,23 @@
 [[Cart-아이템-추가]]
 === Cart 아이템 추가
 operation::cart/addCartItem[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Cart-아이템-추가-존재하지-않는-아이템-에러]]
+=== Cart 아이템 추가 (존재하지 않는 아이템 에러)
+operation::cart/addCartItem/failByNotFoundError[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Cart-아이템-리스트-조회]]
+=== Cart 아이템 리스트 조회
+operation::cart/findCartItems[snippets='http-request,request-headers,http-response,response-fields']
+
+[[Cart-아이템-수량-변경]]
+=== Cart 아이템 수량 변경
+operation::cart/updateCartItemAmount[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Cart-아이템-수량-변경-권한-에러]]
+=== Cart 아이템 수량 변경 (권한 에러)
+operation::cart/updateCartItemAmount/failByDifferentUserError[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Cart-아이템-수량-변경-존재하지-않는-아이템-에러]]
+=== Cart 아이템 수량 변경 (존재하지 않는 아이템 에러)
+operation::cart/updateCartItemAmount/failByNotFoundError[snippets='http-request,request-headers,request-fields,http-response']

@@ -1,14 +1,16 @@
 package com.rudkids.rudkids.common.fixtures.cart;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.cart.application.CartService;
-import com.rudkids.rudkids.domain.cart.repository.CartRepository;
+import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
+import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.user.domain.Age;
 import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.infrastructure.item.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CartServiceFixtures {
     protected CartRepository cartRepository;
 
     @Autowired
+    protected CartItemRepository cartItemRepository;
+
+    @Autowired
     protected UserRepository userRepository;
 
     @Autowired
@@ -30,6 +35,8 @@ public class CartServiceFixtures {
 
     protected User user;
     protected Item item;
+
+    protected CartCommand.AddCartItem CART_아이템_요청;
 
     @BeforeEach
     void setUp() {
@@ -50,5 +57,11 @@ public class CartServiceFixtures {
                 .limitType(LimitType.LIMITED)
                 .build();
         itemRepository.save(item);
+
+        //저장된 itemId 넣음
+        CART_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .amount(2)
+                .build();
     }
 }

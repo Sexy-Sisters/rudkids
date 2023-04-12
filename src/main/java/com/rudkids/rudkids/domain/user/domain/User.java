@@ -1,18 +1,22 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_user")
 public class User extends AbstractEntity {
+
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
-    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    private UUID id;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -59,5 +63,24 @@ public class User extends AbstractEntity {
     public void updateAdditionalInfo(Age age, String gender) {
         this.age = age;
         this.gender = Gender.toEnum(gender);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id)
+                && Objects.equals(email, user.email)
+                && Objects.equals(name, user.name)
+                && Objects.equals(age, user.age)
+                && gender == user.gender
+                && socialType == user.socialType
+                && roleType == user.roleType;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, name, age, gender, socialType, roleType);
     }
 }

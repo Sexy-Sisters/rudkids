@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.user.dto;
 
-import com.rudkids.rudkids.domain.user.application.UserCommand;
+import com.rudkids.rudkids.domain.user.UserCommand;
 import org.springframework.stereotype.Component;
 
 @Component

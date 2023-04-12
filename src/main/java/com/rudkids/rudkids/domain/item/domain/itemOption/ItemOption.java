@@ -1,11 +1,11 @@
 package com.rudkids.rudkids.domain.item.domain.itemOption;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -15,8 +15,10 @@ import java.util.UUID;
 public class ItemOption extends AbstractEntity {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "item_option_id")
-    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_option_group_id")
