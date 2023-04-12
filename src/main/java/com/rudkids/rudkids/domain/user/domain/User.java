@@ -78,7 +78,7 @@ public class User extends AbstractEntity {
                 && socialType == user.socialType
                 && roleType == user.roleType;
     }
-
+    
     @Override
     public int hashCode() {
         return Objects.hash(id, email, name, age, gender, socialType, roleType);
