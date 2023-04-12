@@ -47,4 +47,11 @@ public class ItemServiceImpl implements ItemService {
         item.changeEndOfSales();
         return item.getItemStatus().name();
     }
+
+    @Override
+    public String changePrepare(UUID id) {
+        var item = itemReader.getItem(id);
+        item.changePrepare();
+        return item.getItemStatus().name();
+    }
 }

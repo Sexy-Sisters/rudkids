@@ -33,12 +33,17 @@ public class ItemController {
     }
 
     @PutMapping("/{id}/on-sales")
-    public void changeOnSales(@PathVariable UUID id) {
-        itemService.changeOnSales(id);
+    public String changeOnSales(@PathVariable UUID id) {
+        return itemService.changeOnSales(id);
     }
 
     @DeleteMapping("/{id}/end-of-sales")
-    public void changeEndOfSales(@PathVariable UUID id) {
-        itemService.changeEndOfSales(id);
+    public String changeEndOfSales(@PathVariable UUID id) {
+        return itemService.changeEndOfSales(id);
+    }
+
+    @PutMapping("/{id}/prepare")
+    public String changePrepare(@PathVariable UUID id) {
+        return itemService.changePrepare(id);
     }
 }

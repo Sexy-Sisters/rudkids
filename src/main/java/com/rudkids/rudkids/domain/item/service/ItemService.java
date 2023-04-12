@@ -11,4 +11,5 @@ public interface ItemService {
     ItemInfo.Detail findItemDetail(UUID id);
     String changeOnSales(UUID id);
     String changeEndOfSales(UUID id);
+    String changePrepare(UUID id);
 }
