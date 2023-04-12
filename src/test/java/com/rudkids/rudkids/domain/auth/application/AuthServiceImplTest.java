@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.auth.application;
 
 import com.rudkids.rudkids.common.fixtures.auth.AuthServiceFixtures;
+import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;

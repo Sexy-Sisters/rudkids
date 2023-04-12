@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.user.application;
 
 import com.rudkids.rudkids.common.fixtures.user.UserServiceFixtures;
+import com.rudkids.rudkids.domain.user.UserCommand;
 import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;

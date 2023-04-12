@@ -1,4 +1,7 @@
-package com.rudkids.rudkids.domain.cart.application;
+package com.rudkids.rudkids.domain.cart.service;
+
+import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.CartInfo;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.auth.repository;
+package com.rudkids.rudkids.infrastructure.oauth;
 
 import org.springframework.stereotype.Component;
 

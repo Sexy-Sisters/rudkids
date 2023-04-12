@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.auth.dto;
 
-import com.rudkids.rudkids.domain.auth.application.AuthCommand;
+import com.rudkids.rudkids.domain.auth.AuthCommand;
 import org.springframework.stereotype.Component;
 
 @Component

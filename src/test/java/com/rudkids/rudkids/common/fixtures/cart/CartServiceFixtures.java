@@ -1,16 +1,16 @@
 package com.rudkids.rudkids.common.fixtures.cart;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.cart.application.CartCommand;
-import com.rudkids.rudkids.domain.cart.application.CartService;
-import com.rudkids.rudkids.domain.cart.repository.CartItemRepository;
-import com.rudkids.rudkids.domain.cart.repository.CartRepository;
+import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
+import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.user.domain.Age;
 import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.infrastructure.item.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

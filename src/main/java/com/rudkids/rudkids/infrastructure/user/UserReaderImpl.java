@@ -1,9 +1,8 @@
 package com.rudkids.rudkids.infrastructure.user;
 
-import com.rudkids.rudkids.domain.user.application.UserReader;
+import com.rudkids.rudkids.domain.user.UserReader;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

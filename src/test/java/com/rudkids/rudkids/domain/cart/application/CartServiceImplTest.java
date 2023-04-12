@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.domain.cart.application;
 
 import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
+import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.CartInfo;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.domain.CartItem;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;

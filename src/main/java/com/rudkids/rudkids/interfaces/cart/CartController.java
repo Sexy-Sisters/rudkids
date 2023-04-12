@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.cart;
 
-import com.rudkids.rudkids.domain.cart.application.CartService;
+import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;

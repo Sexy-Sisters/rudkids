@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.user.application;
+package com.rudkids.rudkids.domain.user;
 
 import com.rudkids.rudkids.domain.user.domain.User;
 

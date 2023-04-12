@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.cart.repository;
+package com.rudkids.rudkids.infrastructure.cart;
 
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;

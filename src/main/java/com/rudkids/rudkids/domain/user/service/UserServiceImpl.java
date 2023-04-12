@@ -1,7 +1,8 @@
-package com.rudkids.rudkids.domain.user.application;
+package com.rudkids.rudkids.domain.user.service;
 
+import com.rudkids.rudkids.domain.user.UserCommand;
+import com.rudkids.rudkids.domain.user.UserReader;
 import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

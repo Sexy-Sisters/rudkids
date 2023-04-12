@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.common.fixtures.cart;
 
-import com.rudkids.rudkids.domain.cart.application.CartInfo;
-import com.rudkids.rudkids.domain.cart.application.CartItemInfo;
+import com.rudkids.rudkids.domain.cart.CartInfo;
+import com.rudkids.rudkids.domain.cart.CartItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.interfaces.cart.dto.CartRequest;
 

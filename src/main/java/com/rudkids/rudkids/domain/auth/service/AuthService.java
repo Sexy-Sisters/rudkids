@@ -1,5 +1,6 @@
-package com.rudkids.rudkids.domain.auth.application;
+package com.rudkids.rudkids.domain.auth.service;
 
+import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 
 import java.util.UUID;

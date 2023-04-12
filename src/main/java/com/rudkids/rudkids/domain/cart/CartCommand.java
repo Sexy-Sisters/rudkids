@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.cart.application;
+package com.rudkids.rudkids.domain.cart;
 
 import lombok.Builder;
 

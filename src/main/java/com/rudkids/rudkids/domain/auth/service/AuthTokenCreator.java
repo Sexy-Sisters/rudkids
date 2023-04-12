@@ -1,7 +1,9 @@
-package com.rudkids.rudkids.domain.auth.application;
+package com.rudkids.rudkids.domain.auth.service;
 
+import com.rudkids.rudkids.domain.auth.TokenCreator;
+import com.rudkids.rudkids.domain.auth.TokenProvider;
 import com.rudkids.rudkids.domain.auth.domain.AuthToken;
-import com.rudkids.rudkids.domain.auth.repository.TokenRepository;
+import com.rudkids.rudkids.infrastructure.oauth.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

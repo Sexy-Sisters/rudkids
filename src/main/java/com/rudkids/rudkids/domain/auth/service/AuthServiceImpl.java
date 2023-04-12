@@ -1,9 +1,11 @@
-package com.rudkids.rudkids.domain.auth.application;
+package com.rudkids.rudkids.domain.auth.service;
 
+import com.rudkids.rudkids.domain.auth.AuthCommand;
+import com.rudkids.rudkids.domain.auth.TokenCreator;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
-package com.rudkids.rudkids.domain.auth.application;
+package com.rudkids.rudkids.domain.auth.service;
 
+import com.rudkids.rudkids.domain.auth.TokenProvider;
 import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import io.jsonwebtoken.*;

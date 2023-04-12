@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.cart.dto;
 
-import com.rudkids.rudkids.domain.cart.application.CartCommand;
+import com.rudkids.rudkids.domain.cart.CartCommand;
 import org.springframework.stereotype.Component;
 
 @Component

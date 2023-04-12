@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.user.repository;
+package com.rudkids.rudkids.infrastructure.user;
 
 import com.rudkids.rudkids.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

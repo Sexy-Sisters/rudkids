@@ -1,8 +1,8 @@
 package com.rudkids.rudkids.interfaces.auth;
 
-import com.rudkids.rudkids.domain.auth.application.AuthService;
-import com.rudkids.rudkids.domain.auth.application.OAuthClient;
-import com.rudkids.rudkids.domain.auth.application.OAuthUri;
+import com.rudkids.rudkids.domain.auth.service.AuthService;
+import com.rudkids.rudkids.domain.auth.OAuthClient;
+import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;

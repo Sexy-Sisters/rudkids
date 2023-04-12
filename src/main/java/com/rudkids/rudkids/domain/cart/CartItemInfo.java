@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.cart.application;
+package com.rudkids.rudkids.domain.cart;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import lombok.Builder;
