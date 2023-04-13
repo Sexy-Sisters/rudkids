@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.auth.application;
 import com.rudkids.rudkids.common.fixtures.auth.JwtTokenProviderFixtures;
 import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
+import com.rudkids.rudkids.domain.auth.service.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -7,18 +7,38 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDtoMapper {
 
-    public ProductCommand.RegisterRequest to(ProductRequest.Register request) {
+    public ProductCommand.RegisterRequest toCommand(ProductRequest.Register request) {
         return ProductCommand.RegisterRequest.builder()
             .title(request.title())
             .productBio(request.productBio())
             .build();
     }
 
-    public ProductResponse.Main to(ProductInfo.Main info) {
+    public ProductResponse.Main toResponse(ProductInfo.Main info) {
         return ProductResponse.Main.builder()
             .productId(info.productId())
             .title(info.title())
             .productBio(info.productBio())
+            .build();
+    }
+
+    public ProductResponse.Detail toResponse(ProductInfo.Detail info) {
+        var items = info.items().stream()
+            .map(this::toResponse)
+            .toList();
+
+        return ProductResponse.Detail.builder()
+            .title(info.title())
+            .bio(info.bio())
+            .items(items)
+            .build();
+    }
+
+    private ProductResponse.ProductItem toResponse(ProductInfo.ProductItem info) {
+        return ProductResponse.ProductItem.builder()
+            .name(info.name())
+            .price(info.price())
+            .itemStatus(info.itemStatus())
             .build();
     }
 }

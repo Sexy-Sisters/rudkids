@@ -11,7 +11,7 @@ public class ItemStoreImpl implements ItemStore {
     private final ItemRepository itemRepository;
 
     @Override
-    public void store(Item item) {
-        itemRepository.save(item);
+    public Item store(Item item) {
+        return itemRepository.save(item);
     }
 }

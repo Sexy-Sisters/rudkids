@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.infrastructure.oauth.uri;
 
-import com.rudkids.rudkids.domain.auth.application.OAuthUri;
+import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,10 +1,9 @@
 package com.rudkids.rudkids.common.fixtures.auth;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.auth.application.AuthCommand;
-import com.rudkids.rudkids.domain.auth.application.AuthService;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.rudkids.rudkids.domain.auth.AuthCommand;
+import com.rudkids.rudkids.domain.auth.service.AuthService;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @ServiceTest

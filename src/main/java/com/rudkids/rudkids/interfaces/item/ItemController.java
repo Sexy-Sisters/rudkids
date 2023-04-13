@@ -4,7 +4,6 @@ import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,35 +16,34 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemDtoMapper itemDtoMapper;
 
-    @PostMapping
-    public void registerItem(@RequestBody ItemRequest.Register request) {
+    @PostMapping("/{product-id}")
+    public void registerItem(
+        @PathVariable(name = "product-id") UUID productId,
+        @RequestBody ItemRequest.RegisterItem request
+    ) {
         var command = itemDtoMapper.to(request);
-        itemService.registerItem(command);
+        itemService.registerItem(command, productId);
     }
 
-    @GetMapping("/{product-id}")
-    public ResponseEntity findItems(@PathVariable(name = "product-id") UUID productId) {
-        var infoList = itemService.findItems(productId);
-        var response = infoList.stream()
-            .map(itemDtoMapper::to)
-            .toList();
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/{id}/detail")
+    @GetMapping("/detail/{id}")
     public ResponseEntity findItem(@PathVariable UUID id) {
         var info = itemService.findItemDetail(id);
         var response = itemDtoMapper.to(info);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}/open")
-    public void openItem(@PathVariable UUID id) {
-        itemService.openItem(id);
+    @PutMapping("/{id}/on-sales")
+    public String changeOnSales(@PathVariable UUID id) {
+        return itemService.changeOnSales(id);
     }
 
-    @DeleteMapping("/{id}/close")
-    public void closeItem(@PathVariable UUID id) {
-        itemService.closeItem(id);
+    @DeleteMapping("/{id}/end-of-sales")
+    public String changeEndOfSales(@PathVariable UUID id) {
+        return itemService.changeEndOfSales(id);
+    }
+
+    @PutMapping("/{id}/prepare")
+    public String changePrepare(@PathVariable UUID id) {
+        return itemService.changePrepare(id);
     }
 }

@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.product.domain;
 
-import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
 import com.rudkids.rudkids.domain.product.exception.InvalidProductTitleException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
