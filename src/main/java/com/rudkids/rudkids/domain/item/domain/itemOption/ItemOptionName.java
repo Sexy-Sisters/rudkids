@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.item.domain.itemOption;
 
-import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
+import com.rudkids.rudkids.domain.item.exception.InvalidItemOptionNameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
@@ -27,10 +27,10 @@ public class ItemOptionName {
 
     private static void validate(String value) {
         if(value == null || value.isBlank()) {
-            throw new InvalidItemNameException();
+            throw new InvalidItemOptionNameException();
         }
         if(value.length() > MAX_LENGTH) {
-            throw new InvalidItemNameException();
+            throw new InvalidItemOptionNameException();
         }
     }
 }
