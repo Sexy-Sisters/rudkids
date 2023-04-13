@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +29,20 @@ public class Order extends AbstractEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @Embedded
+    private DeliveryFragment deliveryFragment;
+
+    private ZonedDateTime orderedAt;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    public Long calculateTotalAmount() {
+        return orderItems.stream()
+            .mapToLong(OrderItem::calculateTotalAmount)
+            .sum();
+    }
 
     public Order(User user) {
         this.user = user;

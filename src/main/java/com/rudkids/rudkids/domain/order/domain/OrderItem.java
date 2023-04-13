@@ -29,18 +29,25 @@ public class OrderItem {
     private Item item;
 
     @Column(name = "order_price", nullable = false)
-    private int orderPrice;
+    private int itemPrice;
 
     @Column(name = "count", nullable = false)
-    private int count;
+    private int orderCount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.PERSIST)
     private List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
 
-    public OrderItem(Order order, Item item, int orderPrice, int count) {
+    public OrderItem(Order order, Item item, int itemPrice, int orderCount) {
         this.order = order;
         this.item = item;
-        this.orderPrice = orderPrice;
-        this.count = count;
+        this.itemPrice = itemPrice;
+        this.orderCount = orderCount;
+    }
+
+    public long calculateTotalAmount() {
+        var itemOptionTotalAmount = orderItemOptionGroups.stream()
+            .mapToLong(OrderItemOptionGroup::calculateTotalAmount)
+            .sum();
+        return (itemPrice + itemOptionTotalAmount) * orderCount;
     }
 }

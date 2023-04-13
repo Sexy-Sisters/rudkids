@@ -22,7 +22,15 @@ public class OrderItemOptionGroup {
     @JoinColumn(name = "order_item_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderItem orderItem;
+    private Integer ordering;
+    private String itemOptionGroupName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItemOptionGroup", cascade = CascadeType.PERSIST)
     private List<OrderItemOption> orderItemOptions = new ArrayList<>();
+
+    public Long calculateTotalAmount() {
+        return orderItemOptions.stream()
+            .mapToLong(OrderItemOption::getItemOptionPrice)
+            .sum();
+    }
 }
