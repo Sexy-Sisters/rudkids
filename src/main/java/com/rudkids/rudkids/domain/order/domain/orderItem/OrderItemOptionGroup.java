@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.order.domain;
+package com.rudkids.rudkids.domain.order.domain.orderItem;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.persistence.*;

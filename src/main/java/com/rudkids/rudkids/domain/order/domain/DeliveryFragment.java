@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.order.domain;
 import com.rudkids.rudkids.domain.order.exception.InvalidDeliveryFragmentException;
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.Embeddable;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class DeliveryFragment {
     private String receiverAddress2;
     private String etcMessage;
 
+    @Builder
     public DeliveryFragment(
         String receiverName,
         String receiverPhone,
@@ -33,7 +35,5 @@ public class DeliveryFragment {
         if (StringUtils.isEmpty(receiverAddress1)) throw new InvalidDeliveryFragmentException();
         if (StringUtils.isEmpty(receiverAddress2)) throw new InvalidDeliveryFragmentException();
         if (StringUtils.isEmpty(etcMessage)) throw new InvalidDeliveryFragmentException();
-
-
     }
 }

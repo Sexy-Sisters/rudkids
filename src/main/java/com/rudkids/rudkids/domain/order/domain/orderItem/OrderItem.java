@@ -1,11 +1,11 @@
-package com.rudkids.rudkids.domain.order.domain;
+package com.rudkids.rudkids.domain.order.domain.orderItem;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.order.domain.Order;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;

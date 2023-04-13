@@ -2,9 +2,11 @@ package com.rudkids.rudkids.domain.order.domain;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItem;
 import com.rudkids.rudkids.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
@@ -42,6 +44,12 @@ public class Order extends AbstractEntity {
         return orderItems.stream()
             .mapToLong(OrderItem::calculateTotalAmount)
             .sum();
+    }
+
+    @Builder
+    public Order(String payMethod, DeliveryFragment deliveryFragment) {
+        this.payMethod = payMethod;
+        this.deliveryFragment = deliveryFragment;
     }
 
     public Order(User user) {
