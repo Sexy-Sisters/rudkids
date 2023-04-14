@@ -39,4 +39,13 @@ public class CartController {
         var command = cartDtoMapper.to(request);
         cartService.updateCartItemAmount(loginUser.id(), command);
     }
+
+    @DeleteMapping
+    public void deleteCartItems(
+            @AuthenticationPrincipal AuthUser.Login loginUser,
+            @RequestBody CartRequest.DeleteCartItems request
+    ) {
+        var command = cartDtoMapper.to(request);
+        cartService.deleteCartItems(loginUser.id(), command);
+    }
 }
