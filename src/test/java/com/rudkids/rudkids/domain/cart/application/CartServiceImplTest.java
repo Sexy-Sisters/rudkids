@@ -303,10 +303,10 @@ class CartServiceImplTest extends CartServiceFixtures {
         });
     }
 
-    @Disabled("벌크연산 말고 다른 방법을 사용하여 커스텀 예외를 구현할 때까지 보류")
-    @DisplayName("없는 장바구니 아이템들을 선택하여 삭제할 경우 예외가 발생한다.")
+    @Disabled("벌크연산 말고 다른 방법을 사용하여 커스텀 예외를 구현할 때까지 이 테스트코드는 보류한다.")
+    @DisplayName("존재하지 않는 장바구니 아이템들을 선택하여 삭제할 경우 예외가 발생한다.")
     @Test
-    void 장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
+    void 존재하지_않는장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
