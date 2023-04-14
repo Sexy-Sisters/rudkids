@@ -293,14 +293,12 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         //then
         boolean hasCartItem = cartItemRepository.findById(cartItem.getId()).isPresent();
-        boolean hasAnotherCartItem = cartItemRepository.findById(cartItem.getId()).isPresent();
 
         Cart actual = cartRepository.findByUserId(user.getId())
                         .orElseThrow(CartNotFoundException::new);
 
         assertAll(() -> {
             assertThat(hasCartItem).isFalse();
-            assertThat(hasAnotherCartItem).isFalse();
             assertThat(actual.getCartItems()).hasSize(0);
         });
     }
