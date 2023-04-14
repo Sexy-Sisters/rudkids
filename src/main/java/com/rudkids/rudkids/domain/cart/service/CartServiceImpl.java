@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -37,14 +39,9 @@ public class CartServiceImpl implements CartService {
         var cart = cartReader.getCart(user);
         int totalCartItemPrice = cart.getTotalCartItemPrice();
 
-        List<CartItemInfo.Main> cartItems = cart.getCartItems().stream()
+        return cart.getCartItems().stream()
                 .map(cartItemMapper::toMain)
-                .toList();
-
-        return CartInfo.Main.builder()
-                .totalCartItemPrice(totalCartItemPrice)
-                .cartItems(cartItems)
-                .build();
+                .collect(collectingAndThen(toList(), cartItems -> new CartInfo.Main(totalCartItemPrice, cartItems)));
     }
 
     @Override
@@ -63,7 +60,6 @@ public class CartServiceImpl implements CartService {
         var user = userReader.getUser(userId);
         var cart = cartReader.getCart(command.cartId());
         cart.validateHasSameUser(user);
-
         cartItemStore.delete(command.cartItemIds());
     }
 }
