@@ -41,7 +41,10 @@ public class CartServiceImpl implements CartService {
 
         return cart.getCartItems().stream()
                 .map(cartItemMapper::toMain)
-                .collect(collectingAndThen(toList(), cartItems -> new CartInfo.Main(totalCartItemPrice, cartItems)));
+                .collect(collectingAndThen(toList(), cartItems -> CartInfo.Main.builder()
+                        .totalCartItemPrice(totalCartItemPrice)
+                        .cartItems(cartItems)
+                        .build()));
     }
 
     @Override
