@@ -18,6 +18,7 @@ public class CartServiceImpl implements CartService {
     private final ItemReader itemReader;
     private final CartReader cartReader;
     private final CartItemReader cartItemReader;
+    private final CartItemStore cartItemStore;
     private final CartItemMapper cartItemMapper;
 
     @Override
@@ -55,5 +56,14 @@ public class CartServiceImpl implements CartService {
         var cartItem = cartItemReader.getCartItem(command.cartItemId());
         cart.updateCartItemCount(cartItem.getAmount(), command.amount());
         cartItem.updateAmount(command.amount());
+    }
+
+    @Override
+    public void deleteCartItems(UUID userId, CartCommand.DeleteCartItems command) {
+        var user = userReader.getUser(userId);
+        var cart = cartReader.getCart(command.cartId());
+        cart.validateHasSameUser(user);
+
+        cartItemStore.delete(command.cartItemIds());
     }
 }
