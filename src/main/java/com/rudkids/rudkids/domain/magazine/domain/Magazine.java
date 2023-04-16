@@ -39,11 +39,24 @@ public class Magazine {
         return new Magazine(user, title, content);
     }
 
+    public void update(Title title, Content content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title.getValue();
     }
 
     public String getContent() {
         return content.getValue();
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -12,4 +12,11 @@ public class MagazineDtoMapper {
                 .content(request.content())
                 .build();
     }
+
+    public MagazineCommand.Update to(MagazineRequest.Update request) {
+        return MagazineCommand.Update.builder()
+                .title(request.title())
+                .content(request.content())
+                .build();
+    }
 }

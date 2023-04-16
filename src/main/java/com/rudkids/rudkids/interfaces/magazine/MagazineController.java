@@ -6,10 +6,9 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/magazine")
@@ -25,5 +24,15 @@ public class MagazineController {
     ) {
         var command = magazineDtoMapper.to(request);
         magazineService.create(loginUser.id(), command);
+    }
+
+    @PutMapping("/{id}")
+    public void update(
+            @AuthenticationPrincipal AuthUser.Login loginUser,
+            @PathVariable("id") UUID magazineId,
+            @RequestBody MagazineRequest.Update request
+    ) {
+        var command = magazineDtoMapper.to(request);
+        magazineService.update(loginUser.id(), magazineId, command);
     }
 }

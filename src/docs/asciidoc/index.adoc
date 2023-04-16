@@ -12,5 +12,7 @@ include::auth.adoc[]
 
 include::cart.adoc[]
 
+include::magazine.adoc[]
+
 
 

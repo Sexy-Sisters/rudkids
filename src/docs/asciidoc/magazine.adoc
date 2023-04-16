@@ -1,0 +1,10 @@
+[[Magazine-API]]
+== Magazine API
+
+[[Magazine-작성]]
+=== Magazine 작성
+operation::magazine/create[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Magazine-수정]]
+=== Magazine 수정
+operation::magazine/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
