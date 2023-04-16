@@ -8,3 +8,7 @@ operation::magazine/create[snippets='http-request,request-headers,request-fields
 [[Magazine-수정]]
 === Magazine 수정
 operation::magazine/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+
+[[Magazine-수정-존재하지-않는-Magazine-에러]]
+=== Magazine 수정 (존재하지 않는 Magazine 에러)
+operation::magazine/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
