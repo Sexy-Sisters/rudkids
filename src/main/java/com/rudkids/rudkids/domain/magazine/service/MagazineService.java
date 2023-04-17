@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface MagazineService {
     void create(UUID userId, MagazineCommand.Create command);
-    List<MagazineInfo.All> findAll();
+    List<MagazineInfo.Main> findAll();
     MagazineInfo.Detail find(UUID magazineId);
     void update(UUID userId, UUID magazineId, MagazineCommand.Update command);
     void delete(UUID userId, UUID magazineId);

@@ -363,7 +363,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         magazineRepository.save(newMagazine);
 
         //when
-        List<MagazineInfo.All> actual = magazineService.findAll();
+        List<MagazineInfo.Main> actual = magazineService.findAll();
 
         //then
         assertThat(actual).hasSize(2);

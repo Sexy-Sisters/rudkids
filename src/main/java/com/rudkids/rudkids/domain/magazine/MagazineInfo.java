@@ -5,10 +5,13 @@ import lombok.Builder;
 public class MagazineInfo {
 
     @Builder
-    public record All(String title, String writer) {
+    public record Main(String title, String writer) {
     }
 
     @Builder
-    public record Detail(String title, String writer, String content) {
+    public record Detail(
+            String title,
+            String writer,
+            String content) {
     }
 }

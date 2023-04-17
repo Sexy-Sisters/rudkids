@@ -32,16 +32,16 @@ public class MagazineServiceImpl implements MagazineService {
     }
 
     @Override
-    public List<MagazineInfo.All> findAll() {
+    public List<MagazineInfo.Main> findAll() {
         return magazineReader.getMagazines().stream()
-                .map(magazineMapper::toAllInfo)
+                .map(magazineMapper::toMain)
                 .toList();
     }
 
     @Override
     public MagazineInfo.Detail find(UUID magazineId) {
         Magazine magazine = magazineReader.getMagazine(magazineId);
-        return magazineMapper.toDetailInfo(magazine);
+        return magazineMapper.toDetail(magazine);
     }
 
     @Override

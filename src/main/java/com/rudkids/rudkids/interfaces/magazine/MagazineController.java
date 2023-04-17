@@ -34,26 +34,26 @@ public class MagazineController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity find(@PathVariable("id") UUID magazineId) {
-        var response = magazineService.find(magazineId);
+    public ResponseEntity find(@PathVariable UUID id) {
+        var response = magazineService.find(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
     public void update(
             @AuthenticationPrincipal AuthUser.Login loginUser,
-            @PathVariable("id") UUID magazineId,
+            @PathVariable UUID id,
             @RequestBody MagazineRequest.Update request
     ) {
         var command = magazineDtoMapper.to(request);
-        magazineService.update(loginUser.id(), magazineId, command);
+        magazineService.update(loginUser.id(), id, command);
     }
 
     @DeleteMapping("/{id}")
     public void delete(
             @AuthenticationPrincipal AuthUser.Login loginUser,
-            @PathVariable("id") UUID magazineId
+            @PathVariable UUID id
     ) {
-        magazineService.delete(loginUser.id(), magazineId);
+        magazineService.delete(loginUser.id(), id);
     }
 }
