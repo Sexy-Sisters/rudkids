@@ -247,4 +247,100 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
             assertThat(actual.getUser()).isNotEqualTo(anotherAdmin);
         });
     }
+
+    @DisplayName("관리자는 매거진 글을 삭제한다.")
+    @Test
+    void 관리자는_매거진_글을_삭제한다() {
+        //given
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(admin, title, content);
+        magazineRepository.save(magazine);
+
+        //when
+        magazineService.delete(admin.getId(), magazine.getId());
+
+        //then
+        boolean actual = magazineRepository.findById(magazine.getId()).isPresent();
+
+        assertThat(actual).isFalse();
+        admin.validateAdminRole();
+    }
+
+    @DisplayName("일반사용자가 매거진 글을 삭제할 경우 예외가 발생한다.")
+    @Test
+    void 일반사용자가_매거진_글을_삭제할_경우_예외가_발생한다() {
+        //given
+        User user = User.builder()
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(Age.create(18))
+                .gender(Gender.toEnum("MALE"))
+                .socialType(SocialType.GOOGLE)
+                .build();
+        userRepository.save(user);
+
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(user, title, content);
+        magazineRepository.save(magazine);
+
+        //when, then
+        assertThatThrownBy(() -> magazineService.delete(user.getId(), magazine.getId()))
+                .isInstanceOf(NotAdminRoleException.class);
+    }
+
+    @DisplayName("파트너가 매거진 글을 삭제할 경우 예외가 발생한다.")
+    @Test
+    void 파트너가_매거진_글을_삭제할_경우_예외가_발생한다() {
+        //given
+        User partner = User.builder()
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(Age.create(18))
+                .gender(Gender.toEnum("MALE"))
+                .socialType(SocialType.GOOGLE)
+                .build();
+        partner.changeAuthorityPartner();
+        userRepository.save(partner);
+
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(partner, title, content);
+        magazineRepository.save(magazine);
+
+        //when, then
+        assertThatThrownBy(() -> magazineService.delete(partner.getId(), magazine.getId()))
+                .isInstanceOf(NotAdminRoleException.class);
+    }
+
+    @DisplayName("다른 관리자도 매거진을 삭제할 수 있다.")
+    @Test
+    void 다른_관리자도_매거진을_삭제할_수_있다() {
+        //given
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(admin, title, content);
+        magazineRepository.save(magazine);
+
+        //when
+        User anotherAdmin = User.builder()
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(Age.create(18))
+                .gender(Gender.toEnum("MALE"))
+                .socialType(SocialType.GOOGLE)
+                .build();
+        anotherAdmin.changeAuthorityAdmin();
+        userRepository.save(anotherAdmin);
+        magazineService.delete(anotherAdmin.getId(), magazine.getId());
+
+        //then
+        boolean actual = magazineRepository.findById(magazine.getId()).isPresent();
+
+        assertAll(() -> {
+            assertThat(actual).isFalse();
+            assertThat(magazine.getUser()).isNotEqualTo(anotherAdmin);
+        });
+    }
 }

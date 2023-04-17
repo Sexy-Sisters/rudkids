@@ -35,4 +35,12 @@ public class MagazineController {
         var command = magazineDtoMapper.to(request);
         magazineService.update(loginUser.id(), magazineId, command);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+            @AuthenticationPrincipal AuthUser.Login loginUser,
+            @PathVariable("id") UUID magazineId
+    ) {
+        magazineService.delete(loginUser.id(), magazineId);
+    }
 }

@@ -16,8 +16,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -131,6 +130,56 @@ class MagazineControllerTest extends ControllerTest {
                                 fieldWithPath("content")
                                         .type(JsonFieldType.STRING)
                                         .description("새로운 내용")
+                        )
+                ))
+                .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("매거진을 삭제한다.")
+    @Test
+    void 매거진을_삭제한다() throws Exception {
+        willDoNothing()
+                .given(magazineService)
+                .delete(any(), any());
+
+        mockMvc.perform(delete(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("magazine/delete",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("JWT Access Token")
+                        ),
+                        pathParameters(
+                                parameterWithName("id")
+                                        .description("매거진 id")
+                        )
+                ))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("존재하지 않는 매거진을 삭제할 경우 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_매거진을_삭제할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new MagazineNotFoundException())
+                .when(magazineService)
+                .delete(any(), any());
+
+        mockMvc.perform(delete(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("magazine/delete/failByNotFoundError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("JWT Access Token")
+                        ),
+                        pathParameters(
+                                parameterWithName("id")
+                                        .description("존재하지 않는 매거진 id")
                         )
                 ))
                 .andExpect(status().isNotFound());

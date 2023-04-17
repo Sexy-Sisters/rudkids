@@ -25,7 +25,6 @@ public class MagazineServiceImpl implements MagazineService {
     public void create(UUID userId, MagazineCommand.Create command) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         Title title = Title.create(command.title());
         Content content = Content.create(command.content());
         Magazine magazine = Magazine.create(user, title, content);
@@ -36,10 +35,17 @@ public class MagazineServiceImpl implements MagazineService {
     public void update(UUID userId, UUID magazineId, MagazineCommand.Update command) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         Magazine magazine = magazineReader.getMagazine(magazineId);
         Title title = Title.create(command.title());
         Content content = Content.create(command.content());
         magazine.update(title, content);
+    }
+
+    @Override
+    public void delete(UUID userId, UUID magazineId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+        Magazine magazine = magazineReader.getMagazine(magazineId);
+        magazineStore.delete(magazine);
     }
 }

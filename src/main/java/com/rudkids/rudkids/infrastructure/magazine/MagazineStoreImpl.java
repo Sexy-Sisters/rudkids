@@ -14,4 +14,9 @@ public class MagazineStoreImpl implements MagazineStore {
     public void store(Magazine magazine) {
         magazineRepository.save(magazine);
     }
+
+    @Override
+    public void delete(Magazine magazine) {
+        magazineRepository.delete(magazine);
+    }
 }
