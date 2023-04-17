@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.magazine.service;
 
 import com.rudkids.rudkids.common.fixtures.magazine.MagazineServiceFixtures;
 import com.rudkids.rudkids.domain.magazine.MagazineCommand;
+import com.rudkids.rudkids.domain.magazine.MagazineInfo;
 import com.rudkids.rudkids.domain.magazine.domain.Content;
 import com.rudkids.rudkids.domain.magazine.domain.Magazine;
 import com.rudkids.rudkids.domain.magazine.domain.Title;
@@ -15,6 +16,8 @@ import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -342,5 +345,26 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
             assertThat(actual).isFalse();
             assertThat(magazine.getUser()).isNotEqualTo(anotherAdmin);
         });
+    }
+
+    @DisplayName("아무나 매거진 글을 전체조회할 수 있다.")
+    @Test
+    void 아무나_매거진_글을_전체조회할_수_있다() {
+        //given
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(admin, title, content);
+        magazineRepository.save(magazine);
+
+        Title newTitle = Title.create("새로운 제목");
+        Content newContent = Content.create("새로운 내용");
+        Magazine newMagazine = Magazine.create(admin, newTitle, newContent);
+        magazineRepository.save(newMagazine);
+
+        //when
+        List<MagazineInfo.All> actual = magazineService.findAll();
+
+        //then
+        assertThat(actual).hasSize(2);
     }
 }

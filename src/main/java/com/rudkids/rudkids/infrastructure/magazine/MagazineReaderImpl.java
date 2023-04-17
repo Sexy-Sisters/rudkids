@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -17,5 +18,10 @@ public class MagazineReaderImpl implements MagazineReader {
     public Magazine getMagazine(UUID magazineId) {
         return magazineRepository.findById(magazineId)
                 .orElseThrow(MagazineNotFoundException::new);
+    }
+
+    @Override
+    public List<Magazine> getMagazines() {
+        return magazineRepository.findAll();
     }
 }

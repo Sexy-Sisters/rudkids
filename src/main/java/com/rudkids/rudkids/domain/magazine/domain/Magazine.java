@@ -59,4 +59,8 @@ public class Magazine {
     public User getUser() {
         return user;
     }
+
+    public String getWriter() {
+        return user.getName();
+    }
 }

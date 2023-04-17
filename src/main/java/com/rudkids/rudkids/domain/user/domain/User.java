@@ -61,6 +61,10 @@ public class User extends AbstractEntity {
         return gender;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void changeAuthorityAdmin() {
         roleType = RoleType.ADMIN;
     }

@@ -6,6 +6,7 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,6 +25,12 @@ public class MagazineController {
     ) {
         var command = magazineDtoMapper.to(request);
         magazineService.create(loginUser.id(), command);
+    }
+
+    @GetMapping
+    public ResponseEntity findAll() {
+        var response = magazineService.findAll();
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")

@@ -11,6 +11,7 @@ import static com.rudkids.rudkids.common.fixtures.magazine.MagazineControllerFix
 import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.AUTHORIZATION_HEADER_NAME;
 import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.AUTHORIZATION_HEADER_VALUE;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -19,10 +20,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -183,5 +182,28 @@ class MagazineControllerTest extends ControllerTest {
                         )
                 ))
                 .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("매거진을 전체조회한다.")
+    @Test
+    void 매거진을_전체조회한다() throws Exception {
+        given(magazineService.findAll()).willReturn(MAGAZINE_전체조회_응답());
+
+        mockMvc.perform(get(MAGAZINE_DEFAULT_URL))
+                .andDo(print())
+                .andDo(document("magazine/findAll",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("[].title")
+                                        .type(JsonFieldType.STRING)
+                                        .description("매거진 제목"),
+
+                                fieldWithPath("[].writer")
+                                        .type(JsonFieldType.STRING)
+                                        .description("매거진 작성자")
+                        )
+                ))
+                .andExpect(status().isOk());
     }
 }
