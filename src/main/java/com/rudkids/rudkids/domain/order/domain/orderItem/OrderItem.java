@@ -3,8 +3,10 @@ package com.rudkids.rudkids.domain.order.domain.orderItem;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.order.domain.Order;
+import com.rudkids.rudkids.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @Column(name = "itemName")
+    private String itemName;
+
     @Column(name = "order_price", nullable = false)
     private int itemPrice;
 
@@ -35,11 +40,13 @@ public class OrderItem {
     private int orderCount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.PERSIST)
-    private List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
+    private final List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
 
-    public OrderItem(Order order, Item item, int itemPrice, int orderCount) {
+    @Builder
+    public OrderItem(Order order, Item item, String itemName, int itemPrice, int orderCount) {
         this.order = order;
         this.item = item;
+        this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.orderCount = orderCount;
     }

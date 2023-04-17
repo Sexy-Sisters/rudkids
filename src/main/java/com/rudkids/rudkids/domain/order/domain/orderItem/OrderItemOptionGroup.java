@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.order.domain.orderItem;
 import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -32,5 +33,12 @@ public class OrderItemOptionGroup {
         return orderItemOptions.stream()
             .mapToLong(OrderItemOption::getItemOptionPrice)
             .sum();
+    }
+
+    @Builder
+    public OrderItemOptionGroup(OrderItem orderItem, Integer ordering, String itemOptionGroupName) {
+        this.orderItem = orderItem;
+        this.ordering = ordering;
+        this.itemOptionGroupName = itemOptionGroupName;
     }
 }

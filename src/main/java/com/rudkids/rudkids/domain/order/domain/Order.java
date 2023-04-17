@@ -47,16 +47,16 @@ public class Order extends AbstractEntity {
     }
 
     @Builder
-    public Order(String payMethod, DeliveryFragment deliveryFragment) {
+    public Order(User user, String payMethod, DeliveryFragment deliveryFragment) {
+        this.user = user;
         this.payMethod = payMethod;
         this.deliveryFragment = deliveryFragment;
-    }
-
-    public Order(User user) {
-        this.user = user;
+        this.orderStatus = OrderStatus.INIT;
+        this.orderedAt = ZonedDateTime.now();
     }
 
     public void setRecipient(User user) {
-        user.order(this);
+        user.getOrders().add(this);
+        this.user = user;
     }
 }

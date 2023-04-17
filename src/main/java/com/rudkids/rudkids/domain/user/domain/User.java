@@ -62,12 +62,12 @@ public class User extends AbstractEntity {
         return gender;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     public void updateAdditionalInfo(Age age, String gender) {
         this.age = age;
         this.gender = Gender.toEnum(gender);
-    }
-
-    public void order(Order order) {
-        orders.add(order);
     }
 }

@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.order.domain.orderItem;
 import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,12 @@ public class OrderItemOption {
     private Integer ordering;
     private String itemOptionName;
     private Long ItemOptionPrice;
+
+    @Builder
+    public OrderItemOption(OrderItemOptionGroup orderItemOptionGroup, Integer ordering, String itemOptionName, Long itemOptionPrice) {
+        this.orderItemOptionGroup = orderItemOptionGroup;
+        this.ordering = ordering;
+        this.itemOptionName = itemOptionName;
+        ItemOptionPrice = itemOptionPrice;
+    }
 }
