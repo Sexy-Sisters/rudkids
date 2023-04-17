@@ -18,8 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UUID id, UserCommand.Update request) {
         var findUser = userReader.getUser(id);
-
         var age = Age.create(request.age());
-        findUser.updateAdditionalInfo(age, request.gender());
+        findUser.update(age, request.gender());
     }
 }

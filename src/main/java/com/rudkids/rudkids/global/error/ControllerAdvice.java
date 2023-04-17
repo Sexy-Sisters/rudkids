@@ -45,7 +45,7 @@ public class ControllerAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
         ErrorResponse errorResponse = new ErrorResponse("알 수 없는 에러가 발생하였습니다.");
-        log.error(errorResponse.getMessage() + e.getMessage());
+        log.error(errorResponse.message() + e.getMessage());
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 }

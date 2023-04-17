@@ -30,6 +30,5 @@ operation::cart/updateCartItemAmount/failByNotFoundError[snippets='http-request,
 operation::cart/deleteCartItems[snippets='http-request,request-headers,request-fields,http-response']
 
 [[Cart-아이템-선택-삭제-권한-에러]]
-=== Cart 아이템 선택 변경 (권한 에러)
+=== Cart 아이템 선택 삭제 (권한 에러)
 operation::cart/deleteCartItems/failByDifferentUserError[snippets='http-request,request-headers,request-fields,http-response']
-
