@@ -34,7 +34,7 @@ public class ItemServiceImpl implements ItemService {
             .limitType(command.limitType())
             .build();
 
-        var product = productReader.getProduct(command.productId());
+        var product = productReader.getProduct(productId);
         initItem.changeProduct(product);
 
         itemStore.store(initItem);
