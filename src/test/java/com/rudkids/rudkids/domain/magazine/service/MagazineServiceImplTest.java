@@ -18,6 +18,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -366,5 +367,36 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
 
         //then
         assertThat(actual).hasSize(2);
+    }
+
+    @DisplayName("아무나 매거진 글을 상세조회할 수 있다.")
+    @Test
+    void 아무나_매거진_글을_상세조회할_수_있다() {
+        //given
+        Title title = Title.create("제목");
+        Content content = Content.create("내용");
+        Magazine magazine = Magazine.create(admin, title, content);
+        magazineRepository.save(magazine);
+
+        //when
+        MagazineInfo.Detail actual = magazineService.find(magazine.getId());
+
+        //then
+        assertAll(() -> {
+            assertThat(actual.title()).isEqualTo("제목");
+            assertThat(actual.writer()).isEqualTo(admin.getName());
+            assertThat(actual.content()).isEqualTo("내용");
+        });
+    }
+
+    @DisplayName("존재하지 않는 매거진 글을 상세조회할 경우 예외가 발생한다.")
+    @Test
+    void 존재하지_않는_매거진_글을_상세조회할_경우_예외가_발생한다() {
+        //given
+        UUID invalidMagazineId = UUID.randomUUID();
+        
+        //when, then
+        assertThatThrownBy(() -> magazineService.find(invalidMagazineId))
+                .isInstanceOf(MagazineNotFoundException.class);
     }
 }

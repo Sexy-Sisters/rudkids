@@ -206,4 +206,55 @@ class MagazineControllerTest extends ControllerTest {
                 ))
                 .andExpect(status().isOk());
     }
+
+    @DisplayName("매거진을 상세조회한다.")
+    @Test
+    void 매거진을_상세조회한다() throws Exception {
+        given(magazineService.find(any())).willReturn(MAGAZINE_상세조회_응답());
+
+        mockMvc.perform(get(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID))
+                .andDo(print())
+                .andDo(document("magazine/find",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("id")
+                                        .description("매거진 id")
+                        ),
+                        responseFields(
+                                fieldWithPath("title")
+                                        .type(JsonFieldType.STRING)
+                                        .description("매거진 제목"),
+
+                                fieldWithPath("writer")
+                                        .type(JsonFieldType.STRING)
+                                        .description("매거진 작성자"),
+
+                                fieldWithPath("content")
+                                        .type(JsonFieldType.STRING)
+                                        .description("매거진 내용")
+                        )
+                ))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("존재하지 않는 매거진을 상세조회할 경우 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_매거진을_상세조회할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new MagazineNotFoundException())
+                .when(magazineService)
+                .find(any());
+
+        mockMvc.perform(get(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID))
+                .andDo(print())
+                .andDo(document("magazine/find/failByNotFoundError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("id")
+                                        .description("매거진 id")
+                        )
+                ))
+                .andExpect(status().isNotFound());
+    }
 }

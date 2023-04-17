@@ -27,4 +27,8 @@ public class MagazineControllerFixtures {
     public static List<MagazineInfo.All> MAGAZINE_전체조회_응답() {
         return List.of(new MagazineInfo.All(MAGAZINE_제목, MAGAZINE_작성자));
     }
+
+    public static MagazineInfo.Detail MAGAZINE_상세조회_응답() {
+        return new MagazineInfo.Detail(MAGAZINE_제목, MAGAZINE_작성자, MAGAZINE_내용);
+    }
 }

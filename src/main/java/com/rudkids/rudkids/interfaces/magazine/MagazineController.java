@@ -33,6 +33,12 @@ public class MagazineController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity find(@PathVariable("id") UUID magazineId) {
+        var response = magazineService.find(magazineId);
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/{id}")
     public void update(
             @AuthenticationPrincipal AuthUser.Login loginUser,

@@ -34,8 +34,14 @@ public class MagazineServiceImpl implements MagazineService {
     @Override
     public List<MagazineInfo.All> findAll() {
         return magazineReader.getMagazines().stream()
-                .map(magazineMapper::toInfo)
+                .map(magazineMapper::toAllInfo)
                 .toList();
+    }
+
+    @Override
+    public MagazineInfo.Detail find(UUID magazineId) {
+        Magazine magazine = magazineReader.getMagazine(magazineId);
+        return magazineMapper.toDetailInfo(magazine);
     }
 
     @Override
