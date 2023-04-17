@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.magazine.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import org.hibernate.annotations.GenericGenerator;
@@ -58,6 +59,24 @@ public class User extends AbstractEntity {
 
     public Gender getGender() {
         return gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void changeAuthorityAdmin() {
+        roleType = RoleType.ADMIN;
+    }
+
+    public void changeAuthorityPartner() {
+        roleType = RoleType.PARTNER;
+    }
+
+    public void validateAdminRole() {
+        if(!roleType.equals(RoleType.ADMIN)) {
+            throw new NotAdminRoleException();
+        }
     }
 
     public void update(Age age, String gender) {

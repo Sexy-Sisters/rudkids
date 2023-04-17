@@ -3,7 +3,6 @@ package com.rudkids.rudkids.domain.user.domain;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
