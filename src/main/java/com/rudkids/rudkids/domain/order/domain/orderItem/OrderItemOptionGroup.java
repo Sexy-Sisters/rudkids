@@ -1,10 +1,10 @@
 package com.rudkids.rudkids.domain.order.domain.orderItem;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,10 @@ import java.util.UUID;
 public class OrderItemOptionGroup {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "order_item_option_group_id")
-    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    private UUID id;
 
     @JoinColumn(name = "order_item_id")
     @ManyToOne(fetch = FetchType.LAZY)

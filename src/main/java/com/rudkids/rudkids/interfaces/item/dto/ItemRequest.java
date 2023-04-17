@@ -13,7 +13,6 @@ public class ItemRequest {
         String itemBio,
         int price,
         int quantity,
-        String itemBio,
         LimitType limitType,
         List<ItemRequest.RegisterItemOptionGroup> itemOptionGroupList
     ) {}

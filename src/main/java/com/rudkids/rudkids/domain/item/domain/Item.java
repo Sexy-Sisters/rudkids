@@ -110,10 +110,6 @@ public class Item extends AbstractEntity {
         return product;
     }
 
-    public String getItemBio() {
-        return itemBio.getValue();
-    }
-
     public List<ItemOptionGroup> getItemOptionGroups() {
         return itemOptionGroups;
     }

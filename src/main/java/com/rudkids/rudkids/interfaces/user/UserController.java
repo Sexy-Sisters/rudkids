@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.user;
 
-import com.rudkids.rudkids.domain.user.application.UserService;
+import com.rudkids.rudkids.domain.user.service.UserService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.user.dto.UserDtoMapper;

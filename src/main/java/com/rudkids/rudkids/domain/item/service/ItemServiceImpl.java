@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void registerItem(ItemCommand.RegisterRequest command) {
+    public void registerItem(ItemCommand.RegisterItemRequest command, UUID productId) {
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());

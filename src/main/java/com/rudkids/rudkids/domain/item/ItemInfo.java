@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import lombok.Builder;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ItemInfo {

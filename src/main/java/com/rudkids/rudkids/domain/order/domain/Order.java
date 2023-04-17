@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.order.domain;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItem;
 import com.rudkids.rudkids.domain.user.domain.User;
@@ -8,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -20,8 +20,10 @@ import java.util.UUID;
 public class Order extends AbstractEntity {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name = "order_id")
-    private final UUID id = UlidCreator.getMonotonicUlid().toUuid();
+    private UUID id;
 
     private String payMethod;
 

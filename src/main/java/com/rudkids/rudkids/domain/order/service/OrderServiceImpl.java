@@ -3,7 +3,7 @@ package com.rudkids.rudkids.domain.order.service;
 import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderItemSeriesFactory;
 import com.rudkids.rudkids.domain.order.OrderStore;
-import com.rudkids.rudkids.domain.user.application.UserReader;
+import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
