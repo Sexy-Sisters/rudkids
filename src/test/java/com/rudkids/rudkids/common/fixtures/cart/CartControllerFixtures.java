@@ -23,12 +23,18 @@ public class CartControllerFixtures {
             new CartItemInfo.Main(UUID.randomUUID(),"알약", 990, ItemStatus.ON_SALES)
     );
 
+    public static final List<UUID> CART_아이템_Ids = List.of(CART_아이템_ID, CART_아이템_ID, CART_아이템_ID);
+
     public static CartRequest.AddCartItem CART_아이템_추가_요청() {
         return new CartRequest.AddCartItem(아이템_ID, 아이템_수량);
     }
 
     public static CartRequest.UpdateCartItemAmount CART_아이템_수량_변경_요청() {
         return new CartRequest.UpdateCartItemAmount(CART_ID, CART_아이템_ID, CART_아이템_수량);
+    }
+
+    public static CartRequest.DeleteCartItems CART_아이템_선택삭제_변경_요청() {
+        return new CartRequest.DeleteCartItems(CART_ID, CART_아이템_Ids);
     }
 
     public static CartInfo.Main CART_아이템_리스트() {

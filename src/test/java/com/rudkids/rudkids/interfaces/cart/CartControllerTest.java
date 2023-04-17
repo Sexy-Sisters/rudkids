@@ -20,6 +20,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
@@ -245,5 +246,71 @@ class CartControllerTest extends ControllerTest {
                         )
                 ))
                 .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("장바구니 아이템들을 선택하여 삭제한다.")
+    @Test
+    void 장바구니_아이템들을_선택하여_삭제한다() throws Exception {
+        willDoNothing()
+                .given(cartService)
+                .deleteCartItems(any(), any());
+
+        mockMvc.perform(delete(CART_DEFAULT_URL)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(CART_아이템_선택삭제_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/deleteCartItems",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("JWT Access Token")
+                        ),
+                        requestFields(
+                                fieldWithPath("cartId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니 ID"),
+
+                                fieldWithPath("cartItemIds")
+                                        .type(JsonFieldType.ARRAY)
+                                        .description("여러 장바구니아이템 ID")
+                        )
+                ))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("다른 사용자의 장바구니 아이템을 선택하여 삭제할 시 상태코드 403을 반환한다.")
+    @Test
+    void 다른_사용자의_장바구니_아이템을_선택하여_삭제할_시_상태코드_403을_반환한다() throws Exception {
+        doThrow(new DifferentUserException())
+                .when(cartService)
+                .deleteCartItems(any(), any());
+
+        mockMvc.perform(delete(CART_DEFAULT_URL)
+                        .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(CART_아이템_선택삭제_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/deleteCartItems/failByDifferentUserError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization")
+                                        .description("다른 사용자의 JWT Access Token")
+                        ),
+                        requestFields(
+                                fieldWithPath("cartId")
+                                        .type(JsonFieldType.STRING)
+                                        .description("장바구니 ID"),
+
+                                fieldWithPath("cartItemIds")
+                                        .type(JsonFieldType.ARRAY)
+                                        .description("여러 장바구니아이템 ID")
+                        )
+                ))
+                .andExpect(status().isForbidden());
     }
 }

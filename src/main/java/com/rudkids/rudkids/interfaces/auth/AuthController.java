@@ -6,7 +6,6 @@ import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
-import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +44,5 @@ public class AuthController {
         var command = authDtoMapper.to(tokenRenewalRequest);
         var response = authService.generateRenewalAccessToken(command);
         return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/validate/token")
-    public void validateToken(@AuthenticationPrincipal AuthUser.Login loginUser) {
     }
 }
