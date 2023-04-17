@@ -60,7 +60,7 @@ public class User extends AbstractEntity {
         return gender;
     }
 
-    public void updateAdditionalInfo(Age age, String gender) {
+    public void update(Age age, String gender) {
         this.age = age;
         this.gender = Gender.toEnum(gender);
     }
