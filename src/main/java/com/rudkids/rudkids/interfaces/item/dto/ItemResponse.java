@@ -1,7 +1,10 @@
 package com.rudkids.rudkids.interfaces.item.dto;
 
+import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
+import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import lombok.Builder;
 
 import java.util.UUID;
@@ -23,7 +26,22 @@ public class ItemResponse {
         int price,
         int quantity,
         LimitType limitType,
-        ItemStatus itemStatus
+        ItemStatus itemStatus,
+        List<ItemOptionGroupResponse> itemOptionGroupResponseList
+    ) {
+    }
+
+    public record ItemOptionGroupResponse(
+        Integer ordering,
+        String itemOptionGroupName,
+        List<ItemResponse.ItemOptionResponse> itemOptionInfoList
+    ) {
+    }
+
+    public record ItemOptionResponse(
+        Integer ordering,
+        String itemOptionName,
+        Integer itemOptionPrice
     ) {
     }
 }

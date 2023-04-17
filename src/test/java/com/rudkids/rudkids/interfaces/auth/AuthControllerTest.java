@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.interfaces.auth;
 
 import com.rudkids.rudkids.common.ControllerTest;
+import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.auth.exception.InvalidTokenException;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import org.junit.jupiter.api.DisplayName;
@@ -172,6 +173,30 @@ class AuthControllerTest extends ControllerTest {
                                 fieldWithPath("refreshToken")
                                         .type(JsonFieldType.STRING)
                                         .description("잘못된 리프래쉬 토큰")
+                        )
+                ))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @DisplayName("만료된 리프래쉬 토큰으로 요청해서 새로운 엑세스 토큰 요청시 상태코드 401을 반환한다")
+    @Test
+    void 만료된_리프래쉬_토큰으로_요청해서_새로운_엑세스_토큰_요청시_상태코드_401을_반환한다() throws Exception {
+        doThrow(new ExpiredTokenException())
+                .when(authService)
+                .generateRenewalAccessToken(any());
+
+        mockMvc.perform(post("/api/v1/auth/renewal/access")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(USER_엑세스_토큰_재발급_요청())))
+                .andDo(print())
+                .andDo(document("auth/generateRenewalAccessToken/failByExpireTokenError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                fieldWithPath("refreshToken")
+                                        .type(JsonFieldType.STRING)
+                                        .description("만료된 리프래쉬 토큰")
                         )
                 ))
                 .andExpect(status().isUnauthorized());

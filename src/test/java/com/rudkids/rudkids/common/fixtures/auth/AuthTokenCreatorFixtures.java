@@ -1,8 +1,8 @@
 package com.rudkids.rudkids.common.fixtures.auth;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.auth.application.TokenCreator;
-import com.rudkids.rudkids.domain.auth.repository.TokenRepository;
+import com.rudkids.rudkids.domain.auth.TokenCreator;
+import com.rudkids.rudkids.infrastructure.oauth.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @ServiceTest

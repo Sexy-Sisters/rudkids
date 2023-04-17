@@ -2,7 +2,7 @@ package com.rudkids.rudkids.infrastructure.oauth.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rudkids.rudkids.domain.auth.application.OAuthClient;
+import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
 import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;

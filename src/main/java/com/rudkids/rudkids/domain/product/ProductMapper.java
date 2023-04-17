@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.product;
 
+import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import org.springframework.stereotype.Component;
 
@@ -13,4 +14,14 @@ public class ProductMapper {
             .productBio(product.getProductBio())
             .build();
     }
+
+
+    public ProductInfo.ProductItem toInfo(Item item) {
+        return ProductInfo.ProductItem.builder()
+            .name(item.getName())
+            .price(item.getPrice())
+            .itemStatus(item.getItemStatus())
+            .build();
+    }
+
 }

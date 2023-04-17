@@ -1,10 +1,10 @@
 package com.rudkids.rudkids.common.fixtures.user;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.user.application.UserService;
+import com.rudkids.rudkids.domain.user.service.UserService;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.repository.UserRepository;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 

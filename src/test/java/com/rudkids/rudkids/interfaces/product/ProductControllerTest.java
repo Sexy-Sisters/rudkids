@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixture.*;
+import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -41,6 +41,19 @@ class ProductControllerTest extends ControllerTest {
             .andDo(print())
             .andExpect(status().isOk());
     }
+
+    @DisplayName("프로덕트 세부사항을 조회한다.")
+    @Test
+    void 프로덕트_세부사항을_조회한다() throws Exception {
+        given(productService.findProduct(any()))
+            .willReturn(PRODUCT_상세_조회_응답());
+
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL+"/{productId}", 프로덕트_아이디))
+            .andDo(print())
+            .andExpect(status().isOk());
+    }
+
+
 
     @DisplayName("프로덕트를 연다.")
     @Test

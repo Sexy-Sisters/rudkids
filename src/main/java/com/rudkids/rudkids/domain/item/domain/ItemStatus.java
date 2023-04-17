@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum ItemStatus {
-    IN_STOCK("판매중"), SOLD_OUT("솔드아웃");
+    PREPARE("판매준비중"),
+    ON_SALES("판매중"),
+    END_OF_SALES("판매종료");
     private final String description;
 }

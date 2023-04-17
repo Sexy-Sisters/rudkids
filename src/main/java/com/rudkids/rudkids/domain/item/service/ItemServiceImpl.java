@@ -7,17 +7,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
     private final ItemReader itemReader;
     private final ItemMapper itemMapper;
     private final ProductReader productReader;
+    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
     @Transactional
@@ -42,30 +41,31 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemInfo.Main> findItems(UUID productId) {
-        var product = productReader.getProduct(productId);
-        return product.getItems().stream()
-            .map(itemMapper::toMain)
-            .toList();
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public ItemInfo.Detail findItemDetail(UUID id) {
         var item = itemReader.getItem(id);
-        return itemMapper.toDetail(item);
+        var itemOptionSeriesList = itemReader.getItemOptionSeries(item);
+        return itemMapper.toDetail(item, itemOptionSeriesList);
     }
 
     @Override
-    public String openItem(UUID id) {
+    public String changeOnSales(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeInStock();
+        item.changeOnSales();
         return item.getItemStatus().name();
     }
 
     @Override
-    public String closeItem(UUID id) {
+    public String changeEndOfSales(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeSoldOut();
+        item.changeEndOfSales();
+        return item.getItemStatus().name();
+    }
+
+    @Override
+    public String changePrepare(UUID id) {
+        var item = itemReader.getItem(id);
+        item.changePrepare();
         return item.getItemStatus().name();
     }
 }

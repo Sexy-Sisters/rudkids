@@ -1,7 +1,7 @@
 package com.rudkids.rudkids.common.fixtures.auth;
 
 import com.rudkids.rudkids.common.ServiceTest;
-import com.rudkids.rudkids.domain.auth.application.JwtTokenProvider;
+import com.rudkids.rudkids.domain.auth.service.JwtTokenProvider;
 
 @ServiceTest
 public class JwtTokenProviderFixtures {
