@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
+import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.domain.user.service.UserService;
 import com.rudkids.rudkids.interfaces.auth.AuthController;
@@ -14,6 +15,8 @@ import com.rudkids.rudkids.interfaces.cart.CartController;
 import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;
 import com.rudkids.rudkids.interfaces.item.ItemController;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
+import com.rudkids.rudkids.interfaces.magazine.MagazineController;
+import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.user.UserController;
@@ -31,7 +34,8 @@ import org.springframework.test.web.servlet.MockMvc;
     AuthController.class,
     ProductController.class,
     ItemController.class,
-    CartController.class
+    CartController.class,
+    MagazineController.class
 })
 public abstract class ControllerTest {
 
@@ -56,6 +60,9 @@ public abstract class ControllerTest {
     @MockBean
     protected CartService cartService;
 
+    @MockBean
+    protected MagazineService magazineService;
+
 
     // dto mapper
 
@@ -73,6 +80,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected CartDtoMapper cartDtoMapper;
+
+    @MockBean
+    protected MagazineDtoMapper magazineDtoMapper;
 
 
     // etc

@@ -20,4 +20,11 @@ public class CartDtoMapper {
                 .amount(request.amount())
                 .build();
     }
+
+    public CartCommand.DeleteCartItems to(CartRequest.DeleteCartItems request) {
+        return CartCommand.DeleteCartItems.builder()
+                .cartId(request.cartId())
+                .cartItemIds(request.cartItemIds())
+                .build();
+    }
 }
