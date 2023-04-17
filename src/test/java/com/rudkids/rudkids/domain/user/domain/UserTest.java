@@ -63,7 +63,7 @@ class UserTest {
         //when
         Age age = Age.create(7);
         String gender = "FEMALE";
-        user.updateAdditionalInfo(age, gender);
+        user.update(age, gender);
 
         //then
         assertAll(() -> {
@@ -89,7 +89,7 @@ class UserTest {
         String gender = "FEMALE";
 
         //then
-        assertThatThrownBy(() -> user.updateAdditionalInfo(Age.create(invalidAge), gender))
+        assertThatThrownBy(() -> user.update(Age.create(invalidAge), gender))
                 .isInstanceOf(InvalidAgeRangeException.class);
     }
 
@@ -110,7 +110,7 @@ class UserTest {
         String invalidGender = "Female";
 
         //then
-        assertThatThrownBy(() -> user.updateAdditionalInfo(age, invalidGender))
+        assertThatThrownBy(() -> user.update(age, invalidGender))
                 .isInstanceOf(InvalidGenderException.class);
     }
 }
