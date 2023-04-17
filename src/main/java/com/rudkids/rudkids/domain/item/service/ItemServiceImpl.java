@@ -23,11 +23,13 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public void registerItem(ItemCommand.RegisterRequest command) {
         var name = Name.create(command.name());
+        var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());
 
         var initItem = Item.builder()
             .name(name)
+            .itemBio(itemBio)
             .price(price)
             .quantity(quantity)
             .limitType(command.limitType())

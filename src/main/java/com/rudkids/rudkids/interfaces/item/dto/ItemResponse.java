@@ -4,9 +4,12 @@ import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import lombok.Builder;
 
+import java.util.UUID;
+
 public class ItemResponse {
     @Builder
     public record Main(
+        UUID id,
         String name,
         int price,
         ItemStatus itemStatus
@@ -16,7 +19,7 @@ public class ItemResponse {
     @Builder
     public record Detail(
         String name,
-        String bio,
+        String itemBio,
         int price,
         int quantity,
         LimitType limitType,

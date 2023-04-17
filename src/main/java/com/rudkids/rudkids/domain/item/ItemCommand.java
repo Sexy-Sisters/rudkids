@@ -12,6 +12,7 @@ public class ItemCommand {
     public record RegisterRequest(
         UUID productId,
         String name,
+        String itemBio,
         int price,
         int quantity,
         LimitType limitType

@@ -8,6 +8,7 @@ public class ItemMapper {
 
     public ItemInfo.Main toMain(Item item) {
         return ItemInfo.Main.builder()
+            .id(item.getId())
             .name(item.getName())
             .price(item.getPrice())
             .itemStatus(item.getItemStatus())
@@ -17,7 +18,7 @@ public class ItemMapper {
     public ItemInfo.Detail toDetail(Item item) {
         return ItemInfo.Detail.builder()
             .name(item.getName())
-            .bio(item.getBio())
+            .itemBio(item.getItemBio())
             .price(item.getPrice())
             .quantity(item.getQuantity())
             .limitType(item.getLimitType())

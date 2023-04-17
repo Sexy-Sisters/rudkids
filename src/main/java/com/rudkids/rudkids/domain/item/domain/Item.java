@@ -79,7 +79,7 @@ public class Item extends AbstractEntity {
         return quantity.getValue();
     }
 
-    public String getBio() {
+    public String getItemBio() {
         return itemBio.getValue();
     }
 

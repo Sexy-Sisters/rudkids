@@ -11,6 +11,7 @@ public class ItemRequest {
     public record Register(
         UUID productId,
         String name,
+        String itemBio,
         int price,
         int quantity,
         LimitType limitType
