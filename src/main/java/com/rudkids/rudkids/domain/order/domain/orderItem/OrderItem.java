@@ -31,11 +31,11 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(name = "itemName")
+    @Column(name = "item_name")
     private String itemName;
 
-    @Column(name = "order_price", nullable = false)
-    private int itemPrice;
+    @Column(name = "item_price", nullable = false)
+    private Long itemPrice;
 
     @Column(name = "count", nullable = false)
     private int orderCount;
@@ -44,7 +44,7 @@ public class OrderItem {
     private final List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
 
     @Builder
-    public OrderItem(Order order, Item item, String itemName, int itemPrice, int orderCount) {
+    public OrderItem(Order order, Item item, String itemName, Long itemPrice, int orderCount) {
         this.order = order;
         this.item = item;
         this.itemName = itemName;
