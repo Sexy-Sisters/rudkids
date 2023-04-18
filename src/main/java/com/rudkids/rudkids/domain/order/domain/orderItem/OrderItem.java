@@ -35,7 +35,7 @@ public class OrderItem {
     private String itemName;
 
     @Column(name = "item_price", nullable = false)
-    private Long itemPrice;
+    private int itemPrice;
 
     @Column(name = "count", nullable = false)
     private int orderCount;
@@ -44,7 +44,7 @@ public class OrderItem {
     private final List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
 
     @Builder
-    public OrderItem(Order order, Item item, String itemName, Long itemPrice, int orderCount) {
+    public OrderItem(Order order, Item item, String itemName, int itemPrice, int orderCount) {
         this.order = order;
         this.item = item;
         this.itemName = itemName;
