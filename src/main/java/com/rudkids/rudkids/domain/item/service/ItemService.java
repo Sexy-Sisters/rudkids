@@ -3,12 +3,11 @@ package com.rudkids.rudkids.domain.item.service;
 import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface ItemService {
-    void registerItem(ItemCommand.RegisterItemRequest command, UUID productId);
-    ItemInfo.Detail findItemDetail(UUID id);
+    void create(ItemCommand.RegisterItemRequest command, UUID productId);
+    ItemInfo.Detail find(UUID id);
     String changeOnSales(UUID id);
     String changeEndOfSales(UUID id);
     String changePrepare(UUID id);

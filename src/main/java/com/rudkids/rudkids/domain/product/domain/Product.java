@@ -19,7 +19,7 @@ public class Product extends AbstractEntity{
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name = "product_id")
+    @Column(name = "product_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Embedded

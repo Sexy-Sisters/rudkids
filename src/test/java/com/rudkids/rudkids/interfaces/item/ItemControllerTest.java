@@ -23,7 +23,7 @@ class ItemControllerTest extends ControllerTest {
     void 아이템을_등록한다() throws Exception {
         willDoNothing()
             .given(itemService)
-            .registerItem(any(), any());
+            .create(any(), any());
 
         mockMvc.perform(post(ITEM_DEFAULT_URL+"/{productId}", 프로덕트_아이디)
                 .accept(MediaType.APPLICATION_JSON)
@@ -36,7 +36,7 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템 상세정보를 조회한다.")
     @Test
     void 아이템_상세정보를_조회한다() throws Exception {
-        given(itemService.findItemDetail(any()))
+        given(itemService.find(any()))
             .willReturn(ITEM_상세정보_조회_응답());
 
         mockMvc.perform(get(ITEM_DEFAULT_URL+"/detail/{id}", 아이템_아이디))
@@ -49,7 +49,7 @@ class ItemControllerTest extends ControllerTest {
     void 존재하지_않는_아이템_상세정보를_조회할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
-            .findItemDetail(any());
+            .find(any());
 
         mockMvc.perform(get(ITEM_DEFAULT_URL+"/{id}/detail", 아이템_아이디))
             .andDo(print())

@@ -7,11 +7,13 @@ import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import lombok.Builder;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ItemInfo {
 
     @Builder
-    public record Main(
+    public record Main (
+        UUID id,
         String name,
         int price,
         ItemStatus itemStatus

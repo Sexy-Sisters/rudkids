@@ -94,6 +94,10 @@ public class Item extends AbstractEntity {
         return quantity.getValue();
     }
 
+    public String getItemBio() {
+        return itemBio.getValue();
+    }
+
     public LimitType getLimitType() {
         return limitType;
     }
@@ -104,10 +108,6 @@ public class Item extends AbstractEntity {
 
     public Product getProduct() {
         return product;
-    }
-
-    public String getItemBio() {
-        return itemBio.getValue();
     }
 
     public List<ItemOptionGroup> getItemOptionGroups() {

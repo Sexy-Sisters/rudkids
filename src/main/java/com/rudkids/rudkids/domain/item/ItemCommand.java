@@ -16,10 +16,11 @@ public class ItemCommand {
 
     @Builder
     public record RegisterItemRequest(
+//        UUID productId,
         String name,
+        String itemBio,
         int price,
         int quantity,
-        String itemBio,
         LimitType limitType,
         List<RegisterItemOptionGroupRequest> itemOptionGroupList
     ) {}

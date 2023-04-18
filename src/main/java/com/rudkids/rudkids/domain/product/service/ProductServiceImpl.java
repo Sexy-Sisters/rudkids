@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    public void registerProduct(ProductCommand.RegisterRequest command) {
+    public void create(ProductCommand.RegisterRequest command) {
         var title = Title.create(command.title());
         var bio = ProductBio.create(command.productBio());
 
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductInfo.Main> findProducts() {
+    public List<ProductInfo.Main> findAll() {
         return productReader.getProducts().stream()
             .map(productMapper::of)
             .toList();
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProductInfo.Detail findProduct(UUID productId) {
+    public ProductInfo.Detail find(UUID productId) {
         var product = productReader.getProduct(productId);
         var items = product.getItems().stream()
             .map(productMapper::toInfo)

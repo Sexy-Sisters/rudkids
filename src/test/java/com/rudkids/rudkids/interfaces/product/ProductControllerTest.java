@@ -21,7 +21,7 @@ class ProductControllerTest extends ControllerTest {
     void 프로덕트를_등록한다() throws Exception {
         willDoNothing()
             .given(productService)
-            .registerProduct(any());
+            .create(any());
 
         mockMvc.perform(post("/api/v1/product")
                 .accept(MediaType.APPLICATION_JSON)
@@ -34,7 +34,7 @@ class ProductControllerTest extends ControllerTest {
     @DisplayName("프로덕트 리스트를 조회한다.")
     @Test
     void 프로덕트_리스트를_조회한다() throws Exception {
-        given(productService.findProducts())
+        given(productService.findAll())
             .willReturn(PRODUCT_리스트_조회_응답());
 
         mockMvc.perform(get("/api/v1/product"))
@@ -45,7 +45,7 @@ class ProductControllerTest extends ControllerTest {
     @DisplayName("프로덕트 세부사항을 조회한다.")
     @Test
     void 프로덕트_세부사항을_조회한다() throws Exception {
-        given(productService.findProduct(any()))
+        given(productService.find(any()))
             .willReturn(PRODUCT_상세_조회_응답());
 
         mockMvc.perform(get(PRODUCT_DEFAULT_URL+"/{productId}", 프로덕트_아이디))

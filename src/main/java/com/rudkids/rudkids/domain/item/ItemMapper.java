@@ -26,6 +26,7 @@ public class ItemMapper {
 
     public ItemInfo.Main toMain(Item item) {
         return ItemInfo.Main.builder()
+            .id(item.getId())
             .name(item.getName())
             .price(item.getPrice())
             .itemStatus(item.getItemStatus())

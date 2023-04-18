@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
+import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,30 @@ public class ItemServiceImpl implements ItemService {
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
-    public void registerItem(ItemCommand.RegisterItemRequest command, UUID productId) {
-        var initItem = itemMapper.toEntity(command);
-        var item = itemStore.store(initItem);
+    @Transactional
+    public void create(ItemCommand.RegisterItemRequest command, UUID productId) {
+        var name = Name.create(command.name());
+        var itemBio = ItemBio.create(command.itemBio());
+        var price = Price.create(command.price());
+        var quantity = Quantity.create(command.quantity());
+
+        var initItem = Item.builder()
+            .name(name)
+            .itemBio(itemBio)
+            .price(price)
+            .quantity(quantity)
+            .limitType(command.limitType())
+            .build();
+
         var product = productReader.getProduct(productId);
-        item.changeProduct(product);
-        itemOptionSeriesFactory.store(command, item);
+        initItem.changeProduct(product);
+
+        itemStore.store(initItem);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ItemInfo.Detail findItemDetail(UUID id) {
+    public ItemInfo.Detail find(UUID id) {
         var item = itemReader.getItem(id);
         var itemOptionSeriesList = itemReader.getItemOptionSeries(item);
         return itemMapper.toDetail(item, itemOptionSeriesList);

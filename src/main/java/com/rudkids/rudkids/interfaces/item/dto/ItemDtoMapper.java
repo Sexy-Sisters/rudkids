@@ -16,6 +16,7 @@ public class ItemDtoMapper {
 
         return ItemCommand.RegisterItemRequest.builder()
             .name(request.name())
+            .itemBio(request.itemBio())
             .price(request.price())
             .quantity(request.quantity())
             .itemBio(request.itemBio())
@@ -47,6 +48,7 @@ public class ItemDtoMapper {
 
     public ItemResponse.Main to(ItemInfo.Main info) {
         return ItemResponse.Main.builder()
+            .id(info.id())
             .name(info.name())
             .price(info.price())
             .itemStatus(info.itemStatus())
@@ -61,7 +63,7 @@ public class ItemDtoMapper {
         return ItemResponse.Detail.builder()
             .name(info.name())
             .price(info.price())
-            .bio(info.itemBio())
+            .itemBio(info.itemBio())
             .quantity(info.quantity())
             .limitType(info.limitType())
             .itemStatus(info.itemStatus())

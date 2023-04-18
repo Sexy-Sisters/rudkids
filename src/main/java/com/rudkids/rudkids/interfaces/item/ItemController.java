@@ -17,17 +17,17 @@ public class ItemController {
     private final ItemDtoMapper itemDtoMapper;
 
     @PostMapping("/{product-id}")
-    public void registerItem(
+    public void create(
         @PathVariable(name = "product-id") UUID productId,
         @RequestBody ItemRequest.RegisterItem request
     ) {
         var command = itemDtoMapper.to(request);
-        itemService.registerItem(command, productId);
+        itemService.create(command, productId);
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity findItem(@PathVariable UUID id) {
-        var info = itemService.findItemDetail(id);
+    public ResponseEntity find(@PathVariable UUID id) {
+        var info = itemService.find(id);
         var response = itemDtoMapper.to(info);
         return ResponseEntity.ok(response);
     }

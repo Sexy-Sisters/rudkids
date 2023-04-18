@@ -1,11 +1,14 @@
 package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.magazine.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,6 +40,9 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
+
     protected User() {
     }
 
@@ -61,6 +67,10 @@ public class User extends AbstractEntity {
         return gender;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+    
     public String getName() {
         return name;
     }
@@ -84,6 +94,10 @@ public class User extends AbstractEntity {
         this.gender = Gender.toEnum(gender);
     }
 
+    public void order(Order order) {
+        orders.add(order);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
