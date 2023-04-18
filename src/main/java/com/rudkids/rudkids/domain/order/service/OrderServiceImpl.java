@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserReader userReader;
 
     @Override
-    public void registerOrder(UUID userId, OrderCommand.Register command) {
+    public void create(UUID userId, OrderCommand.Register command) {
         var user = userReader.getUser(userId);
         var order = orderStore.store(command.toEntity(user));
         orderItemSeriesFactory.store(order, command);

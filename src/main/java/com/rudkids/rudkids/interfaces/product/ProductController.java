@@ -17,14 +17,14 @@ public class ProductController {
     private final ProductDtoMapper productDtoMapper;
 
     @PostMapping
-    public void registerProduct(@RequestBody ProductRequest.Register request) {
+    public void create(@RequestBody ProductRequest.Register request) {
         var command = productDtoMapper.toCommand(request);
-        productService.registerProduct(command);
+        productService.create(command);
     }
 
     @GetMapping
     public ResponseEntity findProducts() {
-        var response = productService.findProducts().stream()
+        var response = productService.findAll().stream()
             .map(productDtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(response);
@@ -32,7 +32,7 @@ public class ProductController {
 
     @GetMapping("/{product-id}")
     public ResponseEntity findProduct(@PathVariable(name = "product-id") UUID productId) {
-        var info = productService.findProduct(productId);
+        var info = productService.find(productId);
         var response = productDtoMapper.toResponse(info);
         return ResponseEntity.ok(response);
     }

@@ -19,11 +19,11 @@ public class OrderController {
     private final OrderDtoMapper orderDtoMapper;
 
     @PostMapping
-    public void registerOrder(
+    public void create(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody OrderRequest.Register request
     ) {
         var command = orderDtoMapper.toCommand(request);
-        orderService.registerOrder(loginUser.id(), command);
+        orderService.create(loginUser.id(), command);
     }
 }

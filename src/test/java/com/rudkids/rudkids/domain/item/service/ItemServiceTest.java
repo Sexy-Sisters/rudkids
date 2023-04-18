@@ -17,7 +17,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("상품 등록 성공")
     @Test
     void registerItem() {
-        itemService.registerItem(ITEM_등록_요청, product.getId());
+        itemService.create(ITEM_등록_요청, product.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
         assertAll(
@@ -41,7 +41,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("아이템 상세 조회")
     @Test
     void findItemDetail() {
-        ItemInfo.Detail findItem = itemService.findItemDetail(item.getId());
+        ItemInfo.Detail findItem = itemService.find(item.getId());
 
         assertAll(
             () -> assertThat(findItem.name()).isEqualTo("No.1"),

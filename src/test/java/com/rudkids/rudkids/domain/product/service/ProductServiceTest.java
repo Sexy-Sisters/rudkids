@@ -22,7 +22,7 @@ class ProductServiceTest extends ProductServiceFixtures {
             .title("Strange Drugstore")
             .productBio("약쟁이가 약팝니다~~~~")
             .build();
-        productService.registerProduct(command);
+        productService.create(command);
 
         Product findProduct = productReader.getProduct(command.title());
         assertAll(
@@ -34,14 +34,14 @@ class ProductServiceTest extends ProductServiceFixtures {
     @DisplayName("프로덕트 리스트 조회")
     @Test
     void findProducts() {
-        List<ProductInfo.Main> products = productService.findProducts();
+        List<ProductInfo.Main> products = productService.findAll();
         assertThat(products.size()).isEqualTo(4);
     }
 
     @DisplayName("특정 프로덕트 상세 조회")
     @Test
     void 특정_프로덕트_상세_조회() {
-        var productDetailInfo = productService.findProduct(products.get(0).getId());
+        var productDetailInfo = productService.find(products.get(0).getId());
         assertAll(
             () -> assertThat(productDetailInfo.title()).isEqualTo("프로덕트 No.1"),
             () -> assertThat(productDetailInfo.bio()).isEqualTo("소개드립니다~")

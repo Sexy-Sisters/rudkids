@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void registerItem(ItemCommand.RegisterItemRequest command, UUID productId) {
+    public void create(ItemCommand.RegisterItemRequest command, UUID productId) {
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
@@ -42,7 +42,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = true)
-    public ItemInfo.Detail findItemDetail(UUID id) {
+    public ItemInfo.Detail find(UUID id) {
         var item = itemReader.getItem(id);
         var itemOptionSeriesList = itemReader.getItemOptionSeries(item);
         return itemMapper.toDetail(item, itemOptionSeriesList);
