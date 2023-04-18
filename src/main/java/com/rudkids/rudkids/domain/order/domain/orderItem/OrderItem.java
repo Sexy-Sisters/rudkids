@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.order.domain.orderItem;
 
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.order.domain.Order;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOptionGroup.OrderItemOptionGroup;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,7 +38,7 @@ public class OrderItem {
     @Column(name = "item_price", nullable = false)
     private int itemPrice;
 
-    @Column(name = "count", nullable = false)
+    @Column(name = "order_count", nullable = false)
     private int orderCount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.PERSIST)
@@ -52,9 +53,9 @@ public class OrderItem {
         this.orderCount = orderCount;
     }
 
-    public long calculateTotalAmount() {
+    public int calculateTotalAmount() {
         var itemOptionTotalAmount = orderItemOptionGroups.stream()
-            .mapToLong(OrderItemOptionGroup::calculateTotalAmount)
+            .mapToInt(OrderItemOptionGroup::calculateTotalAmount)
             .sum();
         return (itemPrice + itemOptionTotalAmount) * orderCount;
     }

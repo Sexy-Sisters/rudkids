@@ -3,9 +3,12 @@ package com.rudkids.rudkids.domain.order;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
 import com.rudkids.rudkids.domain.order.domain.Order;
+import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItem;
-import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItemOption;
-import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItemOptionGroup;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption.OrderItemOption;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption.OrderItemOptionName;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption.OrderItemOptionPrice;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOptionGroup.OrderItemOptionGroup;
 import com.rudkids.rudkids.domain.user.domain.User;
 import lombok.Builder;
 
@@ -16,7 +19,7 @@ public class OrderCommand {
 
     @Builder
     public record Register(
-        String payMethod,
+        PayMethod payMethod,
         String receiverName,
         String receiverPhone,
         String receiverZipcode,
@@ -48,7 +51,7 @@ public class OrderCommand {
         UUID itemId,
         Integer orderCount,
         String itemName,
-        Long itemPrice,
+        int itemPrice,
         List<RegisterOrderItemOptionGroup> orderItemOptionGroupList
     ) {
         public OrderItem toEntity(Order order, Item item) {
@@ -81,14 +84,17 @@ public class OrderCommand {
     public record RegisterOrderItemOption(
         Integer ordering,
         String itemOptionName,
-        Long itemOptionPrice
+        int itemOptionPrice
     ) {
         public OrderItemOption toEntity(OrderItemOptionGroup orderItemOptionGroup) {
+            var itemOptionName = OrderItemOptionName.create(itemOptionName());
+            var itemOptionPrice = OrderItemOptionPrice.create(itemOptionPrice());
+
             return OrderItemOption.builder()
                 .orderItemOptionGroup(orderItemOptionGroup)
                 .ordering(ordering)
-                .itemOptionName(itemOptionName)
-                .itemOptionPrice(itemOptionPrice)
+                .orderItemOptionName(itemOptionName)
+                .orderItemOptionPrice(itemOptionPrice)
                 .build();
         }
     }
