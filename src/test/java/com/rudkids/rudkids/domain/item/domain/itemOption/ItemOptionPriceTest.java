@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.item.domain.itemOption;
 
-import com.rudkids.rudkids.domain.item.exception.ItemOptionPriceException;
+import com.rudkids.rudkids.domain.item.exception.InvalidItemOptionPriceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +13,6 @@ class ItemOptionPriceTest {
     void create_Exception_Size() {
         int invalid = -1;
         assertThatThrownBy(() -> ItemOptionPrice.create(invalid))
-            .isInstanceOf(ItemOptionPriceException.class);
+            .isInstanceOf(InvalidItemOptionPriceException.class);
     }
 }
