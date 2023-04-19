@@ -25,7 +25,7 @@ class ItemControllerTest extends ControllerTest {
             .given(itemService)
             .create(any(), any());
 
-        mockMvc.perform(post(ITEM_DEFAULT_URL+"/{productId}", 프로덕트_아이디)
+        mockMvc.perform(post(ITEM_DEFAULT_URL + "/{productId}", 프로덕트_아이디)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
@@ -39,7 +39,7 @@ class ItemControllerTest extends ControllerTest {
         given(itemService.find(any()))
             .willReturn(ITEM_상세정보_조회_응답());
 
-        mockMvc.perform(get(ITEM_DEFAULT_URL+"/detail/{id}", 아이템_아이디))
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "/detail/{id}", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -51,7 +51,7 @@ class ItemControllerTest extends ControllerTest {
             .when(itemService)
             .find(any());
 
-        mockMvc.perform(get(ITEM_DEFAULT_URL+"/{id}/detail", 아이템_아이디))
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "/{id}/detail", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -62,7 +62,7 @@ class ItemControllerTest extends ControllerTest {
         given(itemService.changeOnSales(any()))
             .willReturn(ItemStatus.ON_SALES.name());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/on-sales", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/on-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -74,7 +74,7 @@ class ItemControllerTest extends ControllerTest {
             .when(itemService)
             .changeOnSales(any());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/on-sales", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/on-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -85,7 +85,7 @@ class ItemControllerTest extends ControllerTest {
         given(itemService.changeEndOfSales(any()))
             .willReturn(ItemStatus.END_OF_SALES.name());
 
-        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/end-of-sales", 아이템_아이디))
+        mockMvc.perform(delete(ITEM_DEFAULT_URL + "/{id}/end-of-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -97,7 +97,7 @@ class ItemControllerTest extends ControllerTest {
             .when(itemService)
             .changeEndOfSales(any());
 
-        mockMvc.perform(delete(ITEM_DEFAULT_URL+"/{id}/end-of-sales", 아이템_아이디))
+        mockMvc.perform(delete(ITEM_DEFAULT_URL + "/{id}/end-of-sales", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
@@ -108,7 +108,7 @@ class ItemControllerTest extends ControllerTest {
         given(itemService.changePrepare(any()))
             .willReturn(ItemStatus.PREPARE.name());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/prepare", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/prepare", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -120,7 +120,7 @@ class ItemControllerTest extends ControllerTest {
             .when(itemService)
             .changePrepare(any());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL+"/{id}/prepare", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/prepare", 아이템_아이디))
             .andDo(print())
             .andExpect(status().isNotFound());
     }
