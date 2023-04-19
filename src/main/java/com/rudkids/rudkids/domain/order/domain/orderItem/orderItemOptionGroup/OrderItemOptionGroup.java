@@ -1,5 +1,7 @@
-package com.rudkids.rudkids.domain.order.domain.orderItem;
+package com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOptionGroup;
 
+import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItem;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption.OrderItemOption;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -25,15 +27,16 @@ public class OrderItemOptionGroup {
     @JoinColumn(name = "order_item_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderItem orderItem;
+
     private Integer ordering;
     private String itemOptionGroupName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItemOptionGroup", cascade = CascadeType.PERSIST)
     private List<OrderItemOption> orderItemOptions = new ArrayList<>();
 
-    public Long calculateTotalAmount() {
+    public int calculateTotalAmount() {
         return orderItemOptions.stream()
-            .mapToLong(OrderItemOption::getItemOptionPrice)
+            .mapToInt(OrderItemOption::getOrderItemOptionPrice)
             .sum();
     }
 
@@ -42,5 +45,9 @@ public class OrderItemOptionGroup {
         this.orderItem = orderItem;
         this.ordering = ordering;
         this.itemOptionGroupName = itemOptionGroupName;
+    }
+
+    public void addOrderItemOption(OrderItemOption orderItemOption) {
+        this.orderItemOptions.add(orderItemOption);
     }
 }

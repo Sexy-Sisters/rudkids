@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.item.domain.itemOption;
 
-import com.rudkids.rudkids.domain.item.exception.InvalidItemPriceException;
-import com.rudkids.rudkids.domain.item.exception.ItemOptionPriceException;
+import com.rudkids.rudkids.domain.item.exception.InvalidItemOptionPriceException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
@@ -28,7 +27,7 @@ public class ItemOptionPrice {
 
     private static void validate(int value) {
         if(value < MIN_PRICE) {
-            throw new ItemOptionPriceException();
+            throw new InvalidItemOptionPriceException();
         }
     }
 }

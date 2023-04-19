@@ -3,8 +3,8 @@ package com.rudkids.rudkids.infrastructure.order;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItem;
-import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItemOption;
-import com.rudkids.rudkids.domain.order.domain.orderItem.OrderItemOptionGroup;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption.OrderItemOption;
+import com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOptionGroup.OrderItemOptionGroup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

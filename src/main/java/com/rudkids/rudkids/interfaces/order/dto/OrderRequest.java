@@ -1,12 +1,14 @@
 package com.rudkids.rudkids.interfaces.order.dto;
 
+import com.rudkids.rudkids.domain.order.domain.PayMethod;
+
 import java.util.List;
 import java.util.UUID;
 
 public class OrderRequest {
 
     public record Register(
-        String payMethod,
+        PayMethod payMethod,
         String receiverName,
         String receiverPhone,
         String receiverZipcode,
@@ -37,7 +39,7 @@ public class OrderRequest {
     public record RegisterOrderItemOption(
         Integer ordering,
         String itemOptionName,
-        Long itemOptionPrice
+        int itemOptionPrice
     ) {
     }
 }

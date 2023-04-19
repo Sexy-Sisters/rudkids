@@ -19,14 +19,17 @@ public class OrderItemSeriesFactoryImpl implements OrderItemSeriesFactory {
         command.orderItemList().forEach(registerOrderItem -> {
             var item = itemReader.getItem(registerOrderItem.itemId());
             var initOrderItem = registerOrderItem.toEntity(order, item);
+            order.addOrderItem(initOrderItem);
             var orderItem = orderStore.store(initOrderItem);
 
             registerOrderItem.orderItemOptionGroupList().forEach(registerOrderItemOptionGroup -> {
                 var initOrderItemOptionGroup = registerOrderItemOptionGroup.toEntity(orderItem);
+                orderItem.addOrderItemOptionGroup(initOrderItemOptionGroup);
                 var orderItemOptionGroup = orderStore.store(initOrderItemOptionGroup);
 
                 registerOrderItemOptionGroup.orderItemOptionList().forEach(registerOrderItemOption -> {
                     var initOrderItemOption = registerOrderItemOption.toEntity(orderItemOptionGroup);
+                    orderItemOptionGroup.addOrderItemOption(initOrderItemOption);
                     orderStore.store(initOrderItemOption);
                 });
             });

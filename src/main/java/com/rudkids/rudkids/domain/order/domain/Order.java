@@ -25,8 +25,6 @@ public class Order extends AbstractEntity {
     @Column(name = "order_id")
     private UUID id;
 
-    private String payMethod;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -37,28 +35,44 @@ public class Order extends AbstractEntity {
     @Embedded
     private DeliveryFragment deliveryFragment;
 
-    private ZonedDateTime orderedAt;
+    @Enumerated(EnumType.STRING)
+    private PayMethod payMethod;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    public Long calculateTotalAmount() {
+    public int calculateTotalAmount() {
         return orderItems.stream()
-            .mapToLong(OrderItem::calculateTotalAmount)
+            .mapToInt(OrderItem::calculateTotalAmount)
             .sum();
     }
 
     @Builder
-    public Order(User user, String payMethod, DeliveryFragment deliveryFragment) {
+    public Order(User user, PayMethod payMethod, DeliveryFragment deliveryFragment) {
         this.user = user;
         this.payMethod = payMethod;
         this.deliveryFragment = deliveryFragment;
         this.orderStatus = OrderStatus.INIT;
-        this.orderedAt = ZonedDateTime.now();
     }
 
     public void setRecipient(User user) {
         user.getOrders().add(this);
         this.user = user;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+    }
+
+    public PayMethod getPayMethod() {
+        return payMethod;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
