@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_NAME;
+import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_VALUE;
 import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.*;
-import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.AUTHORIZATION_HEADER_NAME;
-import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.AUTHORIZATION_HEADER_VALUE;
-import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;

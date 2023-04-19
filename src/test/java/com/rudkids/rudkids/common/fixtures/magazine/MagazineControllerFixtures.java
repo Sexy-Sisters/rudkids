@@ -16,9 +16,6 @@ public class MagazineControllerFixtures {
     public static final String MAGAZINE_새로운_내용 = "새로운 내용";
     public static final String MAGAZINE_작성자 = "작성자";
 
-    public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-    public static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
-
     public static MagazineRequest.Create MAGAZINE_작성_요청() {
         return new MagazineRequest.Create(MAGAZINE_제목, MAGAZINE_내용);
     }

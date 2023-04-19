@@ -13,9 +13,6 @@ public class ProductControllerFixtures {
     public static final String 프로덕트_제목 = "Strange Drugstore";
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
 
-    public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-    public static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
-
     public static ProductRequest.Register PRODUCT_등록_요청() {
         return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글);
     }

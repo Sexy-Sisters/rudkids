@@ -71,7 +71,6 @@ class ProductServiceTest extends ProductServiceFixtures {
         var result = productService.openProduct(product.getId(), user.getId());
 
         // Then
-
         assertThat(result).isEqualTo(ProductStatus.OPEN);
     }
 
