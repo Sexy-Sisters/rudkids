@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    void create(ProductCommand.RegisterRequest command);
+    void create(ProductCommand.RegisterRequest command, UUID userId);
     List<ProductInfo.Main> findAll();
     ProductInfo.Detail find(UUID productId);
     void closeProduct(UUID productId);

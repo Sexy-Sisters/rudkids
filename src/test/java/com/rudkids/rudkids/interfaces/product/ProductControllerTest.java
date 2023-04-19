@@ -21,7 +21,7 @@ class ProductControllerTest extends ControllerTest {
     void 프로덕트를_등록한다() throws Exception {
         willDoNothing()
             .given(productService)
-            .create(any());
+            .create(any(), loginUser);
 
         mockMvc.perform(post("/api/v1/product")
                 .accept(MediaType.APPLICATION_JSON)

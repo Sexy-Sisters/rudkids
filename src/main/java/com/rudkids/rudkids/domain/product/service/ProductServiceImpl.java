@@ -1,11 +1,10 @@
 package com.rudkids.rudkids.domain.product.service;
 
-import com.rudkids.rudkids.domain.item.ItemInfo;
-import com.rudkids.rudkids.domain.item.ItemMapper;
 import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.Title;
+import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,16 +19,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductStore productStore;
     private final ProductReader productReader;
     private final ProductMapper productMapper;
+    private final UserReader userReader;
 
     @Override
-    public void create(ProductCommand.RegisterRequest command) {
+    public void create(ProductCommand.RegisterRequest command, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
         var title = Title.create(command.title());
-        var bio = ProductBio.create(command.productBio());
-
-        var initProduct = Product.builder()
-            .title(title)
-            .productBio(bio)
-            .build();
+        var productBio = ProductBio.create(command.productBio());
+        var initProduct = Product.create(title, productBio);
         productStore.store(initProduct);
     }
 

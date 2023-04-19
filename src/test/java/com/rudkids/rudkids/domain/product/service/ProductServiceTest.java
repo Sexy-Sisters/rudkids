@@ -22,7 +22,7 @@ class ProductServiceTest extends ProductServiceFixtures {
             .title("Strange Drugstore")
             .productBio("약쟁이가 약팝니다~~~~")
             .build();
-        productService.create(command);
+        productService.create(command, loginUser);
 
         Product findProduct = productReader.getProduct(command.title());
         assertAll(
