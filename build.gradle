@@ -26,6 +26,9 @@ repositories {
 }
 
 dependencies {
+	//annotation processer
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
 	//test용 DB 의존성
 	runtimeOnly 'com.h2database:h2'
 
