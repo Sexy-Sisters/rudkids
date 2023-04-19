@@ -23,6 +23,9 @@ public class CartControllerFixtures {
         new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, ItemStatus.ON_SALES)
     );
 
+    public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
+    public static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
+
     public static final List<UUID> CART_아이템_Ids = List.of(CART_아이템_ID, CART_아이템_ID, CART_아이템_ID);
 
     public static CartRequest.AddCartItem CART_아이템_추가_요청() {
