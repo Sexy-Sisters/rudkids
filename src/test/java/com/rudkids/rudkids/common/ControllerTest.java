@@ -7,6 +7,7 @@ import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
+import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.domain.user.service.UserService;
 import com.rudkids.rudkids.interfaces.auth.AuthController;
@@ -17,6 +18,8 @@ import com.rudkids.rudkids.interfaces.item.ItemController;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.MagazineController;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
+import com.rudkids.rudkids.interfaces.order.OrderController;
+import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.user.UserController;
@@ -35,7 +38,8 @@ import org.springframework.test.web.servlet.MockMvc;
     ProductController.class,
     ItemController.class,
     CartController.class,
-    MagazineController.class
+    MagazineController.class,
+    OrderController.class
 })
 public abstract class ControllerTest {
 
@@ -63,6 +67,8 @@ public abstract class ControllerTest {
     @MockBean
     protected MagazineService magazineService;
 
+    @MockBean
+    protected OrderService orderService;
 
     // dto mapper
 
@@ -84,6 +90,8 @@ public abstract class ControllerTest {
     @MockBean
     protected MagazineDtoMapper magazineDtoMapper;
 
+    @MockBean
+    protected OrderDtoMapper orderDtoMapper;
 
     // etc
 
@@ -102,4 +110,7 @@ public abstract class ControllerTest {
     @MockBean
     protected OAuthClient oAuthClient;
 
+
+    protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
+    protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
 }
