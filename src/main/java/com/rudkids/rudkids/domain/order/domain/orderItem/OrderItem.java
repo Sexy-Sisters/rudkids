@@ -57,9 +57,6 @@ public class OrderItem {
         var itemOptionTotalAmount = orderItemOptionGroups.stream()
             .mapToInt(OrderItemOptionGroup::calculateTotalAmount)
             .sum();
-        System.out.println("itemOptionTotalAmount:"  + itemOptionTotalAmount);
-        System.out.println("orderCount:"  + orderCount);
-        System.out.println("itemPrice:"  + itemPrice);
         return (itemPrice + itemOptionTotalAmount) * orderCount;
     }
 
