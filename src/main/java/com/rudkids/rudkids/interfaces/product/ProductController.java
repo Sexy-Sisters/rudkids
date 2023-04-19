@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.domain.product.service.ProductService;
+import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +19,12 @@ public class ProductController {
     private final ProductDtoMapper productDtoMapper;
 
     @PostMapping
-    public void create(@RequestBody ProductRequest.Register request) {
+    public void create(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @RequestBody ProductRequest.Register request
+    ) {
         var command = productDtoMapper.toCommand(request);
-        productService.create(command);
+        productService.create(command, loginUser.id());
     }
 
     @GetMapping
@@ -38,12 +43,18 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void openProduct(@PathVariable UUID id) {
-        productService.openProduct(id);
+    public void openProduct(
+        @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.openProduct(id, loginUser.id());
     }
 
     @DeleteMapping("/{id}")
-    public void closeProduct(@PathVariable UUID id) {
-        productService.closeProduct(id);
+    public void closeProduct(
+        @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.closeProduct(id, loginUser.id());
     }
 }

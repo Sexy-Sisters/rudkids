@@ -1,10 +1,13 @@
 package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
+import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_NAME;
+import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_VALUE;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -21,9 +24,10 @@ class ProductControllerTest extends ControllerTest {
     void 프로덕트를_등록한다() throws Exception {
         willDoNothing()
             .given(productService)
-            .create(any());
+            .create(any(), any());
 
         mockMvc.perform(post("/api/v1/product")
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
@@ -48,21 +52,21 @@ class ProductControllerTest extends ControllerTest {
         given(productService.find(any()))
             .willReturn(PRODUCT_상세_조회_응답());
 
-        mockMvc.perform(get(PRODUCT_DEFAULT_URL+"/{productId}", 프로덕트_아이디))
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{productId}", 프로덕트_아이디))
             .andDo(print())
             .andExpect(status().isOk());
     }
 
 
-
     @DisplayName("프로덕트를 연다.")
     @Test
     void 프로덕트를_연다() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .openProduct(프로덕트_아이디);
+        given(productService.openProduct(any(), any()))
+            .willReturn(ProductStatus.OPEN);
 
-        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디))
+        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
             .andDo(print())
             .andExpect(status().isOk());
     }
@@ -70,11 +74,12 @@ class ProductControllerTest extends ControllerTest {
     @DisplayName("프로덕트를 닫는다.")
     @Test
     void 프로덕트를_닫는다() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .closeProduct(프로덕트_아이디);
+        given(productService.closeProduct(any(), any()))
+            .willReturn(ProductStatus.CLOSED);
 
-        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디))
+        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
             .andDo(print())
             .andExpect(status().isOk());
     }

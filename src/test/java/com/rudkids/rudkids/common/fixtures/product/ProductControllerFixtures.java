@@ -8,10 +8,11 @@ import java.util.UUID;
 
 public class ProductControllerFixtures {
 
-    public static final UUID  프로덕트_아이디 = UUID.randomUUID();
     public static final String PRODUCT_DEFAULT_URL = "/api/v1/product";
+    public static final UUID  프로덕트_아이디 = UUID.randomUUID();
     public static final String 프로덕트_제목 = "Strange Drugstore";
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
+
     public static ProductRequest.Register PRODUCT_등록_요청() {
         return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글);
     }

@@ -43,7 +43,6 @@ public class OrderServiceFixtures {
     @Autowired
     private ItemStore itemStore;
 
-    protected static Order order;
     protected static User user;
     protected static Item item;
 
@@ -101,7 +100,6 @@ public class OrderServiceFixtures {
             .itemOptionPrice(500)
             .build();
     }
-
 
     @BeforeEach
     void inputData() {
