@@ -36,7 +36,7 @@ public class GoogleOAuthClient implements OAuthClient {
     @Override
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         GoogleTokenResponse googleTokenResponse = requestGoogleToken(code, redirectUri);
-        String payload = getPayload(googleTokenResponse.idToken());
+        String payload = getPayload(googleTokenResponse.getIdToken());
         UserInfo userInfo = parseUserInfo(payload);
         return new AuthUser.OAuth(userInfo.email(), userInfo.name());
     }
