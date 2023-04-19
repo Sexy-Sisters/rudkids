@@ -18,12 +18,16 @@ class ProductServiceTest extends ProductServiceFixtures {
     @DisplayName("프로덕트 등록")
     @Test
     void registerProduct() {
+        // Given
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
             .title("Strange Drugstore")
             .productBio("약쟁이가 약팝니다~~~~")
             .build();
+
+        // When
         productService.create(command, user.getId());
 
+        // Then
         Product findProduct = productReader.getProduct(command.title());
         assertAll(
             () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore"),
@@ -34,14 +38,23 @@ class ProductServiceTest extends ProductServiceFixtures {
     @DisplayName("프로덕트 리스트 조회")
     @Test
     void findProducts() {
+        // Given & When
         List<ProductInfo.Main> products = productService.findAll();
+
+        // Then
         assertThat(products.size()).isEqualTo(4);
     }
 
     @DisplayName("특정 프로덕트 상세 조회")
     @Test
     void 특정_프로덕트_상세_조회() {
-        var productDetailInfo = productService.find(products.get(0).getId());
+        // Given
+        var product = products.get(0);
+
+        // When
+        var productDetailInfo = productService.find(product.getId());
+
+        // Then
         assertAll(
             () -> assertThat(productDetailInfo.title()).isEqualTo("프로덕트 No.1"),
             () -> assertThat(productDetailInfo.bio()).isEqualTo("소개드립니다~")
@@ -52,7 +65,7 @@ class ProductServiceTest extends ProductServiceFixtures {
     @Test
     void openProduct() {
         // Given
-        Product product = products.get(0);
+        var product = products.get(0);
 
         // When
         var result = productService.openProduct(product.getId(), user.getId());
@@ -66,7 +79,7 @@ class ProductServiceTest extends ProductServiceFixtures {
     @Test
     void closeProduct() {
         // Given
-        Product product = products.get(0);
+        var product = products.get(0);
 
         // When
         var result = productService.closeProduct(product.getId(), user.getId());
