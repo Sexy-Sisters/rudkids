@@ -43,12 +43,18 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void openProduct(@PathVariable UUID id) {
-        productService.openProduct(id);
+    public void openProduct(
+        @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.openProduct(id, loginUser.id());
     }
 
     @DeleteMapping("/{id}")
-    public void closeProduct(@PathVariable UUID id) {
-        productService.closeProduct(id);
+    public void closeProduct(
+        @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.closeProduct(id, loginUser.id());
     }
 }

@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.product.service;
 import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
@@ -54,14 +55,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void closeProduct(UUID productId) {
+    public ProductStatus closeProduct(UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
         var product = productReader.getProduct(productId);
-        product.close();
+        return product.close();
     }
 
     @Override
-    public void openProduct(UUID productId) {
+    public ProductStatus openProduct(UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
         var product = productReader.getProduct(productId);
-        product.open();
+        return product.open();
     }
 }

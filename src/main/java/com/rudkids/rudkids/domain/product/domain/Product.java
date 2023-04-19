@@ -50,12 +50,12 @@ public class Product extends AbstractEntity{
             .build();
     }
 
-    public void open() {
-        this.productStatus = ProductStatus.OPEN;
+    public ProductStatus open() {
+        return productStatus = ProductStatus.OPEN;
     }
 
-    public void close() {
-        this.productStatus = ProductStatus.CLOSED;
+    public ProductStatus close() {
+        return productStatus = ProductStatus.CLOSED;
     }
 
     public String getTitle() {
