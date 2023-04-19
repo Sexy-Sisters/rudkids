@@ -28,7 +28,7 @@ public class OrderCommand {
         String etcMessage,
         List<RegisterOrderItem> orderItemList
     ) {
-        public Order toEntity(User user) {
+        public Order toEntity() {
             var deliveryFragment = DeliveryFragment.builder()
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
@@ -39,7 +39,6 @@ public class OrderCommand {
                 .build();
 
             return Order.builder()
-                .user(user)
                 .payMethod(payMethod)
                 .deliveryFragment(deliveryFragment)
                 .build();

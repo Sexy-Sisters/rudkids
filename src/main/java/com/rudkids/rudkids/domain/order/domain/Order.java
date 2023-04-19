@@ -41,9 +41,9 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    public Long calculateTotalAmount() {
+    public int calculateTotalAmount() {
         return orderItems.stream()
-            .mapToLong(OrderItem::calculateTotalAmount)
+            .mapToInt(OrderItem::calculateTotalAmount)
             .sum();
     }
 
@@ -60,11 +60,19 @@ public class Order extends AbstractEntity {
         this.user = user;
     }
 
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+    }
+
     public PayMethod getPayMethod() {
         return payMethod;
     }
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

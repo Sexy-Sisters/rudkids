@@ -1,8 +1,5 @@
 package com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption;
 
-import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionName;
-import com.rudkids.rudkids.domain.item.exception.InvalidItemOptionNameException;
-import com.rudkids.rudkids.domain.order.exception.InvalidOrderItemOptionGroupNameException;
 import com.rudkids.rudkids.domain.order.exception.InvalidOrderItemOptionNameException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

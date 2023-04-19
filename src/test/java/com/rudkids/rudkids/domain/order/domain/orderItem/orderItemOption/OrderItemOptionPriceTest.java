@@ -1,7 +1,5 @@
 package com.rudkids.rudkids.domain.order.domain.orderItem.orderItemOption;
 
-import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionPrice;
-import com.rudkids.rudkids.domain.item.exception.InvalidItemOptionPriceException;
 import com.rudkids.rudkids.domain.order.exception.InvalidOrderItemOptionPriceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

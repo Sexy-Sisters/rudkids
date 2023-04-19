@@ -7,6 +7,8 @@ import com.rudkids.rudkids.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class OrderReaderImpl implements OrderReader {
@@ -15,6 +17,12 @@ public class OrderReaderImpl implements OrderReader {
     @Override
     public Order getOrder(User user) {
         return orderRepository.findByUser(user)
+            .orElseThrow(NotFoundOrderException::new);
+    }
+
+    @Override
+    public Order getOrder(UUID id) {
+        return orderRepository.findById(id)
             .orElseThrow(NotFoundOrderException::new);
     }
 }

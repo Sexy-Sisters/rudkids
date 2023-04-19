@@ -46,4 +46,8 @@ public class OrderItemOptionGroup {
         this.ordering = ordering;
         this.itemOptionGroupName = itemOptionGroupName;
     }
+
+    public void addOrderItemOption(OrderItemOption orderItemOption) {
+        this.orderItemOptions.add(orderItemOption);
+    }
 }
