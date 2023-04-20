@@ -10,6 +10,11 @@ import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
+import com.rudkids.rudkids.domain.user.domain.Age;
+import com.rudkids.rudkids.domain.user.domain.Gender;
+import com.rudkids.rudkids.domain.user.domain.SocialType;
+import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,6 +34,10 @@ public class ItemServiceFixtures {
     @Autowired
     protected ItemStore itemStore;
 
+    @Autowired
+    protected UserRepository userRepository;
+
+    protected static User user;
     protected static Product product;
     protected static Item item;
     protected static ItemCommand.RegisterItemRequest ITEM_등록_요청;
@@ -56,6 +65,16 @@ public class ItemServiceFixtures {
 
     @BeforeEach
     void inputData() {
+        user = User.builder()
+            .name("이규진")
+            .age(Age.create(19))
+            .email("leekuin14@gmail.com")
+            .gender(Gender.MAIL)
+            .socialType(SocialType.GOOGLE)
+            .build();
+        user.changeAuthorityAdmin();
+        userRepository.save(user);
+
         product = Product.builder()
             .title(Title.create("Strange Drugstore"))
             .productBio(ProductBio.create("약국입니다~"))

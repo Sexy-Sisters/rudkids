@@ -30,10 +30,12 @@ public class ItemOptionSeriesFactoryImpl implements ItemOptionSeriesFactory {
         return itemOptionGroupRequestList.stream()
             .map(requestItemOptionGroup -> {
                 var initItemOptionGroup = requestItemOptionGroup.toEntity(item);
+                item.getItemOptionGroups().add(initItemOptionGroup);
                 var itemOptionGroup = itemOptionGroupStore.store(initItemOptionGroup);
 
                 requestItemOptionGroup.itemOptionList().forEach(requestItemOption -> {
                     var initItemOption = requestItemOption.toEntity(itemOptionGroup);
+                    itemOptionGroup.getItemOptions().add(initItemOption);
                     itemOptionStore.store(initItemOption);
                 });
 

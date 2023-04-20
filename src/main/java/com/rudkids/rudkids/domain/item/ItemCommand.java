@@ -16,7 +16,6 @@ public class ItemCommand {
 
     @Builder
     public record RegisterItemRequest(
-//        UUID productId,
         String name,
         String itemBio,
         int price,

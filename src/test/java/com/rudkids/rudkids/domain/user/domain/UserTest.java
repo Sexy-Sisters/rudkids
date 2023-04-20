@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.rudkids.rudkids.domain.magazine.exception.NotAdminRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
 import org.junit.jupiter.api.DisplayName;

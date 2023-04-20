@@ -4,8 +4,9 @@ import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_item")
 public class Item extends AbstractEntity {
 
@@ -48,16 +49,25 @@ public class Item extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
-    protected Item() {
-    }
-
     @Builder
-    public Item(final Name name, final ItemBio itemBio, final Price price, final Quantity quantity, final LimitType limitType) {
+    public Item(Product product, Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+        this.product = product;
         this.name = name;
         this.itemBio = itemBio;
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
+        this.itemStatus = ItemStatus.ON_SALES;
+    }
+
+    public static Item create(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+        return Item.builder()
+            .name(name)
+            .itemBio(itemBio)
+            .price(price)
+            .quantity(quantity)
+            .limitType(limitType)
+            .build();
     }
 
     public void changePrepare() {
@@ -73,7 +83,7 @@ public class Item extends AbstractEntity {
     }
 
 
-    public void changeProduct(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
         product.getItems().add(this);
     }

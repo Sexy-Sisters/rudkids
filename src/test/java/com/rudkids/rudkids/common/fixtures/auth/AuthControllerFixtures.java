@@ -12,9 +12,6 @@ public class AuthControllerFixtures {
     public static final String 엑세스_토큰 = "access";
     public static final String 리프래쉬_토큰 = "refresh";
 
-    public static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-    public static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
-
     public static AuthRequest.Token USER_토큰_요청() {
         return new AuthRequest.Token(MEMBER_인증_코드, REDIRECT_URI);
     }

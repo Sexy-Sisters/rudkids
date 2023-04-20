@@ -1,15 +1,13 @@
 package com.rudkids.rudkids.interfaces.user;
 
+import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.user.exception.InvalidAgeRangeException;
 import com.rudkids.rudkids.domain.user.exception.InvalidGenderException;
-import com.rudkids.rudkids.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_NAME;
-import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_VALUE;
 import static com.rudkids.rudkids.common.fixtures.user.UserControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.willDoNothing;
