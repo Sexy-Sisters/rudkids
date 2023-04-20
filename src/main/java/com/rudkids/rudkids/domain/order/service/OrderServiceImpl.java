@@ -4,6 +4,7 @@ import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderItemSeriesFactory;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.user.UserReader;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserReader userReader;
 
     @Override
+    @Transactional
     public UUID create(UUID userId, OrderCommand.Register command) {
         var user = userReader.getUser(userId);
         var order = orderStore.store(command.toEntity());

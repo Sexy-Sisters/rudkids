@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
+import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -10,10 +11,10 @@ import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtu
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 class ProductControllerTest extends ControllerTest {
 
@@ -55,6 +56,17 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
+    @DisplayName("존재하지 않는 프로덕트의 세부사항을 조회할 경우 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_프로덕트의_세부사항을_조회할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductNotFoundException())
+            .when(productService)
+            .find(any());
+
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{productId}", 프로덕트_아이디))
+            .andDo(print())
+            .andExpect(status().isNotFound());
+    }
 
     @DisplayName("프로덕트를 연다.")
     @Test
@@ -69,6 +81,21 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
+    @DisplayName("존재하지 않는 프로덕트를 오픈할 경우 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_프로덕트를_오픈할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductNotFoundException())
+            .when(productService)
+            .openProduct(any(), any());
+
+
+        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andExpect(status().isNotFound());
+    }
+
     @DisplayName("프로덕트를 닫는다.")
     @Test
     void 프로덕트를_닫는다() throws Exception {
@@ -80,5 +107,20 @@ class ProductControllerTest extends ControllerTest {
             )
             .andDo(print())
             .andExpect(status().isOk());
+    }
+
+    @DisplayName("존재하지 않는 프로덕트를 닫을 경우 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_프로덕트를_닫을_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductNotFoundException())
+            .when(productService)
+            .closeProduct(any(), any());
+
+
+        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andExpect(status().isNotFound());
     }
 }
