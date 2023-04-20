@@ -8,7 +8,24 @@ import java.util.UUID;
 public class CartCommand {
 
     @Builder
-    public record AddCartItem(UUID itemId, int amount) {
+    public record AddCartItem(
+            UUID itemId,
+            List<AddCartItemOptionGroup> cartItemOptionGroups,
+            int amount) {
+    }
+
+    @Builder
+    public record AddCartItemOptionGroup(
+            String name,
+            AddCartItemOption cartItemOption
+    ) {
+    }
+
+    @Builder
+    public record AddCartItemOption(
+            String name,
+            int price
+    ) {
     }
 
     @Builder

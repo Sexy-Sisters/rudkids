@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.cart.application;
+package com.rudkids.rudkids.domain.cart.service;
 
 import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.rudkids.domain.cart.CartCommand;
@@ -91,6 +91,11 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
                 .itemId(newItem.getId())
+                .cartItemOptionGroups(List.of(
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("사이즈")
+                                .cartItemOption(new CartCommand.AddCartItemOption("M", 1000))
+                                .build()))
                 .amount(4)
                 .build();
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
@@ -130,28 +135,13 @@ class CartServiceImplTest extends CartServiceFixtures {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Item newItem = Item.builder()
-                .name(Name.create("No.2"))
-                .price(Price.create(1_000))
-                .quantity(Quantity.create(3_000))
-                .itemBio(ItemBio.create("옷 팝니다!"))
-                .limitType(LimitType.LIMITED)
-                .build();
-        itemRepository.save(newItem);
-
-        CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(newItem.getId())
-                .amount(4)
-                .build();
-        cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
-
         //when
         CartInfo.Main actual = cartService.findCartItems(user.getId());
 
         //then
         assertAll(() -> {
-            assertThat(actual.totalCartItemPrice()).isEqualTo(9980);
-            assertThat(actual.cartItems()).hasSize(2);
+            assertThat(actual.totalCartItemPrice()).isEqualTo(7980);
+            assertThat(actual.cartItems()).hasSize(1);
         });
     }
 

@@ -33,7 +33,13 @@ class CartItemTest {
                 .itemBio(ItemBio.create("소개글입니다~"))
                 .limitType(LimitType.LIMITED)
                 .build();
-        CartItem cartItem = CartItem.create(cart, item, 4);
+
+        CartItem cartItem = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .amount(4)
+                .price(item.getPrice())
+                .build();
 
         //then
         assertThat(cartItem.getCartItemPrice()).isEqualTo(8000);
@@ -59,7 +65,13 @@ class CartItemTest {
                 .itemBio(ItemBio.create("소개글입니다~"))
                 .limitType(LimitType.LIMITED)
                 .build();
-        CartItem cartItem = CartItem.create(cart, item, 2);
+
+        CartItem cartItem = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .amount(2)
+                .price(item.getPrice())
+                .build();
 
         //when
         cartItem.updateAmount(4);

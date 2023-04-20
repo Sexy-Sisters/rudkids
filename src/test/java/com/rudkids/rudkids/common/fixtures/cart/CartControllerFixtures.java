@@ -18,15 +18,30 @@ public class CartControllerFixtures {
     public static final int CART_아이템_수량 = 3;
     public static final int 장바구니_아이템_총_가격 = 9980;
     public static final List<CartItemInfo.Main> 장바구니_아이템 = List.of(
-        new CartItemInfo.Main(UUID.randomUUID(), "옷", 1000, ItemStatus.ON_SALES),
-        new CartItemInfo.Main(UUID.randomUUID(), "스티커", 500, ItemStatus.END_OF_SALES),
-        new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, ItemStatus.ON_SALES)
+        new CartItemInfo.Main(UUID.randomUUID(), "옷", 1000, optionGroups(), ItemStatus.ON_SALES),
+        new CartItemInfo.Main(UUID.randomUUID(), "스티커", 500, optionGroups(), ItemStatus.END_OF_SALES),
+        new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, optionGroups(), ItemStatus.ON_SALES)
     );
+
+    private static List<CartItemInfo.CartItemOptionGroup> optionGroups() {
+        return List.of(
+                new CartItemInfo.CartItemOptionGroup("사이즈", "M")
+        );
+    }
 
     public static final List<UUID> CART_아이템_Ids = List.of(CART_아이템_ID, CART_아이템_ID, CART_아이템_ID);
 
     public static CartRequest.AddCartItem CART_아이템_추가_요청() {
-        return new CartRequest.AddCartItem(아이템_ID, 아이템_수량);
+        return CartRequest.AddCartItem.builder()
+                .itemId(아이템_ID)
+                .optionGroups(List.of(
+                       CartRequest.AddCartItemOptionGroup.builder()
+                               .name("사이즈")
+                               .cartItemOption(new CartRequest.CartItemOption("M", 1000))
+                               .build()
+                ))
+                .amount(아이템_수량)
+                .build();
     }
 
     public static CartRequest.UpdateCartItemAmount CART_아이템_수량_변경_요청() {

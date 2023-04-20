@@ -65,8 +65,19 @@ class CartTest {
                 .limitType(LimitType.LIMITED)
                 .build();
 
-        CartItem cartItem = CartItem.create(cart, item, 2);
-        CartItem cartItem2 = CartItem.create(cart, item2, 3);
+        CartItem cartItem = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .amount(2)
+                .price(item.getPrice())
+                .build();
+
+        CartItem cartItem2 = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .amount(3)
+                .price(item2.getPrice())
+                .build();
         cart.addCartItem(cartItem);
         cart.addCartItem(cartItem2);
 

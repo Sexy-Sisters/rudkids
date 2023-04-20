@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.user.application;
+package com.rudkids.rudkids.domain.user.service;
 
 import com.rudkids.rudkids.common.fixtures.user.UserServiceFixtures;
 import com.rudkids.rudkids.domain.user.UserCommand;
