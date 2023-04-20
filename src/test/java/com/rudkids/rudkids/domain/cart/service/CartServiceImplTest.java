@@ -5,6 +5,7 @@ import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.CartInfo;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.domain.CartItem;
+import com.rudkids.rudkids.domain.cart.domain.CartItemOptionGroup;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.domain.*;
@@ -52,9 +53,11 @@ class CartServiceImplTest extends CartServiceFixtures {
         Cart actual = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
 
+        CartItemOptionGroup optionGroup = actual.getCartItems().get(0).getCartItemOptionGroups().get(0);
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(2);
             assertThat(actual.getCartItems()).hasSize(1);
+            assertThat(optionGroup.getName()).isEqualTo("사이즈");
         });
     }
 
@@ -283,13 +286,14 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         //then
         boolean hasCartItem = cartItemRepository.findById(cartItem.getId()).isPresent();
-
         Cart actual = cartRepository.findByUserId(user.getId())
                         .orElseThrow(CartNotFoundException::new);
+        List<CartItemOptionGroup> hasCartItemOptionGroup = cartItemOptionGroupRepository.findAll();
 
         assertAll(() -> {
             assertThat(hasCartItem).isFalse();
             assertThat(actual.getCartItems()).hasSize(0);
+            assertThat(hasCartItemOptionGroup).isEmpty();
         });
     }
 

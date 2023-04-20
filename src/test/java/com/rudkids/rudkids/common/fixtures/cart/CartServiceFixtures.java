@@ -3,6 +3,7 @@ package com.rudkids.rudkids.common.fixtures.cart;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.infrastructure.cart.CartItemOptionGroupRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.domain.item.domain.*;
@@ -35,6 +36,9 @@ public class CartServiceFixtures {
 
     @Autowired
     protected ItemRepository itemRepository;
+
+    @Autowired
+    protected CartItemOptionGroupRepository cartItemOptionGroupRepository;
 
     protected User user;
     protected Item item;
