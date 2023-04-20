@@ -5,11 +5,7 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemOptionSeriesFactory;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
-import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionStore;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupStore;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Collections;
 
 @ServiceTest
 public class ItemOptionSeriesFactoryFixtures {

@@ -2,7 +2,8 @@ package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.order.domain.Order;
-import com.rudkids.rudkids.domain.magazine.exception.NotAdminRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +19,7 @@ public class User extends AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
@@ -70,7 +71,7 @@ public class User extends AbstractEntity {
     public List<Order> getOrders() {
         return orders;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -84,8 +85,14 @@ public class User extends AbstractEntity {
     }
 
     public void validateAdminRole() {
-        if(!roleType.equals(RoleType.ADMIN)) {
+        if (!roleType.equals(RoleType.ADMIN)) {
             throw new NotAdminRoleException();
+        }
+    }
+
+    public void validateAdminOrPartnerRole() {
+        if (!roleType.equals(RoleType.PARTNER) && !roleType.equals(RoleType.ADMIN)) {
+            throw new NotAdminOrPartnerRoleException();
         }
     }
 
@@ -97,21 +104,21 @@ public class User extends AbstractEntity {
     public void order(Order order) {
         orders.add(order);
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id, user.id)
-                && Objects.equals(email, user.email)
-                && Objects.equals(name, user.name)
-                && Objects.equals(age, user.age)
-                && gender == user.gender
-                && socialType == user.socialType
-                && roleType == user.roleType;
+            && Objects.equals(email, user.email)
+            && Objects.equals(name, user.name)
+            && Objects.equals(age, user.age)
+            && gender == user.gender
+            && socialType == user.socialType
+            && roleType == user.roleType;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(id, email, name, age, gender, socialType, roleType);
