@@ -5,6 +5,7 @@ import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("상품 등록 성공")
     @Test
     void registerItem() {
-        itemService.create(ITEM_등록_요청, product.getId());
+        itemService.create(ITEM_등록_요청, product.getId(), user.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
         assertAll(
@@ -26,16 +27,15 @@ public class ItemServiceTest extends ItemServiceFixtures {
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
             () -> assertThat(findItem.getItemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
-            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES)
-            // 단방향 매핑이어서 리스트 관련 테스트 불가
-            //  () -> assertThat(findItem.getItemOptionGroups()).hasSize(1)
+            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES),
+            () -> assertThat(findItem.getItemOptionGroups()).hasSize(1)
         );
-//        assertAll(() -> {
-//            ItemOptionGroup itemOptionGroup = findItem.getItemOptionGroups().get(0);
-//            assertThat(itemOptionGroup.getOrdering()).isEqualTo(1);
-//            assertThat(itemOptionGroup.getItemOptionGroupName()).isEqualTo("사이즈");
-//            assertThat(itemOptionGroup.getItemOptions()).hasSize(3);
-//        });
+        var itemOptionGroup = findItem.getItemOptionGroups().get(0);
+        assertAll(() -> {
+            assertThat(itemOptionGroup.getOrdering()).isEqualTo(1);
+            assertThat(itemOptionGroup.getItemOptionGroupName()).isEqualTo("사이즈");
+            assertThat(itemOptionGroup.getItemOptions()).hasSize(3);
+        });
     }
 
     @DisplayName("아이템 상세 조회")

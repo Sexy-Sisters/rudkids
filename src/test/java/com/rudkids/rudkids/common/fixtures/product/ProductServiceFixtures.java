@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.common.fixtures.product;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.*;
@@ -82,6 +81,6 @@ public class ProductServiceFixtures {
             .limitType(LimitType.NORMAL)
             .build();
         itemStore.store(item);
-        item.changeProduct(products.get(0));
+        item.setProduct(products.get(0));
     }
 }
