@@ -3,6 +3,7 @@ package com.rudkids.rudkids.interfaces.product;
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -12,7 +13,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,6 +33,22 @@ class ProductControllerTest extends ControllerTest {
                 .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
             ).andDo(print())
             .andExpect(status().isOk());
+    }
+
+    @DisplayName("관리자가 아닌 유저가 프로덕트를 등록하면 403을 반환한다.")
+    @Test
+    void 관리자가_아닌_유저가_프로덕트를_등록하면_403을_반환한다() throws Exception {
+        doThrow(new NotAdminRoleException())
+            .when(productService)
+            .create(any(), any());
+
+        mockMvc.perform(post("/api/v1/product")
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
+            ).andDo(print())
+            .andExpect(status().isForbidden());
     }
 
     @DisplayName("프로덕트 리스트를 조회한다.")
