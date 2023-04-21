@@ -24,12 +24,13 @@ public class CartServiceImpl implements CartService {
     private final CartItemMapper cartItemMapper;
 
     @Override
-    public void addCartItem(UUID userId, CartCommand.AddCartItem command) {
+    public UUID addCartItem(UUID userId, CartCommand.AddCartItem command) {
         var user = userReader.getUser(userId);
         var cart = cartReader.getCart(user);
         var item = itemReader.getItem(command.itemId());
         var cartItem = cartItemReader.getCartItem(cart, item, command);
         cart.addCartItemCount(command.amount());
+        return cartItem.getId();
     }
 
     @Transactional(readOnly = true)

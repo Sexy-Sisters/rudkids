@@ -63,12 +63,11 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 옵션이_붙은_아이템을_장바구니에_추가할_경우_옵션가격이_추가된다() {
         //given, when
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
-        CartItem actual = findCart.getCartItems().get(0);
+        CartItem actual = cartItemRepository.findById(cartItemId)
+                        .orElseThrow(CartItemNotFoundException::new);
 
         assertThat(actual.getCartItemPrice()).isEqualTo(8980);
     }
@@ -267,18 +266,15 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니_아이템의_수량을_변경한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Cart cart = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
 
-        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
-                .orElseThrow(CartItemNotFoundException::new);
-
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
                 .cartId(cart.getId())
-                .cartItemId(cartItem.getId())
+                .cartItemId(cartItemId)
                 .amount(3)
                 .build();
         cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
@@ -301,13 +297,10 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 다른_사용자의_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Cart cart = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
-
-        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
-                .orElseThrow(CartItemNotFoundException::new);
 
         //when
         User anotherUser = User.builder()
@@ -321,7 +314,7 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
                 .cartId(cart.getId())
-                .cartItemId(cartItem.getId())
+                .cartItemId(cartItemId)
                 .amount(3)
                 .build();
 
@@ -355,18 +348,15 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니_아이템의_수량을_변경하면_장바구니에_담겨있는_아이템의_총_수량도_변경된다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Cart cart = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
 
-        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
-                .orElseThrow(CartItemNotFoundException::new);
-
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
                 .cartId(cart.getId())
-                .cartItemId(cartItem.getId())
+                .cartItemId(cartItemId)
                 .amount(7)
                 .build();
         cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
@@ -382,16 +372,13 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 장바구니_아이템들을_선택하여_삭제한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Cart cart = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
 
-        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
-                .orElseThrow(CartItemNotFoundException::new);
-
         //when
-        List<UUID> cartItemIds = List.of(cartItem.getId());
+        List<UUID> cartItemIds = List.of(cartItemId);
 
         CartCommand.DeleteCartItems CART_아이템_삭제_요청 = CartCommand.DeleteCartItems.builder()
                 .cartId(cart.getId())
@@ -400,7 +387,7 @@ class CartServiceImplTest extends CartServiceFixtures {
         cartService.deleteCartItems(user.getId(), CART_아이템_삭제_요청);
 
         //then
-        boolean hasCartItem = cartItemRepository.findById(cartItem.getId()).isPresent();
+        boolean hasCartItem = cartItemRepository.findById(cartItemId).isPresent();
         Cart actual = cartRepository.findByUserId(user.getId())
                         .orElseThrow(CartNotFoundException::new);
         List<CartItemOptionGroup> hasCartItemOptionGroup = cartItemOptionGroupRepository.findAll();
@@ -440,13 +427,10 @@ class CartServiceImplTest extends CartServiceFixtures {
     @Test
     void 다른_사용자의_장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         Cart cart = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
-
-        CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item)
-                .orElseThrow(CartItemNotFoundException::new);
 
         //when
         User anotherUser = User.builder()
@@ -459,7 +443,7 @@ class CartServiceImplTest extends CartServiceFixtures {
         userRepository.save(anotherUser);
 
         //then
-        List<UUID> cartItemIds = List.of(cartItem.getId());
+        List<UUID> cartItemIds = List.of(cartItemId);
         CartCommand.DeleteCartItems CART_아이템_삭제_요청 = CartCommand.DeleteCartItems.builder()
                 .cartId(cart.getId())
                 .cartItemIds(cartItemIds)
