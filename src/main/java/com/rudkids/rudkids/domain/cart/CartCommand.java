@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.cart;
 
+import com.rudkids.rudkids.domain.cart.domain.CartItemOption;
 import lombok.Builder;
 
 import java.util.List;
@@ -10,22 +11,20 @@ public class CartCommand {
     @Builder
     public record AddCartItem(
             UUID itemId,
-            List<AddCartItemOptionGroup> cartItemOptionGroups,
-            int amount) {
-    }
-
-    @Builder
-    public record AddCartItemOptionGroup(
-            String name,
-            AddCartItemOption cartItemOption
+            int amount,
+            List<AddCartItemOptionGroup> optionGroups
     ) {
     }
 
     @Builder
-    public record AddCartItemOption(
-            String name,
-            int price
-    ) {
+    public record AddCartItemOptionGroup(String name, AddCartItemOption option) {
+        public CartItemOption toCartItemOption() {
+            return CartItemOption.create(option.name);
+        }
+    }
+
+    @Builder
+    public record AddCartItemOption(String name, int price) {
     }
 
     @Builder

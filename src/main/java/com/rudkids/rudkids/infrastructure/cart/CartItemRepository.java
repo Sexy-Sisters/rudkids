@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CartItemRepository extends JpaRepository<CartItem, UUID> {
+
     Optional<CartItem> findByCartAndItem(Cart cart, Item item);
 
     @Modifying(clearAutomatically = true)

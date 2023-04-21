@@ -20,6 +20,7 @@ public class CartItemOptionGroup {
     @JoinColumn(name = "cart_item_id")
     private CartItem cartItem;
 
+    @Column(name = "name")
     private String name;
 
     @Embedded
@@ -31,7 +32,6 @@ public class CartItemOptionGroup {
     @Builder
     public CartItemOptionGroup(CartItem cartItem, String name, CartItemOption cartItemOption) {
         this.cartItem = cartItem;
-        cartItem.addCartItemOptionGroup(this);
         this.name = name;
         this.cartItemOption = cartItemOption;
     }

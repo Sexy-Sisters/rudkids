@@ -37,7 +37,7 @@ public class CartControllerFixtures {
                 .optionGroups(List.of(
                        CartRequest.AddCartItemOptionGroup.builder()
                                .name("사이즈")
-                               .cartItemOption(new CartRequest.CartItemOption("M", 1000))
+                               .option(new CartRequest.AddCartItemOption("M", 1000))
                                .build()
                 ))
                 .amount(아이템_수량)

@@ -15,14 +15,14 @@ public class CartItemSeriesFactoryImpl implements CartItemSeriesFactory {
     @Override
     public void store(CartItem cartItem, List<CartCommand.AddCartItemOptionGroup> cartItemOptionGroups) {
         cartItemOptionGroups.forEach(optionGroup -> {
-            CartItemOption cartItemOption = CartItemOption.create(optionGroup.cartItemOption().name());
+            CartItemOption cartItemOption = CartItemOption.create(optionGroup.option().name());
             var cartItemOptionGroup = CartItemOptionGroup.builder()
                     .cartItem(cartItem)
                     .name(optionGroup.name())
                     .cartItemOption(cartItemOption)
                     .build();
 
-            cartItem.addPrice(optionGroup.cartItemOption().price());
+            cartItem.addOptionPrice(optionGroup.option().price());
             cartItem.addCartItemOptionGroup(cartItemOptionGroup);
         });
     }

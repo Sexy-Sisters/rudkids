@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class CartItemOption {
 
-    @Column(name = "cart_item_option")
+    @Column(name = "option_name")
     private String value;
 
     protected CartItemOption() {

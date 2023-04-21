@@ -10,15 +10,16 @@ public class CartRequest {
     @Builder
     public record AddCartItem(
             UUID itemId,
-            List<AddCartItemOptionGroup> optionGroups,
-            int amount) {
+            int amount,
+            List<AddCartItemOptionGroup> optionGroups
+    ) {
     }
 
     @Builder
-    public record AddCartItemOptionGroup(String name, CartItemOption cartItemOption) {
+    public record AddCartItemOptionGroup(String name, AddCartItemOption option) {
     }
 
-    public record CartItemOption(String name, int price) {
+    public record AddCartItemOption(String name, int price) {
     }
 
     public record UpdateCartItemAmount(

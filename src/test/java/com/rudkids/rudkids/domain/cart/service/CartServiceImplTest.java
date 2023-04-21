@@ -53,12 +53,24 @@ class CartServiceImplTest extends CartServiceFixtures {
         Cart actual = cartRepository.findByUserId(user.getId())
                 .orElseThrow(CartNotFoundException::new);
 
-        CartItemOptionGroup optionGroup = actual.getCartItems().get(0).getCartItemOptionGroups().get(0);
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(2);
             assertThat(actual.getCartItems()).hasSize(1);
-            assertThat(optionGroup.getName()).isEqualTo("사이즈");
         });
+    }
+
+    @DisplayName("옵션이 붙은 아이템을 장바구니에 추가할 경우 옵션가격이 추가된다.")
+    @Test
+    void 옵션이_붙은_아이템을_장바구니에_추가할_경우_옵션가격이_추가된다() {
+        //given, when
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        //then
+        Cart findCart = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+        CartItem actual = findCart.getCartItems().get(0);
+
+        assertThat(actual.getCartItemPrice()).isEqualTo(8980);
     }
 
     @DisplayName("장바구니에 존재하지 않는 아이템을 추가할 경우 예외가 발생한다.")
@@ -94,10 +106,10 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
                 .itemId(newItem.getId())
-                .cartItemOptionGroups(List.of(
+                .optionGroups(List.of(
                         CartCommand.AddCartItemOptionGroup.builder()
                                 .name("사이즈")
-                                .cartItemOption(new CartCommand.AddCartItemOption("M", 1000))
+                                .option(new CartCommand.AddCartItemOption("M", 1000))
                                 .build()))
                 .amount(4)
                 .build();
@@ -110,6 +122,109 @@ class CartServiceImplTest extends CartServiceFixtures {
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(6);
             assertThat(actual.getCartItems()).hasSize(2);
+        });
+    }
+
+    @DisplayName("같은 아이템이지만 옵션값이 다를 경우 장바구니아이템을 새롭게 추가한다.")
+    @Test
+    void 같은_아이템이지만_옵션값이_다를_경우_장바구니에_추가하면_새롭게_저장된다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        //when
+        CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .optionGroups(List.of(
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("사이즈")
+                                .option(new CartCommand.AddCartItemOption("S", 500))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("색깔")
+                                .option(new CartCommand.AddCartItemOption("파랑", 500))
+                                .build()
+                ))
+                .amount(4)
+                .build();
+        cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
+
+        //then
+        Cart actual = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+
+        assertAll(() -> {
+            assertThat(actual.getCartItemCount()).isEqualTo(6);
+            assertThat(actual.getCartItems()).hasSize(2);
+        });
+    }
+
+    @DisplayName("같은 아이템이고 옵션 값은 같지만 옵션 개수가 다를 경우 장바구니아이템을 새롭게 추가한다.")
+    @Test
+    void 같은_아이템이고_옵션_값은_같지만_옵션_개수가_다를_경우_장바구니아이템을_새롭게_추가한다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        //when
+        CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .optionGroups(List.of(
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("색깔")
+                                .option(new CartCommand.AddCartItemOption("파랑", 500))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("사이즈")
+                                .option(new CartCommand.AddCartItemOption("M", 1000))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("무늬")
+                                .option(new CartCommand.AddCartItemOption("체크", 1000))
+                                .build()
+                ))
+                .amount(4)
+                .build();
+        cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
+
+        //then
+        Cart actual = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+
+        assertAll(() -> {
+            assertThat(actual.getCartItemCount()).isEqualTo(6);
+            assertThat(actual.getCartItems()).hasSize(2);
+        });
+    }
+
+    @DisplayName("같은 아이템이고 옵션 값은 같지만 순서가 다를 경우 장바구니아이템 수량만 증가한다.")
+    @Test
+    void 같은_아이템이고_옵션_값은_같지만_순서가_다를_경우_장바구니아이템을_수량만_증가한다() {
+        //given
+        cartService.addCartItem(user.getId(), CART_아이템_요청);
+
+        //when
+        CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
+                .itemId(item.getId())
+                .optionGroups(List.of(
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("색깔")
+                                .option(new CartCommand.AddCartItemOption("파랑", 500))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("사이즈")
+                                .option(new CartCommand.AddCartItemOption("M", 1000))
+                                .build()
+                ))
+                .amount(4)
+                .build();
+        cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
+
+        //then
+        Cart actual = cartRepository.findByUserId(user.getId())
+                .orElseThrow(CartNotFoundException::new);
+
+        assertAll(() -> {
+            assertThat(actual.getCartItemCount()).isEqualTo(6);
+            assertThat(actual.getCartItems()).hasSize(1);
         });
     }
 
@@ -143,7 +258,7 @@ class CartServiceImplTest extends CartServiceFixtures {
 
         //then
         assertAll(() -> {
-            assertThat(actual.totalCartItemPrice()).isEqualTo(7980);
+            assertThat(actual.totalCartItemPrice()).isEqualTo(8980);
             assertThat(actual.cartItems()).hasSize(1);
         });
     }

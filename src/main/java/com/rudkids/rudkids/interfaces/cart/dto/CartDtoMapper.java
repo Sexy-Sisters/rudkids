@@ -4,33 +4,33 @@ import com.rudkids.rudkids.domain.cart.CartCommand;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CartDtoMapper {
 
     public CartCommand.AddCartItem to(CartRequest.AddCartItem request) {
-        List<CartCommand.AddCartItemOptionGroup> cartItemOptionGroups = request.optionGroups().stream()
-                .map(this::toCartItemOptionGroup)
-                .collect(Collectors.toList());
+        List<CartCommand.AddCartItemOptionGroup> optionGroups = request.optionGroups().stream()
+                .map(this::toCommand)
+                .toList();
 
         return CartCommand.AddCartItem.builder()
                 .itemId(request.itemId())
-                .cartItemOptionGroups(cartItemOptionGroups)
+                .optionGroups(optionGroups)
                 .amount(request.amount())
                 .build();
     }
 
-    private CartCommand.AddCartItemOptionGroup toCartItemOptionGroup(CartRequest.AddCartItemOptionGroup optionGroup) {
-        CartRequest.CartItemOption requestOption = optionGroup.cartItemOption();
-        CartCommand.AddCartItemOption commandOption = CartCommand.AddCartItemOption.builder()
-                .name(requestOption.name())
-                .price(requestOption.price())
-                .build();
-
+    private CartCommand.AddCartItemOptionGroup toCommand(CartRequest.AddCartItemOptionGroup optionGroup) {
         return CartCommand.AddCartItemOptionGroup.builder()
                 .name(optionGroup.name())
-                .cartItemOption(commandOption)
+                .option(toCommand(optionGroup.option()))
+                .build();
+    }
+
+    private CartCommand.AddCartItemOption toCommand(CartRequest.AddCartItemOption option) {
+        return CartCommand.AddCartItemOption.builder()
+                .name(option.name())
+                .price(option.price())
                 .build();
     }
 

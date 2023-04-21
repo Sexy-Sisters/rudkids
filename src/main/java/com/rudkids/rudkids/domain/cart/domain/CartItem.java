@@ -31,7 +31,7 @@ public class CartItem {
     private int amount;
     private int price;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cartItem", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cartItem", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CartItemOptionGroup> cartItemOptionGroups = new ArrayList<>();
 
     protected CartItem() {
@@ -49,7 +49,7 @@ public class CartItem {
         cartItemOptionGroups.add(cartItemOptionGroup);
     }
 
-    public void addPrice(int price) {
+    public void addOptionPrice(int price) {
         this.price += price;
     }
 
@@ -88,4 +88,6 @@ public class CartItem {
     public List<CartItemOptionGroup> getCartItemOptionGroups() {
         return cartItemOptionGroups;
     }
+
+
 }

@@ -64,15 +64,15 @@ class CartControllerTest extends ControllerTest {
                                         .type(JsonFieldType.STRING)
                                         .description("아이템 옵션 그룹 이름"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption")
+                                fieldWithPath("optionGroups.[].option")
                                         .type(JsonFieldType.OBJECT)
                                         .description("아이템 옵션"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption.name")
+                                fieldWithPath("optionGroups.[].option.name")
                                         .type(JsonFieldType.STRING)
                                         .description("아이템 옵션 이름"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption.price")
+                                fieldWithPath("optionGroups.[].option.price")
                                         .type(JsonFieldType.NUMBER)
                                         .description("아이템 옵션 가격"),
 
@@ -117,15 +117,15 @@ class CartControllerTest extends ControllerTest {
                                         .type(JsonFieldType.STRING)
                                         .description("아이템 옵션 그룹 이름"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption")
+                                fieldWithPath("optionGroups.[].option")
                                         .type(JsonFieldType.OBJECT)
                                         .description("아이템 옵션"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption.name")
+                                fieldWithPath("optionGroups.[].option.name")
                                         .type(JsonFieldType.STRING)
                                         .description("아이템 옵션 이름"),
 
-                                fieldWithPath("optionGroups.[].cartItemOption.price")
+                                fieldWithPath("optionGroups.[].option.price")
                                         .type(JsonFieldType.NUMBER)
                                         .description("아이템 옵션 가격"),
 

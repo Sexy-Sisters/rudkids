@@ -29,7 +29,7 @@ public class CartServiceImpl implements CartService {
         var cart = cartReader.getCart(user);
         var item = itemReader.getItem(command.itemId());
         var cartItem = cartItemReader.getCartItem(cart, item, command);
-        cart.addCartItemCount(cartItem.getAmount());
+        cart.addCartItemCount(command.amount());
     }
 
     @Transactional(readOnly = true)

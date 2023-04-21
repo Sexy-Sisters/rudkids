@@ -13,7 +13,6 @@ import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.infrastructure.item.ItemRepository;
-import com.rudkids.rudkids.interfaces.cart.dto.CartRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -68,11 +67,16 @@ public class CartServiceFixtures {
         //저장된 itemId 넣음
         CART_아이템_요청 = CartCommand.AddCartItem.builder()
                 .itemId(item.getId())
-                .cartItemOptionGroups(List.of(
+                .optionGroups(List.of(
                         CartCommand.AddCartItemOptionGroup.builder()
                                 .name("사이즈")
-                                .cartItemOption(new CartCommand.AddCartItemOption("M", 1000))
-                                .build()))
+                                .option(new CartCommand.AddCartItemOption("M", 1000))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("색깔")
+                                .option(new CartCommand.AddCartItemOption("파랑", 500))
+                                .build()
+                        ))
                 .amount(2)
                 .build();
     }
