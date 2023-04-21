@@ -22,7 +22,7 @@ public class CartController {
             @RequestBody CartRequest.AddCartItem request
     ) {
         var command = cartDtoMapper.to(request);
-        var response = cartService.addCartItem(loginUser.id(), command);
+        var response = cartService.addCartItem(loginUser.id(), command).toString();
         return ResponseEntity.ok(response);
     }
 

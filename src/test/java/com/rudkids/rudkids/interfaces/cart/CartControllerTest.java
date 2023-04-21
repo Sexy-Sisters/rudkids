@@ -34,9 +34,8 @@ class CartControllerTest extends ControllerTest {
     @DisplayName("장바구니에 아이템을 추가한다.")
     @Test
     void 장바구니에_아이템을_추가한다() throws Exception {
-        willDoNothing()
-                .given(cartService)
-                .addCartItem(any(), any());
+        given(cartService.addCartItem(any(), any()))
+                .willReturn(CART_아이템_ID);
 
         mockMvc.perform(post(CART_DEFAULT_URL)
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
