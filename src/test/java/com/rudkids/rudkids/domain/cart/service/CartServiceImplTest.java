@@ -157,9 +157,9 @@ class CartServiceImplTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("같은 아이템이고 옵션 값은 같지만 옵션 개수가 다를 경우 장바구니아이템을 새롭게 추가한다.")
+    @DisplayName("같은 아이템이지만 옵션 개수가 다를 경우 장바구니아이템을 새롭게 추가한다.")
     @Test
-    void 같은_아이템이고_옵션_값은_같지만_옵션_개수가_다를_경우_장바구니아이템을_새롭게_추가한다() {
+    void 같은_아이템이지만_옵션_개수가_다를_경우_장바구니아이템을_새롭게_추가한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 

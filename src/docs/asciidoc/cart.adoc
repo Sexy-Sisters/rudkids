@@ -3,7 +3,7 @@
 
 [[Cart-아이템-추가]]
 === Cart 아이템 추가
-operation::cart/addCartItem[snippets='http-request,request-headers,request-fields,http-response,response-fields']
+operation::cart/addCartItem[snippets='http-request,request-headers,request-fields,http-response']
 
 [[Cart-아이템-추가-존재하지-않는-아이템-에러]]
 === Cart 아이템 추가 (존재하지 않는 아이템 에러)
