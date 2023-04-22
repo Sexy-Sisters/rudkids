@@ -22,6 +22,7 @@ public class ProductResponse {
 
     @Builder
     public record ProductItem(
+        UUID itemId,
         String name,
         int price,
         ItemStatus itemStatus

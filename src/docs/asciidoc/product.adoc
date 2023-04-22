@@ -1,0 +1,38 @@
+[[Product-API]]
+== Product API
+
+[[Product-생성]]
+=== Product 작성
+operation::product/create[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Product-작성-관리자-권한이-아닌-유저]]
+=== Product 작성 (관리자 권한이 아닌 유저 에러)
+operation::product/create/failByForbidden[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Product-전체조회]]
+=== Product 전체조회
+operation::product/findAll[snippets='http-request,http-response']
+
+[[Product-상세조회]]
+=== Product 상세조회
+operation::product/find[snippets='http-request,path-parameters,http-response,response-fields']
+
+[[Product-상세조회-존재하지-않는-매거진-에러]]
+=== Product 상세조회 (존재하지 않는 매거진 에러)
+operation::product/find/failByNotFoundError[snippets='http-request,path-parameters,http-response']or[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Product-오픈]]
+=== Product 오픈
+operation::product/open[snippets='http-request,path-parameters,http-response']
+
+[[Product-오픈-존재하지-않는-매거진-에러]]
+=== Product 오픈 (존재하지 않는 매거진 에러)
+operation::product/open/failByNotFoundError[snippets='http-request,path-parameters,http-response']or[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Product-클로즈]]
+=== Product 클로즈
+operation::product/close[snippets='http-request,path-parameters,http-response']
+
+[[Product-클로즈-존재하지-않는-매거진-에러]]
+=== Product 클로즈 (존재하지 않는 매거진 에러)
+operation::product/close/failByNotFoundError[snippets='http-request,path-parameters,http-response']or[snippets='http-request,request-headers,path-parameters,http-response']

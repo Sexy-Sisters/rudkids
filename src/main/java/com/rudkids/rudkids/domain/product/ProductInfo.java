@@ -29,6 +29,7 @@ public class ProductInfo {
 
     @Builder
     public record ProductItem(
+        UUID itemId,
         String name,
         int price,
         ItemStatus itemStatus
