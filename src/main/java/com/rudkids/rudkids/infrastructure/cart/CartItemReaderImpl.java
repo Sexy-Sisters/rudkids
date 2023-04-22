@@ -37,10 +37,9 @@ public class CartItemReaderImpl implements CartItemReader {
                     .map(CartItemOptionGroup::getCartItemOption)
                     .toList();
 
-            if(cartItemOptionNames.size() == targetOptionNames.size()) {
-                if(cartItemOptionNames.containsAll(targetOptionNames)) {
-                    return cartItem;
-                }
+            if(cartItemOptionNames.size() == targetOptionNames.size()
+                    && cartItemOptionNames.containsAll(targetOptionNames)) {
+                return cartItem;
             }
         }
         return createCartItem(cart, item, command);
