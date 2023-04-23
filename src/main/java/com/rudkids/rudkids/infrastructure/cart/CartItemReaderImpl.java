@@ -25,10 +25,6 @@ public class CartItemReaderImpl implements CartItemReader {
         if(cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
             CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
 
-            /*
-            2023.4.21 nswon
-            두 개의 장바구니아이템 옵션값이 같은지 비교하는 로직을 query문으로 변경해야 한다.
-             */
             List<String> cartItemOptionNames = cartItem.getCartItemOptionGroups().stream()
                     .map(CartItemOptionGroup::getCartItemOption)
                     .toList();
@@ -37,12 +33,16 @@ public class CartItemReaderImpl implements CartItemReader {
                     .map(CartItemOptionGroup::getCartItemOption)
                     .toList();
 
-            if(cartItemOptionNames.size() == targetOptionNames.size()
-                    && cartItemOptionNames.containsAll(targetOptionNames)) {
+            if(isSameOptions(cartItemOptionNames, targetOptionNames)) {
                 return cartItem;
             }
         }
         return createCartItem(cart, item, command);
+    }
+
+    private boolean isSameOptions(List<String> options, List<String> targetOptions) {
+        return options.size() == targetOptions.size()
+                && options.containsAll(targetOptions);
     }
 
     private List<CartItemOptionGroup> toCartItemOptionGroup(List<CartCommand.AddCartItemOptionGroup> groups) {
