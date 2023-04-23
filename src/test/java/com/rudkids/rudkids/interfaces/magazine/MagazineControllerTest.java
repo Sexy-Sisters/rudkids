@@ -2,6 +2,8 @@ package com.rudkids.rudkids.interfaces.magazine;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
+import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
