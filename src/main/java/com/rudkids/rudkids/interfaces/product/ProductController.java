@@ -5,6 +5,7 @@ import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
+import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,33 +29,35 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity findProducts() {
+    public ResponseEntity findAll() {
         var response = productService.findAll().stream()
             .map(productDtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{product-id}")
-    public ResponseEntity findProduct(@PathVariable(name = "product-id") UUID productId) {
-        var info = productService.find(productId);
-        var response = productDtoMapper.toResponse(info);
+    @GetMapping("/{id}")
+    public ResponseEntity find(@PathVariable UUID id) {
+        var info = productService.find(id);
+        ProductResponse.Detail response = productDtoMapper.toResponse(info);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public void openProduct(
+    public ResponseEntity openProduct(
         @PathVariable UUID id,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        productService.openProduct(id, loginUser.id());
+        var status = productService.openProduct(id, loginUser.id());
+        return ResponseEntity.ok(status);
     }
 
     @DeleteMapping("/{id}")
-    public void closeProduct(
+    public ResponseEntity closeProduct(
         @PathVariable UUID id,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        productService.closeProduct(id, loginUser.id());
+        var status = productService.closeProduct(id, loginUser.id());
+        return ResponseEntity.ok(status);
     }
 }

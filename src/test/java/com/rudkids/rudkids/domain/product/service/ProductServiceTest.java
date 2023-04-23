@@ -39,7 +39,7 @@ class ProductServiceTest extends ProductServiceFixtures {
     @Test
     void findProducts() {
         // Given & When
-        List<ProductInfo.Main> products = productService.findAll();
+        var products = productService.findAll();
 
         // Then
         assertThat(products.size()).isEqualTo(4);
