@@ -36,17 +36,20 @@ public class ItemController {
     }
 
     @PutMapping("/{id}/on-sales")
-    public String changeOnSales(@PathVariable UUID id) {
-        return itemService.changeOnSales(id);
+    public ResponseEntity changeOnSales(@PathVariable UUID id) {
+        var status = itemService.changeOnSales(id);
+        return ResponseEntity.ok(status);
     }
 
     @DeleteMapping("/{id}/end-of-sales")
-    public String changeEndOfSales(@PathVariable UUID id) {
-        return itemService.changeEndOfSales(id);
+    public ResponseEntity changeEndOfSales(@PathVariable UUID id) {
+        var status = itemService.changeEndOfSales(id);
+        return ResponseEntity.ok(status);
     }
 
     @PutMapping("/{id}/prepare")
-    public String changePrepare(@PathVariable UUID id) {
-        return itemService.changePrepare(id);
+    public ResponseEntity changePrepare(@PathVariable UUID id) {
+        var status = itemService.changePrepare(id);
+        return ResponseEntity.ok(status);
     }
 }
