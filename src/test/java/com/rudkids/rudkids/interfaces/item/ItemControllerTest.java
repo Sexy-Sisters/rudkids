@@ -3,7 +3,6 @@ package com.rudkids.rudkids.interfaces.item;
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -147,7 +146,7 @@ class ItemControllerTest extends ControllerTest {
     @Test
     void 아이템을_판매중_상태로_변경한다() throws Exception {
         given(itemService.changeOnSales(any()))
-            .willReturn(ItemStatus.ON_SALES);
+            .willReturn(ItemStatus.SELLING);
 
         mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/on-sales", 아이템_아이디))
             .andDo(print())
@@ -158,7 +157,7 @@ class ItemControllerTest extends ControllerTest {
     @Test
     void 아이템을_판매종료한다() throws Exception {
         given(itemService.changeEndOfSales(any()))
-            .willReturn(ItemStatus.END_OF_SALES);
+            .willReturn(ItemStatus.SOLD_OUT);
 
         mockMvc.perform(delete(ITEM_DEFAULT_URL + "/{id}/end-of-sales", 아이템_아이디))
             .andDo(print())

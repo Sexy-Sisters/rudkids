@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
             () -> assertThat(findItem.getItemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
-            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES),
+            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.SELLING),
             () -> assertThat(findItem.getItemOptionGroups()).hasSize(1)
         );
         var itemOptionGroup = findItem.getItemOptionGroups().get(0);
@@ -56,7 +55,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void changeOnSales() {
         var itemStatus = itemService.changeOnSales(item.getId());
-        assertThat(itemStatus).isEqualTo(ItemStatus.ON_SALES);
+        assertThat(itemStatus).isEqualTo(ItemStatus.SELLING);
     }
 
     @DisplayName("아이템 준비 중")
@@ -70,6 +69,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void changeEndOfSales() {
         var itemStatus = itemService.changeEndOfSales(item.getId());
-        assertThat(itemStatus).isEqualTo(ItemStatus.END_OF_SALES);
+        assertThat(itemStatus).isEqualTo(ItemStatus.SOLD_OUT);
     }
 }

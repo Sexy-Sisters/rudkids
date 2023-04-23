@@ -44,7 +44,7 @@ public class Item extends AbstractEntity {
     private LimitType limitType;
 
     @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus = ItemStatus.ON_SALES;
+    private ItemStatus itemStatus = ItemStatus.SELLING;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Item extends AbstractEntity {
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
-        this.itemStatus = ItemStatus.ON_SALES;
+        this.itemStatus = ItemStatus.SELLING;
     }
 
     public static Item create(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
@@ -75,13 +75,12 @@ public class Item extends AbstractEntity {
     }
 
     public void changeOnSales() {
-        this.itemStatus = ItemStatus.ON_SALES;
+        this.itemStatus = ItemStatus.SELLING;
     }
 
     public void changeEndOfSales() {
-        this.itemStatus = ItemStatus.END_OF_SALES;
+        this.itemStatus = ItemStatus.SOLD_OUT;
     }
-
 
     public void setProduct(Product product) {
         this.product = product;

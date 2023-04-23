@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import com.rudkids.rudkids.interfaces.item.dto.ItemResponse;
-import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class ItemControllerFixtures {
     public static final int 아이템_가격 = 10_000;
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
-    public static final ItemStatus 아이템_상태 = ItemStatus.ON_SALES;
+    public static final ItemStatus 아이템_상태 = ItemStatus.SELLING;
 
     public static ItemRequest.RegisterItem ITEM_등록_요청() {
         return ItemRequest.RegisterItem.builder()
