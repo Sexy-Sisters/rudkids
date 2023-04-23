@@ -52,17 +52,24 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @DisplayName("아이템 판매 종료")
+    @DisplayName("아이템 판매 중")
     @Test
     void changeOnSales() {
-        String itemStatus = itemService.changeOnSales(item.getId());
-        assertThat(itemStatus).isEqualTo("ON_SALES");
+        var itemStatus = itemService.changeOnSales(item.getId());
+        assertThat(itemStatus).isEqualTo(ItemStatus.ON_SALES);
+    }
+
+    @DisplayName("아이템 준비 중")
+    @Test
+    void changePrepare() {
+        var itemStatus = itemService.changePrepare(item.getId());
+        assertThat(itemStatus).isEqualTo(ItemStatus.PREPARE);
     }
 
     @DisplayName("아이템 판매 종료")
     @Test
     void changeEndOfSales() {
-        String itemStatus = itemService.changeEndOfSales(item.getId());
-        assertThat(itemStatus).isEqualTo("END_OF_SALES");
+        var itemStatus = itemService.changeEndOfSales(item.getId());
+        assertThat(itemStatus).isEqualTo(ItemStatus.END_OF_SALES);
     }
 }
