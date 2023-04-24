@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.item;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.item.ItemInfo;
+import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ItemControllerTest extends ControllerTest {
@@ -142,36 +144,29 @@ class ItemControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("아이템을 판매중 상태로 변경한다.")
+    @DisplayName("아이템 상태를 변경한다.")
     @Test
-    void 아이템을_판매중_상태로_변경한다() throws Exception {
-        given(itemService.changeOnSales(any()))
-            .willReturn(ItemStatus.SELLING);
+    void 아이템_상태를_변경한다() throws Exception {
+        given(itemService.changeItemStatus(any(), any()))
+            .willReturn(아이템_상태);
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/on-sales", 아이템_아이디))
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                .param("status", "SELLING")
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
             .andDo(print())
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("아이템을_판매종료한다.")
-    @Test
-    void 아이템을_판매종료한다() throws Exception {
-        given(itemService.changeEndOfSales(any()))
-            .willReturn(ItemStatus.SOLD_OUT);
-
-        mockMvc.perform(delete(ITEM_DEFAULT_URL + "/{id}/end-of-sales", 아이템_아이디))
-            .andDo(print())
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("아이템을 준비중 상태로 변경한다.")
-    @Test
-    void 아이템을_준비중_상태로_변경한다() throws Exception {
-        given(itemService.changePrepare(any()))
-            .willReturn(ItemStatus.PREPARE);
-
-        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/prepare", 아이템_아이디))
-            .andDo(print())
+            .andDo(document("item/changeStatus",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("아이템 id")
+                )
+            ))
             .andExpect(status().isOk());
     }
 }

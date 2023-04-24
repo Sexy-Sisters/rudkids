@@ -41,6 +41,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
         // Given
         var invalidItemId = UUID.randomUUID();
         var status = ItemStatus.SOLD_OUT;
+
         // When & Then
         assertThatThrownBy(() -> itemService.changeItemStatus(invalidItemId, status))
             .isInstanceOf(ItemNotFoundException.class);

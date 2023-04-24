@@ -54,6 +54,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus) {
+        // TODO:: 권한 검사
         var strategy = findStrategy(itemStatus);
         var item = itemReader.getItem(itemId);
         strategy.changeStatus(item);

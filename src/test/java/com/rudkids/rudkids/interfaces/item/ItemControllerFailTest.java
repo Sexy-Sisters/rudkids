@@ -191,39 +191,37 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @DisplayName("존재하지 않는 아이템을 재발매 할 때 상태코드 404를 반환한다.")
+    @DisplayName("존재하지 않는 아이템의 상태를 변경 할 때 상태코드 404를 반환한다.")
     @Test
-    void 존재하지_않는_아이템을_재발매_할_때_상태코드_404를_반환한다() throws Exception {
+    void 존재하지_않는_아이템의_상태를_변경_할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
-            .changeOnSales(any());
+            .changeItemStatus(any(), any());
 
-        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/on-sales", 아이템_아이디))
+        mockMvc.perform(
+                put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .param("status", "SELLING")
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
             .andDo(print())
-            .andExpect(status().isNotFound());
-    }
-
-    @DisplayName("존재하지 않는 아이템을 판매종료 할 때 상태코드 404를 반환한다.")
-    @Test
-    void 존재하지_않는_아이템을_판매종료_할_때_상태코드_404를_반환한다() throws Exception {
-        doThrow(new ItemNotFoundException())
-            .when(itemService)
-            .changeEndOfSales(any());
-
-        mockMvc.perform(delete(ITEM_DEFAULT_URL + "/{id}/end-of-sales", 아이템_아이디))
-            .andDo(print())
-            .andExpect(status().isNotFound());
-    }
-
-    @DisplayName("존재하지 않는 아이템을 준비중 상태로 변경 할 때 상태코드 404를 반환한다.")
-    @Test
-    void 존재하지_않는_아이템을_준비중_상태로_변경_할_때_상태코드_404를_반환한다() throws Exception {
-        doThrow(new ItemNotFoundException())
-            .when(itemService)
-            .changePrepare(any());
-
-        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}/prepare", 아이템_아이디))
-            .andDo(print())
+            .andDo(document("item/changeStatus/failByNotFoundError",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("아이템 id")
+                    ),
+                    responseFields(
+                        fieldWithPath("message")
+                            .type(JsonFieldType.STRING)
+                            .description("에러 메세지")
+                    )
+                )
+            )
             .andExpect(status().isNotFound());
     }
 }
