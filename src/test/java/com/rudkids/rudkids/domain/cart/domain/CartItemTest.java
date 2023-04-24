@@ -1,8 +1,6 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
 import com.rudkids.rudkids.domain.item.domain.*;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +17,8 @@ class CartItemTest {
         User user = User.builder()
                 .email("namse@gmail.com")
                 .name("남세")
-                .age(Age.create(18))
-                .gender(Gender.toEnum("MALE"))
+                .age(18)
+                .gender("MALE")
                 .socialType(SocialType.GOOGLE)
                 .build();
         Cart cart = Cart.create(user);
@@ -46,8 +44,8 @@ class CartItemTest {
         User user = User.builder()
                 .email("namse@gmail.com")
                 .name("남세")
-                .age(Age.create(18))
-                .gender(Gender.toEnum("MALE"))
+                .age(18)
+                .gender("MALE")
                 .socialType(SocialType.GOOGLE)
                 .build();
         Cart cart = Cart.create(user);

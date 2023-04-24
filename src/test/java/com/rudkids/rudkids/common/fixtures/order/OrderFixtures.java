@@ -7,11 +7,8 @@ import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderItemSeriesFactory;
 import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
-import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.service.OrderService;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
@@ -92,9 +89,9 @@ public class OrderFixtures {
     void inputData() {
         user = User.builder()
             .name("이규진")
-            .age(Age.create(19))
+            .age(19)
             .email("leekuin14@gmail.com")
-            .gender(Gender.MAIL)
+            .gender("MALE")
             .socialType(SocialType.GOOGLE)
             .build();
         userRepository.save(user);

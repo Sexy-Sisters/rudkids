@@ -3,8 +3,6 @@ package com.rudkids.rudkids.common.fixtures.magazine;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.magazine.MagazineCommand;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.magazine.MagazineRepository;
@@ -41,8 +39,8 @@ public class MagazineServiceFixtures {
         admin = User.builder()
                 .email("namse@gmail.com")
                 .name("남세")
-                .age(Age.create(18))
-                .gender(Gender.toEnum("MALE"))
+                .age(18)
+                .gender("MALE")
                 .socialType(SocialType.GOOGLE)
                 .build();
         admin.changeAuthorityAdmin();

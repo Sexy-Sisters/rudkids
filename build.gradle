@@ -26,6 +26,9 @@ repositories {
 }
 
 dependencies {
+	//json 파싱
+	implementation 'com.google.code.gson:gson:2.8.6'
+
 	//annotation processer
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

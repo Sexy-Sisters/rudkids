@@ -37,8 +37,9 @@ public class AuthServiceImpl implements AuthService {
         var user = User.builder()
                 .email(oAuthUser.email())
                 .name(oAuthUser.name())
-                .age(null)
-                .gender(null)
+                .gender(oAuthUser.gender())
+                .age(oAuthUser.age())
+                .phoneNumber(oAuthUser.phoneNumber())
                 .socialType(SocialType.GOOGLE)
                 .build();
         return userRepository.save(user);

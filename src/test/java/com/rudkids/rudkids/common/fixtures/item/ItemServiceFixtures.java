@@ -10,8 +10,6 @@ import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
@@ -67,9 +65,9 @@ public class ItemServiceFixtures {
     void inputData() {
         user = User.builder()
             .name("이규진")
-            .age(Age.create(19))
+            .age(19)
             .email("leekuin14@gmail.com")
-            .gender(Gender.MAIL)
+            .gender("MALE")
             .socialType(SocialType.GOOGLE)
             .build();
         user.changeAuthorityAdmin();

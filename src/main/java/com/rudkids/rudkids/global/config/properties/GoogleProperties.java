@@ -16,10 +16,11 @@ public class GoogleProperties {
     private final List<String> scopes;
     private final String tokenUri;
     private final String accessType;
+    private final String peopleUri;
 
     public GoogleProperties(String clientId, String clientSecret, String oAuthEndPoint,
                             String responseType, List<String> scopes, String tokenUri,
-                            String accessType) {
+                            String accessType, String peopleUri) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.oAuthEndPoint = oAuthEndPoint;
@@ -27,5 +28,6 @@ public class GoogleProperties {
         this.scopes = scopes;
         this.tokenUri = tokenUri;
         this.accessType = accessType;
+        this.peopleUri = peopleUri;
     }
 }

@@ -9,6 +9,11 @@ public class AuthCommand {
     }
 
     @Builder
-    public record OAuthUser(String email, String name) {
+    public record OAuthUser(
+            String email,
+            String name,
+            String gender,
+            int age,
+            String phoneNumber) {
     }
 }
