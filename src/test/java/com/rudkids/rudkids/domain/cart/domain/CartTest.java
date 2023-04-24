@@ -103,6 +103,7 @@ class CartTest {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         Cart cart = Cart.create(user);
@@ -120,6 +121,7 @@ class CartTest {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         Cart cart = Cart.create(user);
@@ -130,6 +132,7 @@ class CartTest {
                 .name("다른유저")
                 .age(18)
                 .gender("FEMALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
 

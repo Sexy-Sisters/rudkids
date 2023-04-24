@@ -92,6 +92,7 @@ public class OrderFixtures {
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MALE")
+            .phoneNumber("01029401509")
             .socialType(SocialType.GOOGLE)
             .build();
         userRepository.save(user);

@@ -80,6 +80,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);
@@ -98,6 +99,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         partner.changeAuthorityPartner();
@@ -180,6 +182,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);
@@ -203,6 +206,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         partner.changeAuthorityPartner();
@@ -233,6 +237,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         anotherAdmin.changeAuthorityAdmin();
@@ -278,6 +283,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);
@@ -301,6 +307,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         partner.changeAuthorityPartner();
@@ -331,6 +338,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
                 .name("남세")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         anotherAdmin.changeAuthorityAdmin();

@@ -205,6 +205,7 @@ class CartServiceImplTest extends CartServiceFixtures {
                 .name("다른사용자")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(anotherUser);
@@ -343,6 +344,7 @@ class CartServiceImplTest extends CartServiceFixtures {
                 .name("다른사용자")
                 .age(18)
                 .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(anotherUser);
