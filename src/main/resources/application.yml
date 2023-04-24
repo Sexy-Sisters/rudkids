@@ -48,6 +48,6 @@ oauth:
 
 sms:
   api:
-    key: ${SMS_API_KEY}
-    secret: ${SMS_API_SECRET}
-    domain-uri: ${SMS_DOMAIN_URI}
+    key: ${SMS_KEY}
+    secret: ${SMS_SECRET}
+    domain-uri: https://api.coolsms.co.kr
