@@ -50,21 +50,21 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemStatus changeOnSales(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeOnSales();
+        item.changeSelling();
         return item.getItemStatus();
     }
 
     @Override
     public ItemStatus changeEndOfSales(UUID id) {
         var item = itemReader.getItem(id);
-        item.changeEndOfSales();
+        item.changeSoldOut();
         return item.getItemStatus();
     }
 
     @Override
     public ItemStatus changePrepare(UUID id) {
         var item = itemReader.getItem(id);
-        item.changePrepare();
+        item.changePreparing();
         return item.getItemStatus();
     }
 }

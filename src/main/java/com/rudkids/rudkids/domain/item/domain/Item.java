@@ -70,15 +70,15 @@ public class Item extends AbstractEntity {
             .build();
     }
 
-    public void changePrepare() {
-        this.itemStatus = ItemStatus.PREPARE;
+    public void changePreparing() {
+        this.itemStatus = ItemStatus.PREPARING;
     }
 
-    public void changeOnSales() {
+    public void changeSelling() {
         this.itemStatus = ItemStatus.SELLING;
     }
 
-    public void changeEndOfSales() {
+    public void changeSoldOut() {
         this.itemStatus = ItemStatus.SOLD_OUT;
     }
 
