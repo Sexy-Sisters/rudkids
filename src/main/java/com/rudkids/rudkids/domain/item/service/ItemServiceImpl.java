@@ -2,15 +2,20 @@ package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.item.exception.ItemStatusNotFoundException;
+import com.rudkids.rudkids.domain.item.service.strategy.itemStatus.ItemStatusChangeStrategy;
 import com.rudkids.rudkids.domain.product.ProductReader;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
@@ -19,9 +24,9 @@ public class ItemServiceImpl implements ItemService {
     private final ProductReader productReader;
     private final UserReader userReader;
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
+    private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
 
     @Override
-    @Transactional
     public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
@@ -41,30 +46,24 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = true)
-    public ItemInfo.Detail find(UUID id) {
-        var item = itemReader.getItem(id);
+    public ItemInfo.Detail find(UUID itemId) {
+        var item = itemReader.getItem(itemId);
         var itemOptionSeriesList = itemReader.getItemOptionSeries(item);
         return itemMapper.toDetail(item, itemOptionSeriesList);
     }
 
     @Override
-    public ItemStatus changeOnSales(UUID id) {
-        var item = itemReader.getItem(id);
-        item.changeSelling();
+    public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus) {
+        var strategy = findStrategy(itemStatus);
+        var item = itemReader.getItem(itemId);
+        strategy.changeStatus(item);
         return item.getItemStatus();
     }
 
-    @Override
-    public ItemStatus changeEndOfSales(UUID id) {
-        var item = itemReader.getItem(id);
-        item.changeSoldOut();
-        return item.getItemStatus();
-    }
-
-    @Override
-    public ItemStatus changePrepare(UUID id) {
-        var item = itemReader.getItem(id);
-        item.changePreparing();
-        return item.getItemStatus();
+    private ItemStatusChangeStrategy findStrategy(ItemStatus itemStatus) {
+        return itemStatusChangeStrategyList.stream()
+            .filter(strategy -> strategy.isItemStatus(itemStatus))
+            .findFirst()
+            .orElseThrow(ItemStatusNotFoundException::new);
     }
 }

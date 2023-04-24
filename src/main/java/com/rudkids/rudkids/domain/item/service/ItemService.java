@@ -8,8 +8,6 @@ import java.util.UUID;
 
 public interface ItemService {
     void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId);
-    ItemInfo.Detail find(UUID id);
-    ItemStatus changeOnSales(UUID id);
-    ItemStatus changeEndOfSales(UUID id);
-    ItemStatus changePrepare(UUID id);
+    ItemInfo.Detail find(UUID itemId);
+    ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus);
 }

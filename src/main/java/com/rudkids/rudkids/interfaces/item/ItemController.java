@@ -1,10 +1,12 @@
 package com.rudkids.rudkids.interfaces.item;
 
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,21 +37,11 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}/on-sales")
-    public ResponseEntity changeOnSales(@PathVariable UUID id) {
-        var status = itemService.changeOnSales(id);
-        return ResponseEntity.ok(status);
-    }
-
-    @DeleteMapping("/{id}/end-of-sales")
-    public ResponseEntity changeEndOfSales(@PathVariable UUID id) {
-        var status = itemService.changeEndOfSales(id);
-        return ResponseEntity.ok(status);
-    }
-
-    @PutMapping("/{id}/prepare")
-    public ResponseEntity changePrepare(@PathVariable UUID id) {
-        var status = itemService.changePrepare(id);
-        return ResponseEntity.ok(status);
+    @PutMapping("/{id}")
+    public ItemStatus changeStatus(
+        @PathVariable UUID id,
+        @RequestParam ItemStatus status
+    ) {
+        return itemService.changeItemStatus(id, status);
     }
 }
