@@ -11,7 +11,9 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.item.ItemControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -116,6 +118,10 @@ public class ItemControllerFailTest extends ControllerTest {
                     headerWithName("Authorization")
                         .description("JWT Access Token")
                 ),
+                pathParameters(
+                    parameterWithName("productId")
+                        .description("존재하지 않는 프로덕트 id")
+                ),
                 requestFields(
                     fieldWithPath("name")
                         .type(JsonFieldType.STRING)
@@ -180,7 +186,7 @@ public class ItemControllerFailTest extends ControllerTest {
                 preprocessResponse(prettyPrint()),
                 pathParameters(
                     parameterWithName("id")
-                        .description("존재하지 않는 아이ㅇ id")
+                        .description("존재하지 않는 아이템 id")
                 ),
                 responseFields(
                     fieldWithPath("message")
@@ -196,12 +202,45 @@ public class ItemControllerFailTest extends ControllerTest {
     void 존재하지_않는_아이템의_상태를_변경_할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
-            .changeItemStatus(any(), any());
+            .changeItemStatus(any(), any(), any());
 
         mockMvc.perform(
                 put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
                     .param("status", "SELLING")
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("item/changeStatus/failByNotFoundError",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("존재하지 않는 아이템 id")
+                    ),
+                    responseFields(
+                        fieldWithPath("message")
+                            .type(JsonFieldType.STRING)
+                            .description("에러 메세지")
+                    )
+                )
+            )
+            .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("관리자와 파트너 권환 이외의 유저가 아이템의 사애를 변경하면 상태코드 403을 반환한다.")
+    @Test
+    void 관리자와_파트너_권한_이외의_유저가_아이템의_상태를_변경하면_상태코드_403을_반환한다() throws Exception {
+        doThrow(new NotAdminOrPartnerRoleException())
+            .when(itemService)
+            .changeItemStatus(any(), any(), any());
+
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                .param("status", "SELLING")
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
             .andDo(document("item/changeStatus/failByNotFoundError",
@@ -222,6 +261,6 @@ public class ItemControllerFailTest extends ControllerTest {
                     )
                 )
             )
-            .andExpect(status().isNotFound());
+            .andExpect(status().isForbidden());
     }
 }

@@ -84,6 +84,10 @@ public class User extends AbstractEntity {
         roleType = RoleType.PARTNER;
     }
 
+    public void changeAuthorityUser() {
+        roleType = RoleType.USER;
+    }
+
     public void validateAdminRole() {
         if (!roleType.equals(RoleType.ADMIN)) {
             throw new NotAdminRoleException();

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-
 public class ItemServiceTest extends ItemServiceFixtures {
 
     @DisplayName("상품 등록")
@@ -56,10 +55,11 @@ public class ItemServiceTest extends ItemServiceFixtures {
     void changeSelling() {
         // Given
         var itemId = item.getId();
+        var userId = user.getId();
         var itemStatus = ItemStatus.SELLING;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
@@ -70,10 +70,11 @@ public class ItemServiceTest extends ItemServiceFixtures {
     void changeSoldOut() {
         // Given
         var itemId = item.getId();
+        var userId = user.getId();
         var itemStatus = ItemStatus.SOLD_OUT;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
@@ -84,10 +85,11 @@ public class ItemServiceTest extends ItemServiceFixtures {
     void changePreparing() {
         // Given
         var itemId = item.getId();
+        var userId = user.getId();
         var itemStatus = ItemStatus.PREPARING;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);

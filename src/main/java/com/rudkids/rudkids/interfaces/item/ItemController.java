@@ -40,8 +40,9 @@ public class ItemController {
     @PutMapping("/{id}")
     public ItemStatus changeStatus(
         @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestParam ItemStatus status
     ) {
-        return itemService.changeItemStatus(id, status);
+        return itemService.changeItemStatus(id, loginUser.id(), status);
     }
 }

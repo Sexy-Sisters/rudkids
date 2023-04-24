@@ -7,7 +7,6 @@ import com.rudkids.rudkids.domain.item.service.strategy.itemStatus.ItemStatusCha
 import com.rudkids.rudkids.domain.product.ProductReader;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,8 +52,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus) {
-        // TODO:: 권한 검사
+    public ItemStatus changeItemStatus(UUID itemId, UUID userId, ItemStatus itemStatus) {
+        var user = userReader.getUser(userId);
+        user.validateAdminOrPartnerRole();
         var strategy = findStrategy(itemStatus);
         var item = itemReader.getItem(itemId);
         strategy.changeStatus(item);

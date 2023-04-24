@@ -2,8 +2,6 @@ package com.rudkids.rudkids.interfaces.item;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.item.ItemInfo;
-import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -23,7 +21,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ItemControllerTest extends ControllerTest {
@@ -147,7 +144,7 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템 상태를 변경한다.")
     @Test
     void 아이템_상태를_변경한다() throws Exception {
-        given(itemService.changeItemStatus(any(), any()))
+        given(itemService.changeItemStatus(any(), any(), any()))
             .willReturn(아이템_상태);
 
         mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
