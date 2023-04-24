@@ -45,3 +45,9 @@ oauth:
     token-uri: https://oauth2.googleapis.com/token
     access-type: offline
     people-uri: https://people.googleapis.com/v1/people/me?personFields=genders,birthdays,phoneNumbers&key=AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs
+
+sms:
+  api:
+    key: ${SMS_API_KEY}
+    secret: ${SMS_API_SECRET}
+    domain-uri: ${SMS_DOMAIN_URI}
