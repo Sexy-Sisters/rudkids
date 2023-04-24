@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceTest extends ItemServiceFixtures {
 
-    @DisplayName("상품 등록 성공")
+    @DisplayName("상품 등록")
     @Test
-    void registerItem() {
+    void create() {
         itemService.create(ITEM_등록_요청, product.getId(), user.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
@@ -39,7 +39,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
     @DisplayName("아이템 상세 조회")
     @Test
-    void findItemDetail() {
+    void find() {
         ItemInfo.Detail findItem = itemService.find(item.getId());
 
         assertAll(
@@ -51,24 +51,45 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @DisplayName("아이템 판매 중")
+    @DisplayName("아이템 상태 판매 중으로 변경")
     @Test
-    void changeOnSales() {
-        var itemStatus = itemService.changeOnSales(item.getId());
-        assertThat(itemStatus).isEqualTo(ItemStatus.SELLING);
+    void changeSelling() {
+        // Given
+        var itemId = item.getId();
+        var itemStatus = ItemStatus.SELLING;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
     }
 
-    @DisplayName("아이템 준비 중")
+    @DisplayName("아이템 상태 판매 완료로 변경")
     @Test
-    void changePrepare() {
-        var itemStatus = itemService.changePrepare(item.getId());
-        assertThat(itemStatus).isEqualTo(ItemStatus.PREPARE);
+    void changeSoldOut() {
+        // Given
+        var itemId = item.getId();
+        var itemStatus = ItemStatus.SOLD_OUT;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
     }
 
-    @DisplayName("아이템 판매 종료")
+    @DisplayName("아이템 상태 준비 중으로 변경")
     @Test
-    void changeEndOfSales() {
-        var itemStatus = itemService.changeEndOfSales(item.getId());
-        assertThat(itemStatus).isEqualTo(ItemStatus.SOLD_OUT);
+    void changePreparing() {
+        // Given
+        var itemId = item.getId();
+        var itemStatus = ItemStatus.PREPARING;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);
     }
 }
