@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductStatus closeProduct(UUID productId, UUID userId) {
+    public String closeProduct(UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var product = productReader.getProduct(productId);
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductStatus openProduct(UUID productId, UUID userId) {
+    public String openProduct(UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var product = productReader.getProduct(productId);

@@ -146,7 +146,7 @@ class ProductControllerTest extends ControllerTest {
     @Test
     void 프로덕트를_연다() throws Exception {
         when(productService.openProduct(any(), any()))
-            .thenReturn(ProductStatus.OPEN);
+            .thenReturn(ProductStatus.OPEN.name());
 
         mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -167,7 +167,7 @@ class ProductControllerTest extends ControllerTest {
     @Test
     void 프로덕트를_닫는다() throws Exception {
         given(productService.closeProduct(any(), any()))
-            .willReturn(ProductStatus.CLOSED);
+            .willReturn(ProductStatus.CLOSED.name());
 
         mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
