@@ -1,10 +1,7 @@
 package com.rudkids.rudkids.domain.product;
 
-import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import lombok.Builder;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.UUID;
