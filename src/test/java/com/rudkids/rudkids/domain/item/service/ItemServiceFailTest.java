@@ -41,11 +41,11 @@ public class ItemServiceFailTest extends ItemServiceTest {
     void 존재하지_않는_아이템_상태_변경시_예외가_발생한다() {
         // Given
         var invalidItemId = UUID.randomUUID();
-        var userId = user.getId();
         var status = ItemStatus.SOLD_OUT;
+        var userId = user.getId();
 
         // When & Then
-        assertThatThrownBy(() -> itemService.changeItemStatus(invalidItemId, userId, status))
+        assertThatThrownBy(() -> itemService.changeItemStatus(invalidItemId, status, userId))
             .isInstanceOf(ItemNotFoundException.class);
     }
 
@@ -54,12 +54,12 @@ public class ItemServiceFailTest extends ItemServiceTest {
     void 관리자나_파트너_권한이_아닌_유저가_아이템_상태_변경시_예외가_발생한다() {
         // Given
         var invalidItemId = UUID.randomUUID();
-        var userId = user.getId();
         var status = ItemStatus.SOLD_OUT;
+        var userId = user.getId();
         user.changeAuthorityUser();
 
         // When & Then
-        assertThatThrownBy(() -> itemService.changeItemStatus(invalidItemId, userId, status))
+        assertThatThrownBy(() -> itemService.changeItemStatus(invalidItemId, status, userId))
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 }

@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemStatus changeItemStatus(UUID itemId, UUID userId, ItemStatus itemStatus) {
+    public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var strategy = findStrategy(itemStatus);

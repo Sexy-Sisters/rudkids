@@ -59,7 +59,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         var itemStatus = ItemStatus.SELLING;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus, userId);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
@@ -74,7 +74,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         var itemStatus = ItemStatus.SOLD_OUT;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus, userId);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
@@ -89,7 +89,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         var itemStatus = ItemStatus.PREPARING;
 
         // When
-        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+        var changedStatus = itemService.changeItemStatus(itemId, itemStatus, userId);
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);

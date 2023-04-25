@@ -70,6 +70,14 @@ public class Item extends AbstractEntity {
             .build();
     }
 
+    public void update(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+        this.name = name;
+        this.itemBio = itemBio;
+        this.price = price;
+        this.quantity = quantity;
+        this.limitType = limitType;
+    }
+
     public void changePreparing() {
         this.itemStatus = ItemStatus.PREPARING;
     }

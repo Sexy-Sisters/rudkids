@@ -6,7 +6,6 @@ import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,8 @@ public class ItemController {
     @PostMapping("/{product-id}")
     public void create(
         @PathVariable(name = "product-id") UUID productId,
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody ItemRequest.RegisterItem request
+        @RequestBody ItemRequest.RegisterItem request,
+        @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
         var command = itemDtoMapper.to(request);
         itemService.create(command, productId, loginUser.id());
@@ -40,9 +39,9 @@ public class ItemController {
     @PutMapping("/{id}")
     public ItemStatus changeStatus(
         @PathVariable UUID id,
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestParam ItemStatus status
+        @RequestParam ItemStatus status,
+        @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        return itemService.changeItemStatus(id, loginUser.id(), status);
+        return itemService.changeItemStatus(id, status, loginUser.id());
     }
 }
