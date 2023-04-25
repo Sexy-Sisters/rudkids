@@ -56,7 +56,7 @@ public class ProductControllerFixtures {
             .itemId(UUID.randomUUID())
             .name("아이템")
             .price(1000)
-            .itemStatus(ItemStatus.ON_SALES)
+            .itemStatus(ItemStatus.SELLING)
             .build();
     }
 
@@ -75,7 +75,7 @@ public class ProductControllerFixtures {
             .itemId(UUID.randomUUID())
             .name("아이템")
             .price(1000)
-            .itemStatus(ItemStatus.ON_SALES)
+            .itemStatus(ItemStatus.SELLING)
             .build();
     }
 }
