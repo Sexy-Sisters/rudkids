@@ -23,9 +23,10 @@ class ItemControllerTest extends ControllerTest {
     void 아이템을_등록한다() throws Exception {
         willDoNothing()
             .given(itemService)
-            .create(any(), any());
+            .create(any(), any(), any());
 
         mockMvc.perform(post(ITEM_DEFAULT_URL + "/{productId}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ITEM_등록_요청()))

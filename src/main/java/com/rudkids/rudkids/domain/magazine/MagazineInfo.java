@@ -10,8 +10,8 @@ public class MagazineInfo {
 
     @Builder
     public record Detail(
-            String title,
-            String writer,
-            String content) {
+        String title,
+        String writer,
+        String content) {
     }
 }

@@ -9,7 +9,7 @@ import com.rudkids.rudkids.domain.magazine.domain.Title;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineContentException;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineTitleException;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
-import com.rudkids.rudkids.domain.magazine.exception.NotAdminRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.domain.Age;
 import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;

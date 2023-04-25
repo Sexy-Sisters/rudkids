@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.item.service;
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.product.ProductReader;
+import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,28 +17,26 @@ public class ItemServiceImpl implements ItemService {
     private final ItemReader itemReader;
     private final ItemMapper itemMapper;
     private final ProductReader productReader;
+    private final UserReader userReader;
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
 
     @Override
     @Transactional
-    public void create(ItemCommand.RegisterItemRequest command, UUID productId) {
+    public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminOrPartnerRole();
+
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());
+        var limitType = command.limitType();
 
-        var initItem = Item.builder()
-            .name(name)
-            .itemBio(itemBio)
-            .price(price)
-            .quantity(quantity)
-            .limitType(command.limitType())
-            .build();
-
+        var initItem = Item.create(name, itemBio, price, quantity, limitType);
+        var item = itemStore.store(initItem);
+        itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);
-        initItem.changeProduct(product);
-
-        itemStore.store(initItem);
+        initItem.setProduct(product);
     }
 
     @Override

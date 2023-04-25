@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.interfaces.item;
 
 import com.rudkids.rudkids.domain.item.service.ItemService;
+import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
+import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +21,11 @@ public class ItemController {
     @PostMapping("/{product-id}")
     public void create(
         @PathVariable(name = "product-id") UUID productId,
+        @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody ItemRequest.RegisterItem request
     ) {
         var command = itemDtoMapper.to(request);
-        itemService.create(command, productId);
+        itemService.create(command, productId, loginUser.id());
     }
 
     @GetMapping("/detail/{id}")

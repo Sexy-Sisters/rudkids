@@ -1,12 +1,14 @@
 package com.rudkids.rudkids.interfaces.order.dto;
 
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
+import lombok.Builder;
 
 import java.util.List;
 import java.util.UUID;
 
 public class OrderRequest {
 
+    @Builder
     public record Register(
         PayMethod payMethod,
         String receiverName,
@@ -19,16 +21,15 @@ public class OrderRequest {
     ) {
     }
 
+    @Builder
     public record RegisterOrderItem(
         UUID itemId,
         Integer orderCount,
-//        String itemToken,
-//        String itemName,
-//        Long itemPrice,
         List<OrderRequest.RegisterOrderItemOptionGroup> orderItemOptionGroupList
     ) {
     }
 
+    @Builder
     public record RegisterOrderItemOptionGroup(
         Integer ordering,
         String itemOptionGroupName,
@@ -36,6 +37,7 @@ public class OrderRequest {
     ) {
     }
 
+    @Builder
     public record RegisterOrderItemOption(
         Integer ordering,
         String itemOptionName,

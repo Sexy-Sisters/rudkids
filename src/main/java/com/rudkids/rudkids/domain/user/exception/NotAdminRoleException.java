@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.magazine.exception;
+package com.rudkids.rudkids.domain.user.exception;
 
 import com.rudkids.rudkids.global.error.exception.ForbiddenException;
 

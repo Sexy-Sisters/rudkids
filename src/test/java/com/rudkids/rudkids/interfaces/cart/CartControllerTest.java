@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_NAME;
-import static com.rudkids.rudkids.common.fixtures.auth.AuthControllerFixtures.AUTHORIZATION_HEADER_VALUE;
 import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -19,12 +17,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -226,6 +220,7 @@ class CartControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
+<<<<<<< HEAD
     @DisplayName("다른 사용자의 장바구니 아이템 수량을 변경할 시 상태코드 403을 반환한다.")
     @Test
     void 다른_사용자의_장바구니에_아이템_수량을_변경할_시_상태코드_403을_반환한다() throws Exception {
@@ -300,6 +295,8 @@ class CartControllerTest extends ControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+=======
+>>>>>>> develop
     @DisplayName("장바구니 아이템들을 선택하여 삭제한다.")
     @Test
     void 장바구니_아이템들을_선택하여_삭제한다() throws Exception {
@@ -332,6 +329,7 @@ class CartControllerTest extends ControllerTest {
                 ))
                 .andExpect(status().isOk());
     }
+<<<<<<< HEAD
 
     @DisplayName("다른 사용자의 장바구니 아이템을 선택하여 삭제할 시 상태코드 403을 반환한다.")
     @Test
@@ -365,4 +363,6 @@ class CartControllerTest extends ControllerTest {
                 ))
                 .andExpect(status().isForbidden());
     }
+=======
+>>>>>>> develop
 }
