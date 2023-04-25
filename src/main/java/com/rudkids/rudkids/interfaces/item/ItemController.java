@@ -36,6 +36,16 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/update/{id}")
+    public void update(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable(name = "id") UUID itemId,
+        @RequestBody ItemRequest.Update  request
+    ) {
+        var command = itemDtoMapper.toCommand(request);
+        itemService.update(command, itemId, loginUser.id());
+    }
+
     @PutMapping("/{id}")
     public ItemStatus changeStatus(
         @PathVariable UUID id,

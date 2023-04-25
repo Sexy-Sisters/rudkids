@@ -89,4 +89,14 @@ public class ItemDtoMapper {
             info.itemOptionPrice()
         );
     }
+
+    public ItemCommand.UpdateRequest toCommand(ItemRequest.Update request) {
+        return ItemCommand.UpdateRequest.builder()
+            .name(request.name())
+            .itemBio(request.itemBio())
+            .name(request.name())
+            .quantity(request.quantity())
+            .limitType(request.limitType())
+            .build();
+    }
 }
