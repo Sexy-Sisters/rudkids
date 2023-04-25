@@ -67,7 +67,7 @@ public class CartItemReaderImpl implements CartItemReader {
                 .build();
         cart.addCartItem(cartItem);
 
-        cartItemSeriesFactory.store(cartItem, command.optionGroups());
+        cartItemSeriesFactory.store(cartItem, command);
         return cartItemRepository.save(cartItem);
     }
 

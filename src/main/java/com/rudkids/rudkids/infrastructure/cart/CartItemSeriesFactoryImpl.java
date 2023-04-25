@@ -13,8 +13,8 @@ import java.util.List;
 public class CartItemSeriesFactoryImpl implements CartItemSeriesFactory {
 
     @Override
-    public void store(CartItem cartItem, List<CartCommand.AddCartItemOptionGroup> cartItemOptionGroups) {
-        cartItemOptionGroups.forEach(optionGroup -> {
+    public void store(CartItem cartItem, CartCommand.AddCartItem command) {
+        command.optionGroups().forEach(optionGroup -> {
             CartItemOption cartItemOption = CartItemOption.create(optionGroup.option().name());
             var cartItemOptionGroup = CartItemOptionGroup.builder()
                     .cartItem(cartItem)

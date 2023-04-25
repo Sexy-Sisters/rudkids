@@ -9,9 +9,9 @@ public class CartRequest {
 
     @Builder
     public record AddCartItem(
-            UUID itemId,
-            int amount,
-            List<AddCartItemOptionGroup> optionGroups
+        UUID itemId,
+        int amount,
+        List<AddCartItemOptionGroup> optionGroups
     ) {
     }
 
