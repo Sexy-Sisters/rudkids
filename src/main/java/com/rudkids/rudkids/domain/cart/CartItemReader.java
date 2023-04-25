@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface CartItemReader {
 
-    CartItem getCartItem(Cart cart, Item item, int amount);
+    CartItem getCartItem(Cart cart, Item item, CartCommand.AddCartItem command);
     CartItem getCartItem(UUID cartItemId);
 }

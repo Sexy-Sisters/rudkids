@@ -11,9 +11,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CartItemStoreImpl implements CartItemStore {
     private final CartItemRepository cartItemRepository;
+    private final CartItemOptionGroupRepository cartItemOptionGroupRepository;
 
     @Override
     public void delete(List<UUID> cartItemIds) {
+        cartItemOptionGroupRepository.deleteAllInBatch();
         cartItemRepository.deleteAllByIds(cartItemIds);
     }
 }

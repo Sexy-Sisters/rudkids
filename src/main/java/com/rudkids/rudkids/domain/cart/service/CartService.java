@@ -6,7 +6,7 @@ import com.rudkids.rudkids.domain.cart.CartInfo;
 import java.util.UUID;
 
 public interface CartService {
-    void addCartItem(UUID userId, CartCommand.AddCartItem command);
+    UUID addCartItem(UUID userId, CartCommand.AddCartItem command);
     CartInfo.Main findCartItems(UUID userId);
     void updateCartItemAmount(UUID userId, CartCommand.UpdateCartItemAmount command);
     void deleteCartItems(UUID userId, CartCommand.DeleteCartItems command);

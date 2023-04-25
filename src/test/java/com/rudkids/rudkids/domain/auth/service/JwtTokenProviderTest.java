@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.domain.auth.application;
+package com.rudkids.rudkids.domain.auth.service;
 
 import com.rudkids.rudkids.common.fixtures.auth.JwtTokenProviderFixtures;
 import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;

@@ -3,6 +3,7 @@ package com.rudkids.rudkids.common.fixtures.cart;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.infrastructure.cart.CartItemOptionGroupRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.domain.item.domain.*;
@@ -12,6 +13,8 @@ import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.infrastructure.item.ItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @ServiceTest
 public class CartServiceFixtures {
@@ -30,6 +33,9 @@ public class CartServiceFixtures {
 
     @Autowired
     protected ItemRepository itemRepository;
+
+    @Autowired
+    protected CartItemOptionGroupRepository cartItemOptionGroupRepository;
 
     protected User user;
     protected Item item;
@@ -60,6 +66,16 @@ public class CartServiceFixtures {
         //저장된 itemId 넣음
         CART_아이템_요청 = CartCommand.AddCartItem.builder()
                 .itemId(item.getId())
+                .optionGroups(List.of(
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("사이즈")
+                                .option(new CartCommand.AddCartItemOption("M", 1000))
+                                .build(),
+                        CartCommand.AddCartItemOptionGroup.builder()
+                                .name("색깔")
+                                .option(new CartCommand.AddCartItemOption("파랑", 500))
+                                .build()
+                        ))
                 .amount(2)
                 .build();
     }
