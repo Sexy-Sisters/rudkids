@@ -6,15 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class GoogleTokenResponse {
     private String idToken;
+    private String accessToken;
 
     private GoogleTokenResponse() {
     }
 
-    public GoogleTokenResponse(String idToken) {
+    public GoogleTokenResponse(String idToken, String accessToken) {
         this.idToken = idToken;
+        this.accessToken = accessToken;
     }
 
     public String getIdToken() {
         return idToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 }

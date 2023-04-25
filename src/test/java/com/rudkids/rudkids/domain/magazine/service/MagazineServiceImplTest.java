@@ -10,8 +10,6 @@ import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineContentExcep
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineTitleException;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
@@ -78,12 +76,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 일반사용자가_매거진_글을_작성할_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         userRepository.save(user);
 
         //when, then
@@ -96,12 +95,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 파트너가_매거진_글을_작성할_경우_예외가_발생한다() {
         //given
         User partner = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         partner.changeAuthorityPartner();
         userRepository.save(partner);
 
@@ -178,12 +178,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 일반사용자가_매거진_글을_수정할_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         userRepository.save(user);
 
         Title title = Title.create("제목");
@@ -201,12 +202,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 파트너가_매거진_글을_수정할_경우_예외가_발생한다() {
         //given
         User partner = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         partner.changeAuthorityPartner();
         userRepository.save(partner);
 
@@ -231,12 +233,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
 
         //when
         User anotherAdmin = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         anotherAdmin.changeAuthorityAdmin();
         userRepository.save(anotherAdmin);
         magazineService.update(anotherAdmin.getId(), magazine.getId(), MAGAZINE_수정_요청);
@@ -276,12 +279,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 일반사용자가_매거진_글을_삭제할_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         userRepository.save(user);
 
         Title title = Title.create("제목");
@@ -299,12 +303,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
     void 파트너가_매거진_글을_삭제할_경우_예외가_발생한다() {
         //given
         User partner = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         partner.changeAuthorityPartner();
         userRepository.save(partner);
 
@@ -329,12 +334,13 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
 
         //when
         User anotherAdmin = User.builder()
-            .email("namse@gmail.com")
-            .name("남세")
-            .age(Age.create(18))
-            .gender(Gender.toEnum("MALE"))
-            .socialType(SocialType.GOOGLE)
-            .build();
+                .email("namse@gmail.com")
+                .name("남세")
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
+                .socialType(SocialType.GOOGLE)
+                .build();
         anotherAdmin.changeAuthorityAdmin();
         userRepository.save(anotherAdmin);
         magazineService.delete(anotherAdmin.getId(), magazine.getId());
