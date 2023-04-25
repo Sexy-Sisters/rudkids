@@ -1,10 +1,12 @@
 package com.rudkids.rudkids.interfaces.item;
 
+import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,18 +37,12 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}/on-sales")
-    public String changeOnSales(@PathVariable UUID id) {
-        return itemService.changeOnSales(id);
-    }
-
-    @DeleteMapping("/{id}/end-of-sales")
-    public String changeEndOfSales(@PathVariable UUID id) {
-        return itemService.changeEndOfSales(id);
-    }
-
-    @PutMapping("/{id}/prepare")
-    public String changePrepare(@PathVariable UUID id) {
-        return itemService.changePrepare(id);
+    @PutMapping("/{id}")
+    public ItemStatus changeStatus(
+        @PathVariable UUID id,
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @RequestParam ItemStatus status
+    ) {
+        return itemService.changeItemStatus(id, loginUser.id(), status);
     }
 }
