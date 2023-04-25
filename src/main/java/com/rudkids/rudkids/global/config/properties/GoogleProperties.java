@@ -18,9 +18,14 @@ public class GoogleProperties {
     private final String accessType;
     private final String peopleUri;
 
-    public GoogleProperties(String clientId, String clientSecret, String oAuthEndPoint,
-                            String responseType, List<String> scopes, String tokenUri,
-                            String accessType, String peopleUri) {
+    public GoogleProperties(String clientId,
+                            String clientSecret,
+                            String oAuthEndPoint,
+                            String responseType,
+                            List<String> scopes,
+                            String tokenUri,
+                            String accessType,
+                            String peopleUri) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.oAuthEndPoint = oAuthEndPoint;
