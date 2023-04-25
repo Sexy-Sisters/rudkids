@@ -1,0 +1,36 @@
+[[Item-API]]
+== Item API
+
+[[아이템-생성]]
+=== 아이템 생성
+operation::item/create[snippets='http-request,http-response,request-body,request-fields,request-headers,response-body']
+
+[[아이템-생성-존재하지-않는-프로덕트-에러]]
+=== 아이템 생성 (존재하지 않는 프로덕트 에러)
+operation::item/create/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body,response-fields']
+
+[[아이템-생성-관리자나-파트너-권한이-아닌-유저-에러]]
+=== 아이템 생성 (관리자나 파트너 권한이 아닌 유저 에러)
+operation::item/create/failByForbiddenError[snippets='http-request,http-response,request-body,request-headers,response-body,response-fields']
+
+
+[[아이템-상세-조회]]
+=== 아이템 상세 조회
+operation::item/find[snippets='http-request,http-response,path-parameters,request-body,response-body,response-fields']
+
+[[아이템-상세-조회-존재하지-않는-아이템-에러]]
+=== 아이템 상세 조회 (존재하지 않는 아이템 에러)
+operation::item/find/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,response-body,response-fields']
+
+
+[[아이템-상태-변경]]
+=== 아이템 상태 변경
+operation::item/changeStatus[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']
+
+[[아이템-상태-변경-존재하지-않는-아이템-에러]]
+=== 아이템 상태 변경 (존재하지 않는 아이템 에러)
+operation::item/changeStatus/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']
+
+[[아이템-상태-변경-관리자나-파트너-권한이-아닌-유저-에러]]
+=== 아이템 상태 변경 (관리자나 파트너 권한이 아닌 유저 에러)
+operation::item/changeStatus/failByForbiddenError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']

@@ -44,7 +44,7 @@ public class Item extends AbstractEntity {
     private LimitType limitType;
 
     @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus = ItemStatus.SELLING;
+    private ItemStatus itemStatus;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();

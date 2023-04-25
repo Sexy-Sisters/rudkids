@@ -11,18 +11,16 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.item.ItemControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,6 +45,10 @@ public class ItemControllerFailTest extends ControllerTest {
                 requestHeaders(
                     headerWithName("Authorization")
                         .description("JWT Access Token")
+                ),
+                pathParameters(
+                  parameterWithName("productId")
+                      .description("프로덕트 id")
                 ),
                 requestFields(
                     fieldWithPath("name")
@@ -243,7 +245,7 @@ public class ItemControllerFailTest extends ControllerTest {
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
-            .andDo(document("item/changeStatus/failByNotFoundError",
+            .andDo(document("item/changeStatus/failByForbiddenError",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(

@@ -14,5 +14,6 @@ include::cart.adoc[]
 
 include::magazine.adoc[]
 
+include::item.adoc[]
 
 
