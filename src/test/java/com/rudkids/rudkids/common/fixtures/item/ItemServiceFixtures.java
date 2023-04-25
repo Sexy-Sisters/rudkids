@@ -40,6 +40,16 @@ public class ItemServiceFixtures {
     protected static Item item;
     protected static ItemCommand.RegisterItemRequest ITEM_등록_요청;
 
+    protected ItemCommand.UpdateRequest 아이템_수정_요청() {
+        return ItemCommand.UpdateRequest.builder()
+            .name("아이템")
+            .itemBio("소개글")
+            .price(1000)
+            .quantity(100)
+            .limitType(LimitType.LIMITED)
+            .build();
+    }
+
     private static final ItemCommand.RegisterItemOptionGroupRequest itemOptionGroup_사이즈 = ItemCommand.RegisterItemOptionGroupRequest.builder()
         .ordering(1)
         .itemOptionGroupName("사이즈")

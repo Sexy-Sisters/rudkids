@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.interfaces.item.dto;
 
-import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.domain.*;
 import lombok.Builder;
 
 import java.util.List;
@@ -30,4 +30,14 @@ public class ItemRequest {
         String itemOptionName,
         int itemOptionPrice
     ) {}
+
+    @Builder
+    public record Update(
+        String name,
+        String itemBio,
+        int price,
+        int quantity,
+        LimitType limitType
+    ) {
+    }
 }

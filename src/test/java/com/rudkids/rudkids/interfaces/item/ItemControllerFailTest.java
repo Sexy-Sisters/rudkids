@@ -20,7 +20,6 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -233,7 +232,7 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @DisplayName("관리자와 파트너 권환 이외의 유저가 아이템의 사애를 변경하면 상태코드 403을 반환한다.")
+    @DisplayName("관리자와 파트너 권환 이외의 유저가 아이템의 상태를 변경하면 상태코드 403을 반환한다.")
     @Test
     void 관리자와_파트너_권한_이외의_유저가_아이템의_상태를_변경하면_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminOrPartnerRoleException())

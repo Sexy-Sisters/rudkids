@@ -18,6 +18,7 @@ public class ProductMapper {
 
     public ProductInfo.ProductItem toInfo(Item item) {
         return ProductInfo.ProductItem.builder()
+            .itemId(item.getId())
             .name(item.getName())
             .price(item.getPrice())
             .itemStatus(item.getItemStatus())

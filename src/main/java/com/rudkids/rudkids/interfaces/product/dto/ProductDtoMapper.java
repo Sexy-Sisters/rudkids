@@ -36,6 +36,7 @@ public class ProductDtoMapper {
 
     private ProductResponse.ProductItem toResponse(ProductInfo.ProductItem info) {
         return ProductResponse.ProductItem.builder()
+            .itemId(info.itemId())
             .name(info.name())
             .price(info.price())
             .itemStatus(info.itemStatus())

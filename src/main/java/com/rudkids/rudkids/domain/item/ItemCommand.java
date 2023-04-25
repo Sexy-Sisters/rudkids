@@ -61,4 +61,14 @@ public class ItemCommand {
                 .build();
         }
     }
+
+    @Builder
+    public record UpdateRequest(
+        String name,
+        String itemBio,
+        int price,
+        int quantity,
+        LimitType limitType
+    ) {
+    }
 }

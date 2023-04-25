@@ -52,13 +52,36 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemStatus changeItemStatus(UUID itemId, UUID userId, ItemStatus itemStatus) {
+    public void update(ItemCommand.UpdateRequest command, UUID itemId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
+
+        var item = itemReader.getItem(itemId);
+        var name = Name.create(command.name());
+        var itemBio = ItemBio.create(command.itemBio());
+        var price = Price.create(command.price());
+        var quantity = Quantity.create(command.quantity());
+        var limitType = command.limitType();
+        item.update(name, itemBio, price, quantity, limitType);
+    }
+
+    @Override
+    public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminOrPartnerRole();
+
         var strategy = findStrategy(itemStatus);
         var item = itemReader.getItem(itemId);
         strategy.changeStatus(item);
         return item.getItemStatus();
+    }
+
+    @Override
+    public void delete(UUID itemId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminOrPartnerRole();
+
+        itemStore.delete(itemId);
     }
 
     private ItemStatusChangeStrategy findStrategy(ItemStatus itemStatus) {
