@@ -5,10 +5,12 @@ import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceTest extends ItemServiceFixtures {
@@ -113,5 +115,20 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
         // Then
         assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);
+    }
+
+    @DisplayName("아이템 삭제")
+    @Test
+    void delete() {
+        // Given
+        var itemId = item.getId();
+        var userId = user.getId();
+
+        // When
+        itemService.delete(itemId, userId);
+
+        // Then
+        assertThatThrownBy(() -> itemReader.getItem(itemId))
+            .isInstanceOf(ItemNotFoundException.class);
     }
 }
