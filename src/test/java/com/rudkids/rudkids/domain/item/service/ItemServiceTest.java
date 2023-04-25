@@ -5,19 +5,17 @@ import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
-import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-
 public class ItemServiceTest extends ItemServiceFixtures {
 
-    @DisplayName("상품 등록 성공")
+    @DisplayName("상품 등록")
     @Test
-    void registerItem() {
+    void create() {
         itemService.create(ITEM_등록_요청, product.getId(), user.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
@@ -27,7 +25,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
             () -> assertThat(findItem.getItemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.getLimitType()).isEqualTo(LimitType.LIMITED),
-            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.ON_SALES),
+            () -> assertThat(findItem.getItemStatus()).isEqualTo(ItemStatus.SELLING),
             () -> assertThat(findItem.getItemOptionGroups()).hasSize(1)
         );
         var itemOptionGroup = findItem.getItemOptionGroups().get(0);
@@ -40,7 +38,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
     @DisplayName("아이템 상세 조회")
     @Test
-    void findItemDetail() {
+    void find() {
         ItemInfo.Detail findItem = itemService.find(item.getId());
 
         assertAll(
@@ -52,17 +50,48 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @DisplayName("아이템 판매 종료")
+    @DisplayName("아이템 상태 판매 중으로 변경")
     @Test
-    void changeOnSales() {
-        String itemStatus = itemService.changeOnSales(item.getId());
-        assertThat(itemStatus).isEqualTo("ON_SALES");
+    void changeSelling() {
+        // Given
+        var itemId = item.getId();
+        var userId = user.getId();
+        var itemStatus = ItemStatus.SELLING;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
     }
 
-    @DisplayName("아이템 판매 종료")
+    @DisplayName("아이템 상태 판매 완료로 변경")
     @Test
-    void changeEndOfSales() {
-        String itemStatus = itemService.changeEndOfSales(item.getId());
-        assertThat(itemStatus).isEqualTo("END_OF_SALES");
+    void changeSoldOut() {
+        // Given
+        var itemId = item.getId();
+        var userId = user.getId();
+        var itemStatus = ItemStatus.SOLD_OUT;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
+    }
+
+    @DisplayName("아이템 상태 준비 중으로 변경")
+    @Test
+    void changePreparing() {
+        // Given
+        var itemId = item.getId();
+        var userId = user.getId();
+        var itemStatus = ItemStatus.PREPARING;
+
+        // When
+        var changedStatus = itemService.changeItemStatus(itemId, userId, itemStatus);
+
+        // Then
+        assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);
     }
 }
