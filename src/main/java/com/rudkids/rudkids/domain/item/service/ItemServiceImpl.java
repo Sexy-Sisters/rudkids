@@ -69,10 +69,19 @@ public class ItemServiceImpl implements ItemService {
     public ItemStatus changeItemStatus(UUID itemId, ItemStatus itemStatus, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
+
         var strategy = findStrategy(itemStatus);
         var item = itemReader.getItem(itemId);
         strategy.changeStatus(item);
         return item.getItemStatus();
+    }
+
+    @Override
+    public void delete(UUID itemId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminOrPartnerRole();
+
+        itemStore.delete(itemId);
     }
 
     private ItemStatusChangeStrategy findStrategy(ItemStatus itemStatus) {

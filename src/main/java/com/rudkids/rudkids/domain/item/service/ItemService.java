@@ -11,4 +11,5 @@ public interface ItemService {
     ItemInfo.Detail find(UUID itemId);
     ItemStatus changeItemStatus(UUID itemId, ItemStatus userId, UUID itemStatus);
     void update(ItemCommand.UpdateRequest command, UUID itemId, UUID userId);
+    void delete(UUID itemId, UUID userId);
 }

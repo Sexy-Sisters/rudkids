@@ -7,8 +7,10 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 
 import java.util.UUID;
 
@@ -48,10 +50,18 @@ public class ItemController {
 
     @PutMapping("/{id}")
     public ItemStatus changeStatus(
-        @PathVariable UUID id,
+        @PathVariable(name = "id") UUID userId,
         @RequestParam ItemStatus status,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        return itemService.changeItemStatus(id, status, loginUser.id());
+        return itemService.changeItemStatus(userId, status, loginUser.id());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+        @PathVariable(name = "id") UUID itemId,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        itemService.delete(itemId, loginUser.id());
     }
 }
