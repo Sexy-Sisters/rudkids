@@ -3,7 +3,9 @@ package com.rudkids.rudkids.domain.cart.domain;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_cart_item")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CartItem {
 
     @Id
@@ -34,9 +37,6 @@ public class CartItem {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cartItem", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CartItemOptionGroup> cartItemOptionGroups = new ArrayList<>();
 
-    protected CartItem() {
-    }
-
     @Builder
     public CartItem(Cart cart, Item item, int amount, int price) {
         this.cart = cart;
@@ -49,12 +49,12 @@ public class CartItem {
         cartItemOptionGroups.add(cartItemOptionGroup);
     }
 
-    public void addOptionPrice(int price) {
-        this.price += price;
-    }
-
     public int getCartItemPrice() {
-        return price * amount;
+        int optionPrice = cartItemOptionGroups.stream()
+                .mapToInt(CartItemOptionGroup::getOptionPrice)
+                .sum();
+
+        return (price + optionPrice) * amount;
     }
 
     public void updateAmount(int amount) {

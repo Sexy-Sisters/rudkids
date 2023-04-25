@@ -1,13 +1,16 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_cart_item_option_group")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CartItemOptionGroup {
 
     @Id
@@ -23,11 +26,9 @@ public class CartItemOptionGroup {
     @Column(name = "name")
     private String name;
 
-    @Embedded
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cart_item_option_id")
     private CartItemOption cartItemOption;
-
-    protected CartItemOptionGroup() {
-    }
 
     @Builder
     public CartItemOptionGroup(CartItem cartItem, String name, CartItemOption cartItemOption) {
@@ -40,7 +41,11 @@ public class CartItemOptionGroup {
         return name;
     }
 
-    public String getCartItemOption() {
-        return cartItemOption.getValue();
+    public String getOptionName() {
+        return cartItemOption.getName();
+    }
+
+    public int getOptionPrice() {
+        return cartItemOption.getPrice();
     }
 }

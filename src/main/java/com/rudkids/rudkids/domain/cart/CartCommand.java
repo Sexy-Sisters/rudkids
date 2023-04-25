@@ -19,7 +19,7 @@ public class CartCommand {
     @Builder
     public record AddCartItemOptionGroup(String name, AddCartItemOption option) {
         public CartItemOption toCartItemOption() {
-            return CartItemOption.create(option.name);
+            return CartItemOption.create(option.name, option.price);
         }
     }
 

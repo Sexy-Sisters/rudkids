@@ -26,11 +26,11 @@ public class CartItemReaderImpl implements CartItemReader {
             CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
 
             List<String> cartItemOptionNames = cartItem.getCartItemOptionGroups().stream()
-                    .map(CartItemOptionGroup::getCartItemOption)
+                    .map(CartItemOptionGroup::getOptionName)
                     .toList();
 
             List<String> targetOptionNames = toCartItemOptionGroup(command.optionGroups()).stream()
-                    .map(CartItemOptionGroup::getCartItemOption)
+                    .map(CartItemOptionGroup::getOptionName)
                     .toList();
 
             if(isSameOptions(cartItemOptionNames, targetOptionNames)) {

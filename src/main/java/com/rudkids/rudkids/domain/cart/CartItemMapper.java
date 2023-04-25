@@ -10,25 +10,23 @@ import java.util.List;
 public class CartItemMapper {
 
     public CartItemInfo.Main toInfo(CartItem cartItem) {
+        List<CartItemInfo.CartItemOptionGroup> optionGroups = cartItem.getCartItemOptionGroups().stream()
+                .map(this::toInfo)
+                .toList();
+
         return CartItemInfo.Main.builder()
                 .id(cartItem.getId())
                 .name(cartItem.getName())
                 .price(cartItem.getPrice())
-                .optionGroups(toInfo(cartItem.getCartItemOptionGroups()))
+                .optionGroups(optionGroups)
                 .itemStatus(cartItem.getItemStatus())
                 .build();
-    }
-
-    private List<CartItemInfo.CartItemOptionGroup> toInfo(List<CartItemOptionGroup> groups) {
-        return groups.stream()
-                .map(this::toInfo)
-                .toList();
     }
 
     private CartItemInfo.CartItemOptionGroup toInfo(CartItemOptionGroup cartItemOptionGroup) {
         return CartItemInfo.CartItemOptionGroup.builder()
                 .name(cartItemOptionGroup.getName())
-                .optionName(cartItemOptionGroup.getCartItemOption())
+                .optionName(cartItemOptionGroup.getOptionName())
                 .build();
     }
 }
