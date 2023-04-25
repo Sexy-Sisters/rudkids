@@ -71,7 +71,7 @@ class ProductServiceTest extends ProductServiceFixtures {
         var result = productService.openProduct(product.getId(), user.getId());
 
         // Then
-        assertThat(result).isEqualTo(ProductStatus.OPEN);
+        assertThat(result).isEqualTo(ProductStatus.OPEN.name());
     }
 
     @DisplayName("프로덕트 종료")
@@ -84,6 +84,6 @@ class ProductServiceTest extends ProductServiceFixtures {
         var result = productService.closeProduct(product.getId(), user.getId());
 
         // Then
-        assertThat(result).isEqualTo(ProductStatus.CLOSED);
+        assertThat(result).isEqualTo(ProductStatus.CLOSED.name());
     }
 }

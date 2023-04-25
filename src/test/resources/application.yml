@@ -37,3 +37,9 @@ oauth:
       - https://www.googleapis.com/auth/userinfo.email
     token-uri: https://oauth2.googleapis.com/token
     access-type: offline
+
+sms:
+  api:
+    key: ${SMS_KEY}
+    secret: ${SMS_SECRET}
+    domain-uri: https://api.coolsms.co.kr

@@ -26,6 +26,9 @@ repositories {
 }
 
 dependencies {
+	//sms 문자
+	implementation 'net.nurigo:sdk:4.3.0'
+
 	//json 파싱
 	implementation 'com.google.code.gson:gson:2.8.6'
 
