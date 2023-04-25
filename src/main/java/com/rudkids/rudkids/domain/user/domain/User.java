@@ -6,15 +6,16 @@ import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_user")
+@EqualsAndHashCode(callSuper = false)
 public class User extends AbstractEntity {
 
     @Id
@@ -23,17 +24,20 @@ public class User extends AbstractEntity {
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Embedded
-    private Age age;
+    @Column(name = "gender")
+    private String gender;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
@@ -48,11 +52,12 @@ public class User extends AbstractEntity {
     }
 
     @Builder
-    private User(String email, String name, Age age, Gender gender, SocialType socialType) {
+    private User(String email, String name, String gender, int age, String phoneNumber, SocialType socialType) {
         this.email = email;
         this.name = name;
-        this.age = age;
         this.gender = gender;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
         this.socialType = socialType;
     }
 
@@ -61,10 +66,10 @@ public class User extends AbstractEntity {
     }
 
     public int getAge() {
-        return age.getValue();
+        return age;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
@@ -96,31 +101,11 @@ public class User extends AbstractEntity {
         }
     }
 
-    public void update(Age age, String gender) {
-        this.age = age;
-        this.gender = Gender.toEnum(gender);
+    public void update(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void order(Order order) {
         orders.add(order);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id)
-            && Objects.equals(email, user.email)
-            && Objects.equals(name, user.name)
-            && Objects.equals(age, user.age)
-            && gender == user.gender
-            && socialType == user.socialType
-            && roleType == user.roleType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, name, age, gender, socialType, roleType);
     }
 }

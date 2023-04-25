@@ -17,6 +17,9 @@ public class AuthDtoMapper {
         return AuthCommand.OAuthUser.builder()
                 .email(oAuthUser.email())
                 .name(oAuthUser.name())
+                .gender(oAuthUser.gender())
+                .age(oAuthUser.age())
+                .phoneNumber(oAuthUser.phoneNumber())
                 .build();
     }
 }

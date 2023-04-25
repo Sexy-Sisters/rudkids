@@ -38,5 +38,10 @@ oauth:
     scopes:
       - https://www.googleapis.com/auth/userinfo.profile
       - https://www.googleapis.com/auth/userinfo.email
+      - https://www.googleapis.com/auth/directory.readonly
+      - https://www.googleapis.com/auth/user.birthday.read
+      - https://www.googleapis.com/auth/user.gender.read
+      - https://www.googleapis.com/auth/user.phonenumbers.read
     token-uri: https://oauth2.googleapis.com/token
     access-type: offline
+    people-uri: https://people.googleapis.com/v1/people/me?personFields=genders,birthdays,phoneNumbers&key=AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs

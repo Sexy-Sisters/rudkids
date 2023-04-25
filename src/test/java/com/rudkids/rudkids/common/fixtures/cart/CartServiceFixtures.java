@@ -7,8 +7,6 @@ import com.rudkids.rudkids.infrastructure.cart.CartItemOptionGroupRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.domain.item.domain.*;
-import com.rudkids.rudkids.domain.user.domain.Age;
-import com.rudkids.rudkids.domain.user.domain.Gender;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
@@ -49,8 +47,9 @@ public class CartServiceFixtures {
         user = User.builder()
                 .email("namse@gmail.com")
                 .name("남세")
-                .age(Age.create(18))
-                .gender(Gender.toEnum("MALE"))
+                .age(18)
+                .gender("MALE")
+                .phoneNumber("01029401509")
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);
