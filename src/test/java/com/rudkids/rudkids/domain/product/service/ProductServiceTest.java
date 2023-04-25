@@ -2,13 +2,10 @@ package com.rudkids.rudkids.domain.product.service;
 
 import com.rudkids.rudkids.common.fixtures.product.ProductServiceFixtures;
 import com.rudkids.rudkids.domain.product.ProductCommand;
-import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;

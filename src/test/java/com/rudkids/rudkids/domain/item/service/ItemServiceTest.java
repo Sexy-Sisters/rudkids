@@ -50,6 +50,26 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
+    @DisplayName("아이템 업데이트")
+    @Test
+    void update() {
+        // Given
+        var itemId = item.getId();
+        var userId = user.getId();
+
+        // When
+        itemService.update(아이템_수정_요청(), itemId, userId);
+
+        // Then
+        assertAll(
+            () -> assertThat(item.getName()).isEqualTo("아이템"),
+            () -> assertThat(item.getItemBio()).isEqualTo("소개글"),
+            () -> assertThat(item.getPrice()).isEqualTo(1000),
+            () -> assertThat(item.getQuantity()).isEqualTo(100),
+            () -> assertThat(item.getLimitType()).isEqualTo(LimitType.LIMITED)
+        );
+    }
+
     @DisplayName("아이템 상태 판매 중으로 변경")
     @Test
     void changeSelling() {
