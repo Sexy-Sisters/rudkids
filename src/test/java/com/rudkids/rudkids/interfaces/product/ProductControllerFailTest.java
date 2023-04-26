@@ -167,6 +167,58 @@ public class ProductControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
+    @DisplayName("[삭제-403] 관리자가 아닌 유저가 프로덕트를 삭제 시 상태코드 403을 반환한다.")
+    @Test
+    void 관리자가_아닌_유저가_프로덕트를_삭제_시_상태코드_403을_반환한다() throws Exception {
+        doThrow(new NotAdminRoleException())
+            .when(productService)
+            .delete(any(), any());
+
+        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("product/delete/failByForbiddenError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("프로덕트 id")
+                )
+            ))
+            .andExpect(status().isForbidden());
+    }
+
+    @DisplayName("[삭제-404] 존재하지 않는 프로덕트를 삭제 시 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_프로덕트를_삭제_시_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductNotFoundException())
+            .when(productService)
+            .delete(any(), any());
+
+        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("product/delete/failByNotFoundError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("존재하지 않는 프로덕트 id")
+                )
+            ))
+            .andExpect(status().isNotFound());
+    }
+
     @DisplayName("[상태변경-403] 관리자가 아닌 유저가 프로덕트의 상태를 변경 시 상태코드 403을 반환한다.")
     @Test
     void 관리자가_아닌_유저가_프로덕트의_상태를_변경_시_상태코드_403을_반환한다() throws Exception {
@@ -201,7 +253,7 @@ public class ProductControllerFailTest extends ControllerTest {
             .andExpect(status().isForbidden());
     }
 
-    @DisplayName("[상태변경-404존재하지 않는 프로덕트의 상태를 변경 시 상태코드 404를 반환한다.")
+    @DisplayName("[상태변경-404] 존재하지 않는 프로덕트의 상태를 변경 시 상태코드 404를 반환한다.")
     @Test
     void 존재하지_않는_프로덕트의_상태를_변경_시_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
