@@ -11,10 +11,11 @@ public class ProductMapper {
         return ProductInfo.Main.builder()
             .productId(product.getId())
             .title(product.getTitle())
-            .productBio(product.getProductBio())
+            .frontImageUrl(product.getFrontImageUrl())
+            .backImageUrl(product.getBackImageUrl())
+            .status(product.getProductStatus())
             .build();
     }
-
 
     public ProductInfo.ProductItem toInfo(Item item) {
         return ProductInfo.ProductItem.builder()

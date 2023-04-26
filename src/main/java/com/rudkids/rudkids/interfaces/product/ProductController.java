@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.interfaces.product;
 
-import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
@@ -23,7 +22,7 @@ public class ProductController {
     @PostMapping
     public void create(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody ProductRequest.Register request
+        ProductRequest.Register request
     ) {
         var command = productDtoMapper.toCommand(request);
         productService.create(command, loginUser.id());
@@ -52,4 +51,6 @@ public class ProductController {
     ) {
         productService.changeStatus(request.productStatus(), productId, loginUser.id());
     }
+
+
 }
