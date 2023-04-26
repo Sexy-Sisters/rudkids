@@ -1,8 +1,8 @@
 package com.rudkids.rudkids.domain.product.service;
 
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
     public void create(ProductCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
+
         var title = Title.create(command.title());
         var productBio = ProductBio.create(command.productBio());
         var initProduct = Product.create(title, productBio);
@@ -76,6 +77,14 @@ public class ProductServiceImpl implements ProductService {
         var product = productReader.getProduct(productId);
         var foundStrategy = findChangeStatusStrategy(productStatus);
         foundStrategy.changeStatus(product);
+    }
+
+    @Override
+    public void delete(UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
+        productStore.delete(productId);
     }
 
     public ChangeProductStatusStrategy findChangeStatusStrategy(ProductStatus productStatus) {

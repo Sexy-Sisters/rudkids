@@ -61,4 +61,12 @@ public class ProductController {
     ) {
         productService.changeStatus(request.productStatus(), productId, loginUser.id());
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+        @PathVariable(name = "id") UUID productId,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.delete(productId, loginUser.id());
+    }
 }
