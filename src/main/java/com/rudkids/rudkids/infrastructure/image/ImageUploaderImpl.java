@@ -2,7 +2,8 @@ package com.rudkids.rudkids.infrastructure.image;
 
 import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.image.service.ImageUploader;
-import com.rudkids.rudkids.domain.product.domain.ProductImage;
+import com.rudkids.rudkids.domain.product.domain.ProductBackImage;
+import com.rudkids.rudkids.domain.product.domain.ProductFrontImage;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,8 +15,8 @@ public class ImageUploaderImpl implements ImageUploader {
         var fImageInfo = S3ImageUploader.upload(frontImage);
         var bImageInfo = S3ImageUploader.upload(backImage);
 
-        ProductImage fImage = ProductImage.create(fImageInfo.path(), fImageInfo.url());
-        ProductImage bImage = ProductImage.create(bImageInfo.path(), bImageInfo.url());
+        ProductFrontImage fImage = ProductFrontImage.create(fImageInfo.path(), fImageInfo.url());
+        ProductBackImage bImage = ProductBackImage.create(bImageInfo.path(), bImageInfo.url());
         return new ImageInfo.Product(fImage, bImage);
     }
 }

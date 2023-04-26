@@ -38,16 +38,16 @@ public class Product extends AbstractEntity{
     private final List<Item> items = new ArrayList<>();
 
     @Embedded
-    private ProductImage frontImage;
+    private ProductFrontImage frontImage;
 
     @Embedded
-    private ProductImage backImage;
+    private ProductBackImage backImage;
 
     @Builder
     public Product(final Title title,
                    final ProductBio productBio,
-                   final ProductImage frontImage,
-                   final ProductImage backImage) {
+                   final ProductFrontImage frontImage,
+                   final ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
