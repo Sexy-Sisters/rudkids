@@ -11,6 +11,5 @@ public interface ProductService {
     void create(ProductCommand.RegisterRequest command, UUID userId);
     List<ProductInfo.Main> findAll();
     ProductInfo.Detail find(UUID productId);
-    String closeProduct(UUID productId, UUID userId);
-    String openProduct(UUID productId, UUID userId);
+    String changeStatus(UUID productId, UUID userId, ProductStatus productStatus);
 }

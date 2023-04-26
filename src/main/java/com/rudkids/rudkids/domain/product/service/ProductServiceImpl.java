@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var title = Title.create(command.title());
-        var productBio = ProductBio.create(command.productBio());
+        var productBio = ProductBio.create(command.bio());
         var initProduct = Product.create(title, productBio);
         productStore.store(initProduct);
     }
@@ -55,18 +55,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String closeProduct(UUID productId, UUID userId) {
+    public String changeStatus(UUID productId, UUID userId, ProductStatus productStatus) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var product = productReader.getProduct(productId);
-        return product.close();
-    }
-
-    @Override
-    public String openProduct(UUID productId, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
-        var product = productReader.getProduct(productId);
-        return product.open();
+        ProductStatus status = ProductStatus.validate(productStatus);
+        return product.changeStatus(status);
     }
 }

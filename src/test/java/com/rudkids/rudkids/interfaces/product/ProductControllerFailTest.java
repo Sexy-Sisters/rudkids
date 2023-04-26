@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
+import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +52,7 @@ public class ProductControllerFailTest extends ControllerTest {
                                         .type(JsonFieldType.STRING)
                                         .description("제목"),
 
-                                fieldWithPath("productBio")
+                                fieldWithPath("bio")
                                         .type(JsonFieldType.STRING)
                                         .description("소개글")
                         )
@@ -81,47 +81,55 @@ public class ProductControllerFailTest extends ControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @DisplayName("존재하지 않는 프로덕트를 오픈할 경우 상태코드 404를 반환한다.")
+    @DisplayName("존재하지 않는 프로덕트의 상태를 변경할 경우 상태코드 404를 반환한다.")
     @Test
     void 존재하지_않는_프로덕트를_오픈할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
                 .when(productService)
-                .openProduct(any(), any());
-
+                .changeStatus(any(), any(), any());
 
         mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+                        .queryParam("status", "OPEN")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 )
                 .andDo(print())
-                .andDo(document("product/open/failByNotFoundError",
+                .andDo(document("product/changeStatus/failByProductNotFoundError",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
                                 parameterWithName("id")
                                         .description("존재하지 않는 프로덕트 id")
+                        ),
+                        queryParameters(
+                                parameterWithName("status")
+                                        .description("변경할 프로덕트 상태")
                         )
                 ))
                 .andExpect(status().isNotFound());
     }
 
-    @DisplayName("존재하지 않는 프로덕트를 닫을 경우 상태코드 404를 반환한다.")
+    @DisplayName("존재하지 않는 프로덕트 상태로 변경할 경우 상태코드 404를 반환한다.")
     @Test
-    void 존재하지_않는_프로덕트를_닫을_경우_상태코드_404를_반환한다() throws Exception {
-        doThrow(new ProductNotFoundException())
+    void 존재하지_않는_프로덕트_상태로_변경할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductStatusNotFoundException())
                 .when(productService)
-                .closeProduct(any(), any());
+                .changeStatus(any(), any(), any());
 
-
-        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
+        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+                        .queryParam("status", "OPEN")
                         .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 )
                 .andDo(print())
-                .andDo(document("product/close/failByNotFoundError",
+                .andDo(document("product/changeStatus/failByStatusNotFoundError",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
                                 parameterWithName("id")
-                                        .description("존재하지 않는 프로덕트 id")
+                                        .description("프로덕트 id")
+                        ),
+                        queryParameters(
+                                parameterWithName("status")
+                                        .description("존재하지 않는 프로덕트 상태")
                         )
                 ))
                 .andExpect(status().isNotFound());

@@ -10,7 +10,7 @@ public class ProductDtoMapper {
     public ProductCommand.RegisterRequest toCommand(ProductRequest.Register request) {
         return ProductCommand.RegisterRequest.builder()
             .title(request.title())
-            .productBio(request.productBio())
+            .bio(request.bio())
             .build();
     }
 

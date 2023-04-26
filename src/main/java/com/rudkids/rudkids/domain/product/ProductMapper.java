@@ -12,6 +12,7 @@ public class ProductMapper {
             .productId(product.getId())
             .title(product.getTitle())
             .productBio(product.getProductBio())
+            .status(product.getProductStatus().name())
             .build();
     }
 

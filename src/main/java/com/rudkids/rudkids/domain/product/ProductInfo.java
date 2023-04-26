@@ -12,7 +12,8 @@ public class ProductInfo {
     public record Main(
         UUID productId,
         String title,
-        String productBio
+        String productBio,
+        String status
     ) {
     }
 

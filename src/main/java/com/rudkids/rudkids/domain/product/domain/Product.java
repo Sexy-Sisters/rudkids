@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.product.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.image.domain.Image;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -37,6 +38,9 @@ public class Product extends AbstractEntity{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.PERSIST)
     private final List<Item> items = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Image> images = new ArrayList<>();
+
     @Builder
     public Product(final Title title, final ProductBio productBio) {
         this.title = title;
@@ -50,13 +54,12 @@ public class Product extends AbstractEntity{
             .build();
     }
 
-    public String open() {
-        productStatus = ProductStatus.OPEN;
-        return productStatus.name();
+    public void addImage(Image image) {
+        images.add(image);
     }
 
-    public String close() {
-        productStatus = ProductStatus.CLOSED;
+    public String changeStatus(ProductStatus productStatus) {
+        this.productStatus = productStatus;
         return productStatus.name();
     }
 

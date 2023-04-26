@@ -6,6 +6,10 @@ import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -18,7 +22,7 @@ class ProductServiceTest extends ProductServiceFixtures {
         // Given
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
             .title("Strange Drugstore")
-            .productBio("약쟁이가 약팝니다~~~~")
+            .bio("약쟁이가 약팝니다~~~~")
             .build();
 
         // When
@@ -58,29 +62,17 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("프로덕트 오픈")
+    @DisplayName("프로덕트 변경")
     @Test
     void openProduct() {
         // Given
         var product = products.get(0);
 
         // When
-        var result = productService.openProduct(product.getId(), user.getId());
+        ProductStatus status = ProductStatus.OPEN;
+        var result = productService.changeStatus(product.getId(), user.getId(), status);
 
         // Then
         assertThat(result).isEqualTo(ProductStatus.OPEN.name());
-    }
-
-    @DisplayName("프로덕트 종료")
-    @Test
-    void closeProduct() {
-        // Given
-        var product = products.get(0);
-
-        // When
-        var result = productService.closeProduct(product.getId(), user.getId());
-
-        // Then
-        assertThat(result).isEqualTo(ProductStatus.CLOSED.name());
     }
 }

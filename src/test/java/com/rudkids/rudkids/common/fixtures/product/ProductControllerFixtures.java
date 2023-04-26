@@ -2,9 +2,9 @@ package com.rudkids.rudkids.common.fixtures.product;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.product.ProductInfo;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +14,7 @@ public class ProductControllerFixtures {
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
     public static final String 프로덕트_제목 = "Strange Drugstore";
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
+    public static final String 프로덕트_상태 = ProductStatus.OPEN.name();
 
     public static ProductRequest.Register PRODUCT_등록_요청() {
         return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글);
@@ -23,7 +24,8 @@ public class ProductControllerFixtures {
         return new ProductInfo.Main(
             프로덕트_아이디,
             프로덕트_제목,
-            프로덕트_소개글
+            프로덕트_소개글,
+            프로덕트_상태
         );
     }
 

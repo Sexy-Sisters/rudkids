@@ -2,9 +2,6 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -14,7 +11,6 @@ import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtu
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -22,8 +18,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,7 +30,6 @@ class ProductControllerTest extends ControllerTest {
         willDoNothing()
             .given(productService)
             .create(any(), any());
-
         mockMvc.perform(post(PRODUCT_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
@@ -55,7 +49,7 @@ class ProductControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("제목"),
 
-                    fieldWithPath("productBio")
+                    fieldWithPath("bio")
                         .type(JsonFieldType.STRING)
                         .description("소개글")
                 )
@@ -142,44 +136,28 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트를 연다.")
+    @DisplayName("프로덕트 상태를 변경한다.")
     @Test
-    void 프로덕트를_연다() throws Exception {
-        when(productService.openProduct(any(), any()))
-            .thenReturn(ProductStatus.OPEN.name());
+    void 프로덕트_상태를_변경한다() throws Exception {
+        when(productService.changeStatus(any(), any(), any()))
+            .thenReturn(프로덕트_상태);
 
         mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+                .queryParam("status", "OPEN")
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
-            .andDo(document("product/open",
+            .andDo(document("product/changeStatus",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 pathParameters(
                     parameterWithName("id")
                         .description("프로덕트 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트를 닫는다.")
-    @Test
-    void 프로덕트를_닫는다() throws Exception {
-        given(productService.closeProduct(any(), any()))
-            .willReturn(ProductStatus.CLOSED.name());
-
-        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-            )
-            .andDo(print())
-            .andDo(document("product/close",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
-                )
+                ),
+               queryParameters(
+                    parameterWithName("status")
+                        .description("변경할 프로덕트 상태")
+               )
             ))
             .andExpect(status().isOk());
     }
