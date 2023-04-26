@@ -23,7 +23,7 @@ public class ProductController {
     @PostMapping
     public void create(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody ProductRequest.Register request
+        @RequestBody ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);
         productService.create(command, loginUser.id());

@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
 
     @Override
-    public void create(ProductCommand.RegisterRequest command, UUID userId) {
+    public void create(ProductCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var title = Title.create(command.title());

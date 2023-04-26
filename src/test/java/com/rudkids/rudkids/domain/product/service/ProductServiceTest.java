@@ -16,7 +16,7 @@ class ProductServiceTest extends ProductServiceFixtures {
     @Test
     void create() {
         // Given
-        ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
+        ProductCommand.CreateRequest command = ProductCommand.CreateRequest.builder()
             .title("Strange Drugstore")
             .productBio("약쟁이가 약팝니다~~~~")
             .build();

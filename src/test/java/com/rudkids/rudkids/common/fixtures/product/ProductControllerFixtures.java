@@ -2,7 +2,6 @@ package com.rudkids.rudkids.common.fixtures.product;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
@@ -17,8 +16,8 @@ public class ProductControllerFixtures {
     public static final String 프로덕트_제목 = "Strange Drugstore";
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
 
-    public static ProductRequest.Register PRODUCT_등록_요청() {
-        return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글);
+    public static ProductRequest.Create PRODUCT_등록_요청() {
+        return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글);
     }
 
     public static ProductInfo.Main PRODUCT_MAIN_INFO() {
