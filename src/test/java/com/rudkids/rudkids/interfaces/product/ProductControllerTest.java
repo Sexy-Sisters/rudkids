@@ -11,6 +11,7 @@ import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtu
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.mock;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -26,7 +27,7 @@ class ProductControllerTest extends ControllerTest {
 
     @DisplayName("프로덕트를 등록한다.")
     @Test
-    void 프로덕트를_등록한다() throws Exception {
+    void create() throws Exception {
         willDoNothing()
             .given(productService)
             .create(any(), any());
@@ -58,40 +59,9 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트 리스트를 조회한다.")
-    @Test
-    void 프로덕트_리스트를_조회한다() throws Exception {
-        given(productService.findAll())
-            .willReturn(PRODUCT_리스트_조회_응답());
-
-        given(productDtoMapper.toResponse(PRODUCT_MAIN_INFO()))
-            .willReturn(PRODUCT_MAIN_RESPONSE());
-
-        mockMvc.perform(get(PRODUCT_DEFAULT_URL))
-            .andDo(print())
-            .andDo(document("product/findAll",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                responseFields(
-                    fieldWithPath("[].productId")
-                        .type(JsonFieldType.STRING)
-                        .description("프로덕트 아이디"),
-
-                    fieldWithPath("[].title")
-                        .type(JsonFieldType.STRING)
-                        .description("매거진 제목"),
-
-                    fieldWithPath("[].productBio")
-                        .type(JsonFieldType.STRING)
-                        .description("프로덕트 소개글")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
     @DisplayName("프로덕트 세부사항을 조회한다.")
     @Test
-    void 프로덕트_세부사항을_조회한다() throws Exception {
+    void find() throws Exception {
         given(productService.find(any()))
             .willReturn(PRODUCT_상세조회_INFO());
 
@@ -131,6 +101,73 @@ class ProductControllerTest extends ControllerTest {
                         fieldWithPath("items[].itemStatus")
                             .type(JsonFieldType.STRING)
                             .description("아이템 상태")
+                    )
+                )
+            )
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("프로덕트 리스트를 조회한다.")
+    @Test
+    void findAll() throws Exception {
+        given(productService.findAll())
+            .willReturn(PRODUCT_리스트_조회_응답());
+
+        given(productDtoMapper.toResponse(PRODUCT_MAIN_INFO()))
+            .willReturn(PRODUCT_MAIN_RESPONSE());
+
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL))
+            .andDo(print())
+            .andDo(document("product/findAll",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                responseFields(
+                    fieldWithPath("[].productId")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 아이디"),
+
+                    fieldWithPath("[].title")
+                        .type(JsonFieldType.STRING)
+                        .description("매거진 제목"),
+
+                    fieldWithPath("[].productBio")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 소개글")
+                )
+            ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("프로덕트 수정")
+    @Test
+    void update() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .update(any(), any(), any());
+
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+            )
+            .andDo(print())
+            .andDo(document("product/update",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("title")
+                            .type(JsonFieldType.STRING)
+                            .description("제목"),
+
+                        fieldWithPath("productBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글")
+
                     )
                 )
             )

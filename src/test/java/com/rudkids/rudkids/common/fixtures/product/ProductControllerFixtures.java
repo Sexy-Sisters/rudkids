@@ -80,6 +80,10 @@ public class ProductControllerFixtures {
             .build();
     }
 
+    public static ProductRequest.Update PRODUCT_수정_요청() {
+        return new ProductRequest.Update(프로덕트_제목, 프로덕트_소개글);
+    }
+
     public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {
         return new ProductRequest.ChangeStatus(ProductStatus.CLOSED);
     }

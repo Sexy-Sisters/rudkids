@@ -19,8 +19,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,6 +81,92 @@ public class ProductControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
+    @DisplayName("존재하지 않는 프로덕트를 수정 시 상태코드 404를 반환한다.")
+    @Test
+    void 존재하지_않는_프로덕트를_수정_시_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ProductNotFoundException())
+            .when(productService)
+            .update(any(), any(), any());
+
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+            )
+            .andDo(print())
+            .andDo(document("product/update/failByNotFoundError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("존재하지 않는 프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("title")
+                        .type(JsonFieldType.STRING)
+                        .description("제목"),
+
+                    fieldWithPath("productBio")
+                        .type(JsonFieldType.STRING)
+                        .description("소개글")
+                ),
+                responseFields(
+                    fieldWithPath("message")
+                        .type(JsonFieldType.STRING)
+                        .description("에러 메세지")
+                )
+            ))
+            .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("관리자가 아닌 유저가 프로덕트를 수정 시 상태코드 403을 반환한다.")
+    @Test
+    void 관리자가_아닌_유저가_프로덕트를_수정_시_상태코드_403을_반환한다() throws Exception {
+        doThrow(new NotAdminRoleException())
+            .when(productService)
+            .update(any(), any(), any());
+
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+            )
+            .andDo(print())
+            .andDo(document("product/update/failByForbidden",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("존재하지 않는 프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("title")
+                        .type(JsonFieldType.STRING)
+                        .description("제목"),
+
+                    fieldWithPath("productBio")
+                        .type(JsonFieldType.STRING)
+                        .description("소개글")
+                ),
+                responseFields(
+                    fieldWithPath("message")
+                        .type(JsonFieldType.STRING)
+                        .description("에러 메세지")
+                )
+            ))
+            .andExpect(status().isForbidden());
+    }
+
     @DisplayName("존재하지 않는 프로덕트의 상태를 변경 시 상태코드 404를 반환한다.")
     @Test
     void 존재하지_않는_프로덕트의_상태를_변경_시_상태코드_404를_반환한다() throws Exception {
@@ -89,7 +174,7 @@ public class ProductControllerFailTest extends ControllerTest {
             .when(productService)
             .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/status/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -123,7 +208,7 @@ public class ProductControllerFailTest extends ControllerTest {
             .when(productService)
             .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/status/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
