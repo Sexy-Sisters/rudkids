@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import java.util.UUID;
+
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -22,8 +24,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -142,45 +143,30 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트를 연다.")
+    @DisplayName("프로덕트 상태를 변경한다.")
     @Test
-    void 프로덕트를_연다() throws Exception {
-        when(productService.openProduct(any(), any()))
-            .thenReturn(ProductStatus.OPEN.name());
+    void changeStatus() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL+"/{id}", 프로덕트_아이디)
+                .param("status", ProductStatus.OPEN.name())
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
-            .andDo(document("product/open",
+            .andDo(document("product/changeStatus",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
+                    parameterWithName("id").description("프로덕트 id")
                 )
+//                queryParameters(
+//                    parameterWithName("status").description("프로덕트 상태")
+//                )
+                // TODO :: 쿼리 파라미터 설정
             ))
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트를 닫는다.")
-    @Test
-    void 프로덕트를_닫는다() throws Exception {
-        given(productService.closeProduct(any(), any()))
-            .willReturn(ProductStatus.CLOSED.name());
-
-        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-            )
-            .andDo(print())
-            .andDo(document("product/close",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
 }

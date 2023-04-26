@@ -14,7 +14,7 @@ class ProductServiceTest extends ProductServiceFixtures {
 
     @DisplayName("프로덕트 등록")
     @Test
-    void registerProduct() {
+    void create() {
         // Given
         ProductCommand.RegisterRequest command = ProductCommand.RegisterRequest.builder()
             .title("Strange Drugstore")
@@ -34,7 +34,7 @@ class ProductServiceTest extends ProductServiceFixtures {
 
     @DisplayName("프로덕트 리스트 조회")
     @Test
-    void findProducts() {
+    void findAll() {
         // Given & When
         var products = productService.findAll();
 
@@ -42,9 +42,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         assertThat(products.size()).isEqualTo(4);
     }
 
-    @DisplayName("특정 프로덕트 상세 조회")
+    @DisplayName("프로덕트 상세 조회")
     @Test
-    void 특정_프로덕트_상세_조회() {
+    void find() {
         // Given
         var product = products.get(0);
 
@@ -58,29 +58,35 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("프로덕트 오픈")
+    @DisplayName("프로덕트 상태 변경 [오픈]")
     @Test
-    void openProduct() {
+    void open() {
         // Given
         var product = products.get(0);
+        var status = ProductStatus.OPEN;
+        var productId = product.getId();
+        var userId = user.getId();
 
         // When
-        var result = productService.openProduct(product.getId(), user.getId());
+        productService.changeStatus(status, productId, userId);
 
         // Then
-        assertThat(result).isEqualTo(ProductStatus.OPEN.name());
+        assertThat(product.getProductStatus()).isEqualTo(ProductStatus.OPEN);
     }
 
-    @DisplayName("프로덕트 종료")
+    @DisplayName("프로덕트 상태 변경 [클로즈]")
     @Test
-    void closeProduct() {
+    void close() {
         // Given
         var product = products.get(0);
+        var status = ProductStatus.CLOSED;
+        var productId = product.getId();
+        var userId = user.getId();
 
         // When
-        var result = productService.closeProduct(product.getId(), user.getId());
+        productService.changeStatus(status, productId, userId);
 
         // Then
-        assertThat(result).isEqualTo(ProductStatus.CLOSED.name());
+        assertThat(product.getProductStatus()).isEqualTo(ProductStatus.CLOSED);
     }
 }

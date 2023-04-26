@@ -44,7 +44,7 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/status/{id}")
+    @PutMapping("/{id}")
     public void changeStatus(
         @PathVariable(name = "id") UUID productId,
         @RequestParam("status") ProductStatus productStatus,

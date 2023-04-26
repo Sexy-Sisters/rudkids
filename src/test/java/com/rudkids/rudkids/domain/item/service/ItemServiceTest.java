@@ -72,7 +72,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @DisplayName("아이템 상태 판매 중으로 변경")
+    @DisplayName("아이템 상태 변경 [판매 중]")
     @Test
     void changeSelling() {
         // Given
@@ -87,7 +87,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
     }
 
-    @DisplayName("아이템 상태 판매 완료로 변경")
+    @DisplayName("아이템 상태 변경 [판매 완료]")
     @Test
     void changeSoldOut() {
         // Given
@@ -102,7 +102,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
     }
 
-    @DisplayName("아이템 상태 준비 중으로 변경")
+    @DisplayName("아이템 상태 변경 [준비 중]")
     @Test
     void changePreparing() {
         // Given
