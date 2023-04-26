@@ -5,6 +5,8 @@ import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
+import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
+import com.rudkids.rudkids.domain.product.service.strategy.ChangeProductStatusStrategy;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductReader productReader;
     private final ProductMapper productMapper;
     private final UserReader userReader;
+    private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
 
     @Override
     public void create(ProductCommand.RegisterRequest command, UUID userId) {
@@ -55,18 +58,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String closeProduct(UUID productId, UUID userId) {
+    public void changeStatus(ProductStatus productStatus, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
+
         var product = productReader.getProduct(productId);
-        return product.close();
+        var foundStrategy = findChangeStatusStrategy(productStatus);
+        foundStrategy.changeStatus(product);
     }
 
-    @Override
-    public String openProduct(UUID productId, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
-        var product = productReader.getProduct(productId);
-        return product.open();
+    public ChangeProductStatusStrategy findChangeStatusStrategy(ProductStatus productStatus) {
+        return changeProductStatusStrategies.stream()
+            .filter(strategy -> strategy.isProductStatus(productStatus))
+            .findFirst()
+            .orElseThrow(ProductStatusNotFoundException::new);
     }
 }
