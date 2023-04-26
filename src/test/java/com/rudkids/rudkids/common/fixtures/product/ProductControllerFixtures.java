@@ -2,6 +2,8 @@ package com.rudkids.rudkids.common.fixtures.product;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.product.ProductInfo;
+import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 
@@ -77,5 +79,9 @@ public class ProductControllerFixtures {
             .price(1000)
             .itemStatus(ItemStatus.SELLING)
             .build();
+    }
+
+    public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {
+        return new ProductRequest.ChangeStatus(ProductStatus.CLOSED);
     }
 }

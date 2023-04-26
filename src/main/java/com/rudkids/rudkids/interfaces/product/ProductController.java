@@ -47,9 +47,9 @@ public class ProductController {
     @PutMapping("/{id}")
     public void changeStatus(
         @PathVariable(name = "id") UUID productId,
-        @RequestParam("status") ProductStatus productStatus,
+        @RequestBody ProductRequest.ChangeStatus request,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        productService.changeStatus(productStatus, productId, loginUser.id());
+        productService.changeStatus(request.productStatus(), productId, loginUser.id());
     }
 }

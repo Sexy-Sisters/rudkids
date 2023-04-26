@@ -90,20 +90,28 @@ public class ProductControllerFailTest extends ControllerTest {
             .changeStatus(any(), any(), any());
 
         mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                .param("status", ProductStatus.OPEN.name())
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("product/changeStatus/failByNotFoundError",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
                 pathParameters(
-                    parameterWithName("id").description("존재하지 않는 프로덕트 id")
+                    parameterWithName("id")
+                        .description("존재하지 않는 프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("productStatus")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 상태")
                 )
-//                queryParameters(
-//                    parameterWithName("status").description("프로덕트 상태")
-//                )
-//                 TODO :: 쿼리 파라미터 설정
             ))
             .andExpect(status().isNotFound());
     }
@@ -116,20 +124,28 @@ public class ProductControllerFailTest extends ControllerTest {
             .changeStatus(any(), any(), any());
 
         mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                .param("status", ProductStatus.OPEN.name())
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("product/changeStatus/failByNotFoundError",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
                 pathParameters(
-                    parameterWithName("id").description("존재하지 않는 프로덕트 id")
+                    parameterWithName("id")
+                        .description("프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("productStatus")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 상태")
                 )
-//                queryParameters(
-//                    parameterWithName("status").description("프로덕트 상태")
-//                )
-//                 TODO :: 쿼리 파라미터 설정
             ))
             .andExpect(status().isForbidden());
     }

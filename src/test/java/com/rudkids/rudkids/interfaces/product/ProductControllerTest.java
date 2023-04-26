@@ -2,29 +2,23 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import java.util.UUID;
-
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -150,23 +144,30 @@ class ProductControllerTest extends ControllerTest {
             .given(productService)
             .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL+"/{id}", 프로덕트_아이디)
-                .param("status", ProductStatus.OPEN.name())
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("product/changeStatus",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
                 pathParameters(
-                    parameterWithName("id").description("프로덕트 id")
+                    parameterWithName("id")
+                        .description("프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("productStatus")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 상태")
                 )
-//                queryParameters(
-//                    parameterWithName("status").description("프로덕트 상태")
-//                )
-                // TODO :: 쿼리 파라미터 설정
             ))
             .andExpect(status().isOk());
     }
-
 }
