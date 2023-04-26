@@ -27,102 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class MagazineControllerTest extends ControllerTest {
 
-    @DisplayName("메거진을 작성한다.")
-    @Test
-    void 매거진을_작성한다() throws Exception {
-        willDoNothing()
-            .given(magazineService)
-            .create(any(), any());
-
-        mockMvc.perform(post(MAGAZINE_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(MAGAZINE_작성_요청())))
-            .andDo(print())
-            .andDo(document("magazine/create",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("제목"),
-
-                    fieldWithPath("content")
-                        .type(JsonFieldType.STRING)
-                        .description("내용")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("매거진을 수정한다.")
-    @Test
-    void 매거진을_수정한다() throws Exception {
-        willDoNothing()
-            .given(magazineService)
-            .update(any(), any(), any());
-
-        mockMvc.perform(put(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(MAGAZINE_수정_요청())))
-            .andDo(print())
-            .andDo(document("magazine/update",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("매거진 id")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 제목"),
-
-                    fieldWithPath("content")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("매거진을 삭제한다.")
-    @Test
-    void 매거진을_삭제한다() throws Exception {
-        willDoNothing()
-            .given(magazineService)
-            .delete(any(), any());
-
-        mockMvc.perform(delete(MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("magazine/delete",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("매거진 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("매거진을 전체조회한다.")
+    @DisplayName("[매거진-전체조회]")
     @Test
     void 매거진을_전체조회한다() throws Exception {
         given(magazineService.findAll()).willReturn(MAGAZINE_전체조회_응답());
@@ -145,7 +50,7 @@ class MagazineControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("매거진을 상세조회한다.")
+    @DisplayName("[매거진-상세조회]")
     @Test
     void 매거진을_상세조회한다() throws Exception {
         given(magazineService.find(any())).willReturn(MAGAZINE_상세조회_응답());

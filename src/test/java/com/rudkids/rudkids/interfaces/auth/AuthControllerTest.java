@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class AuthControllerTest extends ControllerTest {
 
-    @DisplayName("로그인창 링크를 생성하고 반환한다.")
+    @DisplayName("[Auth-로그인창생성]")
     @Test
     void 로그인창_링크를_생성하고_반환한다() throws Exception {
         given(oAuthUri.generate(any())).willReturn(OAuth_로그인_링크);
@@ -54,7 +54,7 @@ class AuthControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("로그인을 요청하면 토큰을 발급하고 반환한다.")
+    @DisplayName("[Auth-로그인]")
     @Test
     void 로그인을_요청하면_토큰을_발급한다() throws Exception {
         given(authService.generateAccessAndRefreshToken(any()))
@@ -94,7 +94,7 @@ class AuthControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("리프래쉬 토큰을 요청해서 새로운 엑세스 토큰을 발급한다.")
+    @DisplayName("[Auth-엑세스토큰재발급]")
     @Test
     void 리프래쉬_토큰을_요청해서_새로운_엑세스_토큰을_발급한다() throws Exception {
         given(authService.generateRenewalAccessToken(any()))

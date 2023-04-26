@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ItemControllerTest extends ControllerTest {
 
-    @DisplayName("아이템을 등록한다.")
+    @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_등록한다() throws Exception {
         willDoNothing()
@@ -89,7 +89,7 @@ class ItemControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("아이템 상세정보를 조회한다.")
+    @DisplayName("[아이템-상세조회]")
     @Test
     void 아이템_상세정보를_조회한다() throws Exception {
         given(itemService.find(any()))
@@ -140,7 +140,7 @@ class ItemControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("아이템 상태를 변경한다.")
+    @DisplayName("[아이템-상태변경]")
     @Test
     void 아이템_상태를_변경한다() throws Exception {
         given(itemService.changeItemStatus(any(), any(), any()))

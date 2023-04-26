@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface UserReader {
     User getUser(UUID id);
+    User getUser(String email);
 }

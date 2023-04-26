@@ -18,4 +18,10 @@ public class UserReaderImpl implements UserReader {
         return userRepository.findById(id)
                 .orElseThrow(NotFoundUserException::new);
     }
+
+    @Override
+    public User getUser(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(NotFoundUserException::new);
+    }
 }

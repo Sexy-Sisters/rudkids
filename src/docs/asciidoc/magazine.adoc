@@ -1,10 +1,6 @@
 [[Magazine-API]]
 == Magazine API
 
-[[Magazine-작성]]
-=== Magazine 작성
-operation::magazine/create[snippets='http-request,request-headers,request-fields,http-response']
-
 [[Magazine-전체조회]]
 === Magazine 전체조회
 operation::magazine/findAll[snippets='http-request,http-response']
@@ -16,19 +12,3 @@ operation::magazine/find[snippets='http-request,path-parameters,http-response,re
 [[Magazine-상세조회-존재하지-않는-매거진-에러]]
 === Magazine 상세조회 (존재하지 않는 매거진 에러)
 operation::magazine/find/failByNotFoundError[snippets='http-request,path-parameters,http-response']
-
-[[Magazine-수정]]
-=== Magazine 수정
-operation::magazine/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
-
-[[Magazine-수정-존재하지-않는-매거진-에러]]
-=== Magazine 수정 (존재하지 않는 매거진 에러)
-operation::magazine/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
-
-[[Magazine-삭제]]
-=== Magazine 삭제
-operation::magazine/delete[snippets='http-request,request-headers,path-parameters,http-response']
-
-[[Magazine-삭제-존재하지-않는-매거진-에러]]
-=== Magazine 삭제 (존재하지 않는 매거진 에러)
-operation::magazine/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']

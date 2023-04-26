@@ -1,6 +1,9 @@
 package com.rudkids.rudkids.domain.user.domain;
 
+import com.rudkids.rudkids.domain.user.exception.RoleTypeNotFoundException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 public enum RoleType {
@@ -9,4 +12,11 @@ public enum RoleType {
     ADMIN("관리자");
 
     private final String description;
+
+    public static RoleType validate(RoleType role) {
+        return Arrays.stream(values())
+            .filter(roleType -> roleType.equals(role))
+            .findFirst()
+            .orElseThrow(RoleTypeNotFoundException::new);
+    }
 }
