@@ -2,9 +2,6 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -14,8 +11,6 @@ import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtu
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -142,43 +137,35 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트를 연다.")
+    @DisplayName("프로덕트 상태를 변경한다.")
     @Test
-    void 프로덕트를_연다() throws Exception {
-        when(productService.openProduct(any(), any()))
-            .thenReturn(ProductStatus.OPEN.name());
+    void changeStatus() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put("/api/v1/product/{id}", 프로덕트_아이디)
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
             )
             .andDo(print())
-            .andDo(document("product/open",
+            .andDo(document("product/changeStatus",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
                 pathParameters(
                     parameterWithName("id")
                         .description("프로덕트 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트를 닫는다.")
-    @Test
-    void 프로덕트를_닫는다() throws Exception {
-        given(productService.closeProduct(any(), any()))
-            .willReturn(ProductStatus.CLOSED.name());
-
-        mockMvc.perform(delete("/api/v1/product/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-            )
-            .andDo(print())
-            .andDo(document("product/close",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
+                ),
+                requestFields(
+                    fieldWithPath("productStatus")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 상태")
                 )
             ))
             .andExpect(status().isOk());

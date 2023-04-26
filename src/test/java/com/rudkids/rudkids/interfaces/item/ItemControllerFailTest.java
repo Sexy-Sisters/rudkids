@@ -46,8 +46,8 @@ public class ItemControllerFailTest extends ControllerTest {
                         .description("JWT Access Token")
                 ),
                 pathParameters(
-                  parameterWithName("productId")
-                      .description("프로덕트 id")
+                    parameterWithName("productId")
+                        .description("프로덕트 id")
                 ),
                 requestFields(
                     fieldWithPath("name")
@@ -205,10 +205,11 @@ public class ItemControllerFailTest extends ControllerTest {
             .when(itemService)
             .changeItemStatus(any(), any(), any());
 
-        mockMvc.perform(
-                put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
-                    .param("status", "SELLING")
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("item/changeStatus/failByNotFoundError",
@@ -240,8 +241,10 @@ public class ItemControllerFailTest extends ControllerTest {
             .changeItemStatus(any(), any(), any());
 
         mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
-                .param("status", "SELLING")
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("item/changeStatus/failByForbiddenError",

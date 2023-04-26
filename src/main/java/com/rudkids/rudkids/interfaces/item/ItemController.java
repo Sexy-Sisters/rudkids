@@ -51,10 +51,10 @@ public class ItemController {
     @PutMapping("/{id}")
     public ItemStatus changeStatus(
         @PathVariable(name = "id") UUID userId,
-        @RequestParam ItemStatus status,
+        @RequestBody ItemRequest.ChangeStatus request,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        return itemService.changeItemStatus(userId, status, loginUser.id());
+        return itemService.changeItemStatus(userId, request.itemStatus(), loginUser.id());
     }
 
     @DeleteMapping("/{id}")

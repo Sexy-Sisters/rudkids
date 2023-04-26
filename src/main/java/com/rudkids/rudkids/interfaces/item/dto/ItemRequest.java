@@ -40,4 +40,7 @@ public class ItemRequest {
         LimitType limitType
     ) {
     }
+
+    public record ChangeStatus(ItemStatus itemStatus) {
+    }
 }

@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.interfaces.product;
 
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
@@ -44,20 +45,11 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity openProduct(
-        @PathVariable UUID id,
+    public void changeStatus(
+        @PathVariable(name = "id") UUID productId,
+        @RequestBody ProductRequest.ChangeStatus request,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        var status = productService.openProduct(id, loginUser.id());
-        return ResponseEntity.ok(status);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity closeProduct(
-        @PathVariable UUID id,
-        @AuthenticationPrincipal AuthUser.Login loginUser
-    ) {
-        var status = productService.closeProduct(id, loginUser.id());
-        return ResponseEntity.ok(status);
+        productService.changeStatus(request.productStatus(), productId, loginUser.id());
     }
 }
