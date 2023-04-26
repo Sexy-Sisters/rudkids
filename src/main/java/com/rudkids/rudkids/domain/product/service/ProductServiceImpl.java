@@ -62,6 +62,8 @@ public class ProductServiceImpl implements ProductService {
         return ProductInfo.Detail.builder()
             .title(product.getTitle())
             .bio(product.getProductBio())
+            .frontImageUrl(product.getFrontImageUrl())
+            .backImageUrl(product.getBackImageUrl())
             .items(items)
             .build();
     }
