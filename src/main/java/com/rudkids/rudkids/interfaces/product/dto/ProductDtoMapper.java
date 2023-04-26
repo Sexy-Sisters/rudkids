@@ -12,6 +12,7 @@ public class ProductDtoMapper {
     }
 
     public ProductCommand.UpdateRequest toCommand(ProductRequest.Update request) {
+        return new ProductCommand.UpdateRequest(request.title(), request.productBio());
     }
 
     public ProductResponse.Main toResponse(ProductInfo.Main info) {

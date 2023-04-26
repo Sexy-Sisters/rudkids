@@ -7,6 +7,9 @@ public class ProductRequest {
     public record Create(String title, String productBio) {
     }
 
+    public record Update(String title, String productBio) {
+    }
+
     public record ChangeStatus(ProductStatus productStatus) {
     }
 }

@@ -12,4 +12,5 @@ public interface ProductService {
     List<ProductInfo.Main> findAll();
     ProductInfo.Detail find(UUID productId);
     void changeStatus(ProductStatus productStatus, UUID productId, UUID userId);
+    void update(ProductCommand.UpdateRequest command, UUID productId, UUID id);
 }

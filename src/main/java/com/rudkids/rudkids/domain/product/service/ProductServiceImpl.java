@@ -6,7 +6,7 @@ import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
-import com.rudkids.rudkids.domain.product.service.strategy.ChangeProductStatusStrategy;
+import com.rudkids.rudkids.domain.product.service.strategy.productStatus.ChangeProductStatusStrategy;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,6 +55,17 @@ public class ProductServiceImpl implements ProductService {
             .bio(product.getProductBio())
             .items(items)
             .build();
+    }
+
+    @Override
+    public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
+        var product = productReader.getProduct(productId);
+        var title = Title.create(command.title());
+        var productBio = ProductBio.create(command.productBio());
+        product.update(title, productBio);
     }
 
     @Override

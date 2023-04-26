@@ -50,6 +50,11 @@ public class Product extends AbstractEntity{
             .build();
     }
 
+    public void update(Title title, ProductBio productBio) {
+        this.title = title;
+        this.productBio = productBio;
+    }
+
     public void open() {
         productStatus = ProductStatus.OPEN;
     }

@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.interfaces.product;
 
-import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
@@ -45,6 +44,16 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    public void update(
+        @PathVariable(name = "id") UUID productId,
+        @RequestBody ProductRequest.Update request,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        var command = productDtoMapper.toCommand(request);
+        productService.update(command, productId, loginUser.id());
+    }
+
+    @PutMapping("/status/{id}")
     public void changeStatus(
         @PathVariable(name = "id") UUID productId,
         @RequestBody ProductRequest.ChangeStatus request,
