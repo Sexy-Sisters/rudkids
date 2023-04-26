@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.item;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.item.ItemInfo;
+import jdk.jfr.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -14,12 +15,10 @@ import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -148,8 +147,10 @@ class ItemControllerTest extends ControllerTest {
             .willReturn(아이템_상태);
 
         mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
-                .param("status", "SELLING")
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
             )
             .andDo(print())
             .andDo(document("item/changeStatus",
@@ -162,10 +163,11 @@ class ItemControllerTest extends ControllerTest {
                 pathParameters(
                     parameterWithName("id").description("아이템 ID")
                 ),
-                queryParameters(
-                    parameterWithName("status").description("아이템 상태")
+                requestFields(
+                    fieldWithPath("itemStatus").description("아이템 상태")
                 )
             ))
             .andExpect(status().isOk());
+
     }
 }

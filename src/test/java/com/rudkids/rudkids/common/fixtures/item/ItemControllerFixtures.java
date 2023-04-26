@@ -74,4 +74,8 @@ public class ItemControllerFixtures {
             .itemStatus(아이템_상태)
             .build();
     }
+
+    public static ItemRequest.ChangeStatus ITEM_상태_변경_요청() {
+        return new ItemRequest.ChangeStatus(ItemStatus.SOLD_OUT);
+    }
 }
