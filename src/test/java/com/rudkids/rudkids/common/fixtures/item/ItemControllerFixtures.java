@@ -20,6 +20,7 @@ public class ItemControllerFixtures {
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
     public static final ItemStatus 아이템_상태 = ItemStatus.SELLING;
+    public static final List<String> 아이템_여러_이미지 = List.of("url1", "url2");
 
     public static ItemRequest.RegisterItem ITEM_등록_요청() {
         return ItemRequest.RegisterItem.builder()
@@ -60,6 +61,7 @@ public class ItemControllerFixtures {
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
+            .imageUrls(아이템_여러_이미지)
             .itemStatus(아이템_상태)
             .build();
     }
@@ -71,6 +73,7 @@ public class ItemControllerFixtures {
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
+            .imageUrls(아이템_여러_이미지)
             .itemStatus(아이템_상태)
             .build();
     }

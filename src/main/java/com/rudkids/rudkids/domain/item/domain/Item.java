@@ -49,6 +49,9 @@ public class Item extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ItemImage> images = new ArrayList<>();
+
     @Builder
     public Item(Product product, Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
         this.product = product;
@@ -76,6 +79,10 @@ public class Item extends AbstractEntity {
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
+    }
+
+    public void addImage(ItemImage image) {
+        images.add(image);
     }
 
     public void changePreparing() {
@@ -129,5 +136,11 @@ public class Item extends AbstractEntity {
 
     public List<ItemOptionGroup> getItemOptionGroups() {
         return itemOptionGroups;
+    }
+
+    public List<String> getImageUrls() {
+        return images.stream()
+            .map(ItemImage::getUrl)
+            .toList();
     }
 }

@@ -8,6 +8,7 @@ import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionName;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionPrice;
 import lombok.Builder;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class ItemCommand {
         int price,
         int quantity,
         LimitType limitType,
+        List<MultipartFile> images,
         List<RegisterItemOptionGroupRequest> itemOptionGroupList
     ) {}
 

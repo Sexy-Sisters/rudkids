@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.item.service;
 
+import com.rudkids.rudkids.domain.image.service.ImageUploader;
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.item.exception.ItemStatusNotFoundException;
@@ -24,6 +25,7 @@ public class ItemServiceImpl implements ItemService {
     private final UserReader userReader;
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
+    private final ImageUploader imageUploader;
 
     @Override
     public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
@@ -37,6 +39,7 @@ public class ItemServiceImpl implements ItemService {
         var limitType = command.limitType();
 
         var initItem = Item.create(name, itemBio, price, quantity, limitType);
+        imageUploader.upload(command.images(), initItem);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);

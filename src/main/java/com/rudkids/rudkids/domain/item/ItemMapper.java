@@ -40,6 +40,7 @@ public class ItemMapper {
             .price(item.getPrice())
             .quantity(item.getQuantity())
             .limitType(item.getLimitType())
+            .imageUrls(item.getImageUrls())
             .itemStatus(item.getItemStatus())
             .itemOptionGroupInfoList(itemOptionSeriesList)
             .build();
