@@ -37,17 +37,21 @@ public class Product extends AbstractEntity{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.PERSIST)
     private final List<Item> items = new ArrayList<>();
 
+    @Embedded
+    private ProductFrontImage frontImage;
+
+    @Embedded
+    private ProductBackImage backImage;
+
     @Builder
-    public Product(final Title title, final ProductBio productBio) {
+    public Product(final Title title,
+                   final ProductBio productBio,
+                   final ProductFrontImage frontImage,
+                   final ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
-    }
-
-    public static Product create(Title title, ProductBio productBio) {
-        return Product.builder()
-            .title(title)
-            .productBio(productBio)
-            .build();
+        this.frontImage = frontImage;
+        this.backImage = backImage;
     }
 
     public void open() {
@@ -64,5 +68,13 @@ public class Product extends AbstractEntity{
 
     public String getProductBio() {
         return productBio.getValue();
+    }
+
+    public String getFrontImageUrl() {
+        return frontImage.getUrl();
+    }
+
+    public String getBackImageUrl() {
+        return backImage.getUrl();
     }
 }

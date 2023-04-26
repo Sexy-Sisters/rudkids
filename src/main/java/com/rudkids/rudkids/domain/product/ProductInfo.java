@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.product;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
+import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import lombok.Builder;
 
 import java.util.List;
@@ -12,7 +13,9 @@ public class ProductInfo {
     public record Main(
         UUID productId,
         String title,
-        String productBio
+        String frontImageUrl,
+        String backImageUrl,
+        ProductStatus status
     ) {
     }
 
@@ -20,6 +23,8 @@ public class ProductInfo {
     public record Detail(
         String title,
         String bio,
+        String frontImageUrl,
+        String backImageUrl,
         List<ProductItem> items
     ) {
     }

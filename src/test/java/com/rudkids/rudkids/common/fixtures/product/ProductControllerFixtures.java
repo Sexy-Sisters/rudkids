@@ -2,11 +2,16 @@ package com.rudkids.rudkids.common.fixtures.product;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,16 +21,30 @@ public class ProductControllerFixtures {
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
     public static final String 프로덕트_제목 = "Strange Drugstore";
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
+    public static final String 프로덕트_앞_이미지 = "https://~";
+    public static final String 프로덕트_뒤_이미지 = "https://~";
+    public static final ProductStatus 프로덕트_상태 = ProductStatus.OPEN;
 
     public static ProductRequest.Register PRODUCT_등록_요청() {
-        return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글);
+        return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
+    }
+
+    private static MultipartFile 이미지() {
+        return new MockMultipartFile(
+            "image",
+            "image.jpg",
+            "image/jpg",
+            "hello world".getBytes()
+        );
     }
 
     public static ProductInfo.Main PRODUCT_MAIN_INFO() {
         return new ProductInfo.Main(
             프로덕트_아이디,
             프로덕트_제목,
-            프로덕트_소개글
+            프로덕트_앞_이미지,
+            프로덕트_뒤_이미지,
+            프로덕트_상태
         );
     }
 
@@ -33,7 +52,9 @@ public class ProductControllerFixtures {
         return new ProductResponse.Main(
             프로덕트_아이디,
             프로덕트_제목,
-            프로덕트_소개글
+            프로덕트_앞_이미지,
+            프로덕트_뒤_이미지,
+            프로덕트_상태
         );
     }
 
@@ -47,6 +68,8 @@ public class ProductControllerFixtures {
         return ProductInfo.Detail.builder()
             .title(프로덕트_제목)
             .bio(프로덕트_소개글)
+            .frontImageUrl(프로덕트_앞_이미지)
+            .backImageUrl(프로덕트_뒤_이미지)
             .items(
                 List.of(ITEM_리스트_조회_INFO())
             )
@@ -66,6 +89,8 @@ public class ProductControllerFixtures {
         return ProductResponse.Detail.builder()
             .title(프로덕트_제목)
             .bio(프로덕트_소개글)
+            .frontImageUrl(프로덕트_앞_이미지)
+            .backImageUrl(프로덕트_뒤_이미지)
             .items(
                 List.of(ITEM_리스트_조회_RESPONSE())
             )

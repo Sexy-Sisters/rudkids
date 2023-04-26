@@ -4,15 +4,11 @@ import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.ProductInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -47,9 +43,17 @@ class ProductControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("매거진 제목"),
 
-                    fieldWithPath("[].productBio")
+                    fieldWithPath("[].frontImageUrl")
                         .type(JsonFieldType.STRING)
-                        .description("프로덕트 소개글")
+                        .description("프로덕트 앞 이미지"),
+
+                    fieldWithPath("[].backImageUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 뒤 이미지"),
+
+                    fieldWithPath("[].status")
+                        .type(JsonFieldType.STRING)
+                        .description("프로덕트 상태")
                 )
             ))
             .andExpect(status().isOk());
@@ -81,6 +85,14 @@ class ProductControllerTest extends ControllerTest {
                         fieldWithPath("bio")
                             .type(JsonFieldType.STRING)
                             .description("소개글"),
+
+                        fieldWithPath("frontImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 앞 이미지"),
+
+                        fieldWithPath("backImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 뒤 이미지"),
 
                         fieldWithPath("items[].itemId")
                             .type(JsonFieldType.STRING)

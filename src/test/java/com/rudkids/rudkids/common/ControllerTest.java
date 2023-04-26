@@ -2,6 +2,7 @@ package com.rudkids.rudkids.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.admin.service.AdminService;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
@@ -24,6 +25,7 @@ import com.rudkids.rudkids.interfaces.order.OrderController;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -113,4 +115,9 @@ public abstract class ControllerTest {
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
+
+    @BeforeEach
+    public void before() {
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    }
 }

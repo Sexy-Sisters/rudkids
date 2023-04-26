@@ -9,8 +9,10 @@ public class ProductDtoMapper {
 
     public ProductCommand.RegisterRequest toCommand(ProductRequest.Register request) {
         return ProductCommand.RegisterRequest.builder()
-            .title(request.title())
-            .productBio(request.productBio())
+            .title(request.getTitle())
+            .productBio(request.getProductBio())
+            .frontImage(request.getFrontImage())
+            .backImage(request.getBackImage())
             .build();
     }
 
@@ -18,7 +20,9 @@ public class ProductDtoMapper {
         return ProductResponse.Main.builder()
             .productId(info.productId())
             .title(info.title())
-            .productBio(info.productBio())
+            .frontImageUrl(info.frontImageUrl())
+            .backImageUrl(info.backImageUrl())
+            .status(info.status())
             .build();
     }
 
@@ -30,6 +34,8 @@ public class ProductDtoMapper {
         return ProductResponse.Detail.builder()
             .title(info.title())
             .bio(info.bio())
+            .frontImageUrl(info.frontImageUrl())
+            .backImageUrl(info.backImageUrl())
             .items(items)
             .build();
     }
