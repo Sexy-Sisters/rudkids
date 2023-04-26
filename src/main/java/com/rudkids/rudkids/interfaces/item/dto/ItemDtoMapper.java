@@ -97,6 +97,7 @@ public class ItemDtoMapper {
             .name(request.name())
             .quantity(request.quantity())
             .limitType(request.limitType())
+            .images(request.images())
             .build();
     }
 }

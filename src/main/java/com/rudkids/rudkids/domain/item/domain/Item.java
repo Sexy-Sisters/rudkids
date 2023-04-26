@@ -143,4 +143,14 @@ public class Item extends AbstractEntity {
             .map(ItemImage::getUrl)
             .toList();
     }
+
+    public List<String> getImagePaths() {
+        return images.stream()
+            .map(ItemImage::getPath)
+            .toList();
+    }
+
+    public boolean hasImages() {
+        return images.isEmpty();
+    }
 }

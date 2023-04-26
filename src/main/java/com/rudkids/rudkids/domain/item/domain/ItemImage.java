@@ -41,4 +41,8 @@ public class ItemImage {
     public String getUrl() {
         return url;
     }
+
+    public String getPath() {
+        return path;
+    }
 }

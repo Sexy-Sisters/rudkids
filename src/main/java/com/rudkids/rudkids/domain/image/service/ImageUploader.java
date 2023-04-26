@@ -9,4 +9,5 @@ import java.util.List;
 public interface ImageUploader {
     ImageInfo.Product upload(MultipartFile frontImage, MultipartFile backImage);
     void upload(List<MultipartFile> images, Item item);
+    void delete(Item item);
 }

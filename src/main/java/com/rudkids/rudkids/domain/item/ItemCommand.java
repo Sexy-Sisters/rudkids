@@ -70,7 +70,8 @@ public class ItemCommand {
         String itemBio,
         int price,
         int quantity,
-        LimitType limitType
+        LimitType limitType,
+        List<MultipartFile> images
     ) {
     }
 }

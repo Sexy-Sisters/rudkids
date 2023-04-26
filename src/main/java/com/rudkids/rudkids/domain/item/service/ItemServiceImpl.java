@@ -58,8 +58,10 @@ public class ItemServiceImpl implements ItemService {
     public void update(ItemCommand.UpdateRequest command, UUID itemId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
-
         var item = itemReader.getItem(itemId);
+
+        imageUploader.delete(item);
+        imageUploader.upload(command.images(), item);
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
@@ -84,7 +86,9 @@ public class ItemServiceImpl implements ItemService {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
 
-        itemStore.delete(itemId);
+        var item = itemReader.getItem(itemId);
+        imageUploader.delete(item);
+        itemStore.delete(item);
     }
 
     private ItemStatusChangeStrategy findStrategy(ItemStatus itemStatus) {

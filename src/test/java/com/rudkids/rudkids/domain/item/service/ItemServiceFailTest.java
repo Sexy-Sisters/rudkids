@@ -53,7 +53,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName(" 아이템 업데이트 시 예외가 발생한다.")
+    @DisplayName("관리자나 파트너가 아닌 유저가 아이템 업데이트 시 예외가 발생한다.")
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_업데이트_시_예외가_발생한다() {
         // Given
@@ -93,7 +93,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 
-    @DisplayName(" 아이템 업데이트 시 예외가 발생한다.")
+    @DisplayName("관리자나 파트너가 아닌 유저가 아이템 삭제 시 예외가 발생한다.")
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_삭제_시_예외가_발생한다() {
         // Given
