@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class CartControllerFailTest extends ControllerTest {
 
-    @DisplayName("장바구니에 존재하지 않는 아이템을 추가할 경우 상태코드 404를 반환한다.")
+    @DisplayName("[장바구니-아이템추가-404-에러]")
     @Test
     void 장바구니에_존재하지_않는아이템을_추가할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
@@ -78,7 +78,7 @@ public class CartControllerFailTest extends ControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @DisplayName("다른 사용자의 장바구니 아이템 수량을 변경할 시 상태코드 403을 반환한다.")
+    @DisplayName("[장바구니-아이템수량변경-403-에러]")
     @Test
     void 다른_사용자의_장바구니에_아이템_수량을_변경할_시_상태코드_403을_반환한다() throws Exception {
         doThrow(new DifferentUserException())
@@ -115,7 +115,7 @@ public class CartControllerFailTest extends ControllerTest {
                 .andExpect(status().isForbidden());
     }
 
-    @DisplayName("존재하지 않는 장바구니 아이템 수량을 변경할 시 상태코드 404을 반환한다.")
+    @DisplayName("[장바구니-아이템수량변경-404-에러]")
     @Test
     void 존재하지_않는_장바구니에_아이템_수량을_변경할_시_상태코드_404을_반환한다() throws Exception {
         doThrow(new CartItemNotFoundException())
@@ -152,7 +152,7 @@ public class CartControllerFailTest extends ControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @DisplayName("다른 사용자의 장바구니 아이템을 선택하여 삭제할 시 상태코드 403을 반환한다.")
+    @DisplayName("[장바구니-아이템선택삭제-403-에러]")
     @Test
     void 다른_사용자의_장바구니_아이템을_선택하여_삭제할_시_상태코드_403을_반환한다() throws Exception {
         doThrow(new DifferentUserException())
@@ -183,5 +183,38 @@ public class CartControllerFailTest extends ControllerTest {
                         )
                 ))
                 .andExpect(status().isForbidden());
+    }
+
+    @DisplayName("[장바구니-아이템선택삭제-404-에러]")
+    @Test
+    void 존재하지_않는_장바구니_아이템을_선택하여_삭제할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new CartItemNotFoundException())
+            .when(cartService)
+            .deleteCartItems(any(), any());
+
+        mockMvc.perform(delete(CART_DEFAULT_URL)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(CART_아이템_선택삭제_변경_요청())))
+            .andDo(print())
+            .andDo(document("cart/deleteCartItems/failByNotFoundError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                requestFields(
+                    fieldWithPath("cartId")
+                        .type(JsonFieldType.STRING)
+                        .description("존재하지 않는 장바구니 ID"),
+
+                    fieldWithPath("cartItemIds")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 장바구니아이템 ID")
+                )
+            ))
+            .andExpect(status().isNotFound());
     }
 }

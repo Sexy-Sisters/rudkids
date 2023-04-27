@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.item.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageUploader;
+import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.item.exception.ItemStatusNotFoundException;
@@ -25,7 +25,7 @@ public class ItemServiceImpl implements ItemService {
     private final UserReader userReader;
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
-    private final ImageUploader imageUploader;
+    private final ImageService imageService;
 
     @Override
     public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
@@ -39,7 +39,7 @@ public class ItemServiceImpl implements ItemService {
         var limitType = command.limitType();
 
         var initItem = Item.create(name, itemBio, price, quantity, limitType);
-        imageUploader.upload(command.images(), initItem);
+        imageService.upload(command.images(), initItem);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);
@@ -60,8 +60,8 @@ public class ItemServiceImpl implements ItemService {
         user.validateAdminOrPartnerRole();
         var item = itemReader.getItem(itemId);
 
-        imageUploader.delete(item);
-        imageUploader.upload(command.images(), item);
+        imageService.delete(item);
+        imageService.upload(command.images(), item);
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
@@ -87,7 +87,7 @@ public class ItemServiceImpl implements ItemService {
         user.validateAdminOrPartnerRole();
 
         var item = itemReader.getItem(itemId);
-        imageUploader.delete(item);
+        imageService.delete(item);
         itemStore.delete(item);
     }
 

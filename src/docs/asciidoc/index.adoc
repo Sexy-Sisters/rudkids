@@ -6,8 +6,6 @@
 :toclevels: 2
 :sectlinks:
 
-include::user.adoc[]
-
 include::auth.adoc[]
 
 include::cart.adoc[]
@@ -17,3 +15,5 @@ include::magazine.adoc[]
 include::product.adoc[]
 
 include::item.adoc[]
+
+include::admin.adoc[]

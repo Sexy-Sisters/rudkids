@@ -8,7 +8,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 class JwtTokenProviderTest extends JwtTokenProviderFixtures {
 
-    @DisplayName("엑세스 토큰 생성")
+    @DisplayName("[Auth-엑세스토큰생성]")
     @Test
     void 엑세스_토큰_생성() {
         String accessToken = jwtTokenProvider.createAccessToken(PAYLOAD);
@@ -16,7 +16,7 @@ class JwtTokenProviderTest extends JwtTokenProviderFixtures {
         assertThat(accessToken.split("\\.")).hasSize(3);
     }
 
-    @DisplayName("리프래쉬 토큰 생성")
+    @DisplayName("[Auth-리프래쉬토큰생성]")
     @Test
     void 리프래쉬_토큰_생성() {
         String refreshToken = jwtTokenProvider.createRefreshToken(PAYLOAD);
@@ -24,7 +24,7 @@ class JwtTokenProviderTest extends JwtTokenProviderFixtures {
         assertThat(refreshToken.split("\\.")).hasSize(3);
     }
 
-    @DisplayName("페이로드를 가져온다.")
+    @DisplayName("[Auth-페이로드추출]")
     @Test
     void 페이로드를_가져온다() {
         String accessToken = jwtTokenProvider.createAccessToken(PAYLOAD);

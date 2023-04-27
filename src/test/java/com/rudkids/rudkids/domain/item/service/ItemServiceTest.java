@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class ItemServiceTest extends ItemServiceFixtures {
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("상품 등록")
+    @DisplayName("[아이템-생성]")
     @Test
-    void create() {
+    void 아이템을_생성한다() {
         itemService.create(ITEM_등록_요청, product.getId(), user.getId());
 
         Item findItem = itemReader.getItem(ITEM_등록_요청.name());
@@ -40,9 +40,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
         });
     }
 
-    @DisplayName("아이템 상세 조회")
+    @DisplayName("[아이템-상세조회]")
     @Test
-    void find() {
+    void 아이템을_상세조회한다() {
         ItemInfo.Detail findItem = itemService.find(item.getId());
 
         assertAll(
@@ -56,9 +56,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
     }
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("아이템 업데이트")
+    @DisplayName("[아이템-수정]")
     @Test
-    void update() {
+    void 아이템을_수정한다() {
         // Given
         var itemId = item.getId();
         var userId = user.getId();
@@ -76,9 +76,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @DisplayName("아이템 상태 변경 [판매 중]")
+    @DisplayName("[아이템-상태변경-파는중]")
     @Test
-    void changeSelling() {
+    void 아이템의_상태를_파는중으로_변경한다() {
         // Given
         var itemId = item.getId();
         var userId = user.getId();
@@ -91,9 +91,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(changedStatus).isEqualTo(ItemStatus.SELLING);
     }
 
-    @DisplayName("아이템 상태 변경 [판매 완료]")
+    @DisplayName("[아이템-상태변경-판매완료]")
     @Test
-    void changeSoldOut() {
+    void 아이템의_상태를_판매완료로_변경한다() {
         // Given
         var itemId = item.getId();
         var userId = user.getId();
@@ -106,9 +106,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(changedStatus).isEqualTo(ItemStatus.SOLD_OUT);
     }
 
-    @DisplayName("아이템 상태 변경 [준비 중]")
+    @DisplayName("[아이템-상태변경-준비중]")
     @Test
-    void changePreparing() {
+    void 아이템의_상태를_준비중으로_변경한다() {
         // Given
         var itemId = item.getId();
         var userId = user.getId();
@@ -121,9 +121,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(changedStatus).isEqualTo(ItemStatus.PREPARING);
     }
 
-    @DisplayName("아이템 삭제")
+    @DisplayName("[아이템-삭제]")
     @Test
-    void delete() {
+    void 아이템을_삭제한다() {
         // Given
         var itemId = item.getId();
         var userId = user.getId();

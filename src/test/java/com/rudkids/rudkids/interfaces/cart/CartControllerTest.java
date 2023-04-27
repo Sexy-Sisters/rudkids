@@ -1,9 +1,6 @@
 package com.rudkids.rudkids.interfaces.cart;
 
 import com.rudkids.rudkids.common.ControllerTest;
-import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
-import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
-import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -13,7 +10,6 @@ import static com.rudkids.rudkids.common.fixtures.cart.CartControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -25,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CartControllerTest extends ControllerTest {
 
-    @DisplayName("장바구니에 아이템을 추가한다.")
+    @DisplayName("[장바구니-아이템추가]")
     @Test
     void 장바구니에_아이템을_추가한다() throws Exception {
         given(cartService.addCartItem(any(), any()))
@@ -77,7 +73,7 @@ class CartControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("장바구니에 담겨있는 아이템 리스트를 조회한다.")
+    @DisplayName("[장바구니-아이템전체조회]")
     @Test
     void 장바구니에_담겨있는_아이템_리스트를_조회한다() throws Exception {
         given(cartService.findCartItems(any()))
@@ -130,7 +126,7 @@ class CartControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("장바구니 아이템 수량을 변경한다.")
+    @DisplayName("[장바구니-아이템수량변경]")
     @Test
     void 장바구니에_아이템_수량을_변경한다() throws Exception {
         willDoNothing()
@@ -167,7 +163,7 @@ class CartControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("장바구니 아이템들을 선택하여 삭제한다.")
+    @DisplayName("[장바구니-아이템선택삭제]")
     @Test
     void 장바구니_아이템들을_선택하여_삭제한다() throws Exception {
         willDoNothing()

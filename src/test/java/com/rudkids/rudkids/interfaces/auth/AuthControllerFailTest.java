@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AuthControllerFailTest extends ControllerTest {
 
-    @DisplayName("로그인 요청할 때 OAuth통신에 문제가 생기면 상태코드 500을 반환한다.")
+    @DisplayName("[Auth-로그인-500-에러]")
     @Test
     void 로그인_요청할_때_OAuth통신에_문제가_생기면_상태코드_500을_반환한다() throws Exception {
         doThrow(new OAuthException())
@@ -57,7 +57,7 @@ public class AuthControllerFailTest extends ControllerTest {
                 .andExpect(status().isInternalServerError());
     }
 
-    @DisplayName("잘못된 리프래쉬 토큰으로 요청해서 새로운 엑세스 토큰 요청시 상태코드 401을 반환한다")
+    @DisplayName("[Auth-엑세스토큰재발급-401-에러-잘못된-리프래쉬토큰]")
     @Test
     void 잘못된_리프래쉬_토큰으로_요청해서_새로운_엑세스_토큰_요청시_상태코드_401을_반환한다() throws Exception {
         doThrow(new InvalidTokenException())
@@ -81,7 +81,7 @@ public class AuthControllerFailTest extends ControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @DisplayName("만료된 리프래쉬 토큰으로 요청해서 새로운 엑세스 토큰 요청시 상태코드 401을 반환한다")
+    @DisplayName("[Auth-엑세스토큰재발급-401-에러-만료된-리프래쉬토큰]")
     @Test
     void 만료된_리프래쉬_토큰으로_요청해서_새로운_엑세스_토큰_요청시_상태코드_401을_반환한다() throws Exception {
         doThrow(new ExpiredTokenException())

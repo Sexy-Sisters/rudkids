@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class OrderServiceTest extends OrderServiceFixtures {
 
-    @DisplayName("주문하기")
+    @DisplayName("[주문-주문요청]")
     @Test
-    void 주문하기() {
+    void 주문요청을_한다() {
         // given, when
         var result = orderService.create(user.getId(), ORDER_주문_요청());
 

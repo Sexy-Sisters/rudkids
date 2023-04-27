@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ProductServiceTest extends ProductServiceFixtures {
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("프로덕트 등록")
+    @DisplayName("[프로덕트-생성]")
     @Test
-    void create() {
+    void 프로덕트를_생성한다() {
         // Given
         ProductCommand.CreateRequest command = new ProductCommand.CreateRequest(
             "Strange Drugstore",
@@ -37,9 +37,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("프로덕트 리스트 조회")
+    @DisplayName("[프로덕트-전체조회]")
     @Test
-    void findAll() {
+    void 프로덕트를_전체조회한다() {
         // Given & When
         var products = productService.findAll();
 
@@ -47,9 +47,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         assertThat(products.size()).isEqualTo(4);
     }
 
-    @DisplayName("프로덕트 상세 조회")
+    @DisplayName("[프로덕트-상세조회]")
     @Test
-    void find() {
+    void 프로덕트를_상세조회한다() {
         // Given
         var product = products.get(0);
 
@@ -63,9 +63,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("프로덕트 상태 변경 [오픈]")
+    @DisplayName("[프로덕트-상태변경-오픈]")
     @Test
-    void open() {
+    void 프로덕트의_상태를_오픈으로_변경한다() {
         // Given
         var product = products.get(0);
         var status = ProductStatus.OPEN;
@@ -79,9 +79,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         assertThat(product.getProductStatus()).isEqualTo(ProductStatus.OPEN);
     }
 
-    @DisplayName("프로덕트 상태 변경 [클로즈]")
+    @DisplayName("[프로덕트-상태변경-클로즈]")
     @Test
-    void close() {
+    void 프로덕트의_상태를_클로즈로_변경한다() {
         // Given
         var product = products.get(0);
         var status = ProductStatus.CLOSED;

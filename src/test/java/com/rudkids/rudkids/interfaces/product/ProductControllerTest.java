@@ -2,18 +2,13 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.product.ProductInfo;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -25,50 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ProductControllerTest extends ControllerTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("프로덕트를 등록한다.")
-    @Test
-    void createTest() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .create(any(), any());
-
-        mockMvc.perform(post(PRODUCT_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.MULTIPART_FORM_DATA)
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
-            )
-            .andDo(print())
-            .andDo(document("product/create",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("제목"),
-
-                    fieldWithPath("productBio")
-                        .type(JsonFieldType.STRING)
-                        .description("소개글"),
-
-                    fieldWithPath("frontImage")
-                        .type(JsonFieldType.STRING)
-                        .description("앞 이미지"),
-
-                    fieldWithPath("backImage")
-                        .type(JsonFieldType.STRING)
-                        .description("뒤 이미지")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트 리스트를 조회한다.")
+    @DisplayName("[프로덕트-전체조회]")
     @Test
     void 프로덕트_리스트를_조회한다() throws Exception {
         given(productService.findAll())
@@ -107,7 +59,7 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트 세부사항을 조회한다.")
+    @DisplayName("[프로덕트-상세조회]")
     @Test
     void findTest() throws Exception {
         given(productService.find(any()))
@@ -164,106 +116,6 @@ class ProductControllerTest extends ControllerTest {
                     )
                 )
             )
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트를 수정한다.")
-    @Test
-    void updateTest() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .update(any(), any(), any());
-
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
-            )
-            .andDo(print())
-            .andDo(document("product/update",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(
-                        headerWithName("Authorization")
-                            .description("JWT Access Token")
-                    ),
-                    pathParameters(
-                        parameterWithName("id")
-                            .description("프로덕트 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("title")
-                            .type(JsonFieldType.STRING)
-                            .description("제목"),
-
-                        fieldWithPath("productBio")
-                            .type(JsonFieldType.STRING)
-                            .description("소개글")
-
-                    )
-                )
-            )
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트를 삭제한다.")
-    @Test
-    void deleteTest() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .delete(any(), any());
-
-        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-            )
-            .andDo(print())
-            .andDo(document("product/delete",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("프로덕트 상태를 변경한다.")
-    @Test
-    void changeStatusTest() throws Exception {
-        willDoNothing()
-            .given(productService)
-            .changeStatus(any(), any(), any());
-
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
-            )
-            .andDo(print())
-            .andDo(document("product/changeStatus",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("프로덕트 id")
-                ),
-                requestFields(
-                    fieldWithPath("productStatus")
-                        .type(JsonFieldType.STRING)
-                        .description("프로덕트 상태")
-                )
-            ))
             .andExpect(status().isOk());
     }
 }

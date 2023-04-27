@@ -7,6 +7,7 @@ import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tbl_user")
 @EqualsAndHashCode(callSuper = false)
+@Getter
 public class User extends AbstractEntity {
 
     @Id
@@ -61,26 +63,6 @@ public class User extends AbstractEntity {
         this.socialType = socialType;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public void changeAuthorityAdmin() {
         roleType = RoleType.ADMIN;
     }
@@ -107,6 +89,10 @@ public class User extends AbstractEntity {
 
     public void update(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void changeRole(RoleType role) {
+        this.roleType = RoleType.validate(role);
     }
 
     public void order(Order order) {

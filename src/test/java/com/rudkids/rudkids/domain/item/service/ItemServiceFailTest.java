@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class ItemServiceFailTest extends ItemServiceTest {
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("[생성-ProductNotFoundException] 존재하지 않는 프로덕트에 아이템 생성 시 예외가 발생한다.")
+    @DisplayName("[아이템-생성-ProductNotFoundException]")
     @Test
     void 존재하지_않는_프로덕트에_아이템_생성_시_예외가_발생한다() {
         // Given
@@ -30,7 +30,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(ProductNotFoundException.class);
     }
 
-    @DisplayName("[상세조회-ItemNotFoundException] 존재하지 않는 아이템 상세 조회시 예외가 발생한다.")
+    @DisplayName("[아이템-상세조회-ItemNotFoundException]")
     @Test
     void 존재하지_않는_아이템_상세_조회시_예외가_발생한다() {
         // Given
@@ -41,7 +41,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName("[수정-ItemNotFoundException] 존재하지 않는 아이템 수정 시 예외가 발생한다.")
+    @DisplayName("[아이템-수정-ItemNotFoundException] ")
     @Test
     void 존재하지_않는_아이템_수정_시_예외가_발생한다() {
         // Given
@@ -53,7 +53,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName("[수정-NotAdminOrPartnerRoleException] 아이템 수정 시 예외가 발생한다.")
+    @DisplayName("[아이템-수정-NotAdminOrPartnerRoleException]")
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_수정_시_예외가_발생한다() {
         // Given
@@ -66,7 +66,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 
-    @DisplayName("존재하지 않는 아이템 상태 변경시 예외가 발생한다.")
+    @DisplayName("[아이템-상태변경-ItemNotFoundException]")
     @Test
     void 존재하지_않는_아이템_상태_변경시_예외가_발생한다() {
         // Given
@@ -79,7 +79,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName("[상태변경-NotAdminOrPartnerRoleException] 관리자나 파트너 권한이 아닌 유저가 아이템 상태 변경시 예외가 발생한다.")
+    @DisplayName("[아이템-상태변경-NotAdminOrPartnerRoleException]")
     @Test
     void 관리자나_파트너_권한이_아닌_유저가_아이템_상태_변경시_예외가_발생한다() {
         // Given
@@ -93,7 +93,7 @@ public class ItemServiceFailTest extends ItemServiceTest {
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 
-    @DisplayName("[삭제-NotAdminOrPartnerRoleException] 아이템 삭제 시 예외가 발생한다.")
+    @DisplayName("[아이템-삭제-NotAdminOrPartnerRoleException]")
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_삭제_시_예외가_발생한다() {
         // Given

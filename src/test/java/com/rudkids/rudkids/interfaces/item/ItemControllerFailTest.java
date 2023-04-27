@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ItemControllerFailTest extends ControllerTest {
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("관리자와 파트너 권한 이외의 유저가 아이템을 등록하면 403을 반환한다.")
+    @DisplayName("[아이템-생성-403-에러")
     @Test
     void 관리자와_파트너_권한_이외의_유저가_아이템을_등록하면_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminOrPartnerRoleException())
@@ -103,7 +103,7 @@ public class ItemControllerFailTest extends ControllerTest {
     }
 
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("존재하지 않는 프로덕트에 상품을 등록하면 404를 반환한다.")
+    @DisplayName("[아이템-생성-404-에러]")
     @Test
     void 존재하지_않는_프로덕트에_상품을_등록하면_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
@@ -177,7 +177,7 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @DisplayName("존재하지 않는 아이템 상세정보를 조회할 때 상태코드 404를 반환한다.")
+    @DisplayName("[아이템-상세조회-404-에러]")
     @Test
     void 존재하지_않는_아이템_상세정보를_조회할_때_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
@@ -202,42 +202,7 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @DisplayName("존재하지 않는 아이템의 상태를 변경 할 때 상태코드 404를 반환한다.")
-    @Test
-    void 존재하지_않는_아이템의_상태를_변경_할_때_상태코드_404를_반환한다() throws Exception {
-        doThrow(new ItemNotFoundException())
-            .when(itemService)
-            .changeItemStatus(any(), any(), any());
-
-        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
-            )
-            .andDo(print())
-            .andDo(document("item/changeStatus/failByNotFoundError",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(
-                        headerWithName("Authorization")
-                            .description("JWT Access Token")
-                    ),
-                    pathParameters(
-                        parameterWithName("id")
-                            .description("존재하지 않는 아이템 id")
-                    ),
-                    responseFields(
-                        fieldWithPath("message")
-                            .type(JsonFieldType.STRING)
-                            .description("에러 메세지")
-                    )
-                )
-            )
-            .andExpect(status().isNotFound());
-    }
-
-    @DisplayName("관리자와 파트너 권환 이외의 유저가 아이템의 상태를 변경하면 상태코드 403을 반환한다.")
+    @DisplayName("[아이템-상태변경-403-에러")
     @Test
     void 관리자와_파트너_권한_이외의_유저가_아이템의_상태를_변경하면_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminOrPartnerRoleException())
@@ -272,10 +237,45 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isForbidden());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
-    @DisplayName("존재하지 않는 아이템을 수정할 경우 상태코드 404를 반환한다.")
+    @DisplayName("[아이템-상태변경-404-에러]")
     @Test
-    void 아이템을_수정한다() throws Exception {
+    void 존재하지_않는_아이템의_상태를_변경_할_때_상태코드_404를_반환한다() throws Exception {
+        doThrow(new ItemNotFoundException())
+            .when(itemService)
+            .changeItemStatus(any(), any(), any());
+
+        mockMvc.perform(put(ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
+            )
+            .andDo(print())
+            .andDo(document("item/changeStatus/failByNotFoundError",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("존재하지 않는 아이템 id")
+                    ),
+                    responseFields(
+                        fieldWithPath("message")
+                            .type(JsonFieldType.STRING)
+                            .description("에러 메세지")
+                    )
+                )
+            )
+            .andExpect(status().isNotFound());
+    }
+
+    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
+    @DisplayName("[아이템-수정-404-에러]")
+    @Test
+    void 존재하지_않는_아이템을_수정할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new ItemNotFoundException())
             .when(itemService)
             .update(any(), any(), any());
@@ -327,9 +327,9 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("존재하지 않는 아이템을 삭제할 경우 상태코드 404를 반환한다.")
+    @DisplayName("[아이템-삭제-404-에러]")
     @Test
-    void 아이템을_삭제한다() throws Exception {
+    void 존재하지_않는_아이템을_삭제할_경우_상태코드_404를_반환한다() throws Exception {
         willDoNothing()
             .given(itemService)
             .delete(any(), any());

@@ -17,8 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class OrderControllerTest extends ControllerTest {
 
-
-    @DisplayName("주문을 한다.")
+    @DisplayName("[주문-주문요청]")
     @Test
     void 주문을_한다() throws Exception {
         given(orderService.create(any(), any()))

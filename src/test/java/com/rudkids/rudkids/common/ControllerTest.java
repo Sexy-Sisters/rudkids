@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rudkids.rudkids.domain.admin.service.AdminService;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.domain.auth.OAuthClient;
@@ -10,6 +11,8 @@ import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
+import com.rudkids.rudkids.interfaces.admin.AdminController;
+import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.auth.AuthController;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
 import com.rudkids.rudkids.interfaces.cart.CartController;
@@ -37,7 +40,8 @@ import org.springframework.test.web.servlet.MockMvc;
     ItemController.class,
     CartController.class,
     MagazineController.class,
-    OrderController.class
+    OrderController.class,
+    AdminController.class
 })
 public abstract class ControllerTest {
 
@@ -65,6 +69,9 @@ public abstract class ControllerTest {
     @MockBean
     protected OrderService orderService;
 
+    @MockBean
+    protected AdminService adminService;
+
     // dto mapper
 
     @MockBean
@@ -84,6 +91,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected OrderDtoMapper orderDtoMapper;
+
+    @MockBean
+    protected AdminDtoMapper adminDtoMapper;
 
     // etc
 
