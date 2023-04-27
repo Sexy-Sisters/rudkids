@@ -39,7 +39,6 @@ public class ItemServiceImpl implements ItemService {
         var limitType = command.limitType();
 
         var initItem = Item.create(name, itemBio, price, quantity, limitType);
-        imageService.upload(command.images(), initItem);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);
@@ -61,7 +60,6 @@ public class ItemServiceImpl implements ItemService {
         var item = itemReader.getItem(itemId);
 
         imageService.delete(item);
-        imageService.upload(command.images(), item);
         var name = Name.create(command.name());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());

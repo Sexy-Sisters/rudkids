@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.product.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
@@ -25,7 +24,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final UserReader userReader;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
-    private final ImageService imageService;
 
     @Override
     public void create(ProductCommand.CreateRequest command, UUID userId) {
@@ -34,13 +32,10 @@ public class ProductServiceImpl implements ProductService {
 
         var title = Title.create(command.title());
         var productBio = ProductBio.create(command.productBio());
-        var imageInfo = imageService.upload(command.frontImage(), command.backImage());
 
         var initProduct = Product.builder()
                 .title(title)
                 .productBio(productBio)
-                .frontImage(imageInfo.frontImage())
-                .backImage(imageInfo.backImage())
                 .build();
         productStore.store(initProduct);
     }
