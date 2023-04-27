@@ -22,7 +22,7 @@ public class ProductController {
     @PostMapping
     public void create(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        ProductRequest.Register request
+        ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);
         productService.create(command, loginUser.id());
@@ -44,6 +44,16 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    public void update(
+        @PathVariable(name = "id") UUID productId,
+        @RequestBody ProductRequest.Update request,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        var command = productDtoMapper.toCommand(request);
+        productService.update(command, productId, loginUser.id());
+    }
+
+    @PutMapping("/status/{id}")
     public void changeStatus(
         @PathVariable(name = "id") UUID productId,
         @RequestBody ProductRequest.ChangeStatus request,
@@ -52,5 +62,11 @@ public class ProductController {
         productService.changeStatus(request.productStatus(), productId, loginUser.id());
     }
 
-
+    @DeleteMapping("/{id}")
+    public void delete(
+        @PathVariable(name = "id") UUID productId,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.delete(productId, loginUser.id());
+    }
 }

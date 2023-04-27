@@ -46,7 +46,7 @@ public class Item extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)

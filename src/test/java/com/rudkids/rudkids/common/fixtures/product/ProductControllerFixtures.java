@@ -5,13 +5,9 @@ import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,8 +21,8 @@ public class ProductControllerFixtures {
     public static final String 프로덕트_뒤_이미지 = "https://~";
     public static final ProductStatus 프로덕트_상태 = ProductStatus.OPEN;
 
-    public static ProductRequest.Register PRODUCT_등록_요청() {
-        return new ProductRequest.Register(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
+    public static ProductRequest.Create PRODUCT_등록_요청() {
+        return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
     }
 
     private static MultipartFile 이미지() {
@@ -106,6 +102,10 @@ public class ProductControllerFixtures {
             .imageUrls(List.of("url1", "url2"))
             .itemStatus(ItemStatus.SELLING)
             .build();
+    }
+
+    public static ProductRequest.Update PRODUCT_수정_요청() {
+        return new ProductRequest.Update(프로덕트_제목, 프로덕트_소개글);
     }
 
     public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {

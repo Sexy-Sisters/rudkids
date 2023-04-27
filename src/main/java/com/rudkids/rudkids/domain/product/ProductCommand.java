@@ -6,11 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductCommand {
 
     @Builder
-    public record RegisterRequest(
-            String title,
-            String productBio,
-            MultipartFile frontImage,
-            MultipartFile backImage
+    public record CreateRequest(
+        String title,
+        String productBio,
+        MultipartFile frontImage,
+        MultipartFile backImage
     ) {
-    };
+    }
+
+    public record UpdateRequest(String title, String productBio) {
+    }
 }

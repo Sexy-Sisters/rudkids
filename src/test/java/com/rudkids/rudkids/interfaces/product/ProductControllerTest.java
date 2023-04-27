@@ -28,7 +28,7 @@ class ProductControllerTest extends ControllerTest {
     @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("프로덕트를 등록한다.")
     @Test
-    void 프로덕트를_등록한다() throws Exception {
+    void createTest() throws Exception {
         willDoNothing()
             .given(productService)
             .create(any(), any());
@@ -109,7 +109,7 @@ class ProductControllerTest extends ControllerTest {
 
     @DisplayName("프로덕트 세부사항을 조회한다.")
     @Test
-    void 프로덕트_세부사항을_조회한다() throws Exception {
+    void findTest() throws Exception {
         given(productService.find(any()))
             .willReturn(PRODUCT_상세조회_INFO());
 
@@ -167,9 +167,75 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
+    @DisplayName("프로덕트를 수정한다.")
+    @Test
+    void updateTest() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .update(any(), any(), any());
+
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+            )
+            .andDo(print())
+            .andDo(document("product/update",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("프로덕트 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("title")
+                            .type(JsonFieldType.STRING)
+                            .description("제목"),
+
+                        fieldWithPath("productBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글")
+
+                    )
+                )
+            )
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("프로덕트를 삭제한다.")
+    @Test
+    void deleteTest() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .delete(any(), any());
+
+        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("product/delete",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("프로덕트 id")
+                )
+            ))
+            .andExpect(status().isOk());
+    }
+
     @DisplayName("프로덕트 상태를 변경한다.")
     @Test
-    void changeStatus() throws Exception {
+    void changeStatusTest() throws Exception {
         willDoNothing()
             .given(productService)
             .changeStatus(any(), any(), any());

@@ -7,13 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDtoMapper {
 
-    public ProductCommand.RegisterRequest toCommand(ProductRequest.Register request) {
-        return ProductCommand.RegisterRequest.builder()
+    public ProductCommand.CreateRequest toCommand(ProductRequest.Create request) {
+        return ProductCommand.CreateRequest.builder()
             .title(request.getTitle())
             .productBio(request.getProductBio())
             .frontImage(request.getFrontImage())
             .backImage(request.getBackImage())
             .build();
+    }
+
+    public ProductCommand.UpdateRequest toCommand(ProductRequest.Update request) {
+        return new ProductCommand.UpdateRequest(request.title(), request.productBio());
     }
 
     public ProductResponse.Main toResponse(ProductInfo.Main info) {
