@@ -154,6 +154,10 @@ class ProductControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 가격"),
 
+                        fieldWithPath("items[].imageUrls")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 이미지 url"),
+
                         fieldWithPath("items[].itemStatus")
                             .type(JsonFieldType.STRING)
                             .description("아이템 상태")

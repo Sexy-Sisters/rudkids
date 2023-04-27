@@ -49,6 +49,7 @@ public class ProductDtoMapper {
             .itemId(info.itemId())
             .name(info.name())
             .price(info.price())
+            .imageUrls(info.imageUrls())
             .itemStatus(info.itemStatus())
             .build();
     }

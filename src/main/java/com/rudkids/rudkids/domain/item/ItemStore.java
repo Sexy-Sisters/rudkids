@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface ItemStore {
     Item store(Item item);
-    void delete(UUID itemId);
+    void delete(Item item);
 }

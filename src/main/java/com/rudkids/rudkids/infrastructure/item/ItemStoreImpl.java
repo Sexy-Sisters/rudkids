@@ -5,8 +5,6 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class ItemStoreImpl implements ItemStore {
@@ -18,7 +16,7 @@ public class ItemStoreImpl implements ItemStore {
     }
 
     @Override
-    public void delete(UUID itemId) {
-        itemRepository.deleteById(itemId);
+    public void delete(Item item) {
+        itemRepository.delete(item);
     }
 }

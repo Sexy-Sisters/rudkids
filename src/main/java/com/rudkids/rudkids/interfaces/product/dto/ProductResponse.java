@@ -35,6 +35,7 @@ public class ProductResponse {
         UUID itemId,
         String name,
         int price,
+        List<String> imageUrls,
         ItemStatus itemStatus
     ) {
     }

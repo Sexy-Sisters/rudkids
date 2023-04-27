@@ -77,6 +77,7 @@ public class ProductControllerFixtures {
             .itemId(UUID.randomUUID())
             .name("아이템")
             .price(1000)
+            .imageUrls(List.of("url1", "url2", "url3"))
             .itemStatus(ItemStatus.SELLING)
             .build();
     }
@@ -98,6 +99,7 @@ public class ProductControllerFixtures {
             .itemId(UUID.randomUUID())
             .name("아이템")
             .price(1000)
+            .imageUrls(List.of("url1", "url2"))
             .itemStatus(ItemStatus.SELLING)
             .build();
     }

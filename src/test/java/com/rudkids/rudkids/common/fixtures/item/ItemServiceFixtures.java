@@ -97,6 +97,10 @@ public class ItemServiceFixtures {
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.LIMITED)
             .build();
+        ItemImage image = ItemImage.create(item, "path", "url");
+        ItemImage image2 = ItemImage.create(item, "path", "url");
+        item.addImage(image);
+        item.addImage(image2);
         itemStore.store(item);
 
         ITEM_등록_요청 = ItemCommand.RegisterItemRequest.builder()

@@ -4,8 +4,6 @@ import com.rudkids.rudkids.domain.item.ItemCommand;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 public class ItemDtoMapper {
 
@@ -21,6 +19,7 @@ public class ItemDtoMapper {
             .quantity(request.quantity())
             .itemBio(request.itemBio())
             .limitType(request.limitType())
+            .images(request.images())
             .itemOptionGroupList(itemOptionGroupRequestList)
             .build();
     }
@@ -66,6 +65,7 @@ public class ItemDtoMapper {
             .itemBio(info.itemBio())
             .quantity(info.quantity())
             .limitType(info.limitType())
+            .imageUrls(info.imageUrls())
             .itemStatus(info.itemStatus())
             .itemOptionGroupResponseList(itemOptionGroupResponseList)
             .build();
@@ -97,6 +97,7 @@ public class ItemDtoMapper {
             .name(request.name())
             .quantity(request.quantity())
             .limitType(request.limitType())
+            .images(request.images())
             .build();
     }
 }
