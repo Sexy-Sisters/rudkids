@@ -82,9 +82,7 @@ public class OrderServiceFixtures {
         return OrderCommand.RegisterOrderItemOptionGroup.builder()
             .ordering(1)
             .itemOptionGroupName("약효지속시간")
-            .orderItemOptionList(List.of(
-                ORDER_ITEM_OPTION_주문_요청()
-            ))
+            .orderItemOption(ORDER_ITEM_OPTION_주문_요청())
             .build();
     }
 

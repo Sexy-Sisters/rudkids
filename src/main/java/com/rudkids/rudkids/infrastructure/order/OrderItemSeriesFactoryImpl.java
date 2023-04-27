@@ -16,22 +16,20 @@ public class OrderItemSeriesFactoryImpl implements OrderItemSeriesFactory {
 
     @Override
     public void store(Order order, OrderCommand.Register command) {
-        command.orderItemList().forEach(registerOrderItem -> {
-            var item = itemReader.getItem(registerOrderItem.itemId());
-            var initOrderItem = registerOrderItem.toEntity(order, item);
-            order.addOrderItem(initOrderItem);
-            var orderItem = orderStore.store(initOrderItem);
+        command.orderItemList().forEach(ItemRequest -> {
+            var item = itemReader.getItem(ItemRequest.itemId());
+            var initItem = ItemRequest.toEntity(order, item);
+            order.addOrderItem(initItem);
+            var orderItem = orderStore.store(initItem);
 
-            registerOrderItem.orderItemOptionGroupList().forEach(registerOrderItemOptionGroup -> {
-                var initOrderItemOptionGroup = registerOrderItemOptionGroup.toEntity(orderItem);
-                orderItem.addOrderItemOptionGroup(initOrderItemOptionGroup);
-                var orderItemOptionGroup = orderStore.store(initOrderItemOptionGroup);
+            ItemRequest.orderItemOptionGroupList().forEach(optionGroupRequest -> {
+                var initOptionGroup = optionGroupRequest.toEntity(orderItem);
+                orderItem.addOrderItemOptionGroup(initOptionGroup);
+                var optionGroup = orderStore.store(initOptionGroup);
 
-                registerOrderItemOptionGroup.orderItemOptionList().forEach(registerOrderItemOption -> {
-                    var initOrderItemOption = registerOrderItemOption.toEntity(orderItemOptionGroup);
-                    orderItemOptionGroup.addOrderItemOption(initOrderItemOption);
-                    orderStore.store(initOrderItemOption);
-                });
+                var initOption =  optionGroupRequest.orderItemOption().toEntity(optionGroup);
+                optionGroup.addOrderItemOption(initOption);
+                orderStore.store(initOption);
             });
         });
     }

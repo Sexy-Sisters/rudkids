@@ -38,13 +38,11 @@ public class OrderDtoMapper {
     }
 
     private OrderCommand.RegisterOrderItemOptionGroup toCommand(OrderRequest.RegisterOrderItemOptionGroup request) {
-        var orderItemOptionList = request.orderItemOptionList().stream()
-            .map(this::toCommand)
-            .toList();
+        var orderItemOption = this.toCommand(request.orderItemOption());
         return OrderCommand.RegisterOrderItemOptionGroup.builder()
             .ordering(request.ordering())
             .itemOptionGroupName(request.itemOptionGroupName())
-            .orderItemOptionList(orderItemOptionList)
+            .orderItemOption(orderItemOption)
             .build();
     }
 

@@ -41,7 +41,7 @@ public class OrderItem {
     @Column(name = "order_count", nullable = false)
     private int orderCount;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = CascadeType.ALL)
     private final List<OrderItemOptionGroup> orderItemOptionGroups = new ArrayList<>();
 
     @Builder
@@ -55,7 +55,7 @@ public class OrderItem {
 
     public int calculateTotalAmount() {
         var itemOptionTotalAmount = orderItemOptionGroups.stream()
-            .mapToInt(OrderItemOptionGroup::calculateTotalAmount)
+            .mapToInt(OrderItemOptionGroup::getItemOptionPrice)
             .sum();
         return (itemPrice + itemOptionTotalAmount) * orderCount;
     }

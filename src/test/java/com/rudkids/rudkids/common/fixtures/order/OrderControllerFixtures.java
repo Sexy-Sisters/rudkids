@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.common.fixtures.order;
 
-import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 
@@ -39,9 +38,7 @@ public class OrderControllerFixtures {
         return OrderRequest.RegisterOrderItemOptionGroup.builder()
             .ordering(1)
             .itemOptionGroupName("약효지속시간")
-            .orderItemOptionList(List.of(
-                ORDER_ITEM_OPTION_주문_요청()
-            ))
+            .orderItemOption(ORDER_ITEM_OPTION_주문_요청())
             .build();
     }
 

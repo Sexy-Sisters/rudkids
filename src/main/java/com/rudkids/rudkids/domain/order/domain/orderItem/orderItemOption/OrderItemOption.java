@@ -21,7 +21,7 @@ public class OrderItemOption {
     private UUID id;
 
     @JoinColumn(name = "order_item_option_group_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "orderItemOption")
     private OrderItemOptionGroup orderItemOptionGroup;
     private int ordering;
     private OrderItemOptionName orderItemOptionName;

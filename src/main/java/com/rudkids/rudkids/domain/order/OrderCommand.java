@@ -68,7 +68,7 @@ public class OrderCommand {
     public record RegisterOrderItemOptionGroup(
         Integer ordering,
         String itemOptionGroupName,
-        List<RegisterOrderItemOption> orderItemOptionList
+        RegisterOrderItemOption orderItemOption
     ) {
         public OrderItemOptionGroup toEntity(OrderItem orderItem) {
             return OrderItemOptionGroup.builder()

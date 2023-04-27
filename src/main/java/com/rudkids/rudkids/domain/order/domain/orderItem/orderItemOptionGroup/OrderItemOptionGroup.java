@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -31,13 +29,11 @@ public class OrderItemOptionGroup {
     private Integer ordering;
     private String itemOptionGroupName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItemOptionGroup", cascade = CascadeType.PERSIST)
-    private List<OrderItemOption> orderItemOptions = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private OrderItemOption orderItemOption;
 
-    public int calculateTotalAmount() {
-        return orderItemOptions.stream()
-            .mapToInt(OrderItemOption::getOrderItemOptionPrice)
-            .sum();
+    public int getItemOptionPrice() {
+        return orderItemOption.getOrderItemOptionPrice();
     }
 
     @Builder
@@ -48,6 +44,6 @@ public class OrderItemOptionGroup {
     }
 
     public void addOrderItemOption(OrderItemOption orderItemOption) {
-        this.orderItemOptions.add(orderItemOption);
+        this.orderItemOption = orderItemOption;
     }
 }
