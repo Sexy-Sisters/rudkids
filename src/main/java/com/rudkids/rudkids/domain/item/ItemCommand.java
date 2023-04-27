@@ -7,6 +7,7 @@ import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroupNam
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOption;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionName;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionPrice;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.Builder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,8 +74,5 @@ public class ItemCommand {
         LimitType limitType,
         List<ImageRequest> images
     ) {
-    }
-
-    public record ImageRequest(String path, String url) {
     }
 }
