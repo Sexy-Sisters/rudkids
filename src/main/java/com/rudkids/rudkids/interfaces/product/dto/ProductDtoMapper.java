@@ -8,7 +8,12 @@ import org.springframework.stereotype.Component;
 public class ProductDtoMapper {
 
     public ProductCommand.CreateRequest toCommand(ProductRequest.Create request) {
-        return new ProductCommand.CreateRequest(request.title(), request.productBio());
+        return ProductCommand.CreateRequest.builder()
+            .title(request.getTitle())
+            .productBio(request.getProductBio())
+            .frontImage(request.getFrontImage())
+            .backImage(request.getBackImage())
+            .build();
     }
 
     public ProductCommand.UpdateRequest toCommand(ProductRequest.Update request) {
@@ -19,7 +24,9 @@ public class ProductDtoMapper {
         return ProductResponse.Main.builder()
             .productId(info.productId())
             .title(info.title())
-            .productBio(info.productBio())
+            .frontImageUrl(info.frontImageUrl())
+            .backImageUrl(info.backImageUrl())
+            .status(info.status())
             .build();
     }
 
@@ -31,6 +38,8 @@ public class ProductDtoMapper {
         return ProductResponse.Detail.builder()
             .title(info.title())
             .bio(info.bio())
+            .frontImageUrl(info.frontImageUrl())
+            .backImageUrl(info.backImageUrl())
             .items(items)
             .build();
     }
