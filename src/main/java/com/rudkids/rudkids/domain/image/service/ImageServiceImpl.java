@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ImageUploaderImpl implements ImageUploader {
+public class ImageServiceImpl implements ImageService {
     private final S3ImageUploader s3ImageUploader;
 
     @Override

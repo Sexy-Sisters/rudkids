@@ -190,7 +190,7 @@ public class AdminControllerFailTest extends ControllerTest {
             .when(productService)
             .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -224,7 +224,7 @@ public class AdminControllerFailTest extends ControllerTest {
             .when(productService)
             .changeStatus(any(), any(), any());
 
-        mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)

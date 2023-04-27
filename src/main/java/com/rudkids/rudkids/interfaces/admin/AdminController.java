@@ -56,7 +56,7 @@ public class AdminController {
         productService.create(command, loginUser.id());
     }
 
-    @PutMapping("/product/{id}")
+    @PatchMapping("/product/{id}")
     public void changeProductStatus(
         @PathVariable(name = "id") UUID productId,
         @RequestBody ProductRequest.ChangeStatus request,
