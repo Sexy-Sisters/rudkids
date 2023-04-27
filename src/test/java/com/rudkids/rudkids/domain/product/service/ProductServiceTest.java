@@ -7,6 +7,7 @@ import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -20,7 +21,9 @@ class ProductServiceTest extends ProductServiceFixtures {
         // Given
         ProductCommand.CreateRequest command = new ProductCommand.CreateRequest(
             "Strange Drugstore",
-            "약쟁이가 약팝니다~~~~"
+            "약쟁이가 약팝니다~~~~",
+            new MockMultipartFile("image", "image.jpg", "image/jpg", "hello world".getBytes()),
+            new MockMultipartFile("image", "image.jpg", "image/jpg", "hello world".getBytes())
         );
 
         // When
