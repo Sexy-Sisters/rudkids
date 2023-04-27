@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemDtoMapper {
 
-    public ItemCommand.RegisterItemRequest to(ItemRequest.RegisterItem request) {
+    public ItemCommand.CreateItemRequest to(ItemRequest.RegisterItem request) {
         var itemOptionGroupRequestList = request.itemOptionGroupList().stream()
             .map(this::to)
             .toList();
 
-        return ItemCommand.RegisterItemRequest.builder()
+        return ItemCommand.CreateItemRequest.builder()
             .name(request.name())
             .itemBio(request.itemBio())
             .price(request.price())
@@ -24,21 +24,21 @@ public class ItemDtoMapper {
             .build();
     }
 
-    public ItemCommand.RegisterItemOptionGroupRequest to(ItemRequest.RegisterItemOptionGroup request) {
+    public ItemCommand.CreateItemOptionGroupRequest to(ItemRequest.RegisterItemOptionGroup request) {
         var itemOptionList = request.itemOptionList().stream()
             .map(this::to)
             .toList();
 
 
-        return ItemCommand.RegisterItemOptionGroupRequest.builder()
+        return ItemCommand.CreateItemOptionGroupRequest.builder()
             .ordering(request.ordering())
             .itemOptionGroupName(request.itemOptionGroupName())
             .itemOptionList(itemOptionList)
             .build();
     }
 
-    public ItemCommand.RegisterItemOptionRequest to(ItemRequest.RegisterItemOption request) {
-        return ItemCommand.RegisterItemOptionRequest.builder()
+    public ItemCommand.CreateItemOptionRequest to(ItemRequest.RegisterItemOption request) {
+        return ItemCommand.CreateItemOptionRequest.builder()
             .ordering(request.ordering())
             .itemOptionName(request.itemOptionName())
             .itemOptionPrice(request.itemOptionPrice())

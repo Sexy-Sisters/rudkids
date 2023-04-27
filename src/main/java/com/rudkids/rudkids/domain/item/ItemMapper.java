@@ -9,7 +9,7 @@ import java.util.List;
 public class ItemMapper {
 
 
-    public Item toEntity(ItemCommand.RegisterItemRequest command) {
+    public Item toEntity(ItemCommand.CreateItemRequest command) {
         var name = Name.create(command.name());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());

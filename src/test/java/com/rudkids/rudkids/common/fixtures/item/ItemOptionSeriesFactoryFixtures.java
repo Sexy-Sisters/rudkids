@@ -15,7 +15,7 @@ public class ItemOptionSeriesFactoryFixtures {
 
     protected static Item item = Item.builder().build();
 
-    protected static ItemCommand.RegisterItemRequest ITEM_빈_리스트_등록_요청 = ItemCommand.RegisterItemRequest.builder()
+    protected static ItemCommand.CreateItemRequest ITEM_빈_리스트_등록_요청 = ItemCommand.CreateItemRequest.builder()
         .name("Red Pill")
             .price(1_000_000)
             .quantity(1)

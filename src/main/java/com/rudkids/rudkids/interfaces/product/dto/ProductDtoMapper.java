@@ -9,15 +9,20 @@ public class ProductDtoMapper {
 
     public ProductCommand.CreateRequest toCommand(ProductRequest.Create request) {
         return ProductCommand.CreateRequest.builder()
-            .title(request.getTitle())
-            .productBio(request.getProductBio())
-            .frontImage(request.getFrontImage())
-            .backImage(request.getBackImage())
+            .title(request.title())
+            .productBio(request.productBio())
+            .frontImage(request.frontImage())
+            .backImage(request.backImage())
             .build();
     }
 
     public ProductCommand.UpdateRequest toCommand(ProductRequest.Update request) {
-        return new ProductCommand.UpdateRequest(request.title(), request.productBio());
+        return new ProductCommand.UpdateRequest(
+            request.title(),
+            request.productBio(),
+            request.frontImage(),
+            request.backImage()
+        );
     }
 
     public ProductResponse.Main toResponse(ProductInfo.Main info) {

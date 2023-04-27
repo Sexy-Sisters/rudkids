@@ -1,8 +1,6 @@
 package com.rudkids.rudkids.domain.product.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
@@ -23,25 +21,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductStore productStore;
     private final ProductReader productReader;
     private final ProductMapper productMapper;
-    private final UserReader userReader;
+    private final ProductFactory productFactory;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
-    private final ImageService imageService;
+    private final UserReader userReader;
 
     @Override
     public void create(ProductCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
-        var title = Title.create(command.title());
-        var productBio = ProductBio.create(command.productBio());
-        var imageInfo = imageService.upload(command.frontImage(), command.backImage());
-
-        var initProduct = Product.builder()
-                .title(title)
-                .productBio(productBio)
-                .frontImage(imageInfo.frontImage())
-                .backImage(imageInfo.backImage())
-                .build();
+        var initProduct = productFactory.create(command);
         productStore.store(initProduct);
     }
 
@@ -73,11 +61,8 @@ public class ProductServiceImpl implements ProductService {
     public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         var product = productReader.getProduct(productId);
-        var title = Title.create(command.title());
-        var productBio = ProductBio.create(command.productBio());
-        product.update(title, productBio);
+        productFactory.update(product, command);
     }
 
     @Override
@@ -94,7 +79,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         productStore.delete(productId);
     }
 

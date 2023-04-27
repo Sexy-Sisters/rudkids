@@ -23,7 +23,7 @@ public class ItemOptionSeriesFactoryImpl implements ItemOptionSeriesFactory {
     private final ItemOptionStore itemOptionStore;
 
     @Override
-    public List<ItemOptionGroup> store(ItemCommand.RegisterItemRequest command, Item item) {
+    public List<ItemOptionGroup> store(ItemCommand.CreateItemRequest command, Item item) {
         var itemOptionGroupRequestList = command.itemOptionGroupList();
         if (CollectionUtils.isEmpty(itemOptionGroupRequestList)) return Collections.emptyList();
 
