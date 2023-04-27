@@ -161,7 +161,7 @@ public class AdminControllerTest extends ControllerTest {
             .given(productService)
             .update(any(), any(), any());
 
-        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -201,7 +201,7 @@ public class AdminControllerTest extends ControllerTest {
             .given(productService)
             .delete(any(), any());
 
-        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+        mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
