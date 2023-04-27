@@ -11,26 +11,25 @@ import lombok.Builder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ItemCommand {
 
     @Builder
-    public record RegisterItemRequest(
+    public record CreateItemRequest(
         String name,
         String itemBio,
         int price,
         int quantity,
         LimitType limitType,
-        List<MultipartFile> images,
-        List<RegisterItemOptionGroupRequest> itemOptionGroupList
+        List<String> images,
+        List<CreateItemOptionGroupRequest> itemOptionGroupList
     ) {}
 
     @Builder
-    public record RegisterItemOptionGroupRequest(
+    public record CreateItemOptionGroupRequest(
         Integer ordering,
         String itemOptionGroupName,
-        List<RegisterItemOptionRequest> itemOptionList
+        List<CreateItemOptionRequest> itemOptionList
     ) {
 
         public ItemOptionGroup toEntity(Item item) {
@@ -45,7 +44,7 @@ public class ItemCommand {
     }
 
     @Builder
-    public record RegisterItemOptionRequest(
+    public record CreateItemOptionRequest(
         Integer ordering,
         String itemOptionName,
         int itemOptionPrice

@@ -38,7 +38,7 @@ public class ItemServiceFixtures {
     protected static User user;
     protected static Product product;
     protected static Item item;
-    protected static ItemCommand.RegisterItemRequest ITEM_등록_요청;
+    protected static ItemCommand.CreateItemRequest ITEM_등록_요청;
 
     protected ItemCommand.UpdateRequest 아이템_수정_요청() {
         return ItemCommand.UpdateRequest.builder()
@@ -50,21 +50,21 @@ public class ItemServiceFixtures {
             .build();
     }
 
-    private static final ItemCommand.RegisterItemOptionGroupRequest itemOptionGroup_사이즈 = ItemCommand.RegisterItemOptionGroupRequest.builder()
+    private static final ItemCommand.CreateItemOptionGroupRequest itemOptionGroup_사이즈 = ItemCommand.CreateItemOptionGroupRequest.builder()
         .ordering(1)
         .itemOptionGroupName("사이즈")
         .itemOptionList(List.of(
-            ItemCommand.RegisterItemOptionRequest.builder()
+            ItemCommand.CreateItemOptionRequest.builder()
                 .ordering(1)
                 .itemOptionName("S")
                 .itemOptionPrice(0)
                 .build(),
-            ItemCommand.RegisterItemOptionRequest.builder()
+            ItemCommand.CreateItemOptionRequest.builder()
                 .ordering(2)
                 .itemOptionName("M")
                 .itemOptionPrice(0)
                 .build(),
-            ItemCommand.RegisterItemOptionRequest.builder()
+            ItemCommand.CreateItemOptionRequest.builder()
                 .ordering(3)
                 .itemOptionName("L")
                 .itemOptionPrice(1000)
@@ -103,7 +103,7 @@ public class ItemServiceFixtures {
         item.addImage(image2);
         itemStore.store(item);
 
-        ITEM_등록_요청 = ItemCommand.RegisterItemRequest.builder()
+        ITEM_등록_요청 = ItemCommand.CreateItemRequest.builder()
             .name("Red Pill")
             .price(1_000_000)
             .quantity(1)
