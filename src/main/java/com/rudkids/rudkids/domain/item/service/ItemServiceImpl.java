@@ -26,20 +26,14 @@ public class ItemServiceImpl implements ItemService {
     private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
     private final ImageService imageService;
+    private final ItemFactory itemFactory;
 
     @Override
-    public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
+    public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
 
-        var name = Name.create(command.name());
-        var itemBio = ItemBio.create(command.itemBio());
-        var price = Price.create(command.price());
-        var quantity = Quantity.create(command.quantity());
-        var limitType = command.limitType();
-
-        var initItem = Item.create(name, itemBio, price, quantity, limitType);
-        imageService.upload(command.images(), initItem);
+        var initItem = itemFactory.create(command);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);

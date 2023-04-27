@@ -25,23 +25,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final UserReader userReader;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
-    private final ImageService imageService;
+    private final ProductFactory productFactory;
 
     @Override
     public void create(ProductCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
-        var title = Title.create(command.title());
-        var productBio = ProductBio.create(command.productBio());
-        var imageInfo = imageService.upload(command.frontImage(), command.backImage());
-
-        var initProduct = Product.builder()
-                .title(title)
-                .productBio(productBio)
-                .frontImage(imageInfo.frontImage())
-                .backImage(imageInfo.backImage())
-                .build();
+        var initProduct = productFactory.create(command);
         productStore.store(initProduct);
     }
 
