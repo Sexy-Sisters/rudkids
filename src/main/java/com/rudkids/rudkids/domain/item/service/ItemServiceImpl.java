@@ -69,9 +69,7 @@ public class ItemServiceImpl implements ItemService {
     public void delete(UUID itemId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
-
         var item = itemReader.getItem(itemId);
-        imageService.delete(item);
         itemStore.delete(item);
     }
 

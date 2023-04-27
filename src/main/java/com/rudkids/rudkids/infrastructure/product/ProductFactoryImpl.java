@@ -12,15 +12,29 @@ public class ProductFactoryImpl implements ProductFactory {
     public Product create(ProductCommand.CreateRequest command) {
         var title = Title.create(command.title());
         var productBio = ProductBio.create(command.productBio());
-        var frontImage = command.frontImage();
-        var productFrontImage = ProductFrontImage.create(frontImage.path(), frontImage.url());
-        var backImage = command.backImage();
-        var productBackImage = ProductBackImage.create(backImage.path(), backImage.url());
-        return Product.create(
-            title,
-            productBio,
-            productFrontImage,
-            productBackImage
+        var productFrontImage = ProductFrontImage.create(
+            command.frontImage().path(),
+            command.frontImage().url()
         );
+        var productBackImage = ProductBackImage.create(
+            command.backImage().path(),
+            command.backImage().url()
+        );
+        return Product.create(title, productBio, productFrontImage, productBackImage);
+    }
+
+    @Override
+    public void update(Product product, ProductCommand.UpdateRequest command) {
+        var title = Title.create(command.title());
+        var productBio = ProductBio.create(command.productBio());
+        var frontImage = ProductFrontImage.create(
+            command.frontImage().path(),
+            command.frontImage().url()
+        );
+        var backImage = ProductBackImage.create(
+            command.backImage().path(),
+            command.backImage().url()
+        );
+        product.update(title, productBio, frontImage, backImage);
     }
 }

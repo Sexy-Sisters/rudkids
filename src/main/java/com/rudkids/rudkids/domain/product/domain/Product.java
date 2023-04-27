@@ -2,7 +2,6 @@ package com.rudkids.rudkids.domain.product.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.product.ProductFactory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -67,9 +66,11 @@ public class Product extends AbstractEntity{
             .build();
     }
 
-    public void update(Title title, ProductBio productBio) {
+    public void update(Title title, ProductBio productBio, ProductFrontImage frontImage, ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
+        this.frontImage = frontImage;
+        this.backImage = backImage;
     }
 
     public void open() {

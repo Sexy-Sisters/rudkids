@@ -61,11 +61,8 @@ public class ProductServiceImpl implements ProductService {
     public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         var product = productReader.getProduct(productId);
-        var title = Title.create(command.title());
-        var productBio = ProductBio.create(command.productBio());
-        product.update(title, productBio);
+        productFactory.update(product, command);
     }
 
     @Override
@@ -82,7 +79,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-
         productStore.delete(productId);
     }
 
