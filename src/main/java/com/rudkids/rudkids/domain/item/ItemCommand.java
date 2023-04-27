@@ -26,9 +26,6 @@ public class ItemCommand {
     ) {
     }
 
-    public record ImageRequest(String path, String url) {
-    }
-
     @Builder
     public record CreateItemOptionGroupRequest(
         Integer ordering,
@@ -74,7 +71,10 @@ public class ItemCommand {
         int price,
         int quantity,
         LimitType limitType,
-        List<MultipartFile> images
+        List<ImageRequest> images
     ) {
+    }
+
+    public record ImageRequest(String path, String url) {
     }
 }

@@ -26,7 +26,6 @@ public class ItemServiceImpl implements ItemService {
     private final ProductReader productReader;
     private final UserReader userReader;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
-    private final ImageService imageService;
 
     @Override
     public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
@@ -52,15 +51,7 @@ public class ItemServiceImpl implements ItemService {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemReader.getItem(itemId);
-
-        imageService.delete(item);
-        imageService.upload(command.images(), item);
-        var name = Name.create(command.name());
-        var itemBio = ItemBio.create(command.itemBio());
-        var price = Price.create(command.price());
-        var quantity = Quantity.create(command.quantity());
-        var limitType = command.limitType();
-        item.update(name, itemBio, price, quantity, limitType);
+        itemFactory.update(item, command);
     }
 
     @Override

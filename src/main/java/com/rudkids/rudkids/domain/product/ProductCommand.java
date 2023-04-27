@@ -14,9 +14,14 @@ public class ProductCommand {
     ) {
     }
 
-    public record ImageRequest(String path, String url) {
+    public record UpdateRequest(
+        String title,
+        String productBio,
+        ImageRequest frontImage,
+        ImageRequest backImage
+    ) {
     }
 
-    public record UpdateRequest(String title, String productBio) {
+    public record ImageRequest(String path, String url) {
     }
 }
