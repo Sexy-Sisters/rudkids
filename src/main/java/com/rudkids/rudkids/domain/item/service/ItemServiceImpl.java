@@ -21,18 +21,17 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
     private final ItemReader itemReader;
     private final ItemMapper itemMapper;
+    private final ItemFactory itemFactory;
+    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final ProductReader productReader;
     private final UserReader userReader;
-    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
     private final ImageService imageService;
-    private final ItemFactory itemFactory;
 
     @Override
     public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
-
         var initItem = itemFactory.create(command);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);

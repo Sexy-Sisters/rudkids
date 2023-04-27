@@ -15,6 +15,11 @@ public class ItemFactoryImpl implements ItemFactory {
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());
         var limitType = command.limitType();
-        return Item.create(name, itemBio, price, quantity, limitType);
+
+        var initItem = Item.create(name, itemBio, price, quantity, limitType);
+        command.images().stream()
+            .map(img -> ItemImage.create(initItem, img.path(), img.url()))
+            .forEach(initItem::addImage);
+        return initItem;
     }
 }

@@ -21,9 +21,13 @@ public class ItemCommand {
         int price,
         int quantity,
         LimitType limitType,
-        List<String> images,
+        List<ImageRequest> images,
         List<CreateItemOptionGroupRequest> itemOptionGroupList
-    ) {}
+    ) {
+    }
+
+    public record ImageRequest(String path, String url) {
+    }
 
     @Builder
     public record CreateItemOptionGroupRequest(
