@@ -4,6 +4,7 @@ import com.rudkids.rudkids.domain.admin.AdminInfo;
 import com.rudkids.rudkids.domain.user.domain.RoleType;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 public class AdminControllerFixtures {
@@ -18,12 +19,13 @@ public class AdminControllerFixtures {
         return new AdminRequest.ChangeUserRole(RoleType.PARTNER);
     }
 
-    public static AdminInfo.User 유저_정보_INFO_응답() {
-        return new AdminInfo.User("email@gmail.com",
+    public static List<AdminInfo.User> 유저_정보_INFO_응답() {
+        return List.of(new AdminInfo.User("email@gmail.com",
             "name",
-            18,
-            "MALE",
-            "01012345678",
-            "PARTNER");
+                18,
+                "MALE",
+                "01012345678",
+                "PARTNER")
+        );
     }
 }

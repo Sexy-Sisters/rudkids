@@ -20,8 +20,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,6 +46,31 @@ public class AdminControllerTest extends ControllerTest {
                 queryParameters(
                     parameterWithName("email")
                         .description("유저 이메일")
+                ),
+                responseFields(
+                    fieldWithPath("[]email")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 이메일"),
+
+                    fieldWithPath("[]name")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 이름"),
+
+                    fieldWithPath("[]age")
+                        .type(JsonFieldType.NUMBER)
+                        .description("유저 나이"),
+
+                    fieldWithPath("[]gender")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 성별"),
+
+                    fieldWithPath("[]phoneNumber")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 전화번호"),
+
+                    fieldWithPath("[]roleType")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 권한")
                 )
             ))
             .andExpect(status().isOk());
