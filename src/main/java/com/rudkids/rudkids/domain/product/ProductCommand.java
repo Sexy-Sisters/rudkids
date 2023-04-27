@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.product;
 
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.Builder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,11 +10,16 @@ public class ProductCommand {
     public record CreateRequest(
         String title,
         String productBio,
-        MultipartFile frontImage,
-        MultipartFile backImage
+        ImageRequest frontImage,
+        ImageRequest backImage
     ) {
     }
 
-    public record UpdateRequest(String title, String productBio) {
+    public record UpdateRequest(
+        String title,
+        String productBio,
+        ImageRequest frontImage,
+        ImageRequest backImage
+    ) {
     }
 }

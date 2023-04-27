@@ -6,5 +6,5 @@ import com.rudkids.rudkids.domain.item.domain.itemOptionGroup.ItemOptionGroup;
 import java.util.List;
 
 public interface ItemOptionSeriesFactory {
-    List<ItemOptionGroup> store(ItemCommand.RegisterItemRequest command, Item item);
+    List<ItemOptionGroup> store(ItemCommand.CreateItemRequest command, Item item);
 }

@@ -21,24 +21,18 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStore itemStore;
     private final ItemReader itemReader;
     private final ItemMapper itemMapper;
+    private final ItemFactory itemFactory;
+    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final ProductReader productReader;
     private final UserReader userReader;
-    private final ItemOptionSeriesFactory itemOptionSeriesFactory;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
     private final ImageService imageService;
 
     @Override
-    public void create(ItemCommand.RegisterItemRequest command, UUID productId, UUID userId) {
+    public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
-
-        var name = Name.create(command.name());
-        var itemBio = ItemBio.create(command.itemBio());
-        var price = Price.create(command.price());
-        var quantity = Quantity.create(command.quantity());
-        var limitType = command.limitType();
-
-        var initItem = Item.create(name, itemBio, price, quantity, limitType);
+        var initItem = itemFactory.create(command);
         var item = itemStore.store(initItem);
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);
@@ -58,14 +52,8 @@ public class ItemServiceImpl implements ItemService {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemReader.getItem(itemId);
-
         imageService.delete(item);
-        var name = Name.create(command.name());
-        var itemBio = ItemBio.create(command.itemBio());
-        var price = Price.create(command.price());
-        var quantity = Quantity.create(command.quantity());
-        var limitType = command.limitType();
-        item.update(name, itemBio, price, quantity, limitType);
+        itemFactory.update(item, command);
     }
 
     @Override
@@ -83,7 +71,6 @@ public class ItemServiceImpl implements ItemService {
     public void delete(UUID itemId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
-
         var item = itemReader.getItem(itemId);
         imageService.delete(item);
         itemStore.delete(item);

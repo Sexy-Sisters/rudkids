@@ -177,7 +177,23 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("productBio")
                         .type(JsonFieldType.STRING)
-                        .description("소개글")
+                        .description("소개글"),
+
+                    fieldWithPath("frontImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 path"),
+
+                    fieldWithPath("frontImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 url"),
+
+                    fieldWithPath("backImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 path"),
+
+                    fieldWithPath("backImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 url")
                 )
             ))
             .andExpect(status().isForbidden());
@@ -283,7 +299,23 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("productBio")
                         .type(JsonFieldType.STRING)
-                        .description("소개글")
+                        .description("소개글"),
+
+                    fieldWithPath("frontImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 path"),
+
+                    fieldWithPath("frontImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 url"),
+
+                    fieldWithPath("backImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 path"),
+
+                    fieldWithPath("backImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 url")
                 ),
                 responseFields(
                     fieldWithPath("message")
@@ -326,7 +358,23 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("productBio")
                         .type(JsonFieldType.STRING)
-                        .description("소개글")
+                        .description("소개글"),
+
+                    fieldWithPath("frontImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 path"),
+
+                    fieldWithPath("frontImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("앞 이미지 url"),
+
+                    fieldWithPath("backImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 path"),
+
+                    fieldWithPath("backImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("뒤 이미지 url")
                 ),
                 responseFields(
                     fieldWithPath("message")

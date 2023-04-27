@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,11 +20,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Transactional(readOnly = true)
     @Override
-    public AdminInfo.User searchUser(UUID userId, String email) {
+    public List<AdminInfo.User> searchUser(UUID userId, String email) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-        var searchedUser = userReader.getUser(email);
-        return adminMapper.toInfo(searchedUser);
+        return userReader.getUsers(email).stream()
+            .map(adminMapper::toInfo)
+            .toList();
     }
 
     @Override

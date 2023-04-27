@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.image.service;
 import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.image.S3ImageUploader;
 import com.rudkids.rudkids.domain.item.domain.Item;
+import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,14 @@ public class ImageServiceImpl implements ImageService {
     public void delete(Item item) {
         if(!item.hasImages()) {
             item.getImagePaths().forEach(s3ImageUploader::delete);
+        }
+    }
+
+    @Override
+    public void delete(Product product) {
+        if(!product.hasImage()) {
+            s3ImageUploader.delete(product.getFrontImagePath());
+            s3ImageUploader.delete(product.getBackImagePath());
         }
     }
 }

@@ -54,9 +54,23 @@ public class Product extends AbstractEntity{
         this.backImage = backImage;
     }
 
-    public void update(Title title, ProductBio productBio) {
+    public static Product create(final Title title,
+                                 final ProductBio productBio,
+                                 final ProductFrontImage frontImage,
+                                 final ProductBackImage backImage) {
+        return Product.builder()
+            .title(title)
+            .productBio(productBio)
+            .frontImage(frontImage)
+            .backImage(backImage)
+            .build();
+    }
+
+    public void update(Title title, ProductBio productBio, ProductFrontImage frontImage, ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
+        this.frontImage = frontImage;
+        this.backImage = backImage;
     }
 
     public void open() {
@@ -75,11 +89,23 @@ public class Product extends AbstractEntity{
         return productBio.getValue();
     }
 
+    public String getFrontImagePath() {
+        return frontImage.getPath();
+    }
+
+    public String getBackImagePath() {
+        return backImage.getPath();
+    }
+
     public String getFrontImageUrl() {
         return frontImage.getUrl();
     }
 
     public String getBackImageUrl() {
         return backImage.getUrl();
+    }
+
+    public boolean hasImage() {
+        return frontImage.hasImage() || backImage.hasImage();
     }
 }

@@ -3,6 +3,7 @@ package com.rudkids.rudkids.common.fixtures.item;
 import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import com.rudkids.rudkids.interfaces.item.dto.ItemRequest;
 import com.rudkids.rudkids.interfaces.item.dto.ItemResponse;
 import org.springframework.mock.web.MockMultipartFile;
@@ -24,14 +25,9 @@ public class ItemControllerFixtures {
     public static final ItemStatus 아이템_상태 = ItemStatus.SELLING;
     public static final List<String> 아이템_여러_이미지 = List.of("url1", "url2");
 
-    private static List<MultipartFile> 아이템_여러_이미지_수정_요청() {
+    private static List<ImageRequest> 아이템_여러_이미지_수정_요청() {
         return List.of(
-            new MockMultipartFile(
-                "image",
-                "image.jpg",
-                "image/jpg",
-                "hello world".getBytes()
-            )
+            new ImageRequest("image", "image.jpg")
         );
     }
 

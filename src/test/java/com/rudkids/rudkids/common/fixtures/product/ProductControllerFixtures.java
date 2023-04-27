@@ -3,6 +3,7 @@ package com.rudkids.rudkids.common.fixtures.product;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 import org.springframework.mock.web.MockMultipartFile;
@@ -25,13 +26,8 @@ public class ProductControllerFixtures {
         return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
     }
 
-    private static MultipartFile 이미지() {
-        return new MockMultipartFile(
-            "image",
-            "image.jpg",
-            "image/jpg",
-            "hello world".getBytes()
-        );
+    private static ImageRequest 이미지() {
+        return new ImageRequest("image", "image.jpg");
     }
 
     public static ProductInfo.Main PRODUCT_MAIN_INFO() {
@@ -112,7 +108,7 @@ public class ProductControllerFixtures {
     }
 
     public static ProductRequest.Update PRODUCT_수정_요청() {
-        return new ProductRequest.Update(프로덕트_제목, 프로덕트_소개글);
+        return new ProductRequest.Update(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
     }
 
     public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {
