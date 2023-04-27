@@ -1,8 +1,6 @@
 package com.rudkids.rudkids.domain.product.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
@@ -23,9 +21,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductStore productStore;
     private final ProductReader productReader;
     private final ProductMapper productMapper;
-    private final UserReader userReader;
-    private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
     private final ProductFactory productFactory;
+    private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
+    private final UserReader userReader;
 
     @Override
     public void create(ProductCommand.CreateRequest command, UUID userId) {
