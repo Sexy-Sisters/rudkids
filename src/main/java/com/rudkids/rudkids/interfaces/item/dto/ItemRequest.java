@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.item.dto;
 
 import com.rudkids.rudkids.domain.item.domain.*;
 import lombok.Builder;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class ItemRequest {
         int price,
         int quantity,
         LimitType limitType,
+        List<MultipartFile> images,
         List<ItemRequest.RegisterItemOptionGroup> itemOptionGroupList
     ) {}
 
@@ -37,7 +39,8 @@ public class ItemRequest {
         String itemBio,
         int price,
         int quantity,
-        LimitType limitType
+        LimitType limitType,
+        List<MultipartFile> images
     ) {
     }
 
