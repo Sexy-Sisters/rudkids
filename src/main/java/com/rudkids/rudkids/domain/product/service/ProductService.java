@@ -14,6 +14,7 @@ public interface ProductService {
     List<ProductInfo.Main> findAll();
 
     ProductInfo.Detail find(UUID productId);
+    List<ProductInfo.Search> search(String title);
 
     void changeStatus(ProductStatus productStatus, UUID productId, UUID userId);
 

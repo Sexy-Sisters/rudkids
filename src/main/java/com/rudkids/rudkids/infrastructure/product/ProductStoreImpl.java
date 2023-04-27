@@ -18,7 +18,7 @@ public class ProductStoreImpl implements ProductStore {
     }
 
     @Override
-    public void delete(UUID productId) {
-        productRepository.deleteById(productId);
+    public void delete(Product product) {
+        productRepository.delete(product);
     }
 }

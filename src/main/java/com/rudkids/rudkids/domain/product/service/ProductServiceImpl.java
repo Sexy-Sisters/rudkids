@@ -1,9 +1,8 @@
 package com.rudkids.rudkids.domain.product.service;
 
+import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.service.strategy.productStatus.ChangeProductStatusStrategy;
 import com.rudkids.rudkids.domain.user.UserReader;
@@ -24,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductFactory productFactory;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
     private final UserReader userReader;
+    private final ImageService imageService;
 
     @Override
     public void create(ProductCommand.CreateRequest command, UUID userId) {
@@ -58,10 +58,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductInfo.Search> search(String title) {
+        return productReader.getProducts(title).stream()
+            .map(productMapper::toInfo)
+            .toList();
+    }
+
+    @Override
     public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
         var product = productReader.getProduct(productId);
+        imageService.delete(product);
         productFactory.update(product, command);
     }
 
@@ -79,7 +87,9 @@ public class ProductServiceImpl implements ProductService {
     public void delete(UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-        productStore.delete(productId);
+        var product = productReader.getProduct(productId);
+        imageService.delete(product);
+        productStore.delete(product);
     }
 
     public ChangeProductStatusStrategy findChangeStatusStrategy(ProductStatus productStatus) {

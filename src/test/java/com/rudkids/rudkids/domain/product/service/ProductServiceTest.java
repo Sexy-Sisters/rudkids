@@ -5,19 +5,14 @@ import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.mock.web.MockMultipartFile;
-
-import java.awt.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProductServiceTest extends ProductServiceFixtures {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[프로덕트-생성]")
     @Test
     void 프로덕트를_생성한다() {
@@ -64,6 +59,17 @@ class ProductServiceTest extends ProductServiceFixtures {
             () -> assertThat(productDetailInfo.title()).isEqualTo("프로덕트 No.1"),
             () -> assertThat(productDetailInfo.bio()).isEqualTo("소개드립니다~")
         );
+    }
+
+    @DisplayName("[프로덕트-검색]")
+    @Test
+    void 제목으로_프로덕트를_검색한다() {
+        //given, when
+        final String title = "프로덕트";
+        var productInfo = productService.search(title);
+
+        //then
+        assertThat(productInfo).hasSize(4);
     }
 
     @DisplayName("[프로덕트-상태변경-오픈]")

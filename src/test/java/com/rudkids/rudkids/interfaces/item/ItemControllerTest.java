@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ItemControllerTest extends ControllerTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_등록한다() throws Exception {
@@ -65,6 +64,18 @@ class ItemControllerTest extends ControllerTest {
                     fieldWithPath("limitType")
                         .type(JsonFieldType.STRING)
                         .description("수량 한정 여부"),
+
+                    fieldWithPath("images")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 아이템 이미지"),
+
+                    fieldWithPath("images[].path")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 주소"),
+
+                    fieldWithPath("images[].url")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 url"),
 
                     fieldWithPath("itemOptionGroupList[].ordering")
                         .type(JsonFieldType.NUMBER)
@@ -176,7 +187,6 @@ class ItemControllerTest extends ControllerTest {
 
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-수정]")
     @Test
     void 아이템을_수정한다() throws Exception {
@@ -223,8 +233,16 @@ class ItemControllerTest extends ControllerTest {
                         .description("수량 한정 여부"),
 
                     fieldWithPath("images")
-                        .type(JsonFieldType.NUMBER)
-                        .description("여러 이미지")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 아이템 이미지"),
+
+                    fieldWithPath("images[].path")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 주소"),
+
+                    fieldWithPath("images[].url")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 url")
                 )
             ))
             .andExpect(status().isOk());

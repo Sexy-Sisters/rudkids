@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ItemControllerFailTest extends ControllerTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성-403-에러")
     @Test
     void 관리자와_파트너_권한_이외의_유저가_아이템을_등록하면_상태코드_403을_반환한다() throws Exception {
@@ -73,6 +72,18 @@ public class ItemControllerFailTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("수량 한정 여부"),
 
+                    fieldWithPath("images")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 아이템 이미지"),
+
+                    fieldWithPath("images[].path")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 주소"),
+
+                    fieldWithPath("images[].url")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 url"),
+
                     fieldWithPath("itemOptionGroupList[].ordering")
                         .type(JsonFieldType.NUMBER)
                         .description("옵션 그룹 순서"),
@@ -102,7 +113,6 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isForbidden());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성-404-에러]")
     @Test
     void 존재하지_않는_프로덕트에_상품을_등록하면_상태코드_404를_반환한다() throws Exception {
@@ -147,6 +157,18 @@ public class ItemControllerFailTest extends ControllerTest {
                     fieldWithPath("limitType")
                         .type(JsonFieldType.STRING)
                         .description("수량 한정 여부"),
+
+                    fieldWithPath("images")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 아이템 이미지"),
+
+                    fieldWithPath("images[].path")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 주소"),
+
+                    fieldWithPath("images[].url")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 url"),
 
                     fieldWithPath("itemOptionGroupList[].ordering")
                         .type(JsonFieldType.NUMBER)
@@ -272,7 +294,6 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-수정-404-에러]")
     @Test
     void 존재하지_않는_아이템을_수정할_경우_상태코드_404를_반환한다() throws Exception {
@@ -320,8 +341,16 @@ public class ItemControllerFailTest extends ControllerTest {
                         .description("수량 한정 여부"),
 
                     fieldWithPath("images")
-                        .type(JsonFieldType.NUMBER)
-                        .description("여러 이미지")
+                        .type(JsonFieldType.ARRAY)
+                        .description("여러 아이템 이미지"),
+
+                    fieldWithPath("images[].path")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 주소"),
+
+                    fieldWithPath("images[].url")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 이미지 url")
                 )
             ))
             .andExpect(status().isOk());

@@ -89,11 +89,23 @@ public class Product extends AbstractEntity{
         return productBio.getValue();
     }
 
+    public String getFrontImagePath() {
+        return frontImage.getPath();
+    }
+
+    public String getBackImagePath() {
+        return backImage.getPath();
+    }
+
     public String getFrontImageUrl() {
         return frontImage.getUrl();
     }
 
     public String getBackImageUrl() {
         return backImage.getUrl();
+    }
+
+    public boolean hasImage() {
+        return frontImage.hasImage() || backImage.hasImage();
     }
 }

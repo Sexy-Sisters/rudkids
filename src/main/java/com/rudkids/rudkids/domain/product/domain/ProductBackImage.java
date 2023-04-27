@@ -25,4 +25,8 @@ public class ProductBackImage {
     public static ProductBackImage create(String path, String url) {
         return new ProductBackImage(path, url);
     }
+
+    public boolean hasImage() {
+        return !path.isBlank() && !url.isBlank();
+    }
 }
