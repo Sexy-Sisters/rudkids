@@ -19,7 +19,7 @@ import java.util.List;
 public class ImageController {
     private final ImageService imageService;
 
-    @PostMapping()
+    @PostMapping("/product")
     public ResponseEntity uploadProductImage(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestPart MultipartFile frontImage,
@@ -29,7 +29,7 @@ public class ImageController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping
+    @PostMapping("/item")
     public ResponseEntity uploadItemImage(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestPart List<MultipartFile> images
