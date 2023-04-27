@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -20,8 +21,7 @@ public class UserReaderImpl implements UserReader {
     }
 
     @Override
-    public User getUser(String email) {
-        return userRepository.findByEmail(email)
-            .orElseThrow(NotFoundUserException::new);
+    public List<User> getUsers(String email) {
+        return userRepository.findByEmailContaining(email);
     }
 }
