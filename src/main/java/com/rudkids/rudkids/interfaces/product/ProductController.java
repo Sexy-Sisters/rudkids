@@ -30,4 +30,10 @@ public class ProductController {
         ProductResponse.Detail response = productDtoMapper.toResponse(info);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity search(@RequestParam String title) {
+        var response = productService.search(title);
+        return ResponseEntity.ok(response);
+    }
 }

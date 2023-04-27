@@ -72,6 +72,13 @@ public class ProductControllerFixtures {
             .build();
     }
 
+    public static List<ProductInfo.Search> PRODUCT_검색_INFO_응답() {
+        return List.of(
+            new ProductInfo.Search(프로덕트_아이디, 프로덕트_제목, 프로덕트_앞_이미지),
+            new ProductInfo.Search(프로덕트_아이디, 프로덕트_제목, 프로덕트_앞_이미지)
+        );
+    }
+
     private static ProductInfo.ProductItem ITEM_리스트_조회_INFO() {
         return ProductInfo.ProductItem.builder()
             .itemId(UUID.randomUUID())

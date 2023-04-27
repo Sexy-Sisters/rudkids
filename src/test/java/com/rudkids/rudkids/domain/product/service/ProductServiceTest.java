@@ -63,6 +63,17 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
+    @DisplayName("[프로덕트-검색]")
+    @Test
+    void 제목으로_프로덕트를_검색한다() {
+        //given, when
+        final String title = "프로덕트";
+        var productInfo = productService.search(title);
+
+        //then
+        assertThat(productInfo).hasSize(4);
+    }
+
     @DisplayName("[프로덕트-상태변경-오픈]")
     @Test
     void 프로덕트의_상태를_오픈으로_변경한다() {

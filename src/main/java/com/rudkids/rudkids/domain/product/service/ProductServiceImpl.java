@@ -70,6 +70,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductInfo.Search> search(String title) {
+        return productReader.getProducts(title).stream()
+            .map(productMapper::toInfo)
+            .toList();
+    }
+
+    @Override
     public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();

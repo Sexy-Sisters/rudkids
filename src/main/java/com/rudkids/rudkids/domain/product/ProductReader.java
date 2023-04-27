@@ -9,4 +9,5 @@ public interface ProductReader {
     Product getProduct(UUID id);
     Product getProduct(String title);
     List<Product> getProducts();
+    List<Product> getProducts(String title);
 }

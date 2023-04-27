@@ -27,4 +27,11 @@ public class ProductMapper {
             .build();
     }
 
+    public ProductInfo.Search toInfo(Product product) {
+        return ProductInfo.Search.builder()
+            .productId(product.getId())
+            .title(product.getTitle())
+            .frontImageUrl(product.getFrontImageUrl())
+            .build();
+    }
 }

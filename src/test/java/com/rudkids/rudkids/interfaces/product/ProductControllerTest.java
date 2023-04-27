@@ -13,8 +13,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,7 +60,7 @@ class ProductControllerTest extends ControllerTest {
 
     @DisplayName("[프로덕트-상세조회]")
     @Test
-    void findTest() throws Exception {
+    void 프로덕트를_상세조회한다() throws Exception {
         given(productService.find(any()))
             .willReturn(PRODUCT_상세조회_INFO());
 
@@ -113,6 +112,39 @@ class ProductControllerTest extends ControllerTest {
                         fieldWithPath("items[].itemStatus")
                             .type(JsonFieldType.STRING)
                             .description("아이템 상태")
+                    )
+                )
+            )
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[프로덕트-검색]")
+    @Test
+    void 제목으로_프로덕트를_검색한다() throws Exception {
+        given(productService.search(any()))
+            .willReturn(PRODUCT_검색_INFO_응답());
+
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/search?title={title}", 프로덕트_제목))
+            .andDo(print())
+            .andDo(document("product/search",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    queryParameters(
+                        parameterWithName("title")
+                            .description("프로덕트 제목")
+                    ),
+                    responseFields(
+                        fieldWithPath("[]productId")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 아이티"),
+
+                        fieldWithPath("[]title")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 제목"),
+
+                        fieldWithPath("[]frontImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 앞 이미지")
                     )
                 )
             )
