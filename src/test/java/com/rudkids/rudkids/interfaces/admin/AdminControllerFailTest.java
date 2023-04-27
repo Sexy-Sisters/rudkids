@@ -148,7 +148,6 @@ public class AdminControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[프로덕트-생성-403-에러]")
     @Test
     void 관리자가_아닌_유저가_프로덕트를_등록하면_403을_반환한다() throws Exception {

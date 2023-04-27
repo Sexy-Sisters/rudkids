@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ItemControllerFailTest extends ControllerTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성-403-에러")
     @Test
     void 관리자와_파트너_권한_이외의_유저가_아이템을_등록하면_상태코드_403을_반환한다() throws Exception {
@@ -102,7 +101,6 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isForbidden());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성-404-에러]")
     @Test
     void 존재하지_않는_프로덕트에_상품을_등록하면_상태코드_404를_반환한다() throws Exception {
@@ -272,7 +270,6 @@ public class ItemControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-수정-404-에러]")
     @Test
     void 존재하지_않는_아이템을_수정할_경우_상태코드_404를_반환한다() throws Exception {

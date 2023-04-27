@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ItemControllerTest extends ControllerTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_등록한다() throws Exception {
@@ -176,7 +175,6 @@ class ItemControllerTest extends ControllerTest {
 
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-수정]")
     @Test
     void 아이템을_수정한다() throws Exception {
