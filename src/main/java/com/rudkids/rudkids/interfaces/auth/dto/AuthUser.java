@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.interfaces.auth.dto;
 
-import com.rudkids.rudkids.infrastructure.oauth.dto.Person;
 import lombok.Builder;
 
 import java.util.UUID;

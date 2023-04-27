@@ -20,19 +20,15 @@ public class AdminServiceImpl implements AdminService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<AdminInfo.User> searchUser(UUID userId, String email) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public List<AdminInfo.User> searchUser(String email) {
         return userReader.getUsers(email).stream()
             .map(adminMapper::toInfo)
             .toList();
     }
 
     @Override
-    public void changeUserRole(UUID userId, UUID targetUserId, AdminCommand.ChangeUserRole command) {
+    public void changeUserRole(UUID userId, AdminCommand.ChangeUserRole command) {
         var user = userReader.getUser(userId);
-        user.validateAdminRole();
-        var targetUser = userReader.getUser(targetUserId);
-        targetUser.changeRole(command.role());
+        user.changeRole(command.role());
     }
 }

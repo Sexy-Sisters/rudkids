@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AdminService {
-    List<AdminInfo.User> searchUser(UUID userId, String email);
-    void changeUserRole(UUID userId, UUID targetUserId, AdminCommand.ChangeUserRole command);
+    List<AdminInfo.User> searchUser(String email);
+    void changeUserRole(UUID userId, AdminCommand.ChangeUserRole command);
 }

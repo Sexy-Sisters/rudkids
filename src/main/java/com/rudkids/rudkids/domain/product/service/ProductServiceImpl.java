@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.service.strategy.productStatus.ChangeProductStatusStrategy;
-import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +21,10 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ProductFactory productFactory;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
-    private final UserReader userReader;
     private final ImageService imageService;
 
     @Override
-    public void create(ProductCommand.CreateRequest command, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public void create(ProductCommand.CreateRequest command) {
         var initProduct = productFactory.create(command);
         productStore.store(initProduct);
     }
@@ -65,28 +61,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public void update(ProductCommand.UpdateRequest command, UUID productId) {
         var product = productReader.getProduct(productId);
         imageService.delete(product);
         productFactory.update(product, command);
     }
 
     @Override
-    public void changeStatus(ProductStatus productStatus, UUID productId, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
-
+    public void changeStatus(ProductStatus productStatus, UUID productId) {
         var product = productReader.getProduct(productId);
         var foundStrategy = findChangeStatusStrategy(productStatus);
         foundStrategy.changeStatus(product);
     }
 
     @Override
-    public void delete(UUID productId, UUID userId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public void delete(UUID productId) {
         var product = productReader.getProduct(productId);
         imageService.delete(product);
         productStore.delete(product);
