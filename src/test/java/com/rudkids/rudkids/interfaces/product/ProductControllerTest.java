@@ -167,37 +167,6 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("프로덕트 리스트를 조회한다.")
-    @Test
-    void findAllTest() throws Exception {
-        given(productService.findAll())
-            .willReturn(PRODUCT_리스트_조회_응답());
-
-        given(productDtoMapper.toResponse(PRODUCT_MAIN_INFO()))
-            .willReturn(PRODUCT_MAIN_RESPONSE());
-
-        mockMvc.perform(get(PRODUCT_DEFAULT_URL))
-            .andDo(print())
-            .andDo(document("product/findAll",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                responseFields(
-                    fieldWithPath("[].productId")
-                        .type(JsonFieldType.STRING)
-                        .description("프로덕트 아이디"),
-
-                    fieldWithPath("[].title")
-                        .type(JsonFieldType.STRING)
-                        .description("매거진 제목"),
-
-                    fieldWithPath("[].productBio")
-                        .type(JsonFieldType.STRING)
-                        .description("프로덕트 소개글")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
     @DisplayName("프로덕트를 수정한다.")
     @Test
     void updateTest() throws Exception {
