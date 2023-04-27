@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/sms")
 @RequiredArgsConstructor
-public class SendSmsController {
+public class SmsController {
     private final DefaultMessageService messageService;
 
     @PostMapping
-    public void test(@RequestBody SmsRequest.Send request) {
+    public void send(@RequestBody SmsRequest.Send request) {
         messageService.sendOne(new SingleMessageSendingRequest(request.toMessage()));
     }
 }
