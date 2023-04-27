@@ -9,18 +9,21 @@ public class ProductRequest {
 
     @Getter
     @Setter
-    public static class Register {
+    public static class Create {
         private String title;
         private String productBio;
         private MultipartFile frontImage;
         private MultipartFile backImage;
 
-        public Register(String title, String productBio, MultipartFile frontImage, MultipartFile backImage) {
+        public Create(String title, String productBio, MultipartFile frontImage, MultipartFile backImage) {
             this.title = title;
             this.productBio = productBio;
             this.frontImage = frontImage;
             this.backImage = backImage;
         }
+    }
+
+    public record Update(String title, String productBio) {
     }
 
     public record ChangeStatus(ProductStatus productStatus) {

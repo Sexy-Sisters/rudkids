@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CartServiceTest extends CartServiceFixtures {
 
-    @DisplayName("회원의 장바구니는 존재하지 않다가 처음 아이템을 추가할 때 생성한다.")
+    @DisplayName("[장바구니-생성]")
     @Test
     void 회원의_장바구니는_존재하지_않다가_처음_아이템을_추가할_때_장바구니를_생성한다() {
         //given
@@ -35,7 +35,7 @@ class CartServiceTest extends CartServiceFixtures {
                 .orElseThrow(CartNotFoundException::new);
     }
 
-    @DisplayName("장바구니에 아이템을 추가한다.")
+    @DisplayName("[장바구니-아이템추가]")
     @Test
     void 장바구니에_아이템을_추가한다() {
         //given, when
@@ -51,7 +51,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("옵션이 붙은 아이템을 장바구니에 추가할 경우 옵션가격이 추가된다.")
+    @DisplayName("[장바구니-아이템추가-옵션]")
     @Test
     void 옵션이_붙은_아이템을_장바구니에_추가할_경우_옵션가격이_추가된다() {
         //given, when
@@ -64,7 +64,7 @@ class CartServiceTest extends CartServiceFixtures {
         assertThat(actual.getCartItemPrice()).isEqualTo(8980);
     }
 
-    @DisplayName("장바구니에 새로운 아이템을 추가한다.")
+    @DisplayName("[장바구니-새로운아이템추가]")
     @Test
     void 장바구니에_새로운_아이템을_추가한다() {
         //given
@@ -101,7 +101,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("같은 아이템이지만 옵션값이 다를 경우 장바구니아이템을 새롭게 추가한다.")
+    @DisplayName("[장바구니-아이템추가-다른옵션]")
     @Test
     void 같은_아이템이지만_옵션값이_다를_경우_장바구니에_추가하면_새롭게_저장된다() {
         //given
@@ -134,7 +134,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("같은 아이템이지만 옵션 개수가 다를 경우 장바구니아이템을 새롭게 추가한다.")
+    @DisplayName("[장바구니-아이템추가-다른옵션개수]")
     @Test
     void 같은_아이템이지만_옵션_개수가_다를_경우_장바구니아이템을_새롭게_추가한다() {
         //given
@@ -171,7 +171,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("같은 아이템이고 옵션 값은 같지만 순서가 다를 경우 장바구니아이템 수량만 증가한다.")
+    @DisplayName("[장바구니-아이템수량증가-같은옵션]")
     @Test
     void 같은_아이템이고_옵션_값은_같지만_순서가_다를_경우_장바구니아이템을_수량만_증가한다() {
         //given
@@ -204,7 +204,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("이미 장바구니에 있는 아이템을 추가하면 장바구니아이템 수량만 증가한다.")
+    @DisplayName("[장바구니-아이템수량증가]")
     @Test
     void 이미_장바구니에_있는_아이템을_추가하면_장바구니아이템_수량만_증가한다() {
         //given
@@ -223,7 +223,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("장바구니에 담겨있는 아이템 리스트를 조회한다.")
+    @DisplayName("[장바구니-아이템전체조회]")
     @Test
     void 장바구니에_담겨있는_아이템_리스트를_조회한다() {
         //given
@@ -239,7 +239,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("장바구니 아이템의 수량을 변경한다.")
+    @DisplayName("[장바구니-아이템수량변경]")
     @Test
     void 장바구니_아이템의_수량을_변경한다() {
         //given
@@ -270,7 +270,7 @@ class CartServiceTest extends CartServiceFixtures {
         });
     }
 
-    @DisplayName("장바구니 아이템의 수량을 변경하면 장바구니에 담겨있는 아이템의 총 수량도 변경된다")
+    @DisplayName("[장바구니-총수량변경]")
     @Test
     void 장바구니_아이템의_수량을_변경하면_장바구니에_담겨있는_아이템의_총_수량도_변경된다() {
         //given
@@ -294,7 +294,7 @@ class CartServiceTest extends CartServiceFixtures {
         assertThat(findCart.getCartItemCount()).isEqualTo(7);
     }
 
-    @DisplayName("장바구니 아이템들을 선택하여 삭제한다.")
+    @DisplayName("[장바구니-아이템선택삭제]")
     @Test
     void 장바구니_아이템들을_선택하여_삭제한다() {
         //given

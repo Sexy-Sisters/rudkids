@@ -31,7 +31,7 @@ public class ItemOptionGroup extends AbstractEntity {
     @Embedded
     private ItemOptionGroupName itemOptionGroupName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOptionGroup", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOptionGroup", cascade = CascadeType.ALL)
     private final List<ItemOption> itemOptions = new ArrayList<>();
 
     protected ItemOptionGroup() {

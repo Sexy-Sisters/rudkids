@@ -48,9 +48,9 @@ public class AdminController {
     }
 
     @PostMapping("/product")
-    public void createProduct(
+    public void create(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody ProductRequest.Register request
+        ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);
         productService.create(command, loginUser.id());
@@ -63,6 +63,24 @@ public class AdminController {
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
         productService.changeStatus(request.productStatus(), productId, loginUser.id());
+    }
+
+    @PutMapping("/product/{id}")
+    public void updateProduct(
+        @PathVariable(name = "id") UUID productId,
+        @RequestBody ProductRequest.Update request,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        var command = productDtoMapper.toCommand(request);
+        productService.update(command, productId, loginUser.id());
+    }
+
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(
+        @PathVariable(name = "id") UUID productId,
+        @AuthenticationPrincipal AuthUser.Login loginUser
+    ) {
+        productService.delete(productId, loginUser.id());
     }
 
     @PostMapping("/magazine")

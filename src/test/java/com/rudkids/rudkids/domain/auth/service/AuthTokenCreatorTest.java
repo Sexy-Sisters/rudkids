@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
 
-    @DisplayName("유저 id로 엑세스 토큰과 리프래쉬토큰을 생성한다.")
+    @DisplayName("[Auth-토큰생성]")
     @Test
     void 유저_id로_엑세스_토큰과_래프래쉬_토큰을_생성한다() {
         UUID userId = UUID.randomUUID();
@@ -25,7 +25,7 @@ class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
         });
     }
 
-    @DisplayName("이미 가입한 회원이라면 같은 리프래쉬 토큰 발급")
+    @DisplayName("[Auth-리프래쉬토큰발급]")
     @Test
     void 이미_가입한_회원이라면_같은_리프래쉬_토큰_발급() {
         UUID userId = UUID.randomUUID();
@@ -37,7 +37,7 @@ class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
         assertThat(authToken.getRefreshToken()).isEqualTo("refresh");
     }
 
-    @DisplayName("리프래쉬 토큰으로 엑세스 토큰 재발급")
+    @DisplayName("[Auth-엑세스토큰재발급]")
     @Test
     void 래프래쉬_토큰으로_엑세스_토큰_재발급() {
         UUID userId = UUID.randomUUID();
@@ -51,7 +51,7 @@ class AuthTokenCreatorTest extends AuthTokenCreatorFixtures {
         });
     }
 
-    @DisplayName("토큰에서 페이로드 추출")
+    @DisplayName("[Auth-페이로드추출]")
     @Test
     void 토큰에서_페이로드_추출() {
         UUID userId = UUID.randomUUID();

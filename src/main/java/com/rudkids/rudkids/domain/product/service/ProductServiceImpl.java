@@ -2,12 +2,12 @@ package com.rudkids.rudkids.domain.product.service;
 
 import com.rudkids.rudkids.domain.image.service.ImageUploader;
 import com.rudkids.rudkids.domain.product.*;
-import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
-import com.rudkids.rudkids.domain.product.service.strategy.ChangeProductStatusStrategy;
+import com.rudkids.rudkids.domain.product.service.strategy.productStatus.ChangeProductStatusStrategy;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,10 @@ public class ProductServiceImpl implements ProductService {
     private final ImageUploader imageUploader;
 
     @Override
-    public void create(ProductCommand.RegisterRequest command, UUID userId) {
+    public void create(ProductCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
+
         var title = Title.create(command.title());
         var productBio = ProductBio.create(command.productBio());
         var imageInfo = imageUploader.upload(command.frontImage(), command.backImage());
@@ -69,6 +70,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
+        var product = productReader.getProduct(productId);
+        var title = Title.create(command.title());
+        var productBio = ProductBio.create(command.productBio());
+        product.update(title, productBio);
+    }
+
+    @Override
     public void changeStatus(ProductStatus productStatus, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
@@ -76,6 +88,14 @@ public class ProductServiceImpl implements ProductService {
         var product = productReader.getProduct(productId);
         var foundStrategy = findChangeStatusStrategy(productStatus);
         foundStrategy.changeStatus(product);
+    }
+
+    @Override
+    public void delete(UUID productId, UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
+        productStore.delete(productId);
     }
 
     public ChangeProductStatusStrategy findChangeStatusStrategy(ProductStatus productStatus) {

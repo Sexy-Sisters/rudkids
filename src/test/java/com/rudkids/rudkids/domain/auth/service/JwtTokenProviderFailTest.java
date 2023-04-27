@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class JwtTokenProviderFailTest extends JwtTokenProviderFixtures {
 
-    @DisplayName("엑세스 토큰이 만료되면 예외 발생")
+    @DisplayName("[Auth-토큰검증-ExpiredTokenException]")
     @Test
     void 엑세스_토큰이_만료되면_예외_발생() {
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(
@@ -22,7 +22,7 @@ public class JwtTokenProviderFailTest extends JwtTokenProviderFixtures {
                 .isInstanceOf(ExpiredTokenException.class);
     }
 
-    @DisplayName("리프래쉬 토큰이 만료되면 예외 발생")
+    @DisplayName("[Auth-토큰검증-ExpiredTokenException]")
     @Test
     void 리프래쉬_토큰이_만료되면_예외_발생() {
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(
@@ -34,7 +34,7 @@ public class JwtTokenProviderFailTest extends JwtTokenProviderFixtures {
                 .isInstanceOf(ExpiredTokenException.class);
     }
 
-    @DisplayName("잘못된 토큰이라면 예외 발생")
+    @DisplayName("[Auth-토큰검증-InvalidTokenException]")
     @Test
     void 잘못된_토큰이라면_예외_발생() {
         String invalid = "namsewon";

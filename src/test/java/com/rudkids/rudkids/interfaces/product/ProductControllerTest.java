@@ -61,7 +61,7 @@ class ProductControllerTest extends ControllerTest {
 
     @DisplayName("[프로덕트-상세조회]")
     @Test
-    void 프로덕트_세부사항을_조회한다() throws Exception {
+    void findTest() throws Exception {
         given(productService.find(any()))
             .willReturn(PRODUCT_상세조회_INFO());
 
@@ -105,6 +105,10 @@ class ProductControllerTest extends ControllerTest {
                         fieldWithPath("items[].price")
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 가격"),
+
+                        fieldWithPath("items[].imageUrls")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 이미지 url"),
 
                         fieldWithPath("items[].itemStatus")
                             .type(JsonFieldType.STRING)

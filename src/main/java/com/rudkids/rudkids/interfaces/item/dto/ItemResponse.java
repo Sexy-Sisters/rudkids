@@ -27,6 +27,7 @@ public class ItemResponse {
         int price,
         int quantity,
         LimitType limitType,
+        List<String> imageUrls,
         ItemStatus itemStatus,
         List<ItemOptionGroupResponse> itemOptionGroupResponseList
     ) {

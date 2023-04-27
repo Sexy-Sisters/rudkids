@@ -27,6 +27,7 @@ public class ItemInfo {
         int price,
         int quantity,
         LimitType limitType,
+        List<String> imageUrls,
         ItemStatus itemStatus,
         List<ItemOptionGroupInfo> itemOptionGroupInfoList
     ) {

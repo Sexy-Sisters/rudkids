@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CartServiceFailTest extends CartServiceFixtures {
 
-    @DisplayName("장바구니에 존재하지 않는 아이템을 추가할 경우 예외가 발생한다.")
+    @DisplayName("[장바구니-아이템추가-ItemNotFoundException]")
     @Test
     void 장바구니에_존재하지_않는_아이템을_추가할_경우_예외가_발생한다() {
         //given, when
@@ -35,7 +35,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
                 .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName("다른 사용자의 장바구니 아이템의 수량을 변경할 시 예외가 발생한다.")
+    @DisplayName("[장바구니-아이템수량변경-DifferentUserException]")
     @Test
     void 다른_사용자의_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
         //given
@@ -66,7 +66,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
                 .isInstanceOf(DifferentUserException.class);
     }
 
-    @DisplayName("존재하지 않는 장바구니 아이템의 수량을 변경할 시 예외가 발생한다.")
+    @DisplayName("[장바구니-아이템수량변경-CartItemNotFoundException]")
     @Test
     void 존재하지_않는_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
         //given
@@ -88,7 +88,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
     }
 
     @Disabled("벌크연산 말고 다른 방법을 사용하여 커스텀 예외를 구현할 때까지 이 테스트코드는 보류한다.")
-    @DisplayName("존재하지 않는 장바구니 아이템들을 선택하여 삭제할 경우 예외가 발생한다.")
+    @DisplayName("[장바구니-아이템선택삭제-CartItemNotFoundException]")
     @Test
     void 존재하지_않는장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
         //given
@@ -111,7 +111,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
                 .isInstanceOf(CartItemNotFoundException.class);
     }
 
-    @DisplayName("다른 사용자의 장바구니 아이템들을 선택하여 삭제할 경우 예외가 발생한다.")
+    @DisplayName("[장바구니-아이템선택삭제-DifferentUserException]")
     @Test
     void 다른_사용자의_장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
         //given

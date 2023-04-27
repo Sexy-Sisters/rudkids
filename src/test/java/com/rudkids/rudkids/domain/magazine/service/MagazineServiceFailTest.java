@@ -20,7 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class MagazineServiceFailTest extends MagazineServiceFixtures {
 
-    @DisplayName("잘못된 제목을 입력하고 글을 작성할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-생성-InvalidMagazineTitleException]")
     @Test
     void 잘못된_제목을_입력하고_글을_작성할_경우_예외가_발생한다() {
         //given
@@ -35,7 +35,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(InvalidMagazineTitleException.class);
     }
 
-    @DisplayName("잘못된 내용을 입력하고 글을 작성할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-생성-InvalidMagazineContentException]")
     @Test
     void 잘못된_내용을_입력하고_글을_작성할_경우_예외가_발생한다() {
         //given
@@ -50,7 +50,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(InvalidMagazineContentException.class);
     }
 
-    @DisplayName("일반사용자가 매거진 글을 작성할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-생성-NotAdminRoleException]")
     @Test
     void 일반사용자가_매거진_글을_작성할_경우_예외가_발생한다() {
         //given
@@ -69,7 +69,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("파트너가 매거진 글을 작성할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-생성-NotAdminRoleException]")
     @Test
     void 파트너가_매거진_글을_작성할_경우_예외가_발생한다() {
         //given
@@ -89,7 +89,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("잘못된 제목을 입력하고 글을 수정할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-수정-InvalidMagazineTitleException]")
     @Test
     void 잘못된_제목을_입력하고_글을_수정할_경우_예외가_발생한다() {
         //given
@@ -109,7 +109,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(InvalidMagazineTitleException.class);
     }
 
-    @DisplayName("잘못된 내용을 입력하고 글을 수정할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-수정-InvalidMagazineContentException]")
     @Test
     void 잘못된_내용을_입력하고_글을_수정할_경우_예외가_발생한다() {
         //given
@@ -129,7 +129,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(InvalidMagazineContentException.class);
     }
 
-    @DisplayName("일반사용자가 매거진 글을 수정할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-수정-NotAdminRoleException]")
     @Test
     void 일반사용자가_매거진_글을_수정할_경우_예외가_발생한다() {
         //given
@@ -153,7 +153,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("파트너가 매거진 글을 수정할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-수정-NotAdminRoleException]")
     @Test
     void 파트너가_매거진_글을_수정할_경우_예외가_발생한다() {
         //given
@@ -178,7 +178,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("일반사용자가 매거진 글을 삭제할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-삭제-NotAdminRoleException]")
     @Test
     void 일반사용자가_매거진_글을_삭제할_경우_예외가_발생한다() {
         //given
@@ -202,7 +202,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("파트너가 매거진 글을 삭제할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-삭제-NotAdminRoleException]")
     @Test
     void 파트너가_매거진_글을_삭제할_경우_예외가_발생한다() {
         //given
@@ -227,7 +227,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(NotAdminRoleException.class);
     }
 
-    @DisplayName("존재하지 않는 매거진 글을 상세조회할 경우 예외가 발생한다.")
+    @DisplayName("[매거진-상세조회-MagazineNotFoundException]")
     @Test
     void 존재하지_않는_매거진_글을_상세조회할_경우_예외가_발생한다() {
         //given

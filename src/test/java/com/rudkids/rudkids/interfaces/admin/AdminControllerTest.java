@@ -154,6 +154,72 @@ public class AdminControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
+    @DisplayName("[프로덕트-수정]")
+    @Test
+    void updateTest() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .update(any(), any(), any());
+
+        mockMvc.perform(put(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+            )
+            .andDo(print())
+            .andDo(document("product/update",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("프로덕트 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("title")
+                            .type(JsonFieldType.STRING)
+                            .description("제목"),
+
+                        fieldWithPath("productBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글")
+
+                    )
+                )
+            )
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[프로덕트-삭제]")
+    @Test
+    void deleteTest() throws Exception {
+        willDoNothing()
+            .given(productService)
+            .delete(any(), any());
+
+        mockMvc.perform(delete(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("product/delete",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("프로덕트 id")
+                )
+            ))
+            .andExpect(status().isOk());
+    }
+
     @DisplayName("[매거진-생성]")
     @Test
     void 매거진을_작성한다() throws Exception {

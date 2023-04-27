@@ -34,7 +34,7 @@ public class Product extends AbstractEntity{
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
     @Embedded
@@ -52,6 +52,11 @@ public class Product extends AbstractEntity{
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
+    }
+
+    public void update(Title title, ProductBio productBio) {
+        this.title = title;
+        this.productBio = productBio;
     }
 
     public void open() {

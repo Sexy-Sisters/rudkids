@@ -16,9 +16,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class MagazineServiceImplTest extends MagazineServiceFixtures {
+class MagazineServiceTest extends MagazineServiceFixtures {
 
-    @DisplayName("관리자는 매거진 글을 작성한다.")
+    @DisplayName("[매거진-생성]")
     @Test
     void 관리자는_매거진_글을_작성한다() {
         //given, when
@@ -35,7 +35,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         });
     }
 
-    @DisplayName("관리자는 매거진 글을 수정한다.")
+    @DisplayName("[매거진-수정]")
     @Test
     void 관리자는_매거진_글을_수정한다() {
         //given
@@ -58,7 +58,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         });
     }
 
-    @DisplayName("다른 관리자도 매거진을 수정할 수 있다.")
+    @DisplayName("[매거진-수정-권한]")
     @Test
     void 다른_관리자도_매거진을_수정할_수_있다() {
         //given
@@ -91,7 +91,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         });
     }
 
-    @DisplayName("관리자는 매거진 글을 삭제한다.")
+    @DisplayName("[매거진-삭제]")
     @Test
     void 관리자는_매거진_글을_삭제한다() {
         //given
@@ -110,7 +110,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         admin.validateAdminRole();
     }
 
-    @DisplayName("다른 관리자도 매거진을 삭제할 수 있다.")
+    @DisplayName("[매거진-삭제-권한]")
     @Test
     void 다른_관리자도_매거진을_삭제할_수_있다() {
         //given
@@ -141,7 +141,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         });
     }
 
-    @DisplayName("아무나 매거진 글을 전체조회할 수 있다.")
+    @DisplayName("[매거진-전체조회]")
     @Test
     void 아무나_매거진_글을_전체조회할_수_있다() {
         //given
@@ -162,7 +162,7 @@ class MagazineServiceImplTest extends MagazineServiceFixtures {
         assertThat(actual).hasSize(2);
     }
 
-    @DisplayName("아무나 매거진 글을 상세조회할 수 있다.")
+    @DisplayName("[매거진-상세조회]")
     @Test
     void 아무나_매거진_글을_상세조회할_수_있다() {
         //given
