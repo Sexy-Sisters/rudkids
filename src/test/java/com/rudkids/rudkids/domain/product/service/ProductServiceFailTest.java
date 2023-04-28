@@ -21,7 +21,7 @@ public class ProductServiceFailTest extends ProductServiceTest {
         var userId = user.getId();
 
         // When & Then
-        assertThatThrownBy(() -> productService.changeStatus(status, productId, userId))
+        assertThatThrownBy(() -> productService.changeStatus(status, productId))
             .isInstanceOf(ProductNotFoundException.class);
     }
 
@@ -35,7 +35,7 @@ public class ProductServiceFailTest extends ProductServiceTest {
         user.changeAuthorityUser();
 
         // When & Then
-        assertThatThrownBy(() -> productService.changeStatus(status, productId, userId))
+        assertThatThrownBy(() -> productService.changeStatus(status, productId))
             .isInstanceOf(NotAdminRoleException.class);
     }
 }
