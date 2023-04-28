@@ -17,7 +17,7 @@ public class CartReaderImpl implements CartReader {
     private final CartStore cartStore;
 
     @Override
-    public Cart getCart(User user) {
+    public Cart getCartOrCreate(User user) {
         return cartRepository.findByUserId(user.getId())
                 .orElseGet(() -> createCart(user));
     }

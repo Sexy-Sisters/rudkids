@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public UUID addCartItem(UUID userId, CartCommand.AddCartItem command) {
         var user = userReader.getUser(userId);
-        var cart = cartReader.getCart(user);
+        var cart = cartReader.getCartOrCreate(user);
         var item = itemReader.getItem(command.itemId());
         var cartItem = cartItemReader.getCartItem(cart, item, command);
         cart.addCartItemCount(command.amount());
@@ -37,7 +37,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartInfo.Main findCartItems(UUID userId) {
         var user = userReader.getUser(userId);
-        var cart = cartReader.getCart(user);
+        var cart = cartReader.getCartOrCreate(user);
 
         int totalCartItemPrice = cart.getTotalCartItemPrice();
         return cart.getCartItems().stream()

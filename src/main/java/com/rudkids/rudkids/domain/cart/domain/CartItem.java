@@ -88,6 +88,4 @@ public class CartItem {
     public List<CartItemOptionGroup> getCartItemOptionGroups() {
         return cartItemOptionGroups;
     }
-
-
 }
