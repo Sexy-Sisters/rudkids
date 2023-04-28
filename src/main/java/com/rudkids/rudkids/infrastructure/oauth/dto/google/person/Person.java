@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.infrastructure.oauth.dto;
+package com.rudkids.rudkids.infrastructure.oauth.dto.google.person;
 
 import java.util.List;
 

@@ -8,18 +8,19 @@ public class AuthDtoMapper {
 
     public AuthCommand.RenewalAccessToken to(AuthRequest.RenewalToken request) {
         return AuthCommand.RenewalAccessToken.builder()
-                .refreshToken(request.refreshToken())
-                .build();
+            .refreshToken(request.refreshToken())
+            .build();
 
     }
 
     public AuthCommand.OAuthUser to(AuthUser.OAuth oAuthUser) {
         return AuthCommand.OAuthUser.builder()
-                .email(oAuthUser.email())
-                .name(oAuthUser.name())
-                .gender(oAuthUser.gender())
-                .age(oAuthUser.age())
-                .phoneNumber(oAuthUser.phoneNumber())
-                .build();
+            .email(oAuthUser.email())
+            .name(oAuthUser.name())
+            .gender(oAuthUser.gender())
+            .age(oAuthUser.age())
+            .phoneNumber(oAuthUser.phoneNumber())
+            .socialType(oAuthUser.socialType())
+            .build();
     }
 }

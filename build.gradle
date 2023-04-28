@@ -33,7 +33,7 @@ dependencies {
 	implementation 'net.nurigo:sdk:4.3.0'
 
 	//json 파싱
-	implementation 'com.google.code.gson:gson:2.8.6'
+	implementation 'com.google.code.gson:gson:2.8.7'
 
 	//annotation processer
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"

@@ -27,7 +27,7 @@ class AuthControllerTest extends ControllerTest {
     @DisplayName("[Auth-로그인창생성]")
     @Test
     void 로그인창_링크를_생성하고_반환한다() throws Exception {
-        given(oAuthUri.generate(any())).willReturn(OAuth_로그인_링크);
+        given(oAuthUri.generate(any(), any())).willReturn(OAuth_로그인_링크);
 
         mockMvc.perform(get(
                 "/api/v1/auth/{oauthProvider}/oauth-uri?redirectUri={redirectUri}",

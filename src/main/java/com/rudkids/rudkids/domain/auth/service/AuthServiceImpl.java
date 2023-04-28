@@ -2,7 +2,6 @@ package com.rudkids.rudkids.domain.auth.service;
 
 import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.auth.TokenCreator;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
@@ -40,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
                 .gender(oAuthUser.gender())
                 .age(oAuthUser.age())
                 .phoneNumber(oAuthUser.phoneNumber())
-                .socialType(SocialType.GOOGLE)
+                .socialType(oAuthUser.socialType())
                 .build();
         return userRepository.save(user);
     }

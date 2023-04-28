@@ -1,7 +1,8 @@
 package com.rudkids.rudkids.domain.auth;
 
-@FunctionalInterface
+import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
+
 public interface OAuthUri {
 
-    String generate(String redirectUri);
+    AuthResponse.OAuthUri generate(String provider, String redirectUri);
 }
