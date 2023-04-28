@@ -105,7 +105,7 @@ public class AdminController {
     @DeleteMapping("/magazine/{id}")
     public void deleteMagazine(
         @AuthenticationAdminAuthority
-        @PathVariable UUID magazineId
+        @PathVariable("id") UUID magazineId
     ) {
         magazineService.delete(magazineId);
     }
