@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<ProductInfo.Main> findAll() {
         return productReader.getProducts().stream()
-            .map(productMapper::of)
+            .map(productMapper::toMain)
             .toList();
     }
 

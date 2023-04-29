@@ -80,7 +80,7 @@ class CartTest {
         cart.addCartItem(cartItem2);
 
         //then
-        assertThat(cart.getTotalCartItemPrice()).isEqualTo(13000);
+        assertThat(cart.calculateTotalPrice()).isEqualTo(13000);
     }
 
     @DisplayName("아이템의 수량을 변경하면 장바구니 아이템 수량도 변경한다.")

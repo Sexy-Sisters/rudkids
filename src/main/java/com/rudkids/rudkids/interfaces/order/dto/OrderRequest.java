@@ -33,7 +33,7 @@ public class OrderRequest {
     public record RegisterOrderItemOptionGroup(
         Integer ordering,
         String itemOptionGroupName,
-        List<OrderRequest.RegisterOrderItemOption> orderItemOptionList
+        OrderRequest.RegisterOrderItemOption orderItemOption
     ) {
     }
 
