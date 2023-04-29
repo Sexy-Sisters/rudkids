@@ -6,7 +6,6 @@ import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceTest extends ItemServiceFixtures {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_생성한다() {
@@ -55,7 +53,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-수정]")
     @Test
     void 아이템을_수정한다() {

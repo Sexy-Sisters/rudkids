@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface ProductStore {
     void store(Product product);
 
-    void delete(UUID productId);
+    void delete(Product product);
 }

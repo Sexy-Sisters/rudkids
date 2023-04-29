@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.common.fixtures.order;
 
-import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 
@@ -8,7 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class OrderControllerFixtures {
+
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
+    public static final UUID cartId = UUID.randomUUID();
 
     public static OrderRequest.Register ORDER_주문_요청() {
         return OrderRequest.Register.builder()
@@ -39,9 +40,7 @@ public class OrderControllerFixtures {
         return OrderRequest.RegisterOrderItemOptionGroup.builder()
             .ordering(1)
             .itemOptionGroupName("약효지속시간")
-            .orderItemOptionList(List.of(
-                ORDER_ITEM_OPTION_주문_요청()
-            ))
+            .orderItemOption(ORDER_ITEM_OPTION_주문_요청())
             .build();
     }
 

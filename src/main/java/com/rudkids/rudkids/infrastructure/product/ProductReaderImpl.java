@@ -30,4 +30,9 @@ public class ProductReaderImpl implements ProductReader {
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
+
+    @Override
+    public List<Product> getProducts(String title) {
+        return productRepository.findByTitleValueContaining(title);
+    }
 }

@@ -16,10 +16,10 @@ class OrderServiceTest extends OrderServiceFixtures {
     @Test
     void 주문요청을_한다() {
         // given, when
-        var result = orderService.create(user.getId(), ORDER_주문_요청());
+        var orderId = orderService.create(ORDER_주문_요청(), user.getId());
 
         // then
-        Order findOrder = orderReader.getOrder(result);
+        var findOrder = orderReader.getOrder(orderId);
 
         assertAll(
             () -> assertThat(findOrder.getPayMethod()).isEqualTo(PayMethod.TOSS),

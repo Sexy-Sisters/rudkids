@@ -16,7 +16,7 @@ public class SendSmsController {
     private final DefaultMessageService messageService;
 
     @PostMapping
-    public void test(@RequestBody SmsRequest.Send request) {
+    public void send(@RequestBody SmsRequest.Send request) {
         messageService.sendOne(new SingleMessageSendingRequest(request.toMessage()));
     }
 }

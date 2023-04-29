@@ -13,6 +13,7 @@ import com.rudkids.rudkids.domain.product.domain.Title;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,6 +48,7 @@ public class ItemServiceFixtures {
             .price(1000)
             .quantity(100)
             .limitType(LimitType.LIMITED)
+            .images(List.of(new ImageRequest("path", "url"), new ImageRequest("path", "url")))
             .build();
     }
 
@@ -109,6 +111,7 @@ public class ItemServiceFixtures {
             .quantity(1)
             .itemBio("소개글입니다~")
             .limitType(LimitType.LIMITED)
+            .images(List.of(new ImageRequest("path", "url"), new ImageRequest("path", "url")))
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
             .build();
     }

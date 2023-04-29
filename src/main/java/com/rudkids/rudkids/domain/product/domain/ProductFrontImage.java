@@ -25,4 +25,8 @@ public class ProductFrontImage {
     public static ProductFrontImage create(String path, String url) {
         return new ProductFrontImage(path, url);
     }
+
+    public boolean hasImage() {
+        return !path.isBlank() && !url.isBlank();
+    }
 }

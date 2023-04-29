@@ -30,6 +30,14 @@ public class ProductInfo {
     }
 
     @Builder
+    public record Search(
+        UUID productId,
+        String title,
+        String frontImageUrl
+    ) {
+    }
+
+    @Builder
     public record ProductItem(
         UUID itemId,
         String name,

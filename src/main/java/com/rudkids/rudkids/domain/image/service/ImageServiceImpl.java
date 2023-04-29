@@ -3,43 +3,53 @@ package com.rudkids.rudkids.domain.image.service;
 import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.image.S3ImageUploader;
 import com.rudkids.rudkids.domain.item.domain.Item;
-import com.rudkids.rudkids.domain.item.domain.ItemImage;
-import com.rudkids.rudkids.domain.product.domain.ProductBackImage;
-import com.rudkids.rudkids.domain.product.domain.ProductFrontImage;
+import com.rudkids.rudkids.domain.product.domain.Product;
+import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
+    private final UserReader userReader;
     private final S3ImageUploader s3ImageUploader;
 
     @Override
-    public ImageInfo.Product upload(MultipartFile frontImage, MultipartFile backImage) {
+    public ImageInfo.Product upload(UUID userId, MultipartFile frontImage, MultipartFile backImage) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
         var fImageInfo = s3ImageUploader.upload(frontImage);
         var bImageInfo = s3ImageUploader.upload(backImage);
-
-        ProductFrontImage fImage = ProductFrontImage.create(fImageInfo.path(), fImageInfo.url());
-        ProductBackImage bImage = ProductBackImage.create(bImageInfo.path(), bImageInfo.url());
-        return new ImageInfo.Product(fImage, bImage);
+        return new ImageInfo.Product(fImageInfo, bImageInfo);
     }
 
     @Override
-    public void upload(List<MultipartFile> images, Item item) {
-        images.forEach(image -> {
-            var imageInfo = s3ImageUploader.upload(image);
-            ItemImage itemImage = ItemImage.create(item, imageInfo.path(), imageInfo.url());
-            item.addImage(itemImage);
-        });
+    public List<ImageInfo.Main> upload(UUID userId, List<MultipartFile> images) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
+
+        return images.stream()
+            .map(s3ImageUploader::upload)
+            .toList();
     }
 
     @Override
     public void delete(Item item) {
         if(!item.hasImages()) {
             item.getImagePaths().forEach(s3ImageUploader::delete);
+        }
+    }
+
+    @Override
+    public void delete(Product product) {
+        if(!product.hasImage()) {
+            s3ImageUploader.delete(product.getFrontImagePath());
+            s3ImageUploader.delete(product.getBackImagePath());
         }
     }
 }

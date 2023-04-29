@@ -1,9 +1,7 @@
 package com.rudkids.rudkids.domain.magazine.service;
 
 import com.rudkids.rudkids.domain.magazine.*;
-import com.rudkids.rudkids.domain.magazine.domain.Content;
 import com.rudkids.rudkids.domain.magazine.domain.Magazine;
-import com.rudkids.rudkids.domain.magazine.domain.Title;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,15 +18,14 @@ public class MagazineServiceImpl implements MagazineService {
     private final MagazineStore magazineStore;
     private final MagazineReader magazineReader;
     private final MagazineMapper magazineMapper;
+    private final MagazineFactory magazineFactory;
 
     @Override
     public void create(UUID userId, MagazineCommand.Create command) {
         var user = userReader.getUser(userId);
         user.validateAdminRole();
-        Title title = Title.create(command.title());
-        Content content = Content.create(command.content());
-        Magazine magazine = Magazine.create(user, title, content);
-        magazineStore.store(magazine);
+        var initMagazine = magazineFactory.create(command, user);
+        magazineStore.store(initMagazine);
     }
 
     @Override
@@ -40,24 +37,18 @@ public class MagazineServiceImpl implements MagazineService {
 
     @Override
     public MagazineInfo.Detail find(UUID magazineId) {
-        Magazine magazine = magazineReader.getMagazine(magazineId);
+        var magazine = magazineReader.getMagazine(magazineId);
         return magazineMapper.toDetail(magazine);
     }
 
     @Override
-    public void update(UUID userId, UUID magazineId, MagazineCommand.Update command) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public void update(UUID magazineId, MagazineCommand.Update command) {
         Magazine magazine = magazineReader.getMagazine(magazineId);
-        Title title = Title.create(command.title());
-        Content content = Content.create(command.content());
-        magazine.update(title, content);
+        magazineFactory.update(command, magazine);
     }
 
     @Override
-    public void delete(UUID userId, UUID magazineId) {
-        var user = userReader.getUser(userId);
-        user.validateAdminRole();
+    public void delete(UUID magazineId) {
         Magazine magazine = magazineReader.getMagazine(magazineId);
         magazineStore.delete(magazine);
     }

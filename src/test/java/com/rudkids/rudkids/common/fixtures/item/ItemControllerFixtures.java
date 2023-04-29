@@ -38,6 +38,7 @@ public class ItemControllerFixtures {
             .price(아이템_가격)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
+            .images(List.of(new ImageRequest("path", "url"), new ImageRequest("path", "url")))
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
             .build();
     }

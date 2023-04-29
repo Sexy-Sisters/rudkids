@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -37,7 +36,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 어드민_권한이_아닌_사용자가_유저를_검색할_경우_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(adminService)
-            .searchUser(any(), any());
+            .searchUser(any());
 
         mockMvc.perform(get(ADMIN_USER_DEFAULT_URL + "?email={email}", USER_EMAIL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -62,7 +61,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_유저를_검색할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new NotFoundUserException())
             .when(adminService)
-            .searchUser(any(), any());
+            .searchUser(any());
 
         mockMvc.perform(get(ADMIN_USER_DEFAULT_URL + "?email={email}", USER_EMAIL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -87,7 +86,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 어드민_권한이_아닌_사용자가_유저의_권한을_변경할_경우_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(adminService)
-            .changeUserRole(any(), any(), any());
+            .changeUserRole(any(), any());
 
         mockMvc.perform(patch(ADMIN_USER_DEFAULT_URL + "/{id}", USER_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -120,7 +119,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_유저의_권한을_변경할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new NotFoundUserException())
             .when(adminService)
-            .changeUserRole(any(), any(), any());
+            .changeUserRole(any(), any());
 
         mockMvc.perform(patch(ADMIN_USER_DEFAULT_URL + "/{id}", USER_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -148,13 +147,12 @@ public class AdminControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[프로덕트-생성-403-에러]")
     @Test
     void 관리자가_아닌_유저가_프로덕트를_등록하면_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(productService)
-            .create(any(), any());
+            .create(any());
 
         mockMvc.perform(post(ADMIN_PRODUCT_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -204,7 +202,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 관리자가_아닌_유저가_프로덕트의_상태를_변경_시_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(productService)
-            .changeStatus(any(), any(), any());
+            .changeStatus(any(), any());
 
         mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -238,7 +236,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_프로덕트의_상태를_변경_시_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
             .when(productService)
-            .changeStatus(any(), any(), any());
+            .changeStatus(any(), any());
 
         mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -272,7 +270,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 관리자가_아닌_유저가_프로덕트를_수정_시_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(productService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -331,7 +329,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_프로덕트를_수정_시_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
             .when(productService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -390,7 +388,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 관리자가_아닌_유저가_프로덕트를_삭제_시_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(productService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -416,7 +414,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_프로덕트를_삭제_시_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
             .when(productService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -475,7 +473,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 어드민_권한이_아닌_사용자가_매거진을_수정할_경우_상태코드_403를_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(magazineService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -512,7 +510,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_매거진을_수정할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new MagazineNotFoundException())
             .when(magazineService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -549,7 +547,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 어드민_권한이_아닌_사용자가_매거진을_삭제할_경우_상태코드_403를_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(magazineService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -574,7 +572,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_매거진을_삭제할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new MagazineNotFoundException())
             .when(magazineService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))

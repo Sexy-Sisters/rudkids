@@ -30,7 +30,7 @@ public class AdminControllerTest extends ControllerTest {
     @DisplayName("[유저-검색]")
     @Test
     void 유저를_검색한다() throws Exception {
-        given(adminService.searchUser(any(), any()))
+        given(adminService.searchUser(any()))
             .willReturn(유저_정보_INFO_응답());
 
         mockMvc.perform(get(ADMIN_USER_DEFAULT_URL + "?email={email}", USER_EMAIL)
@@ -81,7 +81,7 @@ public class AdminControllerTest extends ControllerTest {
     void 유저_권한을_변경한다() throws Exception {
         willDoNothing()
             .given(adminService)
-            .changeUserRole(any(), any(), any());
+            .changeUserRole(any(), any());
 
         mockMvc.perform(patch(ADMIN_USER_DEFAULT_URL + "/{id}", USER_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -109,13 +109,12 @@ public class AdminControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[프로덕트-생성]")
     @Test
     void 프로덕트를_생성한다() throws Exception {
         willDoNothing()
             .given(productService)
-            .create(any(), any());
+            .create(any());
 
         mockMvc.perform(post(ADMIN_PRODUCT_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -165,7 +164,7 @@ public class AdminControllerTest extends ControllerTest {
     void 프로덕트_상태를_변경한다() throws Exception {
         willDoNothing()
             .given(productService)
-            .changeStatus(any(), any(), any());
+            .changeStatus(any(), any());
 
         mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -199,7 +198,7 @@ public class AdminControllerTest extends ControllerTest {
     void updateTest() throws Exception {
         willDoNothing()
             .given(productService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -254,7 +253,7 @@ public class AdminControllerTest extends ControllerTest {
     void deleteTest() throws Exception {
         willDoNothing()
             .given(productService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -313,7 +312,7 @@ public class AdminControllerTest extends ControllerTest {
     void 매거진을_수정한다() throws Exception {
         willDoNothing()
             .given(magazineService)
-            .update(any(), any(), any());
+            .update(any(), any());
 
         mockMvc.perform(put(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -350,7 +349,7 @@ public class AdminControllerTest extends ControllerTest {
     void 매거진을_삭제한다() throws Exception {
         willDoNothing()
             .given(magazineService)
-            .delete(any(), any());
+            .delete(any());
 
         mockMvc.perform(delete(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))

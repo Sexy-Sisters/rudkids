@@ -105,7 +105,7 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .content("새로운 내용")
                 .build();
 
-        assertThatThrownBy(() -> magazineService.update(admin.getId(), magazine.getId(), updateCommand))
+        assertThatThrownBy(() -> magazineService.update(magazine.getId(), updateCommand))
                 .isInstanceOf(InvalidMagazineTitleException.class);
     }
 
@@ -125,106 +125,8 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .content(invalidContent)
                 .build();
 
-        assertThatThrownBy(() -> magazineService.update(admin.getId(), magazine.getId(), updateCommand))
+        assertThatThrownBy(() -> magazineService.update(magazine.getId(), updateCommand))
                 .isInstanceOf(InvalidMagazineContentException.class);
-    }
-
-    @DisplayName("[매거진-수정-NotAdminRoleException]")
-    @Test
-    void 일반사용자가_매거진_글을_수정할_경우_예외가_발생한다() {
-        //given
-        User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        userRepository.save(user);
-
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(user, title, content);
-        magazineRepository.save(magazine);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.update(user.getId(), magazine.getId(), MAGAZINE_수정_요청))
-                .isInstanceOf(NotAdminRoleException.class);
-    }
-
-    @DisplayName("[매거진-수정-NotAdminRoleException]")
-    @Test
-    void 파트너가_매거진_글을_수정할_경우_예외가_발생한다() {
-        //given
-        User partner = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        partner.changeAuthorityPartner();
-        userRepository.save(partner);
-
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(partner, title, content);
-        magazineRepository.save(magazine);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.update(partner.getId(), magazine.getId(), MAGAZINE_수정_요청))
-                .isInstanceOf(NotAdminRoleException.class);
-    }
-
-    @DisplayName("[매거진-삭제-NotAdminRoleException]")
-    @Test
-    void 일반사용자가_매거진_글을_삭제할_경우_예외가_발생한다() {
-        //given
-        User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        userRepository.save(user);
-
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(user, title, content);
-        magazineRepository.save(magazine);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.delete(user.getId(), magazine.getId()))
-                .isInstanceOf(NotAdminRoleException.class);
-    }
-
-    @DisplayName("[매거진-삭제-NotAdminRoleException]")
-    @Test
-    void 파트너가_매거진_글을_삭제할_경우_예외가_발생한다() {
-        //given
-        User partner = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        partner.changeAuthorityPartner();
-        userRepository.save(partner);
-
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(partner, title, content);
-        magazineRepository.save(magazine);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.delete(partner.getId(), magazine.getId()))
-                .isInstanceOf(NotAdminRoleException.class);
     }
 
     @DisplayName("[매거진-상세조회-MagazineNotFoundException]")
