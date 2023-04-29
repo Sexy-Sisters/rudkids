@@ -119,11 +119,7 @@ public class GoogleOAuthClient implements OAuthClientManager {
 
     private ResponseEntity<String> fetchPerson(HttpEntity<MultiValueMap<String, String>> request) {
         try {
-            return restTemplate.exchange(
-                properties.getPeopleUri(),
-                HttpMethod.GET,
-                request,
-                String.class);
+            return restTemplate.exchange(properties.getPeopleUri(), HttpMethod.GET, request, String.class);
         } catch (final RestClientException e) {
             log.error(e.getMessage());
             throw new OAuthException();
