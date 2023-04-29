@@ -9,4 +9,5 @@ public interface AuthService {
     AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser);
     AuthResponse.AccessToken generateRenewalAccessToken(AuthCommand.RenewalAccessToken tokenRenewalRequest);
     UUID extractUserId(String accessToken);
+    void validateAdminAuthority(UUID userId);
 }

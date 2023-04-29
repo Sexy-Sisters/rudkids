@@ -25,7 +25,7 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
 
         // When
-        productService.create(command, user.getId());
+        productService.create(command);
 
         // Then
         Product findProduct = productReader.getProduct(command.title());
@@ -82,7 +82,7 @@ class ProductServiceTest extends ProductServiceFixtures {
         var userId = user.getId();
 
         // When
-        productService.changeStatus(status, productId, userId);
+        productService.changeStatus(status, productId);
 
         // Then
         assertThat(product.getProductStatus()).isEqualTo(ProductStatus.OPEN);
@@ -98,7 +98,7 @@ class ProductServiceTest extends ProductServiceFixtures {
         var userId = user.getId();
 
         // When
-        productService.changeStatus(status, productId, userId);
+        productService.changeStatus(status, productId);
 
         // Then
         assertThat(product.getProductStatus()).isEqualTo(ProductStatus.CLOSED);

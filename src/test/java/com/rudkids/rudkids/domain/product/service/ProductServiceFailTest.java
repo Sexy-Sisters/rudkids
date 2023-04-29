@@ -18,24 +18,9 @@ public class ProductServiceFailTest extends ProductServiceTest {
         // Given
         var status = ProductStatus.OPEN;
         var productId = UUID.randomUUID();
-        var userId = user.getId();
 
         // When & Then
-        assertThatThrownBy(() -> productService.changeStatus(status, productId, userId))
+        assertThatThrownBy(() -> productService.changeStatus(status, productId))
             .isInstanceOf(ProductNotFoundException.class);
-    }
-
-    @DisplayName("[프로덕트-상태변경-NotAdminRoleException]")
-    @Test
-    void 관리자가_아닌_유저가_상태_변경시_예외가_발생한다() {
-        // Given
-        var status = ProductStatus.OPEN;
-        var productId = UUID.randomUUID();
-        var userId = user.getId();
-        user.changeAuthorityUser();
-
-        // When & Then
-        assertThatThrownBy(() -> productService.changeStatus(status, productId, userId))
-            .isInstanceOf(NotAdminRoleException.class);
     }
 }

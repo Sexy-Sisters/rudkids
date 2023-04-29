@@ -10,6 +10,6 @@ public interface MagazineService {
     void create(UUID userId, MagazineCommand.Create command);
     List<MagazineInfo.Main> findAll();
     MagazineInfo.Detail find(UUID magazineId);
-    void update(UUID userId, UUID magazineId, MagazineCommand.Update command);
-    void delete(UUID userId, UUID magazineId);
+    void update(UUID magazineId, MagazineCommand.Update command);
+    void delete(UUID magazineId);
 }

@@ -30,62 +30,62 @@ public class AdminController {
 
     @GetMapping("/user")
     public ResponseEntity searchUser(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @AuthenticationAdminAuthority
         @RequestParam String email
     ) {
-        var response = adminService.searchUser(loginUser.id(), email);
+        var response = adminService.searchUser(email);
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/user/{id}")
     public void changeUserRole(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @AuthenticationAdminAuthority
         @PathVariable("id") UUID userId,
         @RequestBody AdminRequest.ChangeUserRole request
-        ) {
+    ) {
         var command = adminDtoMapper.toCommand(request);
-        adminService.changeUserRole(loginUser.id(), userId, command);
+        adminService.changeUserRole(userId, command);
     }
 
     @PostMapping("/product")
     public void create(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody ProductRequest.Create request
+        @AuthenticationAdminAuthority
+        ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);
-        productService.create(command, loginUser.id());
+        productService.create(command);
     }
 
     @PatchMapping("/product/{id}")
     public void changeProductStatus(
+        @AuthenticationAdminAuthority
         @PathVariable(name = "id") UUID productId,
-        @RequestBody ProductRequest.ChangeStatus request,
-        @AuthenticationPrincipal AuthUser.Login loginUser
+        @RequestBody ProductRequest.ChangeStatus request
     ) {
-        productService.changeStatus(request.productStatus(), productId, loginUser.id());
+        productService.changeStatus(request.productStatus(), productId);
     }
 
     @PutMapping("/product/{id}")
     public void updateProduct(
+        @AuthenticationAdminAuthority
         @PathVariable(name = "id") UUID productId,
-        @RequestBody ProductRequest.Update request,
-        @AuthenticationPrincipal AuthUser.Login loginUser
+        @RequestBody ProductRequest.Update request
     ) {
         var command = productDtoMapper.toCommand(request);
-        productService.update(command, productId, loginUser.id());
+        productService.update(command, productId);
     }
 
     @DeleteMapping("/product/{id}")
     public void deleteProduct(
-        @PathVariable(name = "id") UUID productId,
-        @AuthenticationPrincipal AuthUser.Login loginUser
+        @AuthenticationAdminAuthority
+        @PathVariable(name = "id") UUID productId
     ) {
-        productService.delete(productId, loginUser.id());
+        productService.delete(productId);
     }
 
     @PostMapping("/magazine")
     public void createMagazine(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @RequestBody MagazineRequest.Create request
     ) {
         var command = magazineDtoMapper.to(request);
@@ -94,19 +94,19 @@ public class AdminController {
 
     @PutMapping("/magazine/{id}")
     public void updateMagazine(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable UUID id,
+        @AuthenticationAdminAuthority
+        @PathVariable("id") UUID magazineId,
         @RequestBody MagazineRequest.Update request
     ) {
         var command = magazineDtoMapper.to(request);
-        magazineService.update(loginUser.id(), id, command);
+        magazineService.update(magazineId, command);
     }
 
     @DeleteMapping("/magazine/{id}")
     public void deleteMagazine(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable UUID id
+        @AuthenticationAdminAuthority
+        @PathVariable("id") UUID magazineId
     ) {
-        magazineService.delete(loginUser.id(), id);
+        magazineService.delete(magazineId);
     }
 }

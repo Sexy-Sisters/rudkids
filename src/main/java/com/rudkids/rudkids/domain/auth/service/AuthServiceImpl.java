@@ -2,10 +2,9 @@ package com.rudkids.rudkids.domain.auth.service;
 
 import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.auth.TokenCreator;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
+import com.rudkids.rudkids.domain.user.UserReader;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
-import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final UserRepository userRepository;
+    private final UserReader userReader;
     private final TokenCreator tokenCreator;
 
     @Transactional
@@ -29,20 +28,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private User findUser(AuthCommand.OAuthUser oAuthUser) {
-        return userRepository.findByEmail(oAuthUser.email())
-                .orElseGet(() -> saveUser(oAuthUser));
-    }
-
-    private User saveUser(AuthCommand.OAuthUser oAuthUser) {
-        var user = User.builder()
-                .email(oAuthUser.email())
-                .name(oAuthUser.name())
-                .gender(oAuthUser.gender())
-                .age(oAuthUser.age())
-                .phoneNumber(oAuthUser.phoneNumber())
-                .socialType(SocialType.GOOGLE)
-                .build();
-        return userRepository.save(user);
+        return userReader.getUser(oAuthUser);
     }
 
     @Override
@@ -55,9 +41,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UUID extractUserId(String accessToken) {
         UUID userId = tokenCreator.extractPayload(accessToken);
-        if(!userRepository.existsById(userId)) {
+        if(!userReader.existsUser(userId)) {
             throw new NotFoundUserException();
         }
         return userId;
+    }
+
+    @Override
+    public void validateAdminAuthority(UUID userId) {
+        var user = userReader.getUser(userId);
+        user.validateAdminRole();
     }
 }

@@ -9,16 +9,16 @@ import java.util.UUID;
 
 public interface ProductService {
 
-    void create(ProductCommand.CreateRequest command, UUID userId);
+    void create(ProductCommand.CreateRequest command);
 
     List<ProductInfo.Main> findAll();
 
     ProductInfo.Detail find(UUID productId);
     List<ProductInfo.Search> search(String title);
 
-    void changeStatus(ProductStatus productStatus, UUID productId, UUID userId);
+    void changeStatus(ProductStatus productStatus, UUID productId);
 
-    void update(ProductCommand.UpdateRequest command, UUID productId, UUID userId);
+    void update(ProductCommand.UpdateRequest command, UUID productId);
 
-    void delete(UUID productId, UUID userId);
+    void delete(UUID productId);
 }

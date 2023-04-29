@@ -45,7 +45,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         magazineRepository.save(magazine);
 
         //when
-        magazineService.update(admin.getId(), magazine.getId(), MAGAZINE_수정_요청);
+        magazineService.update(magazine.getId(), MAGAZINE_수정_요청);
 
         //then
         Magazine actual = magazineRepository.findById(magazine.getId())
@@ -55,39 +55,6 @@ class MagazineServiceTest extends MagazineServiceFixtures {
             assertThat(actual.getTitle()).isEqualTo("새로운 제목");
             assertThat(actual.getContent()).isEqualTo("새로운 내용");
             admin.validateAdminRole();
-        });
-    }
-
-    @DisplayName("[매거진-수정-권한]")
-    @Test
-    void 다른_관리자도_매거진을_수정할_수_있다() {
-        //given
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
-        magazineRepository.save(magazine);
-
-        //when
-        User anotherAdmin = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        anotherAdmin.changeAuthorityAdmin();
-        userRepository.save(anotherAdmin);
-        magazineService.update(anotherAdmin.getId(), magazine.getId(), MAGAZINE_수정_요청);
-
-        //then
-        Magazine actual = magazineRepository.findById(magazine.getId())
-            .orElseThrow(MagazineNotFoundException::new);
-
-        assertAll(() -> {
-            assertThat(actual.getTitle()).isEqualTo("새로운 제목");
-            assertThat(actual.getContent()).isEqualTo("새로운 내용");
-            assertThat(actual.getUser()).isNotEqualTo(anotherAdmin);
         });
     }
 
@@ -101,44 +68,13 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         magazineRepository.save(magazine);
 
         //when
-        magazineService.delete(admin.getId(), magazine.getId());
+        magazineService.delete(magazine.getId());
 
         //then
         boolean actual = magazineRepository.findById(magazine.getId()).isPresent();
 
         assertThat(actual).isFalse();
         admin.validateAdminRole();
-    }
-
-    @DisplayName("[매거진-삭제-권한]")
-    @Test
-    void 다른_관리자도_매거진을_삭제할_수_있다() {
-        //given
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
-        magazineRepository.save(magazine);
-
-        //when
-        User anotherAdmin = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
-        anotherAdmin.changeAuthorityAdmin();
-        userRepository.save(anotherAdmin);
-        magazineService.delete(anotherAdmin.getId(), magazine.getId());
-
-        //then
-        boolean actual = magazineRepository.findById(magazine.getId()).isPresent();
-
-        assertAll(() -> {
-            assertThat(actual).isFalse();
-            assertThat(magazine.getUser()).isNotEqualTo(anotherAdmin);
-        });
     }
 
     @DisplayName("[매거진-전체조회]")
