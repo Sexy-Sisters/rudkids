@@ -61,7 +61,7 @@ class CartServiceTest extends CartServiceFixtures {
         CartItem actual = cartItemRepository.findById(cartItemId)
                         .orElseThrow(CartItemNotFoundException::new);
 
-        assertThat(actual.getCartItemPrice()).isEqualTo(8980);
+        assertThat(actual.calculateTotalItemPrice()).isEqualTo(8980);
     }
 
     @DisplayName("[장바구니-새로운아이템추가]")

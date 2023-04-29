@@ -45,16 +45,15 @@ public class CartItem {
         this.price = price;
     }
 
-    public void addCartItemOptionGroup(CartItemOptionGroup cartItemOptionGroup) {
-        cartItemOptionGroups.add(cartItemOptionGroup);
+    public int calculateTotalItemPrice() {
+        int optionPrice = cartItemOptionGroups.stream()
+            .mapToInt(CartItemOptionGroup::getOptionPrice)
+            .sum();
+        return (price + optionPrice) * amount;
     }
 
-    public int getCartItemPrice() {
-        int optionPrice = cartItemOptionGroups.stream()
-                .mapToInt(CartItemOptionGroup::getOptionPrice)
-                .sum();
-
-        return (price + optionPrice) * amount;
+    public void addCartItemOptionGroup(CartItemOptionGroup cartItemOptionGroup) {
+        cartItemOptionGroups.add(cartItemOptionGroup);
     }
 
     public void updateAmount(int amount) {

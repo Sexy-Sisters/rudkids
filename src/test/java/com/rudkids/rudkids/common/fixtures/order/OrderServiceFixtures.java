@@ -1,10 +1,14 @@
 package com.rudkids.rudkids.common.fixtures.order;
 
 import com.rudkids.rudkids.common.ServiceTest;
+import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.CartReader;
+import com.rudkids.rudkids.domain.cart.domain.Cart;
+import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
+import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.order.OrderCommand;
-import com.rudkids.rudkids.domain.order.OrderItemSeriesFactory;
 import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
@@ -12,6 +16,7 @@ import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +35,13 @@ public class OrderServiceFixtures {
     protected OrderReader orderReader;
 
     @Autowired
-    protected OrderItemSeriesFactory orderItemSeriesFactory;
+    protected CartReader cartReader;
+
+    @Autowired
+    protected CartRepository cartRepository;
+
+    @Autowired
+    protected CartService cartService;
 
     @Autowired
     private UserRepository userRepository;
@@ -39,6 +50,7 @@ public class OrderServiceFixtures {
     private ItemStore itemStore;
 
     protected static User user;
+    protected static Cart cart;
     protected static Item item;
 
     protected static DeliveryFragment deliveryFragment = DeliveryFragment.builder()
@@ -60,37 +72,23 @@ public class OrderServiceFixtures {
             .receiverZipcode("494999")
             .etcMessage("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.")
             .payMethod(PayMethod.TOSS)
-            .orderItemList(List.of(
-                ORDER_ITEM_주문_요청()
-            ))
             .build();
     }
 
-    protected static OrderCommand.RegisterOrderItem ORDER_ITEM_주문_요청() {
-        return OrderCommand.RegisterOrderItem.builder()
+    protected static CartCommand.AddCartItem CART_아이템_요청() {
+        return CartCommand.AddCartItem.builder()
             .itemId(item.getId())
-            .itemName(item.getName())
-            .itemPrice(item.getPrice())
-            .orderCount(5)
-            .orderItemOptionGroupList(List.of(
-                ORDER_ITEM_OPTION_GROUP_주문_요청()
+            .optionGroups(List.of(
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("사이즈")
+                    .option(new CartCommand.AddCartItemOption("M", 1000))
+                    .build(),
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("색깔")
+                    .option(new CartCommand.AddCartItemOption("파랑", 500))
+                    .build()
             ))
-            .build();
-    }
-
-    protected static OrderCommand.RegisterOrderItemOptionGroup ORDER_ITEM_OPTION_GROUP_주문_요청() {
-        return OrderCommand.RegisterOrderItemOptionGroup.builder()
-            .ordering(1)
-            .itemOptionGroupName("약효지속시간")
-            .orderItemOption(ORDER_ITEM_OPTION_주문_요청())
-            .build();
-    }
-
-    protected static OrderCommand.RegisterOrderItemOption ORDER_ITEM_OPTION_주문_요청() {
-        return OrderCommand.RegisterOrderItemOption.builder()
-            .ordering(1)
-            .itemOptionName("5분")
-            .itemOptionPrice(500)
+            .amount(2)
             .build();
     }
 
@@ -114,5 +112,10 @@ public class OrderServiceFixtures {
             .limitType(LimitType.LIMITED)
             .build();
         itemStore.store(item);
+
+        cartService.addCartItem(user.getId(), CART_아이템_요청());
+
+        cart = cartRepository.findByUserId(user.getId())
+            .orElseThrow(CartNotFoundException::new);
     }
 }

@@ -7,11 +7,10 @@ import org.springframework.http.MediaType;
 
 import java.util.UUID;
 
-import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.ORDER_DEFAULT_URL;
-import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.ORDER_주문_요청;
+import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
