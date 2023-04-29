@@ -6,7 +6,7 @@ import com.rudkids.rudkids.domain.user.domain.User;
 import java.util.UUID;
 
 public interface CartReader {
-    Cart getActiveCartOrCreate(User user);
-    Cart getCart(User user);
     Cart getCart(UUID id);
+    Cart getActiveCart(User user);
+    Cart getActiveCartOrCreate(User user);
 }

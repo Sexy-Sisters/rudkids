@@ -18,24 +18,25 @@ public class CartReaderImpl implements CartReader {
     private final CartStore cartStore;
 
     @Override
+    public Cart getCart(UUID id) {
+        return cartRepository.findById(id)
+                .orElseThrow(CartNotFoundException::new);
+    }
+
+    @Override
+    public Cart getActiveCart(User user) {
+        return cartRepository.findByUserIdAndCartStatus(user.getId(), CartStatus.ACTIVE)
+            .orElseThrow(CartNotFoundException::new);
+    }
+
+    @Override
     public Cart getActiveCartOrCreate(User user) {
         return cartRepository.findByUserIdAndCartStatus(user.getId(), CartStatus.ACTIVE)
             .orElseGet(() -> createCart(user));
     }
 
-    @Override
-    public Cart getCart(User user) {
-        return cartRepository.findByUser(user);
-    }
-
     private Cart createCart(User user) {
         var cart = Cart.create(user);
         return cartStore.store(cart);
-    }
-
-    @Override
-    public Cart getCart(UUID id) {
-        return cartRepository.findById(id)
-                .orElseThrow(CartNotFoundException::new);
     }
 }

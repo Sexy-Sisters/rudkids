@@ -115,7 +115,6 @@ public class OrderServiceFixtures {
 
         cartService.addCartItem(user.getId(), CART_아이템_요청());
 
-        cart = cartRepository.findByUserId(user.getId())
-            .orElseThrow(CartNotFoundException::new);
+        cart = cartReader.getActiveCart(user);
     }
 }

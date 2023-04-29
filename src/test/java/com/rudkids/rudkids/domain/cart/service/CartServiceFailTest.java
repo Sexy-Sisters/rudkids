@@ -41,8 +41,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         User anotherUser = User.builder()
@@ -72,8 +71,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         UUID invalidCartItemId = UUID.randomUUID();
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
@@ -94,8 +92,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         UUID invalidCartItemId = UUID.randomUUID();
@@ -117,8 +114,7 @@ public class CartServiceFailTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         User anotherUser = User.builder()

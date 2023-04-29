@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public UUID create(OrderCommand.Register command, UUID userId) {
         var user = userReader.getUser(userId);
-        var cart = cartReader.getCart(user);
+        var cart = cartReader.getActiveCart(user);
         var initOrder = command.toEntity(cart);
         var order = orderStore.store(initOrder);
         order.addUser(user);

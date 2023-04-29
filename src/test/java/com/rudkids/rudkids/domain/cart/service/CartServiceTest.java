@@ -31,8 +31,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         assertThat(carts).isEmpty();
-        cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        cartReader.getActiveCart(user);
     }
 
     @DisplayName("[장바구니-아이템추가]")
@@ -42,8 +41,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(2);
@@ -92,8 +90,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(6);
@@ -125,8 +122,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(6);
@@ -162,8 +158,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(6);
@@ -195,8 +190,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(6);
@@ -214,8 +208,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart actual = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(actual.getCartItemCount()).isEqualTo(4);
@@ -245,8 +238,7 @@ class CartServiceTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
@@ -260,8 +252,8 @@ class CartServiceTest extends CartServiceFixtures {
         CartItem findCartItem = cartItemRepository.findByCartAndItem(cart, item)
                         .orElseThrow(CartItemNotFoundException::new);
 
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                        .orElseThrow(CartNotFoundException::new);
+        Cart findCart = cartReader.getActiveCart(user);
+
         CartItem actual = findCart.getCartItems().get(0);
 
         assertAll(() -> {
@@ -276,8 +268,7 @@ class CartServiceTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
@@ -288,8 +279,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
 
         //then
-        Cart findCart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart findCart = cartReader.getActiveCart(user);
 
         assertThat(findCart.getCartItemCount()).isEqualTo(7);
     }
@@ -300,8 +290,7 @@ class CartServiceTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartRepository.findByUserId(user.getId())
-                .orElseThrow(CartNotFoundException::new);
+        Cart cart = cartReader.getActiveCart(user);
 
         //when
         List<UUID> cartItemIds = List.of(cartItemId);
@@ -314,8 +303,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         boolean hasCartItem = cartItemRepository.findById(cartItemId).isPresent();
-        Cart actual = cartRepository.findByUserId(user.getId())
-                        .orElseThrow(CartNotFoundException::new);
+        Cart actual = cartReader.getActiveCart(user);
         List<CartItemOptionGroup> hasCartItemOptionGroup = cartItemOptionGroupRepository.findAll();
 
         assertAll(() -> {
