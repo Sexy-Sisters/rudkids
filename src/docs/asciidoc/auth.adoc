@@ -1,13 +1,21 @@
 [[Auth-API]]
 == Auth API
 
-[[Auth-로그인창-링크-생성]]
-=== Auth 로그인창 링크 생성
-operation::auth/generateLink[snippets='http-request,path-parameters,query-parameters,http-response,response-fields']
+[[Auth-구글-로그인창-링크-생성]]
+=== Auth 구글 로그인창 링크 생성
+operation::auth/generateLink/google[snippets='http-request,path-parameters,query-parameters,http-response,response-fields']
 
-[[Auth-로그인-요청]]
-=== Auth 로그인 요청
-operation::auth/generateAccessAndRefreshToken[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
+[[Auth-카카오-로그인창-링크-생성]]
+=== Auth 카카오 로그인창 링크 생성
+operation::auth/generateLink/kakao[snippets='http-request,path-parameters,query-parameters,http-response,response-fields']
+
+[[Auth-구글-로그인-요청]]
+=== Auth 구글 로그인 요청
+operation::auth/generateAccessAndRefreshToken/google[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
+
+[[Auth-카카오-로그인-요청]]
+=== Auth 카카오 로그인 요청
+operation::auth/generateAccessAndRefreshToken/kakao[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
 
 [[Auth-로그인-요청-OAuth-통신-에러]]
 === Auth 로그인 요청 (OAuth 통신 에러)
