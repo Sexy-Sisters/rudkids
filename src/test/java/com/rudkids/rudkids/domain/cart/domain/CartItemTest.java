@@ -41,7 +41,8 @@ class CartItemTest {
                 .build();
 
         //then
-        assertThat(cartItem.getCartItemPrice()).isEqualTo(8000);
+        assertThat(cartItem.calculateTotalItemPrice())
+            .isEqualTo(8000);
     }
 
     @DisplayName("장바구니아이템 수량을 변경한다.")

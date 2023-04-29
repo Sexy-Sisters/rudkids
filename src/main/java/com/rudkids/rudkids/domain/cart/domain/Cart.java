@@ -1,8 +1,11 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
+import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_cart")
 public class Cart {
 
@@ -23,14 +27,17 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cart")
+    private Order order;
+
     @Column(name = "cart_item_count")
     private int cartItemCount;
 
+    @Column(name = "cart_status")
+    private CartStatus cartStatus = CartStatus.ACTIVE;
+
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final List<CartItem> cartItems = new ArrayList<>();
-
-    protected Cart() {
-    }
 
     private Cart(User user) {
         this.user = user;
@@ -56,8 +63,16 @@ public class Cart {
         return cartItemCount;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
     public List<CartItem> getCartItems() {
         return cartItems;
+    }
+
+    public void deactivate() {
+        this.cartStatus = CartStatus.INACTIVE;
     }
 
     public void validateHasSameUser(User user) {
@@ -66,9 +81,9 @@ public class Cart {
         }
     }
 
-    public int getTotalCartItemPrice() {
+    public int calculateTotalPrice() {
         return cartItems.stream()
-                .mapToInt(CartItem::getCartItemPrice)
+                .mapToInt(CartItem::calculateTotalItemPrice)
                 .sum();
     }
 

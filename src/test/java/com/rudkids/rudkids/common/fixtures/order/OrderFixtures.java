@@ -4,7 +4,6 @@ import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.order.OrderCommand;
-import com.rudkids.rudkids.domain.order.OrderItemSeriesFactory;
 import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
@@ -29,9 +28,6 @@ public class OrderFixtures {
     protected OrderReader orderReader;
 
     @Autowired
-    protected OrderItemSeriesFactory orderItemSeriesFactory;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -49,39 +45,6 @@ public class OrderFixtures {
             .receiverZipcode("494999")
             .etcMessage("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.")
             .payMethod(PayMethod.TOSS)
-            .orderItemList(List.of(
-                ORDER_ITEM_주문_요청()
-            ))
-            .build();
-    }
-
-    private static OrderCommand.RegisterOrderItem ORDER_ITEM_주문_요청() {
-        return OrderCommand.RegisterOrderItem.builder()
-            .itemId(item.getId())
-            .itemName(item.getName())
-            .itemPrice(item.getPrice())
-            .orderCount(5)
-            .orderItemOptionGroupList(List.of(
-                ORDER_ITEM_OPTION_GROUP_주문_요청()
-            ))
-            .build();
-    }
-
-    private static OrderCommand.RegisterOrderItemOptionGroup ORDER_ITEM_OPTION_GROUP_주문_요청() {
-        return OrderCommand.RegisterOrderItemOptionGroup.builder()
-            .ordering(1)
-            .itemOptionGroupName("약효지속시간")
-            .orderItemOptionList(List.of(
-                ORDER_ITEM_OPTION_주문_요청()
-            ))
-            .build();
-    }
-
-    private static OrderCommand.RegisterOrderItemOption ORDER_ITEM_OPTION_주문_요청() {
-        return OrderCommand.RegisterOrderItemOption.builder()
-            .ordering(1)
-            .itemOptionName("5분")
-            .itemOptionPrice(500)
             .build();
     }
 
