@@ -5,5 +5,5 @@ import com.rudkids.rudkids.domain.order.OrderCommand;
 import java.util.UUID;
 
 public interface OrderService {
-    UUID create(OrderCommand.Register command, UUID userId);
+    UUID create(OrderCommand.CreateRequest command, UUID userId);
 }

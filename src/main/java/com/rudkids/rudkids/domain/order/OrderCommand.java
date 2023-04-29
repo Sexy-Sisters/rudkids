@@ -9,7 +9,7 @@ import lombok.Builder;
 public class OrderCommand {
 
     @Builder
-    public record Register(
+    public record CreateRequest(
         PayMethod payMethod,
         String receiverName,
         String receiverPhone,
