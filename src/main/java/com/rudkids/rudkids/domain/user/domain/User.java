@@ -41,6 +41,9 @@ public class User extends AbstractEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "profile_image")
+    private String profileImage;
+
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
@@ -54,12 +57,14 @@ public class User extends AbstractEntity {
     }
 
     @Builder
-    private User(String email, String name, String gender, int age, String phoneNumber, SocialType socialType) {
+    private User(String email, String name, String gender,
+                 int age, String phoneNumber, String profileImage, SocialType socialType) {
         this.email = email;
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.phoneNumber = phoneNumber;
+        this.profileImage = profileImage;
         this.socialType = socialType;
     }
 

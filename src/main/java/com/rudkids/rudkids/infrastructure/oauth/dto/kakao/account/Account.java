@@ -11,23 +11,31 @@ public class Account {
     @JsonProperty("kakao_account")
     private KakaoAccount kakaoAccount;
 
+    @JsonProperty("properties")
+    private Properties properties;
+
     public Account() {
     }
 
-    public Account(Long id, KakaoAccount kakaoAccount) {
+    public Account(Long id, KakaoAccount kakaoAccount, Properties properties) {
         this.id = id;
         this.kakaoAccount = kakaoAccount;
+        this.properties = properties;
     }
 
     public String getEmail() {
         return kakaoAccount.getEmail();
     }
 
-//    public String getNickname() {
-//        return kakaoAccount.getProfileNickname();
-//    }
+    public String getNickname() {
+        return properties.getNickname();
+    }
 
-//    public String getGender() {
-//        return kakaoAccount.getGender();
-//    }
+    public String getGender() {
+        return kakaoAccount.getGender().toUpperCase();
+    }
+
+    public String getProfileImage() {
+        return properties.getProfileImage();
+    }
 }

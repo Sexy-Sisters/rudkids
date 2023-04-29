@@ -6,27 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAccount {
     private String email;
-//    private Profile profile;
-//    private String gender;
+    private String gender;
 
     public KakaoAccount() {
     }
 
-    public KakaoAccount(String email) {
+    public KakaoAccount(String email, String gender) {
         this.email = email;
-//        this.profile = profile;
+        this.gender = gender;
     }
 
     public String getEmail() {
         return email;
     }
 
-//    public String getProfileNickname() {
-//        return profile.getNickname();
-//    }
-
-
-//    public String getGender() {
-//        return gender.toUpperCase();
-//    }
+    public String getGender() {
+        return gender;
+    }
 }

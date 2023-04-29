@@ -20,6 +20,7 @@ public class AuthDtoMapper {
             .gender(oAuthUser.gender())
             .age(oAuthUser.age())
             .phoneNumber(oAuthUser.phoneNumber())
+            .profileImage(oAuthUser.profileImage())
             .socialType(oAuthUser.socialType())
             .build();
     }

@@ -18,6 +18,7 @@ public class AuthUser {
         String gender,
         int age,
         String phoneNumber,
+        String profileImage,
         SocialType socialType
     ) {
     }

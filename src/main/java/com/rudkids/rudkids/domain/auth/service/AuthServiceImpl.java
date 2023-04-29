@@ -29,18 +29,19 @@ public class AuthServiceImpl implements AuthService {
 
     private User findUser(AuthCommand.OAuthUser oAuthUser) {
         return userRepository.findByEmail(oAuthUser.email())
-                .orElseGet(() -> saveUser(oAuthUser));
+            .orElseGet(() -> saveUser(oAuthUser));
     }
 
     private User saveUser(AuthCommand.OAuthUser oAuthUser) {
         var user = User.builder()
-                .email(oAuthUser.email())
-                .name(oAuthUser.name())
-                .gender(oAuthUser.gender())
-                .age(oAuthUser.age())
-                .phoneNumber(oAuthUser.phoneNumber())
-                .socialType(oAuthUser.socialType())
-                .build();
+            .email(oAuthUser.email())
+            .name(oAuthUser.name())
+            .gender(oAuthUser.gender())
+            .age(oAuthUser.age())
+            .phoneNumber(oAuthUser.phoneNumber())
+            .profileImage(oAuthUser.profileImage())
+            .socialType(oAuthUser.socialType())
+            .build();
         return userRepository.save(user);
     }
 
@@ -54,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UUID extractUserId(String accessToken) {
         UUID userId = tokenCreator.extractPayload(accessToken);
-        if(!userRepository.existsById(userId)) {
+        if (!userRepository.existsById(userId)) {
             throw new NotFoundUserException();
         }
         return userId;
