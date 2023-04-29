@@ -31,8 +31,8 @@ public class AuthenticationAdminAuthorityArgumentResolver implements HandlerMeth
                                   WebDataBinderFactory binderFactory) {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String accessToken = AuthorizationExtractor.extract(request);
-        UUID id = authService.extractUserId(accessToken);
-        authService.validateAdminAuthority(id);
-        return new AuthUser.Login(id);
+        UUID userId = authService.extractUserId(accessToken);
+        authService.validateAdminAuthority(userId);
+        return new AuthUser.Login(userId);
     }
 }
