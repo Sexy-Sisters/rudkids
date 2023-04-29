@@ -54,6 +54,7 @@ public class GoogleOAuthClient implements OAuthClientManager {
             .gender(person.getGender())
             .age(person.getAge())
             .phoneNumber(person.getPhoneNumber())
+            .profileImage(googleUserInfo.picture())
             .socialType(SocialType.GOOGLE)
             .build();
     }

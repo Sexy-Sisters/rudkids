@@ -17,7 +17,7 @@ public class Person {
         if(genders == null) {
             return null;
         }
-        return genders.get(0).getValue();
+        return genders.get(0).getValue().toUpperCase();
     }
 
     public int getAge() {
