@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.domain.cart.CartReader;
 import com.rudkids.rudkids.domain.order.OrderCommand;
+import com.rudkids.rudkids.domain.order.OrderMapper;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.user.UserReader;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderStore orderStore;
+    private final OrderMapper orderMapper;
     private final UserReader userReader;
     private final CartReader cartReader;
 
@@ -22,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     public UUID create(OrderCommand.CreateRequest command, UUID userId) {
         var user = userReader.getUser(userId);
         var cart = cartReader.getActiveCart(user);
-        var initOrder = command.toEntity(cart);
+        var initOrder = orderMapper.toEntity(command, cart);
         var order = orderStore.store(initOrder);
         order.addUser(user);
         cart.deactivate();

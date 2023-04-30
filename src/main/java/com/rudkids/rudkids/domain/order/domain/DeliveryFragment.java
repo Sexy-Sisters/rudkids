@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.security.InvalidParameterException;
-
 @Getter
 @NoArgsConstructor
 @Embeddable
@@ -35,5 +33,12 @@ public class DeliveryFragment {
         if (StringUtils.isEmpty(receiverAddress1)) throw new InvalidDeliveryFragmentException();
         if (StringUtils.isEmpty(receiverAddress2)) throw new InvalidDeliveryFragmentException();
         if (StringUtils.isEmpty(etcMessage)) throw new InvalidDeliveryFragmentException();
+
+        this.receiverName = receiverName;
+        this.receiverPhone = receiverPhone;
+        this.receiverZipcode = receiverZipcode;
+        this.receiverAddress1 = receiverAddress1;
+        this.receiverAddress2 = receiverAddress2;
+        this.etcMessage = etcMessage;
     }
 }

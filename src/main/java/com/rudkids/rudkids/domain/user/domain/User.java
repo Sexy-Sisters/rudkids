@@ -2,8 +2,8 @@ package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.order.domain.Order;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

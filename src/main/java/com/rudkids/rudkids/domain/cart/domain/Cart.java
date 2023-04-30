@@ -33,14 +33,15 @@ public class Cart {
     @Column(name = "cart_item_count")
     private int cartItemCount;
 
-    @Column(name = "cart_status")
-    private CartStatus cartStatus = CartStatus.ACTIVE;
+    @Enumerated(EnumType.STRING)
+    private CartStatus cartStatus;
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final List<CartItem> cartItems = new ArrayList<>();
 
     private Cart(User user) {
         this.user = user;
+        this.cartStatus = CartStatus.ACTIVE;
     }
 
     public static Cart create(User user) {
