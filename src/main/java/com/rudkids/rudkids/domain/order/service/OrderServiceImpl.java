@@ -30,4 +30,9 @@ public class OrderServiceImpl implements OrderService {
         cart.deactivate();
         return order.getId();
     }
+
+    @Override
+    public void delete(UUID orderId) {
+        orderStore.delete(orderId);
+    }
 }

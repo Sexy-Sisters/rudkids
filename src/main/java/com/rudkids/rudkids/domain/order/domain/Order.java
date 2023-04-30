@@ -40,9 +40,8 @@ public class Order extends AbstractEntity {
     private OrderStatus orderStatus;
 
     @Builder
-    public Order(Cart cart, User user, PayMethod payMethod, DeliveryFragment deliveryFragment) {
+    public Order(Cart cart, PayMethod payMethod, DeliveryFragment deliveryFragment) {
         this.cart = cart;
-        this.user = user;
         this.payMethod = payMethod;
         this.deliveryFragment = deliveryFragment;
         this.orderStatus = OrderStatus.INIT;

@@ -6,10 +6,9 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/order")
@@ -20,12 +19,16 @@ public class OrderController {
 
     @PostMapping
     public void create(
-        @AuthenticationPrincipal AuthUser.Login  loginUser,
+        @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody OrderRequest.Register request
     ) {
         var command = orderDtoMapper.toCommand(request);
         orderService.create(command, loginUser.id());
     }
 
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable(name = "id") UUID orderId) {
+        orderService.delete(orderId);
+    }
 }
 

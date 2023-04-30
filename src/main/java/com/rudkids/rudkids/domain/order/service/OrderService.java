@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface OrderService {
     UUID create(OrderCommand.CreateRequest command, UUID userId);
+    
+    void delete(UUID orderId);
 }
