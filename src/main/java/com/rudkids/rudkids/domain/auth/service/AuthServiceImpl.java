@@ -3,7 +3,6 @@ package com.rudkids.rudkids.domain.auth.service;
 import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.auth.TokenCreator;
 import com.rudkids.rudkids.domain.user.UserReader;
-import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +21,9 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthCommand.OAuthUser oAuthUser) {
-        var foundUser = findUser(oAuthUser);
+        var foundUser = userReader.getUser(oAuthUser);
         var authToken = tokenCreator.createAuthToken(foundUser.getId());
         return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken());
-    }
-
-    private User findUser(AuthCommand.OAuthUser oAuthUser) {
-        return userReader.getUser(oAuthUser);
     }
 
     @Override

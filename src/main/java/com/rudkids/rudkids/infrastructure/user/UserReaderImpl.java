@@ -36,7 +36,7 @@ public class UserReaderImpl implements UserReader {
             .age(oAuthUser.age())
             .phoneNumber(oAuthUser.phoneNumber())
             .profileImage(oAuthUser.profileImage())
-            .socialType(SocialType.GOOGLE)
+            .socialType(oAuthUser.socialType())
             .build();
         return userRepository.save(user);
     }
