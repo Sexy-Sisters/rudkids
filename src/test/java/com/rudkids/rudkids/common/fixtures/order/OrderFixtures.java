@@ -16,8 +16,6 @@ import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 @ServiceTest
 public class OrderFixtures {
     @Autowired
@@ -38,8 +36,8 @@ public class OrderFixtures {
     protected static User user;
     private static Item item;
 
-    protected static OrderCommand.Register ORDER_주문_요청() {
-        return OrderCommand.Register.builder()
+    protected static OrderCommand.CreateRequest ORDER_주문_요청() {
+        return OrderCommand.CreateRequest.builder()
             .receiverName("이규진")
             .receiverPhone("010-5476-5574")
             .receiverAddress1("부산시 사하구 윤공단로123")

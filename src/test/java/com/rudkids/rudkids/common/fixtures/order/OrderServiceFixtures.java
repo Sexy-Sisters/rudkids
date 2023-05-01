@@ -4,7 +4,6 @@ import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.CartReader;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
-import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.item.ItemStore;
 import com.rudkids.rudkids.domain.item.domain.*;
@@ -12,6 +11,7 @@ import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
+import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
@@ -20,6 +20,7 @@ import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
+import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,6 +52,7 @@ public class OrderServiceFixtures {
     @Autowired
     private ItemStore itemStore;
 
+    protected static Order order;
     protected static User user;
     protected static Cart cart;
     protected static Item item;
@@ -65,8 +67,8 @@ public class OrderServiceFixtures {
         .build();
 
 
-    protected static OrderCommand.Register ORDER_주문_요청() {
-        return OrderCommand.Register.builder()
+    protected static OrderCommand.CreateRequest ORDER_주문_요청() {
+        return OrderCommand.CreateRequest.builder()
             .receiverName("이규진")
             .receiverPhone("010-5476-5574")
             .receiverAddress1("부산시 사하구 윤공단로123")
@@ -118,5 +120,13 @@ public class OrderServiceFixtures {
         cartService.addCartItem(user.getId(), CART_아이템_요청());
 
         cart = cartReader.getActiveCart(user);
+
+        order = Order.builder()
+            .deliveryFragment(deliveryFragment)
+            .payMethod(PayMethod.TOSS)
+            .cart(cart)
+            .build();
+
+        orderStore.store(order);
     }
 }

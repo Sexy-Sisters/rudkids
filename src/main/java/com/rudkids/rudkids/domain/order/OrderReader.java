@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface OrderReader {
     Order getOrder(User user);
-    Order getOrder(UUID id);
+    Order getOrder(UUID orderId);
 }

@@ -2,6 +2,9 @@ package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
+import com.rudkids.rudkids.domain.order.OrderStore;
+import com.rudkids.rudkids.domain.order.domain.OrderStatus;
+import com.rudkids.rudkids.domain.order.exception.OrderStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
@@ -10,8 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import java.util.UUID;
+
 import static com.rudkids.rudkids.common.fixtures.admin.AdminControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.magazine.MagazineControllerFixtures.*;
+import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.ORDER_상태변경_요청;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.PRODUCT_상태_변경_요청;
 import static org.mockito.ArgumentMatchers.any;
@@ -587,6 +593,43 @@ public class AdminControllerFailTest extends ControllerTest {
                 pathParameters(
                     parameterWithName("id")
                         .description("존재하지 않는 매거진 id")
+                )
+            ))
+            .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("[주문-상태변경-404-에러]")
+    @Test
+    void 존재하지_않는_주문의_상태를_변경할_경우_상태코드_404를_반환한다() throws Exception {
+        doThrow(new OrderStatusNotFoundException())
+            .when(orderService)
+            .changeStatus(any(), any(), any());
+
+        mockMvc.perform(patch(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ORDER_상태변경_요청()))
+            )
+            .andDo(print())
+            .andDo(document("order/changeStatus/failByNotFoundError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("존재하지 않는 주문 id")
+                ),
+                requestFields(
+                    fieldWithPath("orderStatus")
+                        .description("주문 상태")
+                ),
+                responseFields(
+                    fieldWithPath("message")
+                        .description("에러 메시지")
                 )
             ))
             .andExpect(status().isNotFound());

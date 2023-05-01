@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.interfaces.order.dto;
 
+import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import lombok.Builder;
 
@@ -43,5 +44,8 @@ public class OrderRequest {
         String itemOptionName,
         int itemOptionPrice
     ) {
+    }
+
+    public record ChangeStatus(OrderStatus orderStatus) {
     }
 }

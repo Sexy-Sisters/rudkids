@@ -19,10 +19,16 @@ public class OrderController {
 
     @PostMapping
     public void create(
-        @AuthenticationPrincipal AuthUser.Login  loginUser,
+        @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody OrderRequest.Register request
     ) {
         var command = orderDtoMapper.toCommand(request);
         orderService.create(command, loginUser.id());
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable(name = "id") UUID orderId) {
+        orderService.delete(orderId);
+    }
 }
+
