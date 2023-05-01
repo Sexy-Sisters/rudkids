@@ -2,8 +2,6 @@ package com.rudkids.rudkids.interfaces.image;
 
 import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.interfaces.admin.AuthenticationAdminAuthority;
-import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
-import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +19,7 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseEntity uploadProductImage(
+    public ResponseEntity uploadImage(
         @AuthenticationAdminAuthority
         @RequestPart MultipartFile image
     ) {
@@ -30,11 +28,11 @@ public class ImageController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity uploadItemImage(
+    public ResponseEntity uploadImages(
         @AuthenticationAdminAuthority
         @RequestPart List<MultipartFile> images
     ) {
-        var response = imageService.upload(images);
+        var response = imageService.uploads(images);
         return ResponseEntity.ok(response);
     }
 }

@@ -2,11 +2,11 @@ package com.rudkids.rudkids.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.rudkids.domain.admin.service.AdminService;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
@@ -17,6 +17,7 @@ import com.rudkids.rudkids.interfaces.auth.AuthController;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
 import com.rudkids.rudkids.interfaces.cart.CartController;
 import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;
+import com.rudkids.rudkids.interfaces.image.ImageController;
 import com.rudkids.rudkids.interfaces.item.ItemController;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.MagazineController;
@@ -25,7 +26,6 @@ import com.rudkids.rudkids.interfaces.order.OrderController;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -41,7 +41,8 @@ import org.springframework.test.web.servlet.MockMvc;
     CartController.class,
     MagazineController.class,
     OrderController.class,
-    AdminController.class
+    AdminController.class,
+    ImageController.class
 })
 public abstract class ControllerTest {
 
@@ -71,6 +72,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AdminService adminService;
+
+    @MockBean
+    protected ImageService imageService;
 
     // dto mapper
 
@@ -116,8 +120,8 @@ public abstract class ControllerTest {
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
 
-    @BeforeEach
-    public void before() {
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-    }
+//    @BeforeEach
+//    public void before() {
+//        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+//    }
 }

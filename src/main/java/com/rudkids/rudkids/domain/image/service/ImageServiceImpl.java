@@ -21,7 +21,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageInfo.Main> upload(List<MultipartFile> images) {
+    public List<ImageInfo.Main> uploads(List<MultipartFile> images) {
         return images.stream()
             .map(s3ImageUploader::upload)
             .toList();

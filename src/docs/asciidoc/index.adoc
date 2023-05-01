@@ -17,3 +17,5 @@ include::product.adoc[]
 include::item.adoc[]
 
 include::admin.adoc[]
+
+include::image.adoc[]

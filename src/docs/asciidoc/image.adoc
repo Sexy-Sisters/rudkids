@@ -1,0 +1,10 @@
+[[Image-API]]
+== Image API
+
+[[Image-이미지-업로드]]
+=== Image 이미지 업로드
+operation::image/upload/one[snippets='http-request,request-headers,http-response,response-fields']
+
+[[Cart-여러-이미지-업로드]]
+=== Image 여러이미지 업로드
+operation::image/upload/list[snippets='http-request,request-headers,http-response,response-fields']
