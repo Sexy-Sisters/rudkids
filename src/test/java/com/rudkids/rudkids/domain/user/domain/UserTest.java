@@ -14,10 +14,10 @@ class UserTest {
         //given
         User user = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
 
@@ -34,10 +34,10 @@ class UserTest {
         //given, when
         User user = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
 

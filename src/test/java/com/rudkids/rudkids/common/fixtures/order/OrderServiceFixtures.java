@@ -14,8 +14,10 @@ import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.service.OrderService;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,11 +97,11 @@ public class OrderServiceFixtures {
     @BeforeEach
     void inputData() {
         user = User.builder()
-            .name("이규진")
+            .name(UserName.create("이규진"))
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MAIL")
-            .phoneNumber("01029401509")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
             .socialType(SocialType.GOOGLE)
             .build();
         userRepository.save(user);

@@ -1,8 +1,10 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +19,13 @@ class CartTest {
     void 추가된_아이템의_개수만큼_장바구니아이템_수량이_증가한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //when
@@ -38,12 +41,13 @@ class CartTest {
     void 카트에_담긴_아이테믈의_총_가격을_반환한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //when
@@ -88,12 +92,13 @@ class CartTest {
     void 아이템의_수량을_변경하면_장바구니_아이템_수량도_변경한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //when
@@ -110,13 +115,13 @@ class CartTest {
     void 같은_유저일_경우_통과한다() {
         //given, when
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //then
@@ -128,24 +133,24 @@ class CartTest {
     void 다른_유저일_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //then
         User differentUser = User.builder()
-                .email("another@gmail.com")
-                .name("다른유저")
-                .age(18)
-                .gender("FEMALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("다른 유저"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
 
         //then
         assertThatThrownBy(() -> cart.validateHasSameUser(differentUser))

@@ -3,8 +3,10 @@ package com.rudkids.rudkids.common.fixtures.magazine;
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.magazine.MagazineCommand;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.infrastructure.magazine.MagazineRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,10 +40,10 @@ public class MagazineServiceFixtures {
     void setUp() {
         admin = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
         admin.changeAuthorityAdmin();

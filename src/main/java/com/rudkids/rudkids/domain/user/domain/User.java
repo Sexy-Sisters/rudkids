@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
     private String email;
 
     @Embedded
-    private Name name;
+    private UserName name;
 
     @Column(name = "gender")
     private String gender;
@@ -57,7 +57,7 @@ public class User extends AbstractEntity {
     }
 
     @Builder
-    private User(String email, Name name, String gender,
+    private User(String email, UserName name, String gender,
                  int age, PhoneNumber phoneNumber, ProfileImage profileImage, SocialType socialType) {
         this.email = email;
         this.name = name;
@@ -92,7 +92,7 @@ public class User extends AbstractEntity {
         }
     }
 
-    public void update(Name name, PhoneNumber phoneNumber, ProfileImage profileImage) {
+    public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;

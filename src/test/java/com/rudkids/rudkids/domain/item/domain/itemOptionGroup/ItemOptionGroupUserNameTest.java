@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class ItemOptionGroupNameTest {
+class ItemOptionGroupUserNameTest {
 
     @DisplayName("이름 20자 초과 시 예외 발생")
     @Test

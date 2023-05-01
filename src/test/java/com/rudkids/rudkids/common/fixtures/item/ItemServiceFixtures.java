@@ -10,8 +10,10 @@ import com.rudkids.rudkids.domain.product.ProductStore;
 import com.rudkids.rudkids.domain.product.domain.Product;
 import com.rudkids.rudkids.domain.product.domain.ProductBio;
 import com.rudkids.rudkids.domain.product.domain.Title;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,11 +78,11 @@ public class ItemServiceFixtures {
     @BeforeEach
     void inputData() {
         user = User.builder()
-            .name("이규진")
+            .name(UserName.create("이규진"))
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MALE")
-            .phoneNumber("01029401509")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
             .socialType(SocialType.GOOGLE)
             .build();
         user.changeAuthorityAdmin();

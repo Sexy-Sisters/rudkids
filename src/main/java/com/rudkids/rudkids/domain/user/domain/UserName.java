@@ -10,19 +10,19 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Name {
+public class UserName {
     private static final int MAX_LENGTH = 20;
 
     @Column(name = "name")
     private String value;
 
-    private Name(String value) {
+    private UserName(String value) {
         this.value = value;
     }
 
-    public static Name create(String value) {
+    public static UserName create(String value) {
         validate(value);
-        return new Name(value);
+        return new UserName(value);
     }
 
     private static void validate(String value) {

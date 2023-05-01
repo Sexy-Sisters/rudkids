@@ -3,7 +3,7 @@ package com.rudkids.rudkids.infrastructure.user;
 import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.user.UserCommand;
 import com.rudkids.rudkids.domain.user.UserFactory;
-import com.rudkids.rudkids.domain.user.domain.Name;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.ProfileImage;
 import com.rudkids.rudkids.domain.user.domain.User;
@@ -14,7 +14,7 @@ public class UserFactoryImpl implements UserFactory {
 
     @Override
     public User create(AuthCommand.OAuthUser oAuthUser) {
-        Name name = Name.create(oAuthUser.name());
+        UserName name = UserName.create(oAuthUser.name());
         PhoneNumber phoneNumber = PhoneNumber.create(oAuthUser.phoneNumber());
         ProfileImage profileImage = ProfileImage.create("", oAuthUser.profileImage());
 
@@ -31,7 +31,7 @@ public class UserFactoryImpl implements UserFactory {
 
     @Override
     public void update(User user, UserCommand.Update command) {
-        Name name = Name.create(command.name());
+        UserName name = UserName.create(command.name());
         PhoneNumber phoneNumber = PhoneNumber.create(command.phoneNumber());
         ProfileImage profileImage = ProfileImage.create(command.profileImagePath(), command.profileImageUrl());
         user.update(name, phoneNumber, profileImage);
