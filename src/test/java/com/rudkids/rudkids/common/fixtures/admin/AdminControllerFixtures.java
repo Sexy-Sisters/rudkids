@@ -12,8 +12,10 @@ public class AdminControllerFixtures {
     public static final String ADMIN_PRODUCT_DEFAULT_URL = "/api/v1/admin/product";
     public static final String ADMIN_USER_DEFAULT_URL = "/api/v1/admin/user";
     public static final String ADMIN_MAGAZINE_DEFAULT_URL = "/api/v1/admin/magazine";
+    public static final String ADMIN_ORDER_DEFAULT_URL = "/api/v1/admin/order";
     public static final String USER_EMAIL = "test@gmail.com";
     public static final UUID USER_ID = UUID.randomUUID();
+    public static final UUID ORDER_ID = UUID.randomUUID();
 
     public static AdminRequest.ChangeUserRole 유저_권한_변경_요청() {
         return new AdminRequest.ChangeUserRole(RoleType.PARTNER);

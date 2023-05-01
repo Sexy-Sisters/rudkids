@@ -114,7 +114,7 @@ public class AdminController {
         magazineService.delete(loginUser.id(), id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/order/{id}")
     public void changeStatus(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @PathVariable(name = "id") UUID orderId,

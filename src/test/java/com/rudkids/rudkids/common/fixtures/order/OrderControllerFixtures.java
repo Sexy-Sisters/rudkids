@@ -1,5 +1,7 @@
 package com.rudkids.rudkids.common.fixtures.order;
 
+import com.rudkids.rudkids.domain.order.OrderStore;
+import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 
@@ -21,35 +23,10 @@ public class OrderControllerFixtures {
             .receiverZipcode("494999")
             .etcMessage("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.")
             .payMethod(PayMethod.TOSS)
-            .orderItemList(List.of(
-                ORDER_ITEM_주문_요청()
-            ))
             .build();
     }
 
-    public static OrderRequest.RegisterOrderItem ORDER_ITEM_주문_요청() {
-        return OrderRequest.RegisterOrderItem.builder()
-            .itemId(UUID.randomUUID())
-            .orderCount(5)
-            .orderItemOptionGroupList(List.of(
-                ORDER_ITEM_OPTION_GROUP_주문_요청()
-            ))
-            .build();
-    }
-
-    public static OrderRequest.RegisterOrderItemOptionGroup ORDER_ITEM_OPTION_GROUP_주문_요청() {
-        return OrderRequest.RegisterOrderItemOptionGroup.builder()
-            .ordering(1)
-            .itemOptionGroupName("약효지속시간")
-            .orderItemOption(ORDER_ITEM_OPTION_주문_요청())
-            .build();
-    }
-
-    public static OrderRequest.RegisterOrderItemOption ORDER_ITEM_OPTION_주문_요청() {
-        return OrderRequest.RegisterOrderItemOption.builder()
-            .ordering(1)
-            .itemOptionName("5분")
-            .itemOptionPrice(500)
-            .build();
+    public static OrderRequest.ChangeStatus ORDER_상태변경_요청() {
+        return new OrderRequest.ChangeStatus(OrderStatus.DELIVERY_COMPLETE);
     }
 }

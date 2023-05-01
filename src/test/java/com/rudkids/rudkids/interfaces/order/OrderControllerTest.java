@@ -47,7 +47,7 @@ class OrderControllerTest extends ControllerTest {
             .delete(any());
 
 
-        mockMvc.perform(delete(ORDER_DEFAULT_URL + "{id}", orderId)
+        mockMvc.perform(delete(ORDER_DEFAULT_URL + "/{id}", orderId)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
