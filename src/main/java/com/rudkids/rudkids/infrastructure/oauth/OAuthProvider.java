@@ -14,6 +14,6 @@ public enum OAuthProvider {
     }
 
     public static boolean isKakaoProvider(String description) {
-        return GOOGLE.description.equals(description);
+        return KAKAO.description.equals(description);
     }
 }
