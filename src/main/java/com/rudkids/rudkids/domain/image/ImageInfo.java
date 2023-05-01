@@ -4,10 +4,4 @@ public class ImageInfo {
 
     public record Main(String path, String url) {
     }
-
-    public record Product(
-        Main frontImage,
-        Main backImage
-    ) {
-    }
 }

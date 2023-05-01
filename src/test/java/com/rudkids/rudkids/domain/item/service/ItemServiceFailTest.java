@@ -1,23 +1,18 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceFailTest extends ItemServiceTest {
 
-    @Disabled("MockMultipartFile 오류 잡고 나서 테스트 코드 실행")
     @DisplayName("[아이템-생성-ProductNotFoundException]")
     @Test
     void 존재하지_않는_프로덕트에_아이템_생성_시_예외가_발생한다() {
