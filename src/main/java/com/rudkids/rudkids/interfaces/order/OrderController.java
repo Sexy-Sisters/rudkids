@@ -26,7 +26,7 @@ public class OrderController {
         orderService.create(command, loginUser.id());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id") UUID orderId) {
         orderService.delete(orderId);
     }
