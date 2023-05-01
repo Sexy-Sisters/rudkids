@@ -2,12 +2,16 @@ package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
+import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
+import org.assertj.core.api.NotThrownAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OrderServiceFailTest extends OrderServiceFixtures {
@@ -22,6 +26,34 @@ public class OrderServiceFailTest extends OrderServiceFixtures {
         // When & Then
         assertThatThrownBy(() -> orderService.create(ORDER_주문_요청(), userId))
             .isInstanceOf(CartNotFoundException.class);
+    }
+
+    @DisplayName("주문-상태변경-NotAdminRoleException")
+    @Test
+    void 어드민이_아닌_유저가_주문_상태를_변경_시_예외가_발생한다() {
+        // Given
+        var status = OrderStatus.DELIVERY_COMPLETE;
+        var orderId = order.getId();
+        var userId = user.getId();
+
+        // When & Then
+        user.changeAuthorityPartner();
+        assertThatThrownBy(() -> orderService.changeStatus(status, orderId, userId))
+            .isInstanceOf(NotAdminRoleException.class);
+    }
+
+    @DisplayName("주문-상태변경-OrderNotFoundException")
+    @Test
+    void 존재하지_않는_주문의_상태를_변경_시_예외가_발생한다() {
+        // Given
+        var status = OrderStatus.ORDER_COMPLETE;
+        var orderId = UUID.randomUUID();
+        var userId = user.getId();
+
+        // When & Then
+        user.changeAuthorityPartner();
+        assertThatThrownBy(() -> orderService.changeStatus(status, orderId, userId))
+            .isInstanceOf(NotAdminRoleException.class);
     }
 
     @DisplayName("[주문-취소-OrderNotFoundException]")

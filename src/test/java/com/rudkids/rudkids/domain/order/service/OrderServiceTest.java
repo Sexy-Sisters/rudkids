@@ -30,12 +30,28 @@ class OrderServiceTest extends OrderServiceFixtures {
         );
     }
 
+    @DisplayName("주문-상태변경")
+    @Test
+    void 주문_상태를_변경한다() {
+        // Given
+        var status = OrderStatus.DELIVERY_COMPLETE;
+        var orderId = order.getId();
+        var userId = user.getId();
+
+        user.changeAuthorityAdmin();
+
+        // When
+        orderService.changeStatus(status, orderId, userId);
+
+        // Then
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERY_COMPLETE);
+    }
+
     @DisplayName("[주문-취소]")
     @Test
     void 주문을_취소한다() {
         // Given
-        var orderId = orderService.create(ORDER_주문_요청(), user.getId());
-        var order = orderReader.getOrder(orderId);
+        var orderId = order.getId();
         var cart = order.getCart();
 
         // When

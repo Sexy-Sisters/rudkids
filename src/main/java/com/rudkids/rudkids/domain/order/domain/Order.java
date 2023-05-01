@@ -48,21 +48,19 @@ public class Order extends AbstractEntity {
     }
 
 
-    public void completeOrder() {
-        this.orderStatus = OrderStatus.ORDER_COMPLETE;
+    public void startDelivery() {
+        this.orderStatus = OrderStatus.IN_DELIVERY;
     }
 
     public void prepareDelivery() {
         this.orderStatus = OrderStatus.DELIVERY_PREPARE;
     }
 
-    public void startDelivery() {
-        this.orderStatus = OrderStatus.IN_DELIVERY;
+    public void completeDelivery() {
+        this.orderStatus = OrderStatus.DELIVERY_COMPLETE;
     }
 
-    public void completeDelivery() {
-        this.orderStatus = OrderStatus.ORDER_COMPLETE;
-    }
+    public void completeOrder() { this.orderStatus = OrderStatus.ORDER_COMPLETE;}
 
     public void addUser(User user) {
         user.getOrders().add(this);

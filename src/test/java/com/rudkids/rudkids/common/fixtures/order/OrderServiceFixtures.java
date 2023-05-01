@@ -11,12 +11,14 @@ import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
+import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
+import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,6 +50,7 @@ public class OrderServiceFixtures {
     @Autowired
     private ItemStore itemStore;
 
+    protected static Order order;
     protected static User user;
     protected static Cart cart;
     protected static Item item;
@@ -115,5 +118,13 @@ public class OrderServiceFixtures {
         cartService.addCartItem(user.getId(), CART_아이템_요청());
 
         cart = cartReader.getActiveCart(user);
+
+        order = Order.builder()
+            .deliveryFragment(deliveryFragment)
+            .payMethod(PayMethod.TOSS)
+            .cart(cart)
+            .build();
+
+        orderStore.store(order);
     }
 }
