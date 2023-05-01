@@ -119,9 +119,4 @@ public abstract class ControllerTest {
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
-
-//    @BeforeEach
-//    public void before() {
-//        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-//    }
 }
