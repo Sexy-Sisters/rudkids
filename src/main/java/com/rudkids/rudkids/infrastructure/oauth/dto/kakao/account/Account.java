@@ -3,8 +3,11 @@ package com.rudkids.rudkids.infrastructure.oauth.dto.kakao.account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Account {
     private Long id;
 
@@ -13,9 +16,6 @@ public class Account {
 
     @JsonProperty("properties")
     private Properties properties;
-
-    public Account() {
-    }
 
     public Account(Long id, KakaoAccount kakaoAccount, Properties properties) {
         this.id = id;

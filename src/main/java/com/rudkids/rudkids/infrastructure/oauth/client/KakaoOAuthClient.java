@@ -3,6 +3,7 @@ package com.rudkids.rudkids.infrastructure.oauth.client;
 import com.rudkids.rudkids.domain.auth.OAuthClientManager;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.global.config.properties.KakaoProperties;
+import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
 import com.rudkids.rudkids.infrastructure.oauth.dto.kakao.KakaoTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.dto.kakao.account.Account;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
@@ -24,8 +25,8 @@ public class KakaoOAuthClient implements OAuthClientManager {
     private final RestTemplate restTemplate;
 
     @Override
-    public boolean hasOAuthClient(String provider) {
-        return provider.equals("kakao");
+    public boolean isOAuthClient(String provider) {
+        return OAuthProvider.isKakaoProvider(provider);
     }
 
     @Override

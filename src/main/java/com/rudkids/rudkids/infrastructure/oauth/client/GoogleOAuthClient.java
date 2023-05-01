@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.rudkids.rudkids.domain.auth.OAuthClientManager;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
+import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.person.Person;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleUserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;
@@ -36,8 +37,8 @@ public class GoogleOAuthClient implements OAuthClientManager {
     private final Gson gson;
 
     @Override
-    public boolean hasOAuthClient(String provider) {
-        return provider.equals("google");
+    public boolean isOAuthClient(String provider) {
+        return OAuthProvider.isGoogleProvider(provider);
     }
 
     @Override

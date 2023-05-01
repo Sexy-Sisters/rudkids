@@ -2,6 +2,7 @@ package com.rudkids.rudkids.infrastructure.oauth.uri;
 
 import com.rudkids.rudkids.domain.auth.OAuthUriGenerator;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
+import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,8 @@ public class GoogleOAuthUri implements OAuthUriGenerator {
     private final GoogleProperties properties;
 
     @Override
-    public boolean hasOAuthUri(String provider) {
-        return provider.equals("google");
+    public boolean isOAuthUri(String provider) {
+        return OAuthProvider.isGoogleProvider(provider);
     }
 
     @Override

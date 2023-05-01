@@ -20,7 +20,7 @@ public class OAuthClientStrategy implements OAuthClient {
 
     private OAuthClientManager getOAuthClientManager(String provider) {
         return oAuthClientManagers.stream()
-            .filter(manager -> manager.hasOAuthClient(provider))
+            .filter(manager -> manager.isOAuthClient(provider))
             .findFirst()
             .orElseThrow(OAuthNotFoundException::new);
     }

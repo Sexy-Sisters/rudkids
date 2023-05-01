@@ -20,7 +20,7 @@ public class OAuthUriStrategy implements OAuthUri {
     
     private OAuthUriGenerator getOAuthGenerator(String provider) {
         return oAuthUriGenerators.stream()
-            .filter(generator -> generator.hasOAuthUri(provider))
+            .filter(generator -> generator.isOAuthUri(provider))
             .findFirst()
             .orElseThrow(OAuthNotFoundException::new);
     }
