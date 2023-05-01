@@ -29,8 +29,8 @@ public class User extends AbstractEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "name")
-    private String name;
+    @Embedded
+    private UserName name;
 
     @Column(name = "gender")
     private String gender;
@@ -38,11 +38,11 @@ public class User extends AbstractEntity {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Embedded
+    private PhoneNumber phoneNumber;
 
-    @Column(name = "profile_image")
-    private String profileImage;
+    @Embedded
+    private ProfileImage profileImage;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
@@ -57,8 +57,8 @@ public class User extends AbstractEntity {
     }
 
     @Builder
-    private User(String email, String name, String gender,
-                 int age, String phoneNumber, String profileImage, SocialType socialType) {
+    private User(String email, UserName name, String gender,
+                 int age, PhoneNumber phoneNumber, ProfileImage profileImage, SocialType socialType) {
         this.email = email;
         this.name = name;
         this.gender = gender;
@@ -92,8 +92,10 @@ public class User extends AbstractEntity {
         }
     }
 
-    public void update(String phoneNumber) {
+    public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
+        this.name = name;
         this.phoneNumber = phoneNumber;
+        this.profileImage = profileImage;
     }
 
     public void changeRole(RoleType role) {
@@ -102,5 +104,25 @@ public class User extends AbstractEntity {
 
     public void order(Order order) {
         orders.add(order);
+    }
+
+    public boolean isCustomProfileImage() {
+        return profileImage.isCustomImage();
+    }
+
+    public String getProfileImagePath() {
+        return profileImage.getPath();
+    }
+
+    public String getProfileImageUrl() {
+        return profileImage.getUrl();
+    }
+
+    public String getName() {
+        return name.getValue();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber.getValue();
     }
 }

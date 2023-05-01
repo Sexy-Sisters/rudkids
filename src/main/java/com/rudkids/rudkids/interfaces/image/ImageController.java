@@ -20,7 +20,6 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity uploadImage(
-        @AuthenticationAdminAuthority
         @RequestPart MultipartFile image
     ) {
         var response = imageService.upload(image);

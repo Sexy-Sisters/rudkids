@@ -8,8 +8,10 @@ import com.rudkids.rudkids.domain.magazine.domain.Title;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineContentException;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineTitleException;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,10 +58,10 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
         //given
         User user = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);
@@ -75,10 +77,10 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
         //given
         User partner = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
         partner.changeAuthorityPartner();

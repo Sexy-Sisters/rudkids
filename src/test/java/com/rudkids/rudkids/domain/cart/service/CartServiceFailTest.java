@@ -6,8 +6,10 @@ import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -45,13 +47,13 @@ public class CartServiceFailTest extends CartServiceFixtures {
 
         //when
         User anotherUser = User.builder()
-                .email("another@gmail.com")
-                .name("다른사용자")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("다른 사용자"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         userRepository.save(anotherUser);
 
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
@@ -118,13 +120,13 @@ public class CartServiceFailTest extends CartServiceFixtures {
 
         //when
         User anotherUser = User.builder()
-                .email("another@gmail.com")
-                .name("다른사용자")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("다른 사용자"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         userRepository.save(anotherUser);
 
         //then

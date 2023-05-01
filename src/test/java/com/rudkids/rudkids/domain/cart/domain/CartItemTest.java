@@ -1,8 +1,10 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
 import com.rudkids.rudkids.domain.item.domain.*;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +17,13 @@ class CartItemTest {
     void 장바구니아이템_가격을_계산한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         //when
@@ -50,13 +52,13 @@ class CartItemTest {
     void 장바구니아이템_수량을_변경한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         Cart cart = Cart.create(user);
 
         Item item = Item.builder()

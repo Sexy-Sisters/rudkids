@@ -20,12 +20,15 @@ public class AdminControllerFixtures {
     }
 
     public static List<AdminInfo.User> 유저_정보_INFO_응답() {
-        return List.of(new AdminInfo.User("email@gmail.com",
-            "name",
+        return List.of(new AdminInfo.User(
+            "email@gmail.com",
+                "name",
                 18,
                 "MALE",
                 "01012345678",
-                "PARTNER")
+                "url",
+                "PARTNER"
+            )
         );
     }
 }

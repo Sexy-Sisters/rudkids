@@ -68,6 +68,10 @@ public class AdminControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("유저 전화번호"),
 
+                    fieldWithPath("[]profileImageUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("유저 이미지"),
+
                     fieldWithPath("[]roleType")
                         .type(JsonFieldType.STRING)
                         .description("유저 권한")

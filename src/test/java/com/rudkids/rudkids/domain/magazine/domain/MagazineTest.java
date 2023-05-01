@@ -2,8 +2,10 @@ package com.rudkids.rudkids.domain.magazine.domain;
 
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineContentException;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineTitleException;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +20,13 @@ class MagazineTest {
     void 제목과_내용을_수정한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
 
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -47,13 +49,13 @@ class MagazineTest {
     void 잘못된_제목으로_수정할_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
 
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -64,7 +66,7 @@ class MagazineTest {
         Content newContent = Content.create("새로운 내용");
 
         assertThatThrownBy(() -> magazine.update(Title.create(invalidTitle), newContent))
-                .isInstanceOf(InvalidMagazineTitleException.class);
+            .isInstanceOf(InvalidMagazineTitleException.class);
     }
 
     @DisplayName("잘못된 내용으로 수정할 경우 예외가 발생한다.")
@@ -72,13 +74,13 @@ class MagazineTest {
     void 잘못된_내용으로_수정할_경우_예외가_발생한다() {
         //given
         User user = User.builder()
-                .email("namse@gmail.com")
-                .name("남세")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
 
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -89,6 +91,6 @@ class MagazineTest {
         String invalidContent = " ";
 
         assertThatThrownBy(() -> magazine.update(newTitle, Content.create(invalidContent)))
-                .isInstanceOf(InvalidMagazineContentException.class);
+            .isInstanceOf(InvalidMagazineContentException.class);
     }
 }

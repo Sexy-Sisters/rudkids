@@ -4,6 +4,8 @@ import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.CartReader;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
+import com.rudkids.rudkids.domain.user.domain.UserName;
 import com.rudkids.rudkids.infrastructure.cart.CartItemOptionGroupRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartItemRepository;
 import com.rudkids.rudkids.infrastructure.cart.CartRepository;
@@ -50,10 +52,10 @@ public class CartServiceFixtures {
     void setUp() {
         user = User.builder()
                 .email("namse@gmail.com")
-                .name("남세")
+                .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber("01029401509")
+                .phoneNumber(PhoneNumber.create("010-2940-1509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);

@@ -1,0 +1,6 @@
+[[User-API]]
+== User API
+
+[[User-수정]]
+=== User 수정
+operation::user/update[snippets='http-request,request-headers,request-fields,http-response']
