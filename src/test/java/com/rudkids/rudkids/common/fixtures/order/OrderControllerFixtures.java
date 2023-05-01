@@ -9,6 +9,7 @@ import java.util.UUID;
 public class OrderControllerFixtures {
 
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
+    public static final UUID orderId = UUID.randomUUID();
     public static final UUID cartId = UUID.randomUUID();
 
     public static OrderRequest.Register ORDER_주문_요청() {
