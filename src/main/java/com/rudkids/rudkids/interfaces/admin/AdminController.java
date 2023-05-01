@@ -50,7 +50,7 @@ public class AdminController {
     @PostMapping("/product")
     public void create(
         @AuthenticationAdminAuthority
-        ProductRequest.Create request
+        @RequestBody ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);
         productService.create(command);

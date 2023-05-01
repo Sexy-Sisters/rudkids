@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthDtoMapper;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthRequest;
-import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ public class AuthController {
         @PathVariable final String oauthProvider,
         @RequestParam final String redirectUri
     ) {
-        var response = new AuthResponse.OAuthUri(oAuthUri.generate(redirectUri));
+        var response = oAuthUri.generate(oauthProvider, redirectUri);
         return ResponseEntity.ok(response);
     }
 
@@ -33,7 +32,7 @@ public class AuthController {
         @PathVariable final String oauthProvider,
         @RequestBody AuthRequest.Token tokenRequest
     ) {
-        var oAuthUser = oAuthClient.getOAuthUser(tokenRequest.authorizationCode(), tokenRequest.redirectUri());
+        var oAuthUser = oAuthClient.getOAuthUser(oauthProvider, tokenRequest.authorizationCode(), tokenRequest.redirectUri());
         var command = authDtoMapper.to(oAuthUser);
         var response = authService.generateAccessAndRefreshToken(command);
         return ResponseEntity.ok(response);

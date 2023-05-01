@@ -3,12 +3,14 @@ package com.rudkids.rudkids.infrastructure.oauth.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.rudkids.rudkids.domain.auth.OAuthClient;
+import com.rudkids.rudkids.domain.auth.OAuthClientManager;
+import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.global.config.properties.GoogleProperties;
-import com.rudkids.rudkids.infrastructure.oauth.dto.Person;
-import com.rudkids.rudkids.infrastructure.oauth.dto.UserInfo;
+import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
+import com.rudkids.rudkids.infrastructure.oauth.dto.google.person.Person;
+import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleUserInfo;
 import com.rudkids.rudkids.infrastructure.oauth.exception.NotReadOAuthIdTokenException;
-import com.rudkids.rudkids.infrastructure.oauth.dto.GoogleTokenResponse;
+import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ import java.util.Base64;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class GoogleOAuthClient implements OAuthClient {
+public class GoogleOAuthClient implements OAuthClientManager {
     private static final String JWT_DELIMITER = "\\.";
     private final GoogleProperties properties;
     private final RestTemplate restTemplate;
@@ -35,20 +37,27 @@ public class GoogleOAuthClient implements OAuthClient {
     private final Gson gson;
 
     @Override
+    public boolean isOAuthClient(String provider) {
+        return OAuthProvider.isGoogleProvider(provider);
+    }
+
+    @Override
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         GoogleTokenResponse googleTokenResponse = requestGoogleToken(code, redirectUri);
         String payload = getPayload(googleTokenResponse.getIdToken());
-        UserInfo userInfo = parseUserInfo(payload);
+        GoogleUserInfo googleUserInfo = parseUserInfo(payload);
 
         ResponseEntity<String> personResponse = requestPerson(googleTokenResponse.getAccessToken());
         Person person = gson.fromJson(personResponse.getBody(), Person.class);
         return AuthUser.OAuth.builder()
-                .email(userInfo.email())
-                .name(userInfo.name())
-                .gender(person.getGender())
-                .age(person.getAge())
-                .phoneNumber(person.getPhoneNumber())
-                .build();
+            .email(googleUserInfo.email())
+            .name(googleUserInfo.name())
+            .gender(person.getGender())
+            .age(person.getAge())
+            .phoneNumber(person.getPhoneNumber())
+            .profileImage(googleUserInfo.picture())
+            .socialType(SocialType.GOOGLE)
+            .build();
     }
 
     private GoogleTokenResponse requestGoogleToken(String code, String redirectUri) {
@@ -87,10 +96,10 @@ public class GoogleOAuthClient implements OAuthClient {
         return jwt.split(JWT_DELIMITER)[1];
     }
 
-    private UserInfo parseUserInfo(final String payload) {
+    private GoogleUserInfo parseUserInfo(final String payload) {
         String decodedPayload = decodeJwtPayload(payload);
         try {
-            return objectMapper.readValue(decodedPayload, UserInfo.class);
+            return objectMapper.readValue(decodedPayload, GoogleUserInfo.class);
         } catch (final JsonProcessingException e) {
             log.error(e.getMessage());
             throw new NotReadOAuthIdTokenException();
@@ -111,11 +120,7 @@ public class GoogleOAuthClient implements OAuthClient {
 
     private ResponseEntity<String> fetchPerson(HttpEntity<MultiValueMap<String, String>> request) {
         try {
-            return restTemplate.exchange(
-                    properties.getPeopleUri(),
-                    HttpMethod.GET,
-                    request,
-                    String.class);
+            return restTemplate.exchange(properties.getPeopleUri(), HttpMethod.GET, request, String.class);
         } catch (final RestClientException e) {
             log.error(e.getMessage());
             throw new OAuthException();

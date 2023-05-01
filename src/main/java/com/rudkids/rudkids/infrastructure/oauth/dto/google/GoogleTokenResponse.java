@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.infrastructure.oauth.dto;
+package com.rudkids.rudkids.infrastructure.oauth.dto.google;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

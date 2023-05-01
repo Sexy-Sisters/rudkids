@@ -1,4 +1,4 @@
-package com.rudkids.rudkids.infrastructure.oauth.dto;
+package com.rudkids.rudkids.infrastructure.oauth.dto.google.person;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Person {
         if(genders == null) {
             return null;
         }
-        return genders.get(0).getValue();
+        return genders.get(0).getValue().toUpperCase();
     }
 
     public int getAge() {

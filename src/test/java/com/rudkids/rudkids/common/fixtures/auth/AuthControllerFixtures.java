@@ -6,7 +6,8 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;
 public class AuthControllerFixtures {
 
     public static final String GOOGLE_PROVIDER = "google";
-    public static final String OAuth_로그인_링크 = "https://accounts.google.com/o/oauth2/v2/auth";
+    public static final String KAKAO_PROVIDER = "kakao";
+    public static final AuthResponse.OAuthUri OAuth_로그인_링크 = new AuthResponse.OAuthUri("https://");
     public static final String REDIRECT_URI = "http://localhost:3000";
     public static final String MEMBER_인증_코드 = "member authorization code";
     public static final String 엑세스_토큰 = "access";
