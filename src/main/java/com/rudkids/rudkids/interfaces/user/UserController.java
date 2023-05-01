@@ -22,7 +22,7 @@ public class UserController {
     public void update(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody UserRequest.Update request
-        ) {
+    ) {
         var command = userDtoMapper.toCommand(request);
         userService.update(loginUser.id(), command);
     }
