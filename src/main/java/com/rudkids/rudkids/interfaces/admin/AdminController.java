@@ -2,6 +2,8 @@ package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.domain.admin.service.AdminService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
+import com.rudkids.rudkids.domain.order.service.OrderService;
+import com.rudkids.rudkids.domain.order.service.OrderServiceImpl;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;
@@ -9,6 +11,7 @@ import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineRequest;
+import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +27,9 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminDtoMapper adminDtoMapper;
     private final ProductService productService;
-    private final ProductDtoMapper productDtoMapper;
     private final MagazineService magazineService;
+    private final OrderService orderService;
+    private final ProductDtoMapper productDtoMapper;
     private final MagazineDtoMapper magazineDtoMapper;
 
     @GetMapping("/user")
@@ -42,7 +46,7 @@ public class AdminController {
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @PathVariable("id") UUID userId,
         @RequestBody AdminRequest.ChangeUserRole request
-        ) {
+    ) {
         var command = adminDtoMapper.toCommand(request);
         adminService.changeUserRole(loginUser.id(), userId, command);
     }
@@ -108,5 +112,14 @@ public class AdminController {
         @PathVariable UUID id
     ) {
         magazineService.delete(loginUser.id(), id);
+    }
+
+    @PatchMapping("/{id}")
+    public void changeStatus(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable(name = "id") UUID orderId,
+        @RequestBody OrderRequest.ChangeStatus request
+    ) {
+        orderService.changeStatus(request.orderStatus(), orderId, loginUser.id());
     }
 }
