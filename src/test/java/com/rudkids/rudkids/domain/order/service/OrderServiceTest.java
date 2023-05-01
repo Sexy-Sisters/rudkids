@@ -1,13 +1,16 @@
 package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
-import com.rudkids.rudkids.domain.order.domain.Order;
+import com.rudkids.rudkids.domain.cart.domain.Cart;
+import com.rudkids.rudkids.domain.cart.domain.CartStatus;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
+import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class OrderServiceTest extends OrderServiceFixtures {
@@ -27,4 +30,22 @@ class OrderServiceTest extends OrderServiceFixtures {
         );
     }
 
+    @DisplayName("[주문-취소]")
+    @Test
+    void 주문을_취소한다() {
+        // Given
+        var orderId = orderService.create(ORDER_주문_요청(), user.getId());
+        var order = orderReader.getOrder(orderId);
+        var cart = order.getCart();
+
+        // When
+        orderService.delete(orderId);
+
+        // Then
+
+        assertAll(
+            () -> assertThat(cart.getCartStatus()).isEqualTo(CartStatus.ACTIVE),
+            () -> assertThatThrownBy(() -> orderReader.getOrder(orderId)).isInstanceOf(OrderNotFoundException.class)
+        );
+    }
 }

@@ -60,6 +60,10 @@ public class Cart {
         return id;
     }
 
+    public CartStatus getCartStatus() {
+        return this.cartStatus;
+    }
+
     public int getCartItemCount() {
         return cartItemCount;
     }
@@ -70,6 +74,10 @@ public class Cart {
 
     public List<CartItem> getCartItems() {
         return cartItems;
+    }
+
+    public void activate() {
+        this.cartStatus = CartStatus.ACTIVE;
     }
 
     public void deactivate() {

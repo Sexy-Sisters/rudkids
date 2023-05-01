@@ -52,8 +52,8 @@ public class Order extends AbstractEntity {
         this.user = user;
     }
 
-    public DeliveryFragment getDeliveryFragment() {
-        return deliveryFragment;
+    public Cart getCart() {
+        return cart;
     }
 
     public PayMethod getPayMethod() {

@@ -5,8 +5,6 @@ import com.rudkids.rudkids.domain.order.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class OrderStoreImpl implements OrderStore {
@@ -18,7 +16,7 @@ public class OrderStoreImpl implements OrderStore {
     }
 
     @Override
-    public void delete(UUID orderId) {
-        orderRepository.deleteById(orderId);
+    public void delete(Order order) {
+        orderRepository.delete(order);
     }
 }

@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.item.service;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.item.domain.LimitType;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
@@ -11,9 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceFailTest extends ItemServiceTest {
 

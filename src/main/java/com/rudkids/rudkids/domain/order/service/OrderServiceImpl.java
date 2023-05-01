@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.order.service;
 import com.rudkids.rudkids.domain.cart.CartReader;
 import com.rudkids.rudkids.domain.order.OrderCommand;
 import com.rudkids.rudkids.domain.order.OrderMapper;
+import com.rudkids.rudkids.domain.order.OrderReader;
 import com.rudkids.rudkids.domain.order.OrderStore;
 import com.rudkids.rudkids.domain.user.UserReader;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Transactional
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+    private final OrderReader orderReader;
     private final OrderStore orderStore;
     private final OrderMapper orderMapper;
     private final UserReader userReader;
@@ -33,6 +35,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(UUID orderId) {
-        orderStore.delete(orderId);
+        var order = orderReader.getOrder(orderId);
+        order.getCart().activate();
+        orderStore.delete(order);
     }
 }
