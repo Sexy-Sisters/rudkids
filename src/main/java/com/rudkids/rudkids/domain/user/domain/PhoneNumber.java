@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
-    private static final int MAX_LENGTH = 11;
+    private static final int MAX_LENGTH = 14;
 
     @Column(name = "phone_number")
     private String value;
