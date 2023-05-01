@@ -11,6 +11,7 @@ import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
+import com.rudkids.rudkids.domain.user.service.UserService;
 import com.rudkids.rudkids.interfaces.admin.AdminController;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.auth.AuthController;
@@ -26,6 +27,8 @@ import com.rudkids.rudkids.interfaces.order.OrderController;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
+import com.rudkids.rudkids.interfaces.user.UserController;
+import com.rudkids.rudkids.interfaces.user.dto.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -42,7 +45,8 @@ import org.springframework.test.web.servlet.MockMvc;
     MagazineController.class,
     OrderController.class,
     AdminController.class,
-    ImageController.class
+    ImageController.class,
+    UserController.class
 })
 public abstract class ControllerTest {
 
@@ -76,6 +80,9 @@ public abstract class ControllerTest {
     @MockBean
     protected ImageService imageService;
 
+    @MockBean
+    protected UserService userService;
+
     // dto mapper
 
     @MockBean
@@ -98,6 +105,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AdminDtoMapper adminDtoMapper;
+
+    @MockBean
+    protected UserDtoMapper userDtoMapper;
 
     // etc
 

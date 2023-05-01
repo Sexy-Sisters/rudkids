@@ -13,6 +13,7 @@ public class AdminMapper {
             .age(user.getAge())
             .gender(user.getGender())
             .phoneNumber(user.getPhoneNumber())
+            .profileImageUrl(user.getProfileImageUrl())
             .roleType(user.getRoleType().name())
             .build();
     }

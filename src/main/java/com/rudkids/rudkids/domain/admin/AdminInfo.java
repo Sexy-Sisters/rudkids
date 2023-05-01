@@ -11,6 +11,7 @@ public class AdminInfo {
         int age,
         String gender,
         String phoneNumber,
+        String profileImageUrl,
         String roleType
     ) {
     }

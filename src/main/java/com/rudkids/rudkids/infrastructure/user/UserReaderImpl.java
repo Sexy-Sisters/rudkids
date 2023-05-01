@@ -1,8 +1,8 @@
 package com.rudkids.rudkids.infrastructure.user;
 
 import com.rudkids.rudkids.domain.auth.AuthCommand;
+import com.rudkids.rudkids.domain.user.UserFactory;
 import com.rudkids.rudkids.domain.user.UserReader;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserReaderImpl implements UserReader {
     private final UserRepository userRepository;
+    private final UserFactory userFactory;
 
     @Override
     public User getUser(UUID id) {
@@ -29,15 +30,7 @@ public class UserReaderImpl implements UserReader {
     }
 
     private User saveUser(AuthCommand.OAuthUser oAuthUser) {
-        var user = User.builder()
-            .email(oAuthUser.email())
-            .name(oAuthUser.name())
-            .gender(oAuthUser.gender())
-            .age(oAuthUser.age())
-            .phoneNumber(oAuthUser.phoneNumber())
-            .profileImage(oAuthUser.profileImage())
-            .socialType(oAuthUser.socialType())
-            .build();
+        var user = userFactory.create(oAuthUser);
         return userRepository.save(user);
     }
 

@@ -8,6 +8,8 @@
 
 include::auth.adoc[]
 
+include::user.adoc[]
+
 include::cart.adoc[]
 
 include::magazine.adoc[]
