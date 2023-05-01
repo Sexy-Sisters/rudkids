@@ -47,13 +47,13 @@ public class CartServiceFailTest extends CartServiceFixtures {
 
         //when
         User anotherUser = User.builder()
-                .email("another@gmail.com")
-                .name("다른사용자")
-                .age(18)
-                .gender("MALE")
-                .phoneNumber("01029401509")
-                .socialType(SocialType.GOOGLE)
-                .build();
+            .email("namse@gmail.com")
+            .name(UserName.create("다른 사용자"))
+            .age(18)
+            .gender("MALE")
+            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .socialType(SocialType.GOOGLE)
+            .build();
         userRepository.save(anotherUser);
 
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
