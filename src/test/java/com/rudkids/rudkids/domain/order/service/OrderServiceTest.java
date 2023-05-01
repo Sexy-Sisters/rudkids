@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
-import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.domain.CartStatus;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
