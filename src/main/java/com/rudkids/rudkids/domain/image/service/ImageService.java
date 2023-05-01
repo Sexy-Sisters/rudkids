@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ImageService {
-    ImageInfo.Product upload(UUID userId, MultipartFile frontImage, MultipartFile backImage);
-    List<ImageInfo.Main> upload(UUID userId, List<MultipartFile> images);
+    ImageInfo.Main upload(MultipartFile image);
+    List<ImageInfo.Main> upload(List<MultipartFile> images);
     void delete(Item item);
     void delete(Product product);
 }

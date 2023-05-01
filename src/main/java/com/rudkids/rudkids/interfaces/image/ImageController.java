@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.interfaces.image;
 
 import com.rudkids.rudkids.domain.image.service.ImageService;
+import com.rudkids.rudkids.interfaces.admin.AuthenticationAdminAuthority;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import lombok.RequiredArgsConstructor;
@@ -19,22 +20,21 @@ import java.util.List;
 public class ImageController {
     private final ImageService imageService;
 
-    @PostMapping("/product")
+    @PostMapping
     public ResponseEntity uploadProductImage(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestPart MultipartFile frontImage,
-        @RequestPart MultipartFile backImage
+        @AuthenticationAdminAuthority
+        @RequestPart MultipartFile image
     ) {
-        var response = imageService.upload(loginUser.id(), frontImage, backImage);
+        var response = imageService.upload(image);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/item")
+    @PostMapping("/list")
     public ResponseEntity uploadItemImage(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @AuthenticationAdminAuthority
         @RequestPart List<MultipartFile> images
     ) {
-        var response = imageService.upload(loginUser.id(), images);
+        var response = imageService.upload(images);
         return ResponseEntity.ok(response);
     }
 }
