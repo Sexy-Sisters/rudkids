@@ -117,4 +117,12 @@ public class User extends AbstractEntity {
     public String getProfileImageUrl() {
         return profileImage.getUrl();
     }
+
+    public String getName() {
+        return name.getValue();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber.getValue();
+    }
 }
