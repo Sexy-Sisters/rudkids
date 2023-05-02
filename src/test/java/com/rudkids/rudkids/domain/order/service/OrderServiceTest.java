@@ -45,6 +45,27 @@ class OrderServiceTest extends OrderServiceFixtures {
         assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERY_COMPLETE);
     }
 
+    @DisplayName("[주문-배송 정보 수정]")
+    @Test
+    void 배송정보를_수정한다() {
+        // Given
+        var orderId = order.getId();
+
+        // When
+        orderService.updateDeliveryFragment(ORDER_배송_정보_수정_요청(), orderId);
+
+        // Then
+        var deliveryFragment = order.getDeliveryFragment();
+        assertAll(
+            () -> assertThat(deliveryFragment.getReceiverName()).isEqualTo("updated"),
+            () -> assertThat(deliveryFragment.getReceiverPhone()).isEqualTo("updated"),
+            () -> assertThat(deliveryFragment.getReceiverAddress1()).isEqualTo("updated"),
+            () -> assertThat(deliveryFragment.getReceiverAddress2()).isEqualTo("updated"),
+            () -> assertThat(deliveryFragment.getReceiverZipcode()).isEqualTo("updated"),
+            () -> assertThat(deliveryFragment.getEtcMessage()).isEqualTo("updated")
+        );
+    }
+
     @DisplayName("[주문-취소]")
     @Test
     void 주문을_취소한다() {

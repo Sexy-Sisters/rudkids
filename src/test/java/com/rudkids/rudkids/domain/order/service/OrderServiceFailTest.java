@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class OrderServiceFailTest extends OrderServiceFixtures {
 
@@ -50,6 +52,17 @@ public class OrderServiceFailTest extends OrderServiceFixtures {
 
         // When & Then
         assertThatThrownBy(() -> orderService.changeStatus(status, orderId))
+            .isInstanceOf(OrderNotFoundException.class);
+    }
+
+    @DisplayName("[주문-배송 정보 수정]")
+    @Test
+    void 배송정보를_수정한다() {
+        // Given
+        var orderId = UUID.randomUUID();
+
+        // When & Then
+        assertThatThrownBy(() -> orderService.updateDeliveryFragment(ORDER_배송_정보_수정_요청(), orderId))
             .isInstanceOf(OrderNotFoundException.class);
     }
 
