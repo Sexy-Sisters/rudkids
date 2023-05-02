@@ -46,8 +46,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeStatus(OrderStatus orderStatus, UUID orderId, UUID userId) {
-        userReader.getUser(userId).validateAdminRole();
+    public void changeStatus(OrderStatus orderStatus, UUID orderId) {
         var order = orderReader.getOrder(orderId);
         var strategy = findChangeStatusStrategy(orderStatus);
         strategy.changeStatus(order);
