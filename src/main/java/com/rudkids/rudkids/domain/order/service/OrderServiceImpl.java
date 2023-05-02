@@ -39,17 +39,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(UUID orderId) {
-        var order = orderReader.getOrder(orderId);
-        order.getCart().activate();
-        orderStore.delete(order);
-    }
-
-    @Override
     public void changeStatus(OrderStatus orderStatus, UUID orderId) {
         var order = orderReader.getOrder(orderId);
         var strategy = findChangeStatusStrategy(orderStatus);
         strategy.changeStatus(order);
+    }
+
+    @Override
+    public void updateDeliveryFragment(OrderCommand.UpdateDeliveryFragment command, UUID orderId) {
+        var order = orderReader.getOrder(orderId);
+        order.updateDeliveryFragment(
+            command.receiverName(),
+            command.receiverPhone(),
+            command.receiverZipcode(),
+            command.receiverAddress1(),
+            command.receiverAddress2(),
+            command.etcMessage()
+        );
+    }
+
+    @Override
+    public void delete(UUID orderId) {
+        var order = orderReader.getOrder(orderId);
+        order.getCart().activate();
+        orderStore.delete(order);
     }
 
     private OrderStatusChangeStrategy findChangeStatusStrategy(OrderStatus orderStatus) {

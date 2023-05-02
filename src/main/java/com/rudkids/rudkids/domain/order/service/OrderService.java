@@ -11,4 +11,6 @@ public interface OrderService {
     void delete(UUID orderId);
 
     void changeStatus(OrderStatus orderStatus, UUID orderId);
+
+    void updateDeliveryFragment(OrderCommand.UpdateDeliveryFragment command, UUID orderId);
 }

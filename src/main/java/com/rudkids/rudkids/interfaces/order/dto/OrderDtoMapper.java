@@ -17,4 +17,15 @@ public class OrderDtoMapper {
             .payMethod(request.payMethod())
             .build();
     }
+
+    public OrderCommand.UpdateDeliveryFragment toCommand(OrderRequest.UpdateDeliveryFragment request) {
+        return OrderCommand.UpdateDeliveryFragment.builder()
+            .receiverName(request.receiverName())
+            .receiverPhone(request.receiverPhone())
+            .receiverZipcode(request.receiverZipcode())
+            .receiverAddress1(request.receiverAddress1())
+            .receiverAddress2(request.receiverAddress2())
+            .etcMessage(request.etcMessage())
+            .build();
+    }
 }

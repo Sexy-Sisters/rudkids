@@ -26,6 +26,15 @@ public class OrderController {
         orderService.create(command, loginUser.id());
     }
 
+    @PatchMapping("/{id}")
+    public void updateDeliveryFragment(
+        @PathVariable(name = "id") UUID orderId,
+        @RequestBody OrderRequest.UpdateDeliveryFragment request
+    ) {
+        var command = orderDtoMapper.toCommand(request);
+        orderService.updateDeliveryFragment(command, orderId);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(name = "id") UUID orderId) {
         orderService.delete(orderId);
