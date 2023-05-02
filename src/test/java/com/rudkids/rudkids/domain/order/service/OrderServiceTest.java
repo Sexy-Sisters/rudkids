@@ -35,12 +35,11 @@ class OrderServiceTest extends OrderServiceFixtures {
         // Given
         var status = OrderStatus.DELIVERY_COMPLETE;
         var orderId = order.getId();
-        var userId = user.getId();
 
         user.changeAuthorityAdmin();
 
         // When
-        orderService.changeStatus(status, orderId, userId);
+        orderService.changeStatus(status, orderId);
 
         // Then
         assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERY_COMPLETE);
