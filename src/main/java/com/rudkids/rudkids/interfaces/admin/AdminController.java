@@ -5,7 +5,6 @@ import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;
-import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import com.rudkids.rudkids.interfaces.magazine.dto.MagazineRequest;

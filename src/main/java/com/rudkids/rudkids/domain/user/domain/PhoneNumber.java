@@ -25,6 +25,10 @@ public class PhoneNumber {
         return new PhoneNumber(value);
     }
 
+    public static PhoneNumber createDefault(String value) {
+        return new PhoneNumber(value);
+    }
+
     private static void validate(String value) {
         if(value == null || value.isBlank()) {
             throw new InvalidPhoneNumberException();
