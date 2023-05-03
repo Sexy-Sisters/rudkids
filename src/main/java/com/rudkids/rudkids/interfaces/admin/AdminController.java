@@ -3,7 +3,6 @@ package com.rudkids.rudkids.interfaces.admin;
 import com.rudkids.rudkids.domain.admin.service.AdminService;
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
-import com.rudkids.rudkids.domain.order.service.OrderServiceImpl;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;

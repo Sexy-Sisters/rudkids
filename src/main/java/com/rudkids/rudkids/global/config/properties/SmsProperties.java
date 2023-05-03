@@ -10,9 +10,9 @@ public class SmsProperties {
     private final String secret;
     private final String domainUri;
 
-    public SmsProperties(String key, String secret, String domainuri) {
+    public SmsProperties(String key, String secret, String domainUri) {
         this.key = key;
         this.secret = secret;
-        this.domainUri = domainuri;
+        this.domainUri = domainUri;
     }
 }
