@@ -8,8 +8,6 @@ import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/order")
 @RequiredArgsConstructor
