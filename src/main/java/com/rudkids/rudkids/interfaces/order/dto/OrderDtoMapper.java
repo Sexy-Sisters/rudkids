@@ -3,13 +3,11 @@ package com.rudkids.rudkids.interfaces.order.dto;
 import com.rudkids.rudkids.domain.order.OrderCommand;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class OrderDtoMapper {
 
-    public OrderCommand.Register toCommand(OrderRequest.Register request) {
-        return OrderCommand.Register.builder()
+    public OrderCommand.CreateRequest toCommand(OrderRequest.Register request) {
+        return OrderCommand.CreateRequest.builder()
             .receiverName(request.receiverName())
             .receiverPhone(request.receiverPhone())
             .receiverZipcode(request.receiverZipcode())

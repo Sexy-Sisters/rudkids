@@ -2,12 +2,10 @@ package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.order.domain.Order;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
+import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tbl_user")
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class User extends AbstractEntity {
 
@@ -52,9 +51,6 @@ public class User extends AbstractEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
-
-    protected User() {
-    }
 
     @Builder
     private User(String email, UserName name, String gender,

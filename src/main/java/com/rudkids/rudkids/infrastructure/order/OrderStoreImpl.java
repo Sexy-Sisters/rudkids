@@ -14,4 +14,9 @@ public class OrderStoreImpl implements OrderStore {
     public Order store(Order order) {
         return orderRepository.save(order);
     }
+
+    @Override
+    public void delete(Order order) {
+        orderRepository.delete(order);
+    }
 }
