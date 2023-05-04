@@ -66,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(UUID orderId) {
         var order = orderReader.getOrder(orderId);
+        order.validateNotPaid();
         order.getCart().activate();
         orderStore.delete(order);
     }

@@ -2,10 +2,12 @@ package com.rudkids.rudkids.domain.order.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
+import com.rudkids.rudkids.domain.order.exception.OrderAlreadyPaidException;
 import com.rudkids.rudkids.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -102,5 +104,10 @@ public class Order extends AbstractEntity {
             receiverAddress2,
             etcMessage
         );
+    }
+    public void validateNotPaid() {
+        if(OrderStatus.INIT != orderStatus) {
+            throw new OrderAlreadyPaidException();
+        }
     }
 }
