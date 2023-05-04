@@ -15,7 +15,7 @@ public class UserFactoryImpl implements UserFactory {
     @Override
     public User create(AuthCommand.OAuthUser oAuthUser) {
         UserName name = UserName.create(oAuthUser.name());
-        PhoneNumber phoneNumber = PhoneNumber.create(oAuthUser.phoneNumber());
+        PhoneNumber phoneNumber = PhoneNumber.createDefault(oAuthUser.phoneNumber());
         ProfileImage profileImage = ProfileImage.create("", oAuthUser.profileImage());
 
         return User.builder()

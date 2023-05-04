@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.interfaces.magazine;
 
 import com.rudkids.rudkids.domain.magazine.service.MagazineService;
-import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
