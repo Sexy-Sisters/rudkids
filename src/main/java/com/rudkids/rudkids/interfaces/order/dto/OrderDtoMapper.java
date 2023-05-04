@@ -1,7 +1,10 @@
 package com.rudkids.rudkids.interfaces.order.dto;
 
 import com.rudkids.rudkids.domain.order.OrderCommand;
+import com.rudkids.rudkids.domain.order.OrderInfo;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class OrderDtoMapper {
@@ -27,5 +30,9 @@ public class OrderDtoMapper {
             .receiverAddress2(request.receiverAddress2())
             .etcMessage(request.etcMessage())
             .build();
+    }
+
+    public OrderResponse.Main toResponse(OrderInfo.Main info) {
+        return new OrderResponse.Main(info.orderId(), info.createdAt());
     }
 }

@@ -6,6 +6,7 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,6 +25,15 @@ public class OrderController {
     ) {
         var command = orderDtoMapper.toCommand(request);
         orderService.create(command, loginUser.id());
+    }
+
+    @GetMapping
+    public ResponseEntity findAll(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var infoList = orderService.findAll(loginUser.id());
+        var responseList = infoList.stream()
+            .map(orderDtoMapper::toResponse)
+            .toList();
+        return ResponseEntity.ok(responseList);
     }
 
     @PatchMapping("/{id}")

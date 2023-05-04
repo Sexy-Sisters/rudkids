@@ -23,4 +23,8 @@ public class OrderMapper {
             .cart(cart)
             .build();
     }
+
+    public OrderInfo.Main toInfo(Order order) {
+        return new OrderInfo.Main(order.getId(), order.getCreatedAt());
+    }
 }

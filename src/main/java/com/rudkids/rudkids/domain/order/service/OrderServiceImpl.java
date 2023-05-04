@@ -1,10 +1,7 @@
 package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.domain.cart.CartReader;
-import com.rudkids.rudkids.domain.order.OrderCommand;
-import com.rudkids.rudkids.domain.order.OrderMapper;
-import com.rudkids.rudkids.domain.order.OrderReader;
-import com.rudkids.rudkids.domain.order.OrderStore;
+import com.rudkids.rudkids.domain.order.*;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.exception.OrderStatusNotFoundException;
 import com.rudkids.rudkids.domain.order.service.strategy.orderStatus.OrderStatusChangeStrategy;
@@ -36,6 +33,14 @@ public class OrderServiceImpl implements OrderService {
         order.addUser(user);
         cart.deactivate();
         return order.getId();
+    }
+
+    @Override
+    public List<OrderInfo.Main> findAll(UUID userId) {
+        var user = userReader.getUser(userId);
+        return user.getOrders().stream()
+            .map(orderMapper::toInfo)
+            .toList();
     }
 
     @Override
