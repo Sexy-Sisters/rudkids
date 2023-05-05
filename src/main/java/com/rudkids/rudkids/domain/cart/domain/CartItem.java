@@ -57,7 +57,7 @@ public class CartItem {
     }
 
     public void updateAmount(int amount) {
-        this.amount = amount;
+        this.amount += amount;
     }
 
     public Cart getCart() {

@@ -21,7 +21,7 @@ public class CartItemReaderImpl implements CartItemReader {
     private final CartItemSeriesFactory cartItemSeriesFactory;
 
     @Override
-    public CartItem getCartItem(Cart cart, Item item, CartCommand.AddCartItem command) {
+    public CartItem getCartItemOrCreate(Cart cart, Item item, CartCommand.AddCartItem command) {
         if(cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
             CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
 
@@ -62,7 +62,6 @@ public class CartItemReaderImpl implements CartItemReader {
         var cartItem = CartItem.builder()
                 .cart(cart)
                 .item(item)
-                .amount(command.amount())
                 .price(item.getPrice())
                 .build();
         cart.addCartItem(cartItem);

@@ -31,9 +31,6 @@ public class Cart extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "cart")
     private Order order;
 
-    @Column(name = "cart_item_count")
-    private int cartItemCount;
-
     @Enumerated(EnumType.STRING)
     private CartStatus cartStatus;
 
@@ -53,20 +50,12 @@ public class Cart extends AbstractEntity {
         cartItems.add(cartItem);
     }
 
-    public void addCartItemCount(int amount) {
-        cartItemCount += amount;
-    }
-
     public UUID getId() {
         return id;
     }
 
     public CartStatus getCartStatus() {
         return this.cartStatus;
-    }
-
-    public int getCartItemCount() {
-        return cartItemCount;
     }
 
     public Order getOrder() {
@@ -93,11 +82,7 @@ public class Cart extends AbstractEntity {
 
     public int calculateTotalPrice() {
         return cartItems.stream()
-                .mapToInt(CartItem::calculateTotalItemPrice)
-                .sum();
-    }
-
-    public void updateCartItemCount(int cartItemCount, int newCartItemCount) {
-        this.cartItemCount = (this.cartItemCount - cartItemCount) + newCartItemCount;
+            .mapToInt(CartItem::calculateTotalItemPrice)
+            .sum();
     }
 }
