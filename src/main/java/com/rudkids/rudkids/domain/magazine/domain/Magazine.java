@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.magazine.domain;
 
+import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.user.domain.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_magazine")
-public class Magazine {
+public class Magazine extends AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")

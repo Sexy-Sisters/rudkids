@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.common;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.time.ZonedDateTime;
 public class AbstractEntity {
 
     @CreationTimestamp
+    @Column(updatable = false)
     private ZonedDateTime createdAt;
 
     @UpdateTimestamp
