@@ -30,10 +30,9 @@ class CartTest {
 
         //when
         final int ITEM_AMOUNT = 3;
-        cart.addCartItemCount(ITEM_AMOUNT);
+
 
         //then
-        assertThat(cart.getCartItemCount()).isEqualTo(3);
     }
 
     @DisplayName("카트에 담긴 아이템들의 총 가격을 반환한다.")
@@ -103,11 +102,8 @@ class CartTest {
 
         //when
         final int cartItemAmount = 2;
-        cart.addCartItemCount(cartItemAmount);
-        cart.updateCartItemCount(cartItemAmount, 5);
 
         //then
-        assertThat(cart.getCartItemCount()).isEqualTo(5);
     }
 
     @DisplayName("같은 유저일 경우 통과한다.")

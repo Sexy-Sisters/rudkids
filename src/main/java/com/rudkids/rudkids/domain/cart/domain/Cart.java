@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
@@ -84,5 +85,11 @@ public class Cart extends AbstractEntity {
         return cartItems.stream()
             .mapToInt(CartItem::calculateTotalItemPrice)
             .sum();
+    }
+
+    public void hasItem(CartItem cartItem) {
+        if (!this.cartItems.contains(cartItem)) {
+            throw new CartItemNotFoundException();
+        }
     }
 }

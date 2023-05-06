@@ -37,36 +37,6 @@ public class CartServiceFailTest extends CartServiceFixtures {
                 .isInstanceOf(ItemNotFoundException.class);
     }
 
-    @DisplayName("[장바구니-아이템수량변경-DifferentUserException]")
-    @Test
-    void 다른_사용자의_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
-        //given
-        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartReader.getActiveCart(user);
-
-        //when
-        User anotherUser = User.builder()
-            .email("namse@gmail.com")
-            .name(UserName.create("다른 사용자"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
-            .socialType(SocialType.GOOGLE)
-            .build();
-        userRepository.save(anotherUser);
-
-        CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
-                .cartId(cart.getId())
-                .cartItemId(cartItemId)
-                .amount(3)
-                .build();
-
-        //then
-        assertThatThrownBy(() -> cartService.updateCartItemAmount(anotherUser.getId(), CART_아이템_수량_변경_요청))
-                .isInstanceOf(DifferentUserException.class);
-    }
-
     @DisplayName("[장바구니-아이템수량변경-CartItemNotFoundException]")
     @Test
     void 존재하지_않는_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
@@ -77,7 +47,6 @@ public class CartServiceFailTest extends CartServiceFixtures {
 
         UUID invalidCartItemId = UUID.randomUUID();
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
-                .cartId(cart.getId())
                 .cartItemId(invalidCartItemId)
                 .amount(3)
                 .build();
@@ -102,41 +71,10 @@ public class CartServiceFailTest extends CartServiceFixtures {
 
         //then
         CartCommand.DeleteCartItems CART_아이템_삭제_요청 = CartCommand.DeleteCartItems.builder()
-                .cartId(cart.getId())
                 .cartItemIds(cartItemIds)
                 .build();
 
         assertThatThrownBy(() -> cartService.deleteCartItems(user.getId(), CART_아이템_삭제_요청))
                 .isInstanceOf(CartItemNotFoundException.class);
-    }
-
-    @DisplayName("[장바구니-아이템선택삭제-DifferentUserException]")
-    @Test
-    void 다른_사용자의_장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
-        //given
-        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartReader.getActiveCart(user);
-
-        //when
-        User anotherUser = User.builder()
-            .email("namse@gmail.com")
-            .name(UserName.create("다른 사용자"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
-            .socialType(SocialType.GOOGLE)
-            .build();
-        userRepository.save(anotherUser);
-
-        //then
-        List<UUID> cartItemIds = List.of(cartItemId);
-        CartCommand.DeleteCartItems CART_아이템_삭제_요청 = CartCommand.DeleteCartItems.builder()
-                .cartId(cart.getId())
-                .cartItemIds(cartItemIds)
-                .build();
-
-        assertThatThrownBy(() -> cartService.deleteCartItems(anotherUser.getId(), CART_아이템_삭제_요청))
-                .isInstanceOf(DifferentUserException.class);
     }
 }

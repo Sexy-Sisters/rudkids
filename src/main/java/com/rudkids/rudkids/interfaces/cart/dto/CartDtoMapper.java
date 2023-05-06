@@ -36,7 +36,6 @@ public class CartDtoMapper {
 
     public CartCommand.UpdateCartItemAmount to(CartRequest.UpdateCartItemAmount request) {
         return CartCommand.UpdateCartItemAmount.builder()
-                .cartId(request.cartId())
                 .cartItemId(request.cartItemId())
                 .amount(request.amount())
                 .build();
@@ -44,7 +43,6 @@ public class CartDtoMapper {
 
     public CartCommand.DeleteCartItems to(CartRequest.DeleteCartItems request) {
         return CartCommand.DeleteCartItems.builder()
-                .cartId(request.cartId())
                 .cartItemIds(request.cartItemIds())
                 .build();
     }

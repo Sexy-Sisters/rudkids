@@ -29,13 +29,12 @@ public class CartCommand {
 
     @Builder
     public record UpdateCartItemAmount(
-            UUID cartId,
             UUID cartItemId,
             int amount
     ) {
     }
 
     @Builder
-    public record DeleteCartItems(UUID cartId, List<UUID> cartItemIds) {
+    public record DeleteCartItems(List<UUID> cartItemIds) {
     }
 }

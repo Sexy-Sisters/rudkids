@@ -62,7 +62,7 @@ public class CartServiceFixtures {
 
         item = Item.builder()
                 .name(Name.create("No.1"))
-                .price(Price.create(2_990))
+                .price(Price.create(3_000))
                 .quantity(Quantity.create(1_000))
                 .itemBio(ItemBio.create("소개글입니다~"))
                 .limitType(LimitType.LIMITED)
