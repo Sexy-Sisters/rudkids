@@ -13,6 +13,7 @@ public class CartItemInfo {
             UUID id,
             String name,
             int price,
+            int amount,
             List<CartItemOptionGroup> optionGroups,
             ItemStatus itemStatus
     ) {

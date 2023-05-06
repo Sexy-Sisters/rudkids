@@ -11,22 +11,23 @@ public class CartItemMapper {
 
     public CartItemInfo.Main toInfo(CartItem cartItem) {
         List<CartItemInfo.CartItemOptionGroup> optionGroups = cartItem.getCartItemOptionGroups().stream()
-                .map(this::toInfo)
-                .toList();
+            .map(this::toInfo)
+            .toList();
 
         return CartItemInfo.Main.builder()
-                .id(cartItem.getId())
-                .name(cartItem.getName())
-                .price(cartItem.getPrice())
-                .optionGroups(optionGroups)
-                .itemStatus(cartItem.getItemStatus())
-                .build();
+            .id(cartItem.getId())
+            .name(cartItem.getName())
+            .price(cartItem.getPrice())
+            .amount(cartItem.getAmount())
+            .optionGroups(optionGroups)
+            .itemStatus(cartItem.getItemStatus())
+            .build();
     }
 
     private CartItemInfo.CartItemOptionGroup toInfo(CartItemOptionGroup cartItemOptionGroup) {
         return CartItemInfo.CartItemOptionGroup.builder()
-                .name(cartItemOptionGroup.getName())
-                .optionName(cartItemOptionGroup.getOptionName())
-                .build();
+            .name(cartItemOptionGroup.getName())
+            .optionName(cartItemOptionGroup.getOptionName())
+            .build();
     }
 }

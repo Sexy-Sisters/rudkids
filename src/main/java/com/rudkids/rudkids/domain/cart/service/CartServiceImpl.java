@@ -37,7 +37,6 @@ public class CartServiceImpl implements CartService {
     public CartInfo.Main findCartItems(UUID userId) {
         var user = userReader.getUser(userId);
         var cart = cartReader.getActiveCartOrCreate(user);
-
         int totalCartItemPrice = cart.calculateTotalPrice();
         return cart.getCartItems().stream()
                 .map(cartItemMapper::toInfo)

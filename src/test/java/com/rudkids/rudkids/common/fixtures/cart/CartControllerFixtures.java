@@ -18,9 +18,9 @@ public class CartControllerFixtures {
     public static final int CART_아이템_수량 = 3;
     public static final int 장바구니_아이템_총_가격 = 9980;
     public static final List<CartItemInfo.Main> 장바구니_아이템 = List.of(
-        new CartItemInfo.Main(UUID.randomUUID(), "옷", 1000, optionGroups(), ItemStatus.SELLING),
-        new CartItemInfo.Main(UUID.randomUUID(), "스티커", 500, optionGroups(), ItemStatus.SOLD_OUT),
-        new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, optionGroups(), ItemStatus.SELLING)
+        new CartItemInfo.Main(UUID.randomUUID(), "옷", 1000, 3,  optionGroups(), ItemStatus.SELLING),
+        new CartItemInfo.Main(UUID.randomUUID(), "스티커", 500, 3, optionGroups(), ItemStatus.SOLD_OUT),
+        new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, 3, optionGroups(), ItemStatus.SELLING)
     );
 
     private static List<CartItemInfo.CartItemOptionGroup> optionGroups() {
