@@ -29,6 +29,6 @@ public class CartRequest {
     ) {
     }
 
-    public record DeleteCartItems(UUID cartId, List<UUID> cartItemIds) {
+    public record DeleteCartItems(List<UUID> cartItemIds) {
     }
 }

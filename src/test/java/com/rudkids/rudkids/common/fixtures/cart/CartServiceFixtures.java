@@ -2,6 +2,7 @@ package com.rudkids.rudkids.common.fixtures.cart;
 
 import com.rudkids.rudkids.common.ServiceTest;
 import com.rudkids.rudkids.domain.cart.CartCommand;
+import com.rudkids.rudkids.domain.cart.CartItemReader;
 import com.rudkids.rudkids.domain.cart.CartReader;
 import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
@@ -30,6 +31,9 @@ public class CartServiceFixtures {
 
     @Autowired
     protected CartReader cartReader;
+
+    @Autowired
+    protected CartItemReader cartItemReader;
 
     @Autowired
     protected CartItemRepository cartItemRepository;

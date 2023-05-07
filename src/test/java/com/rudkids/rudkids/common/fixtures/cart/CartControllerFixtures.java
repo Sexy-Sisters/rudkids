@@ -49,7 +49,7 @@ public class CartControllerFixtures {
     }
 
     public static CartRequest.DeleteCartItems CART_아이템_선택삭제_변경_요청() {
-        return new CartRequest.DeleteCartItems(CART_ID, CART_아이템_Ids);
+        return new CartRequest.DeleteCartItems(CART_아이템_Ids);
     }
 
     public static CartInfo.Main CART_아이템_리스트() {

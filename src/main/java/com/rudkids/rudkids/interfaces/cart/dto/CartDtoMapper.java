@@ -10,40 +10,40 @@ public class CartDtoMapper {
 
     public CartCommand.AddCartItem to(CartRequest.AddCartItem request) {
         List<CartCommand.AddCartItemOptionGroup> optionGroups = request.optionGroups().stream()
-                .map(this::toCommand)
-                .toList();
+            .map(this::toCommand)
+            .toList();
 
         return CartCommand.AddCartItem.builder()
-                .itemId(request.itemId())
-                .optionGroups(optionGroups)
-                .amount(request.amount())
-                .build();
+            .itemId(request.itemId())
+            .optionGroups(optionGroups)
+            .amount(request.amount())
+            .build();
     }
 
     private CartCommand.AddCartItemOptionGroup toCommand(CartRequest.AddCartItemOptionGroup optionGroup) {
         return CartCommand.AddCartItemOptionGroup.builder()
-                .name(optionGroup.name())
-                .option(toCommand(optionGroup.option()))
-                .build();
+            .name(optionGroup.name())
+            .option(toCommand(optionGroup.option()))
+            .build();
     }
 
     private CartCommand.AddCartItemOption toCommand(CartRequest.AddCartItemOption option) {
         return CartCommand.AddCartItemOption.builder()
-                .name(option.name())
-                .price(option.price())
-                .build();
+            .name(option.name())
+            .price(option.price())
+            .build();
     }
 
     public CartCommand.UpdateCartItemAmount to(CartRequest.UpdateCartItemAmount request) {
         return CartCommand.UpdateCartItemAmount.builder()
-                .cartItemId(request.cartItemId())
-                .amount(request.amount())
-                .build();
+            .cartItemId(request.cartItemId())
+            .amount(request.amount())
+            .build();
     }
 
     public CartCommand.DeleteCartItems to(CartRequest.DeleteCartItems request) {
         return CartCommand.DeleteCartItems.builder()
-                .cartItemIds(request.cartItemIds())
-                .build();
+            .cartItemIds(request.cartItemIds())
+            .build();
     }
 }

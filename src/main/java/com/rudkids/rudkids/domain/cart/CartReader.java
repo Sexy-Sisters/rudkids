@@ -9,6 +9,4 @@ import java.util.UUID;
 public interface CartReader {
     Cart getActiveCart(User user);
     Cart getActiveCartOrCreate(User user);
-
-    CartItem getCartItem(UUID cartItemId);
 }

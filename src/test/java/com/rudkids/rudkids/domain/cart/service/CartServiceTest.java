@@ -40,7 +40,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         Cart cart = cartReader.getActiveCart(user);
-        var cartItem = cartReader.getCartItem(cartItemId);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         assertAll(() -> {
             assertThat(cart.getCartItems()).hasSize(1);
@@ -55,7 +55,7 @@ class CartServiceTest extends CartServiceFixtures {
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        var cartItem = cartReader.getCartItem(cartItemId);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         assertThat(cartItem.calculateTotalItemPrice()).isEqualTo(9_000);
     }
@@ -179,7 +179,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         Cart cart = cartReader.getActiveCart(user);
-        var cartItem = cartReader.getCartItem(cartItemId);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         assertThat(cart.getCartItems()).hasSize(1);
         assertThat(cartItem.getAmount()).isEqualTo(6);
@@ -196,7 +196,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         var cart = cartReader.getActiveCart(user);
-        var cartItem = cartReader.getCartItem(cartItemId);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         assertThat(cart.getCartItems()).hasSize(1);
         assertThat(cartItem.getAmount()).isEqualTo(4);
@@ -223,7 +223,7 @@ class CartServiceTest extends CartServiceFixtures {
     void 장바구니_아이템의_수량을_변경한다() {
         //given
         var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-        var cartItem = cartReader.getCartItem(cartItemId);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
