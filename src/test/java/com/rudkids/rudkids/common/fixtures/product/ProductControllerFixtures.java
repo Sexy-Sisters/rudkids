@@ -6,6 +6,8 @@ import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,20 +42,18 @@ public class ProductControllerFixtures {
         );
     }
 
-    public static ProductResponse.Main PRODUCT_MAIN_RESPONSE() {
-        return new ProductResponse.Main(
+    public static Page<ProductResponse.Main> PRODUCT_MAIN_RESPONSE() {
+        return new PageImpl<>(List.of(new ProductResponse.Main(
             프로덕트_아이디,
             프로덕트_제목,
             프로덕트_앞_이미지,
             프로덕트_뒤_이미지,
             프로덕트_상태
-        );
+        )));
     }
 
-    public static List<ProductInfo.Main> PRODUCT_리스트_조회_응답() {
-        return List.of(
-            PRODUCT_MAIN_INFO()
-        );
+    public static Page<ProductInfo.Main> PRODUCT_리스트_조회_응답() {
+        return new PageImpl<>(List.of(PRODUCT_MAIN_INFO()));
     }
 
     public static ProductInfo.Detail PRODUCT_상세조회_INFO() {
@@ -63,7 +63,9 @@ public class ProductControllerFixtures {
             .frontImageUrl(프로덕트_앞_이미지)
             .backImageUrl(프로덕트_뒤_이미지)
             .items(
-                List.of(ITEM_리스트_조회_INFO())
+                new PageImpl<>(List.of(
+                    ITEM_리스트_조회_INFO()
+                ))
             )
             .build();
     }
@@ -92,7 +94,9 @@ public class ProductControllerFixtures {
             .frontImageUrl(프로덕트_앞_이미지)
             .backImageUrl(프로덕트_뒤_이미지)
             .items(
-                List.of(ITEM_리스트_조회_RESPONSE())
+                new PageImpl<>(List.of(
+                    ITEM_리스트_조회_RESPONSE()
+                ))
             )
             .build();
     }

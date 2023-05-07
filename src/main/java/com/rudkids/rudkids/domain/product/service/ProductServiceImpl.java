@@ -5,7 +5,11 @@ import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.service.strategy.productStatus.ChangeProductStatusStrategy;
+import com.rudkids.rudkids.infrastructure.item.ItemRepository;
+import com.rudkids.rudkids.infrastructure.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +26,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductFactory productFactory;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
     private final ImageService imageService;
+    private final ProductRepository productRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     public void create(ProductCommand.CreateRequest command) {
@@ -31,32 +37,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductInfo.Main> findAll() {
-        return productReader.getProducts().stream()
-            .map(productMapper::toMain)
-            .toList();
+    public Page<ProductInfo.Main> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable)
+            .map(productMapper::toInfo);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ProductInfo.Detail find(UUID productId) {
+    public ProductInfo.Detail find(UUID productId, Pageable pageable) {
         var product = productReader.getProduct(productId);
-        var items = product.getItems().stream()
-            .map(productMapper::toInfo)
-            .toList();
+        var itemInfo = itemRepository.findByProduct(product, pageable)
+            .map(productMapper::toInfo);
+
         return ProductInfo.Detail.builder()
             .title(product.getTitle())
             .bio(product.getProductBio())
             .frontImageUrl(product.getFrontImageUrl())
             .backImageUrl(product.getBackImageUrl())
-            .items(items)
+            .items(itemInfo)
             .build();
     }
 
     @Override
     public List<ProductInfo.Search> search(String title) {
         return productReader.getProducts(title).stream()
-            .map(productMapper::toInfo)
+            .map(productMapper::toSearch)
             .toList();
     }
 

@@ -7,6 +7,8 @@ import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -39,10 +41,13 @@ class ProductServiceTest extends ProductServiceFixtures {
     @Test
     void 프로덕트를_전체조회한다() {
         // Given & When
-        var products = productService.findAll();
+        int page = 0;
+        int size = 4;
+        Pageable pageable = PageRequest.of(page, size);
+        var products = productService.findAll(pageable);
 
         // Then
-        assertThat(products.size()).isEqualTo(4);
+        assertThat(products.getSize()).isEqualTo(4);
     }
 
     @DisplayName("[프로덕트-상세조회]")
@@ -52,7 +57,10 @@ class ProductServiceTest extends ProductServiceFixtures {
         var product = products.get(0);
 
         // When
-        var productDetailInfo = productService.find(product.getId());
+        int page = 0;
+        int size = 6;
+        Pageable pageable = PageRequest.of(page, size);
+        var productDetailInfo = productService.find(product.getId(), pageable);
 
         // Then
         assertAll(

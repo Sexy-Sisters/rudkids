@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
 
-    public ProductInfo.Main toMain(Product product) {
+    public ProductInfo.Main toInfo(Product product) {
         return ProductInfo.Main.builder()
             .productId(product.getId())
             .title(product.getTitle())
@@ -27,7 +27,7 @@ public class ProductMapper {
             .build();
     }
 
-    public ProductInfo.Search toInfo(Product product) {
+    public ProductInfo.Search toSearch(Product product) {
         return ProductInfo.Search.builder()
             .productId(product.getId())
             .title(product.getTitle())

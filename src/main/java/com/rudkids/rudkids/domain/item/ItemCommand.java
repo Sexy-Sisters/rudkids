@@ -9,7 +9,6 @@ import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionName;
 import com.rudkids.rudkids.domain.item.domain.itemOption.ItemOptionPrice;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.Builder;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

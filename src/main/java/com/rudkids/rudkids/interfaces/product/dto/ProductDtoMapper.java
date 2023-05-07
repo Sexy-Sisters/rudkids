@@ -2,6 +2,7 @@ package com.rudkids.rudkids.interfaces.product.dto;
 
 import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductInfo;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,6 +26,10 @@ public class ProductDtoMapper {
         );
     }
 
+    public Page<ProductResponse.Main> toResponse(Page<ProductInfo.Main> info) {
+        return info.map(this::toResponse);
+    }
+
     public ProductResponse.Main toResponse(ProductInfo.Main info) {
         return ProductResponse.Main.builder()
             .productId(info.productId())
@@ -36,9 +41,7 @@ public class ProductDtoMapper {
     }
 
     public ProductResponse.Detail toResponse(ProductInfo.Detail info) {
-        var items = info.items().stream()
-            .map(this::toResponse)
-            .toList();
+        var items = info.items().map(this::toResponse);
 
         return ProductResponse.Detail.builder()
             .title(info.title())

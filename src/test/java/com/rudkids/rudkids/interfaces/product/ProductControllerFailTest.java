@@ -23,7 +23,7 @@ public class ProductControllerFailTest extends ControllerTest {
     void 존재하지_않는_프로덕트의_세부사항을_조회할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new ProductNotFoundException())
             .when(productService)
-            .find(any());
+            .find(any(), any());
 
         mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디))
             .andDo(print())
