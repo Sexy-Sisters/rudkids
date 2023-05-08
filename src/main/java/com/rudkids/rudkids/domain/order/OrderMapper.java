@@ -6,7 +6,7 @@ import com.rudkids.rudkids.domain.order.OrderInfo.Detail;
 import com.rudkids.rudkids.domain.order.OrderInfo.Detail.DeliveryInfo;
 import com.rudkids.rudkids.domain.order.OrderInfo.Detail.Receipt;
 import com.rudkids.rudkids.domain.order.OrderInfo.Detail.Receipt.ItemInfo;
-import com.rudkids.rudkids.domain.order.OrderInfo.Detail.Receipt.ItemInfo.CartItemOptionGroup;
+import com.rudkids.rudkids.domain.order.OrderInfo.Detail.Receipt.ItemInfo.OptionGroup;
 import com.rudkids.rudkids.domain.order.OrderInfo.Main;
 import com.rudkids.rudkids.domain.order.domain.DeliveryFragment;
 import com.rudkids.rudkids.domain.order.domain.Order;
@@ -24,6 +24,7 @@ public class OrderMapper {
             .receiverAddress2(command.receiverAddress2())
             .etcMessage(command.etcMessage())
             .build();
+
         return Order.builder()
             .payMethod(command.payMethod())
             .deliveryFragment(deliveryFragment)
@@ -64,7 +65,7 @@ public class OrderMapper {
             .map(this::toInfo)
             .toList();
         return Receipt.builder()
-            .totalCartItemPrice(cart.calculateTotalPrice())
+            .totalPrice(cart.calculateTotalPrice())
             .items(items)
             .build();
     }
@@ -72,7 +73,7 @@ public class OrderMapper {
     public ItemInfo toInfo(CartItem cartItem) {
         var optionGroups = cartItem.getCartItemOptionGroups().stream()
             .map(optionGroup ->
-                new CartItemOptionGroup(optionGroup.getName(), optionGroup.getOptionName())
+                new OptionGroup(optionGroup.getName(), optionGroup.getOptionName())
             )
             .toList();
 

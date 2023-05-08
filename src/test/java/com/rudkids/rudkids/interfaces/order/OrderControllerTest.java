@@ -17,8 +17,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -75,6 +74,27 @@ class OrderControllerTest extends ControllerTest {
                         .description("결제수단")
                 )
             ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[주문-상세 조회]")
+    @Test
+    void 주문_세부사항을_조회한다() throws Exception {
+        given(orderService.find(any()))
+            .willReturn(ORDER_상세조회_응답());
+
+        mockMvc.perform(get(ORDER_DEFAULT_URL + "/{id}", orderId))
+            .andDo(print())
+            .andDo(document("order/updateDeliveryFragment",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("주문 id")
+                    ),
+                    responseFields(ORDER_상세조회_응답_필드())
+                )
+            )
             .andExpect(status().isOk());
     }
 

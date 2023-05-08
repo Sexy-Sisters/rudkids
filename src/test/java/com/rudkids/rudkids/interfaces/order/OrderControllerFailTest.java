@@ -77,6 +77,24 @@ public class OrderControllerFailTest extends ControllerTest {
             .andExpect(status().isNotFound());
     }
 
+    @DisplayName("[주문-상세조회-OrderNotFoundException]")
+    @Test
+        void 존재하지_않는_주문을_상세조회_시_예외가_발생한다() throws Exception {
+        doThrow(new OrderNotFoundException())
+            .when(orderService)
+            .find(any());
+
+
+        mockMvc.perform(get(ORDER_DEFAULT_URL + "/{id}", orderId))
+            .andDo(print())
+            .andDo(document("order/find/failByNotFoundError",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                pathParameters(
+                    parameterWithName("id")
+                        .description("존재하지 않는 주문 id")
+                ),
+                responseFields(Error_응답_필드())
             ))
             .andExpect(status().isNotFound());
     }

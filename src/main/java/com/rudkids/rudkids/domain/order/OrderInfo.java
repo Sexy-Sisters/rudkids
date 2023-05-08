@@ -1,7 +1,5 @@
 package com.rudkids.rudkids.domain.order;
 
-import com.rudkids.rudkids.domain.cart.CartItemInfo;
-import com.rudkids.rudkids.domain.item.ItemInfo;
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
@@ -36,7 +34,7 @@ public class OrderInfo {
 
         @Builder
         public record Receipt(
-            int totalCartItemPrice,
+            int totalPrice,
             List<ItemInfo> items
         ) {
             @Builder
@@ -45,11 +43,11 @@ public class OrderInfo {
                 String name,
                 int price,
                 int amount,
-                List<CartItemOptionGroup> optionGroups,
+                List<OptionGroup> optionGroups,
                 ItemStatus itemStatus
             ) {
                 @Builder
-                public record CartItemOptionGroup(String name, String optionName) {
+                public record OptionGroup(String name, String optionName) {
                 }
             }
         }
