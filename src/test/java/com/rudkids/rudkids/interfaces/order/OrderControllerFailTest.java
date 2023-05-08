@@ -9,13 +9,11 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -74,11 +72,11 @@ public class OrderControllerFailTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("배송시 요청사항")
                 ),
-                responseFields(
-                    fieldWithPath("message")
-                        .type(JsonFieldType.STRING)
-                        .description("에러 메세지")
-                )
+                responseFields(Error_응답_필드())
+            ))
+            .andExpect(status().isNotFound());
+    }
+
             ))
             .andExpect(status().isNotFound());
     }
@@ -91,7 +89,7 @@ public class OrderControllerFailTest extends ControllerTest {
             .delete(any());
 
 
-        mockMvc.perform(delete(ORDER_DEFAULT_URL + "{id}", orderId)
+        mockMvc.perform(delete(ORDER_DEFAULT_URL + "/{id}", orderId)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
@@ -105,7 +103,8 @@ public class OrderControllerFailTest extends ControllerTest {
                 pathParameters(
                     parameterWithName("id")
                         .description("존재하지 않는 주문 id")
-                )
+                ),
+                responseFields(Error_응답_필드())
             ))
             .andExpect(status().isNotFound());
     }

@@ -34,7 +34,12 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
 @AutoConfigureRestDocs
 @WebMvcTest({
@@ -129,4 +134,10 @@ public abstract class ControllerTest {
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";
+
+    protected static FieldDescriptor Error_응답_필드() {
+        return fieldWithPath("message")
+            .type(JsonFieldType.STRING)
+            .description("에러 메시지");
+    }
 }
