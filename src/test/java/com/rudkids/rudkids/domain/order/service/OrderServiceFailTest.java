@@ -3,6 +3,7 @@ package com.rudkids.rudkids.domain.order.service;
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
+import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.Disabled;
@@ -27,6 +28,17 @@ public class OrderServiceFailTest extends OrderServiceFixtures {
         // When & Then
         assertThatThrownBy(() -> orderService.create(ORDER_주문_요청(), userId))
             .isInstanceOf(CartNotFoundException.class);
+    }
+
+    @DisplayName("[주문-상세조회-OrderNotFoundException]")
+    @Test
+    void 존재하지_않는_주문을_상세조회_시_예외가_발생한다() {
+        // Given
+        var orderId = UUID.randomUUID();
+
+        // When & Then
+        assertThatThrownBy(() -> orderService.find(orderId))
+            .isInstanceOf(OrderNotFoundException.class);
     }
 
     @Disabled("@AuthenticationAdminAuthority 어떻게 테스트 하는지 알아보기")

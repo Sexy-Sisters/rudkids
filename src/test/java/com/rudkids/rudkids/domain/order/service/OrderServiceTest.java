@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.order.service;
 
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.rudkids.domain.cart.domain.CartStatus;
+import com.rudkids.rudkids.domain.order.OrderInfo;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
@@ -27,6 +28,26 @@ class OrderServiceTest extends OrderServiceFixtures {
             () -> assertThat(findOrder.getPayMethod()).isEqualTo(PayMethod.TOSS),
             () -> assertThat(findOrder.getOrderStatus()).isEqualTo(OrderStatus.INIT)
         );
+    }
+
+    @DisplayName("[주문-상세조회]")
+    @Test
+    void 주문을_상세조회한다() {
+        // Given
+        var orderId = order.getId();
+
+        // When
+        var info = orderService.find(orderId);
+
+        // Then
+        assertAll(() -> {
+            assertThat(info.orderId()).isEqualTo(orderId);
+            assertThat(info.payMethod()).isEqualTo(PayMethod.TOSS);
+            assertThat(info.orderStatus()).isEqualTo(OrderStatus.INIT);
+            assertThat(info.deliveryFragment().receiverName()).isEqualTo("이규진");
+            assertThat(info.receipt().totalPrice()).isEqualTo(9000);
+            assertThat(info.receipt().items()).hasSize(1);
+        });
     }
 
     @DisplayName("주문-상태변경")
