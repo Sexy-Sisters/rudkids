@@ -9,7 +9,8 @@ import java.util.UUID;
 
 public interface OrderService {
     UUID create(OrderCommand.CreateRequest command, UUID userId);
-    
+
+    OrderInfo.Detail find(UUID orderId);
     List<OrderInfo.Main> findAll(UUID userId);
 
     void changeStatus(OrderStatus orderStatus, UUID orderId);
@@ -17,4 +18,5 @@ public interface OrderService {
     void updateDeliveryFragment(OrderCommand.UpdateDeliveryFragment command, UUID orderId);
 
     void delete(UUID orderId);
+
 }

@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.interfaces.order;
 
+import com.rudkids.rudkids.domain.order.OrderInfo;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
@@ -25,6 +26,11 @@ public class OrderController {
     ) {
         var command = orderDtoMapper.toCommand(request);
         orderService.create(command, loginUser.id());
+    }
+
+    @GetMapping("/{id}")
+    public OrderInfo.Detail find(@PathVariable(name = "id") UUID orderId) {
+        return orderService.find(orderId);
     }
 
     @GetMapping

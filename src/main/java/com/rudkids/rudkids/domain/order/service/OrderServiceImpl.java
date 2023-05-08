@@ -36,6 +36,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderInfo.Detail find(UUID orderId) {
+        var order = orderReader.getOrder(orderId);
+        return orderMapper.toDetail(order);
+    }
+
+    @Override
     public List<OrderInfo.Main> findAll(UUID userId) {
         var user = userReader.getUser(userId);
         return user.getOrders().stream()
