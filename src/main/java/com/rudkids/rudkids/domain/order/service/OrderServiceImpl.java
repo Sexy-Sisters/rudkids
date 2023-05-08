@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
     public void delete(UUID orderId) {
         var order = orderReader.getOrder(orderId);
         order.validateNotPaid();
-        order.getCart().activate();
+        order.activateCart();
         orderStore.delete(order);
     }
 

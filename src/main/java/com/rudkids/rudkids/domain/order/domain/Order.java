@@ -110,4 +110,8 @@ public class Order extends AbstractEntity {
             throw new OrderAlreadyPaidException();
         }
     }
+
+    public void activateCart() {
+        this.cart.activate();
+    }
 }
