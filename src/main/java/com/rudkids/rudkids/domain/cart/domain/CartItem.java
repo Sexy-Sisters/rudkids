@@ -56,6 +56,10 @@ public class CartItem {
         cartItemOptionGroups.add(cartItemOptionGroup);
     }
 
+    public void addAmount(int amount) {
+        this.amount += amount;
+    }
+
     public void updateAmount(int amount) {
         this.amount = amount;
     }

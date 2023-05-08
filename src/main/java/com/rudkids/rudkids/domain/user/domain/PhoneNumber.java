@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.user.domain;
 
+import com.amazonaws.util.StringUtils;
 import com.rudkids.rudkids.domain.user.exception.InvalidPhoneNumberException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -17,7 +18,10 @@ public class PhoneNumber {
     private String value;
 
     private PhoneNumber(String value) {
-        this.value = value.replace("-", "");
+        if (value == null || value.isBlank()) {
+            this.value =  null;
+        }
+        else this.value = value.replace("-", "");
     }
 
     public static PhoneNumber create(String value) {
@@ -30,10 +34,10 @@ public class PhoneNumber {
     }
 
     private static void validate(String value) {
-        if(value == null || value.isBlank()) {
+        if (value == null || value.isBlank()) {
             throw new InvalidPhoneNumberException();
         }
-        if(value.length() != MAX_LENGTH) {
+        if (value.length() != MAX_LENGTH) {
             throw new InvalidPhoneNumberException();
         }
     }

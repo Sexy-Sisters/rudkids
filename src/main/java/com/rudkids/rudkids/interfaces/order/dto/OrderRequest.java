@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class OrderRequest {
 
+
     @Builder
     public record Register(
         PayMethod payMethod,
@@ -17,32 +18,18 @@ public class OrderRequest {
         String receiverZipcode,
         String receiverAddress1,
         String receiverAddress2,
-        String etcMessage,
-        List<OrderRequest.RegisterOrderItem> orderItemList
+        String etcMessage
     ) {
     }
 
     @Builder
-    public record RegisterOrderItem(
-        UUID itemId,
-        Integer orderCount,
-        List<OrderRequest.RegisterOrderItemOptionGroup> orderItemOptionGroupList
-    ) {
-    }
-
-    @Builder
-    public record RegisterOrderItemOptionGroup(
-        Integer ordering,
-        String itemOptionGroupName,
-        OrderRequest.RegisterOrderItemOption orderItemOption
-    ) {
-    }
-
-    @Builder
-    public record RegisterOrderItemOption(
-        Integer ordering,
-        String itemOptionName,
-        int itemOptionPrice
+    public record UpdateDeliveryFragment(
+        String receiverName,
+        String receiverPhone,
+        String receiverZipcode,
+        String receiverAddress1,
+        String receiverAddress2,
+        String etcMessage
     ) {
     }
 

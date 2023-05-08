@@ -13,7 +13,6 @@ public class ProductFactoryImpl implements ProductFactory {
     @Override
     public Product create(ProductCommand.CreateRequest command) {
         var title = Title.create(command.title());
-        log.error("title: " + title);
         var productBio = ProductBio.create(command.productBio());
         var productFrontImage = ProductFrontImage.create(
             command.frontImage().path(),

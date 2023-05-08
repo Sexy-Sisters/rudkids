@@ -28,8 +28,7 @@ public class CartServiceImpl implements CartService {
         var user = userReader.getUser(userId);
         var cart = cartReader.getActiveCartOrCreate(user);
         var item = itemReader.getItem(command.itemId());
-        var cartItem = cartItemReader.getCartItem(cart, item, command);
-        cart.addCartItemCount(command.amount());
+        var cartItem = cartItemReader.getCartItemOrCreate(cart, item, command);
         return cartItem.getId();
     }
 
@@ -38,7 +37,6 @@ public class CartServiceImpl implements CartService {
     public CartInfo.Main findCartItems(UUID userId) {
         var user = userReader.getUser(userId);
         var cart = cartReader.getActiveCartOrCreate(user);
-
         int totalCartItemPrice = cart.calculateTotalPrice();
         return cart.getCartItems().stream()
                 .map(cartItemMapper::toInfo)
@@ -48,20 +46,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public void updateCartItemAmount(UUID userId, CartCommand.UpdateCartItemAmount command) {
         var user = userReader.getUser(userId);
-        var cart = cartReader.getCart(command.cartId());
-        cart.validateHasSameUser(user);
-
+        var cart = cartReader.getActiveCart(user);
         var cartItem = cartItemReader.getCartItem(command.cartItemId());
-        cart.updateCartItemCount(cartItem.getAmount(), command.amount());
+        cart.hasItem(cartItem);
         cartItem.updateAmount(command.amount());
     }
 
     @Override
     public void deleteCartItems(UUID userId, CartCommand.DeleteCartItems command) {
-        var user = userReader.getUser(userId);
-        var cart = cartReader.getCart(command.cartId());
-        cart.validateHasSameUser(user);
-
         cartItemStore.delete(command.cartItemIds());
     }
 }

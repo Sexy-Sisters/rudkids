@@ -41,4 +41,18 @@ public class DeliveryFragment {
         this.receiverAddress2 = receiverAddress2;
         this.etcMessage = etcMessage;
     }
+
+    public void update(String receiverName,
+                       String receiverPhone,
+                       String receiverZipcode,
+                       String receiverAddress1,
+                       String receiverAddress2,
+                       String etcMessage) {
+        this.receiverName = receiverName;
+        this.receiverPhone = receiverPhone;
+        this.receiverZipcode = receiverZipcode;
+        this.receiverAddress1 = receiverAddress1;
+        this.receiverAddress2 = receiverAddress2;
+        this.etcMessage = etcMessage;
+    }
 }

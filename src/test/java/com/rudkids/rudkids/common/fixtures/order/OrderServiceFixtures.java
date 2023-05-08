@@ -79,6 +79,17 @@ public class OrderServiceFixtures {
             .build();
     }
 
+    protected static OrderCommand.UpdateDeliveryFragment ORDER_배송_정보_수정_요청() {
+        return OrderCommand.UpdateDeliveryFragment.builder()
+            .receiverName("updated")
+            .receiverPhone("updated")
+            .receiverAddress1("updated")
+            .receiverAddress2("updated")
+            .receiverZipcode("updated")
+            .etcMessage("updated")
+            .build();
+    }
+
     protected static CartCommand.AddCartItem CART_아이템_요청() {
         return CartCommand.AddCartItem.builder()
             .itemId(item.getId())

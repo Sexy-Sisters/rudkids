@@ -58,7 +58,6 @@ public class Product extends AbstractEntity{
                                  final ProductBio productBio,
                                  final ProductFrontImage frontImage,
                                  final ProductBackImage backImage) {
-        System.out.println("product create() -> title: "+ title);
         return Product.builder()
             .title(title)
             .productBio(productBio)

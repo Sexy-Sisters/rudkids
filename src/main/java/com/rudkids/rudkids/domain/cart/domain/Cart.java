@@ -1,5 +1,7 @@
 package com.rudkids.rudkids.domain.cart.domain;
 
+import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
 import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
@@ -15,7 +17,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_cart")
-public class Cart {
+public class Cart extends AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -29,9 +31,6 @@ public class Cart {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "cart")
     private Order order;
-
-    @Column(name = "cart_item_count")
-    private int cartItemCount;
 
     @Enumerated(EnumType.STRING)
     private CartStatus cartStatus;
@@ -52,20 +51,12 @@ public class Cart {
         cartItems.add(cartItem);
     }
 
-    public void addCartItemCount(int amount) {
-        cartItemCount += amount;
-    }
-
     public UUID getId() {
         return id;
     }
 
     public CartStatus getCartStatus() {
         return this.cartStatus;
-    }
-
-    public int getCartItemCount() {
-        return cartItemCount;
     }
 
     public Order getOrder() {
@@ -92,11 +83,13 @@ public class Cart {
 
     public int calculateTotalPrice() {
         return cartItems.stream()
-                .mapToInt(CartItem::calculateTotalItemPrice)
-                .sum();
+            .mapToInt(CartItem::calculateTotalItemPrice)
+            .sum();
     }
 
-    public void updateCartItemCount(int cartItemCount, int newCartItemCount) {
-        this.cartItemCount = (this.cartItemCount - cartItemCount) + newCartItemCount;
+    public void hasItem(CartItem cartItem) {
+        if (!this.cartItems.contains(cartItem)) {
+            throw new CartItemNotFoundException();
+        }
     }
 }

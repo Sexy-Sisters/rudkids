@@ -381,7 +381,7 @@ public class AdminControllerTest extends ControllerTest {
     void 주문_상태를_변경한다() throws Exception {
         willDoNothing()
             .given(orderService)
-            .changeStatus(any(), any(), any());
+            .changeStatus(any(), any());
 
         mockMvc.perform(patch(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

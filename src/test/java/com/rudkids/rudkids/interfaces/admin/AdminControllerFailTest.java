@@ -603,7 +603,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 존재하지_않는_주문의_상태를_변경할_경우_상태코드_404를_반환한다() throws Exception {
         doThrow(new OrderStatusNotFoundException())
             .when(orderService)
-            .changeStatus(any(), any(), any());
+            .changeStatus(any(), any());
 
         mockMvc.perform(patch(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

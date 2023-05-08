@@ -6,6 +6,5 @@ import com.rudkids.rudkids.domain.user.domain.User;
 import java.util.UUID;
 
 public interface OrderReader {
-    Order getOrder(User user);
     Order getOrder(UUID orderId);
 }

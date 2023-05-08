@@ -9,19 +9,12 @@ import com.rudkids.rudkids.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class CartReaderImpl implements CartReader {
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final CartStore cartStore;
-
-    @Override
-    public Cart getCart(UUID id) {
-        return cartRepository.findById(id)
-                .orElseThrow(CartNotFoundException::new);
-    }
 
     @Override
     public Cart getActiveCart(User user) {

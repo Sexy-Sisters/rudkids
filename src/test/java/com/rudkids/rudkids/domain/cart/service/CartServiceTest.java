@@ -4,10 +4,7 @@ import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.CartInfo;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
-import com.rudkids.rudkids.domain.cart.domain.CartItem;
 import com.rudkids.rudkids.domain.cart.domain.CartItemOptionGroup;
-import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
-import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.domain.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,14 +35,16 @@ class CartServiceTest extends CartServiceFixtures {
     @Test
     void 장바구니에_아이템을_추가한다() {
         //given, when
+        var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        Cart cart = cartReader.getActiveCart(user);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(2);
-            assertThat(actual.getCartItems()).hasSize(1);
+            assertThat(cart.getCartItems()).hasSize(1);
+            assertThat(cartItem.getAmount()).isEqualTo(4);
         });
     }
 
@@ -56,10 +55,9 @@ class CartServiceTest extends CartServiceFixtures {
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        CartItem actual = cartItemRepository.findById(cartItemId)
-                        .orElseThrow(CartItemNotFoundException::new);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
-        assertThat(actual.calculateTotalItemPrice()).isEqualTo(8980);
+        assertThat(cartItem.calculateTotalItemPrice()).isEqualTo(9_000);
     }
 
     @DisplayName("[장바구니-새로운아이템추가]")
@@ -67,35 +65,31 @@ class CartServiceTest extends CartServiceFixtures {
     void 장바구니에_새로운_아이템을_추가한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        //when
         Item newItem = Item.builder()
-                .name(Name.create("No.2"))
-                .price(Price.create(6_990))
-                .quantity(Quantity.create(3_000))
-                .itemBio(ItemBio.create("옷 팝니다!"))
-                .limitType(LimitType.LIMITED)
-                .build();
+            .name(Name.create("No.2"))
+            .price(Price.create(6_990))
+            .quantity(Quantity.create(3_000))
+            .itemBio(ItemBio.create("옷 팝니다!"))
+            .limitType(LimitType.LIMITED)
+            .build();
         itemRepository.save(newItem);
 
+        //when
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(newItem.getId())
-                .optionGroups(List.of(
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("사이즈")
-                                .option(new CartCommand.AddCartItemOption("M", 1000))
-                                .build()))
-                .amount(4)
-                .build();
+            .itemId(newItem.getId())
+            .optionGroups(List.of(
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("사이즈")
+                    .option(new CartCommand.AddCartItemOption("M", 1000))
+                    .build()))
+            .amount(4)
+            .build();
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        Cart cart = cartReader.getActiveCart(user);
 
-        assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(6);
-            assertThat(actual.getCartItems()).hasSize(2);
-        });
+        assertThat(cart.getCartItems()).hasSize(2);
     }
 
     @DisplayName("[장바구니-아이템추가-다른옵션]")
@@ -106,28 +100,25 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .optionGroups(List.of(
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("사이즈")
-                                .option(new CartCommand.AddCartItemOption("S", 500))
-                                .build(),
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("색깔")
-                                .option(new CartCommand.AddCartItemOption("파랑", 500))
-                                .build()
-                ))
-                .amount(4)
-                .build();
+            .itemId(item.getId())
+            .optionGroups(List.of(
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("사이즈")
+                    .option(new CartCommand.AddCartItemOption("S", 500))
+                    .build(),
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("색깔")
+                    .option(new CartCommand.AddCartItemOption("파랑", 500))
+                    .build()
+            ))
+            .amount(4)
+            .build();
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        Cart cart = cartReader.getActiveCart(user);
 
-        assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(6);
-            assertThat(actual.getCartItems()).hasSize(2);
-        });
+        assertThat(cart.getCartItems()).hasSize(2);
     }
 
     @DisplayName("[장바구니-아이템추가-다른옵션개수]")
@@ -138,82 +129,77 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .optionGroups(List.of(
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("색깔")
-                                .option(new CartCommand.AddCartItemOption("파랑", 500))
-                                .build(),
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("사이즈")
-                                .option(new CartCommand.AddCartItemOption("M", 1000))
-                                .build(),
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("무늬")
-                                .option(new CartCommand.AddCartItemOption("체크", 1000))
-                                .build()
-                ))
-                .amount(4)
-                .build();
+            .itemId(item.getId())
+            .optionGroups(List.of(
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("색깔")
+                    .option(new CartCommand.AddCartItemOption("파랑", 500))
+                    .build(),
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("사이즈")
+                    .option(new CartCommand.AddCartItemOption("M", 1000))
+                    .build(),
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("무늬")
+                    .option(new CartCommand.AddCartItemOption("체크", 1000))
+                    .build()
+            ))
+            .amount(4)
+            .build();
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        Cart cart = cartReader.getActiveCart(user);
 
-        assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(6);
-            assertThat(actual.getCartItems()).hasSize(2);
-        });
+        assertThat(cart.getCartItems()).hasSize(2);
     }
 
     @DisplayName("[장바구니-아이템수량증가-같은옵션]")
     @Test
     void 같은_아이템이고_옵션_값은_같지만_순서가_다를_경우_장바구니아이템을_수량만_증가한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
         CartCommand.AddCartItem CART_새로운_아이템_요청 = CartCommand.AddCartItem.builder()
-                .itemId(item.getId())
-                .optionGroups(List.of(
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("색깔")
-                                .option(new CartCommand.AddCartItemOption("파랑", 500))
-                                .build(),
-                        CartCommand.AddCartItemOptionGroup.builder()
-                                .name("사이즈")
-                                .option(new CartCommand.AddCartItemOption("M", 1000))
-                                .build()
-                ))
-                .amount(4)
-                .build();
+            .itemId(item.getId())
+            .optionGroups(List.of(
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("색깔")
+                    .option(new CartCommand.AddCartItemOption("파랑", 500))
+                    .build(),
+                CartCommand.AddCartItemOptionGroup.builder()
+                    .name("사이즈")
+                    .option(new CartCommand.AddCartItemOption("M", 1000))
+                    .build()
+            ))
+            .amount(4)
+            .build();
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        Cart cart = cartReader.getActiveCart(user);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
-        assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(6);
-            assertThat(actual.getCartItems()).hasSize(1);
-        });
+        assertThat(cart.getCartItems()).hasSize(1);
+        assertThat(cartItem.getAmount()).isEqualTo(6);
     }
 
     @DisplayName("[장바구니-아이템수량증가]")
     @Test
     void 이미_장바구니에_있는_아이템을_추가하면_장바구니아이템_수량만_증가한다() {
         //given
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
+        var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart actual = cartReader.getActiveCart(user);
+        var cart = cartReader.getActiveCart(user);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
-        assertAll(() -> {
-            assertThat(actual.getCartItemCount()).isEqualTo(4);
-            assertThat(actual.getCartItems()).hasSize(1);
-        });
+        assertThat(cart.getCartItems()).hasSize(1);
+        assertThat(cartItem.getAmount()).isEqualTo(4);
     }
 
     @DisplayName("[장바구니-아이템전체조회]")
@@ -227,7 +213,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //then
         assertAll(() -> {
-            assertThat(actual.totalCartItemPrice()).isEqualTo(8980);
+            assertThat(actual.totalCartItemPrice()).isEqualTo(9_000);
             assertThat(actual.cartItems()).hasSize(1);
         });
     }
@@ -236,52 +222,18 @@ class CartServiceTest extends CartServiceFixtures {
     @Test
     void 장바구니_아이템의_수량을_변경한다() {
         //given
-        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartReader.getActiveCart(user);
-
-        //when
-        CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
-                .cartId(cart.getId())
-                .cartItemId(cartItemId)
-                .amount(3)
-                .build();
-        cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
-
-        //then
-        CartItem findCartItem = cartItemRepository.findByCartAndItem(cart, item)
-                        .orElseThrow(CartItemNotFoundException::new);
-
-        Cart findCart = cartReader.getActiveCart(user);
-
-        CartItem actual = findCart.getCartItems().get(0);
-
-        assertAll(() -> {
-            assertThat(findCartItem.getAmount()).isEqualTo(3);
-            assertThat(actual.getAmount()).isEqualTo(3);
-        });
-    }
-
-    @DisplayName("[장바구니-총수량변경]")
-    @Test
-    void 장바구니_아이템의_수량을_변경하면_장바구니에_담겨있는_아이템의_총_수량도_변경된다() {
-        //given
-        UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartReader.getActiveCart(user);
+        var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
+        var cartItem = cartItemReader.getCartItem(cartItemId);
 
         //when
         CartCommand.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartCommand.UpdateCartItemAmount.builder()
-                .cartId(cart.getId())
-                .cartItemId(cartItemId)
-                .amount(7)
-                .build();
+            .cartItemId(cartItemId)
+            .amount(3)
+            .build();
         cartService.updateCartItemAmount(user.getId(), CART_아이템_수량_변경_요청);
 
         //then
-        Cart findCart = cartReader.getActiveCart(user);
-
-        assertThat(findCart.getCartItemCount()).isEqualTo(7);
+        assertThat(cartItem.getAmount()).isEqualTo(3);
     }
 
     @DisplayName("[장바구니-아이템선택삭제]")
@@ -290,15 +242,12 @@ class CartServiceTest extends CartServiceFixtures {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
-        Cart cart = cartReader.getActiveCart(user);
-
         //when
         List<UUID> cartItemIds = List.of(cartItemId);
 
         CartCommand.DeleteCartItems CART_아이템_삭제_요청 = CartCommand.DeleteCartItems.builder()
-                .cartId(cart.getId())
-                .cartItemIds(cartItemIds)
-                .build();
+            .cartItemIds(cartItemIds)
+            .build();
         cartService.deleteCartItems(user.getId(), CART_아이템_삭제_요청);
 
         //then

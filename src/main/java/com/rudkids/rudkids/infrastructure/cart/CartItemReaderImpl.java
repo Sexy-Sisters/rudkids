@@ -21,19 +21,26 @@ public class CartItemReaderImpl implements CartItemReader {
     private final CartItemSeriesFactory cartItemSeriesFactory;
 
     @Override
-    public CartItem getCartItem(Cart cart, Item item, CartCommand.AddCartItem command) {
-        if(cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
+    public CartItem getCartItem(UUID cartItemId) {
+        return cartItemRepository.findById(cartItemId)
+            .orElseThrow(CartItemNotFoundException::new);
+    }
+
+    @Override
+    public CartItem getCartItemOrCreate(Cart cart, Item item, CartCommand.AddCartItem command) {
+        if (cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
             CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
 
             List<String> cartItemOptionNames = cartItem.getCartItemOptionGroups().stream()
-                    .map(CartItemOptionGroup::getOptionName)
-                    .toList();
+                .map(CartItemOptionGroup::getOptionName)
+                .toList();
 
             List<String> targetOptionNames = toCartItemOptionGroup(command.optionGroups()).stream()
-                    .map(CartItemOptionGroup::getOptionName)
-                    .toList();
+                .map(CartItemOptionGroup::getOptionName)
+                .toList();
 
-            if(isSameOptions(cartItemOptionNames, targetOptionNames)) {
+            if (isSameOptions(cartItemOptionNames, targetOptionNames)) {
+                cartItem.addAmount(command.amount());
                 return cartItem;
             }
         }
@@ -42,38 +49,32 @@ public class CartItemReaderImpl implements CartItemReader {
 
     private boolean isSameOptions(List<String> options, List<String> targetOptions) {
         return options.size() == targetOptions.size()
-                && options.containsAll(targetOptions);
+            && options.containsAll(targetOptions);
     }
 
     private List<CartItemOptionGroup> toCartItemOptionGroup(List<CartCommand.AddCartItemOptionGroup> groups) {
         return groups.stream()
-                .map(this::toCartItemOption)
-                .toList();
+            .map(this::toCartItemOption)
+            .toList();
     }
 
     private CartItemOptionGroup toCartItemOption(CartCommand.AddCartItemOptionGroup option) {
         return CartItemOptionGroup.builder()
-                .name(option.name())
-                .cartItemOption(option.toCartItemOption())
-                .build();
+            .name(option.name())
+            .cartItemOption(option.toCartItemOption())
+            .build();
     }
 
     private CartItem createCartItem(Cart cart, Item item, CartCommand.AddCartItem command) {
         var cartItem = CartItem.builder()
-                .cart(cart)
-                .item(item)
-                .amount(command.amount())
-                .price(item.getPrice())
-                .build();
+            .cart(cart)
+            .item(item)
+            .price(item.getPrice())
+            .amount(command.amount())
+            .build();
         cart.addCartItem(cartItem);
 
         cartItemSeriesFactory.store(cartItem, command);
         return cartItemRepository.save(cartItem);
-    }
-
-    @Override
-    public CartItem getCartItem(UUID cartItemId) {
-        return cartItemRepository.findById(cartItemId)
-                .orElseThrow(CartItemNotFoundException::new);
     }
 }
