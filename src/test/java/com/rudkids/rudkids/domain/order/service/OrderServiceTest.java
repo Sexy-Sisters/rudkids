@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.order.service;
 
+import com.amazonaws.services.ec2.model.VgwTelemetry;
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.rudkids.domain.cart.domain.CartStatus;
 import com.rudkids.rudkids.domain.order.OrderInfo;
@@ -7,7 +8,9 @@ import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.Rollback;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -44,10 +47,29 @@ class OrderServiceTest extends OrderServiceFixtures {
             assertThat(info.orderId()).isEqualTo(orderId);
             assertThat(info.payMethod()).isEqualTo(PayMethod.TOSS);
             assertThat(info.orderStatus()).isEqualTo(OrderStatus.INIT);
-            assertThat(info.deliveryFragment().receiverName()).isEqualTo("이규진");
+            assertThat(info.deliveryFragment().receiverName()).isEqualTo("updated");
+            assertThat(info.deliveryFragment().receiverPhone()).isEqualTo("updated");
+            assertThat(info.deliveryFragment().receiverAddress1()).isEqualTo("updated");
+            assertThat(info.deliveryFragment().receiverAddress2()).isEqualTo("updated");
+            assertThat(info.deliveryFragment().receiverZipcode()).isEqualTo("updated");
+            assertThat(info.deliveryFragment().etcMessage()).isEqualTo("updated");
             assertThat(info.receipt().totalPrice()).isEqualTo(9000);
             assertThat(info.receipt().items()).hasSize(1);
         });
+    }
+
+    @DisplayName("[주문-주문내역 조회")
+    @Test
+    void 주문내역을_조회한다() {
+        // Given
+        var userId = user.getId();
+        orderService.create(ORDER_주문_요청(), userId);
+
+        // When
+        var infoList = orderService.findAll(userId);
+
+        // Then
+        assertThat(infoList).hasSize(1);
     }
 
     @DisplayName("주문-상태변경")
@@ -98,10 +120,10 @@ class OrderServiceTest extends OrderServiceFixtures {
         orderService.delete(orderId);
 
         // Then
-
         assertAll(
             () -> assertThat(cart.getCartStatus()).isEqualTo(CartStatus.ACTIVE),
-            () -> assertThatThrownBy(() -> orderReader.getOrder(orderId)).isInstanceOf(OrderNotFoundException.class)
+            () -> assertThatThrownBy(() -> orderReader.getOrder(orderId))
+                .isInstanceOf(OrderNotFoundException.class)
         );
     }
 }

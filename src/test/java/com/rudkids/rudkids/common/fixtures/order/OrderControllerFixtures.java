@@ -5,9 +5,11 @@ import com.rudkids.rudkids.domain.order.OrderInfo;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
+import com.rudkids.rudkids.interfaces.order.dto.OrderResponse;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -87,7 +89,6 @@ public class OrderControllerFixtures {
             .etcMessage(etcMessage)
             .build();
 
-
         return OrderInfo.Detail.builder()
             .orderId(orderId)
             .deliveryFragment(deliveryFragment)
@@ -95,6 +96,21 @@ public class OrderControllerFixtures {
             .payMethod(payMethod)
             .receipt(receipt)
             .build();
+    }
+
+    public static List<OrderInfo.Main> ORDER_주문내역_조회_INFO() {
+        return List.of(
+            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
+            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
+            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
+            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now())
+        );
+    }
+
+    public static OrderResponse.Main ORDER_주문내역_조회_응답() {
+        return new OrderResponse.Main(
+            UUID.randomUUID(), ZonedDateTime.now()
+        );
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {
@@ -165,6 +181,78 @@ public class OrderControllerFixtures {
             fieldWithPath("receipt.items[].itemStatus")
                 .type(JsonFieldType.STRING)
                 .description("아이템 상태")
+        );
+    }
+
+    public static List<FieldDescriptor> ORDER_주문내역_조회_응답_필드() {
+        return List.of(
+            fieldWithPath("[].orderId")
+                .type(JsonFieldType.STRING)
+                .description("주문 ID"),
+
+            fieldWithPath("[].createdAt")
+                .type(JsonFieldType.STRING)
+                .description("주문한 시간")
+        );
+    }
+
+    public static List<FieldDescriptor> ORDER_주문_요청_필드() {
+        return List.of(
+            fieldWithPath("receiverName")
+                .type(JsonFieldType.STRING)
+                .description("수신자"),
+
+            fieldWithPath("receiverPhone")
+                .type(JsonFieldType.STRING)
+                .description("전화번호"),
+
+            fieldWithPath("receiverAddress1")
+                .type(JsonFieldType.STRING)
+                .description("주소1"),
+
+            fieldWithPath("receiverAddress2")
+                .type(JsonFieldType.STRING)
+                .description("주소2"),
+
+            fieldWithPath("receiverZipcode")
+                .type(JsonFieldType.STRING)
+                .description("우편번"),
+
+            fieldWithPath("etcMessage")
+                .type(JsonFieldType.STRING)
+                .description("배송시 요청사항"),
+
+            fieldWithPath("payMethod")
+                .type(JsonFieldType.STRING)
+                .description("결제수단")
+        );
+    }
+
+    public static List<FieldDescriptor> ORDER_배송정보_수정_요청_필드() {
+        return List.of(
+            fieldWithPath("receiverName")
+                .type(JsonFieldType.STRING)
+                .description("수신자"),
+
+            fieldWithPath("receiverPhone")
+                .type(JsonFieldType.STRING)
+                .description("전화번호"),
+
+            fieldWithPath("receiverAddress1")
+                .type(JsonFieldType.STRING)
+                .description("주소1"),
+
+            fieldWithPath("receiverAddress2")
+                .type(JsonFieldType.STRING)
+                .description("주소2"),
+
+            fieldWithPath("receiverZipcode")
+                .type(JsonFieldType.STRING)
+                .description("우편번"),
+
+            fieldWithPath("etcMessage")
+                .type(JsonFieldType.STRING)
+                .description("배송시 요청사항")
         );
     }
 }

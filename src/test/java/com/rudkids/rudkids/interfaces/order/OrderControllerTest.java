@@ -4,7 +4,6 @@ import com.rudkids.rudkids.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.UUID;
 
@@ -17,7 +16,8 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,35 +44,7 @@ class OrderControllerTest extends ControllerTest {
                     headerWithName("Authorization")
                         .description("JWT Access Token")
                 ),
-                requestFields(
-                    fieldWithPath("receiverName")
-                        .type(JsonFieldType.STRING)
-                        .description("수신자"),
-
-                    fieldWithPath("receiverPhone")
-                        .type(JsonFieldType.STRING)
-                        .description("전화번호"),
-
-                    fieldWithPath("receiverAddress1")
-                        .type(JsonFieldType.STRING)
-                        .description("주소1"),
-
-                    fieldWithPath("receiverAddress2")
-                        .type(JsonFieldType.STRING)
-                        .description("주소2"),
-
-                    fieldWithPath("receiverZipcode")
-                        .type(JsonFieldType.STRING)
-                        .description("우편번"),
-
-                    fieldWithPath("etcMessage")
-                        .type(JsonFieldType.STRING)
-                        .description("배송시 요청사항"),
-
-                    fieldWithPath("payMethod")
-                        .type(JsonFieldType.STRING)
-                        .description("결제수단")
-                )
+                requestFields(ORDER_주문_요청_필드())
             ))
             .andExpect(status().isOk());
     }
@@ -85,7 +57,7 @@ class OrderControllerTest extends ControllerTest {
 
         mockMvc.perform(get(ORDER_DEFAULT_URL + "/{id}", orderId))
             .andDo(print())
-            .andDo(document("order/updateDeliveryFragment",
+            .andDo(document("order/find",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     pathParameters(
@@ -93,6 +65,32 @@ class OrderControllerTest extends ControllerTest {
                             .description("주문 id")
                     ),
                     responseFields(ORDER_상세조회_응답_필드())
+                )
+            )
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[주문-주문 내역 조회]")
+    @Test
+    void 주문_내역을_조회한다() throws Exception {
+        given(orderDtoMapper.toResponse(any()))
+            .willReturn(ORDER_주문내역_조회_응답());
+
+        given(orderService.findAll(any()))
+            .willReturn(ORDER_주문내역_조회_INFO());
+
+        mockMvc.perform(get(ORDER_DEFAULT_URL)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+            )
+            .andDo(print())
+            .andDo(document("order/findAll",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(ORDER_주문내역_조회_응답_필드())
                 )
             )
             .andExpect(status().isOk());
@@ -122,31 +120,7 @@ class OrderControllerTest extends ControllerTest {
                     parameterWithName("id")
                         .description("주문 id")
                 ),
-                requestFields(
-                    fieldWithPath("receiverName")
-                        .type(JsonFieldType.STRING)
-                        .description("수신자"),
-
-                    fieldWithPath("receiverPhone")
-                        .type(JsonFieldType.STRING)
-                        .description("전화번호"),
-
-                    fieldWithPath("receiverAddress1")
-                        .type(JsonFieldType.STRING)
-                        .description("주소1"),
-
-                    fieldWithPath("receiverAddress2")
-                        .type(JsonFieldType.STRING)
-                        .description("주소2"),
-
-                    fieldWithPath("receiverZipcode")
-                        .type(JsonFieldType.STRING)
-                        .description("우편번"),
-
-                    fieldWithPath("etcMessage")
-                        .type(JsonFieldType.STRING)
-                        .description("배송시 요청사항")
-                )
+                requestFields(ORDER_배송정보_수정_요청_필드())
             ))
             .andExpect(status().isOk());
     }
