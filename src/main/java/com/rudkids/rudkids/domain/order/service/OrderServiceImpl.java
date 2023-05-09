@@ -8,6 +8,8 @@ import com.rudkids.rudkids.domain.order.service.strategy.orderStatus.OrderStatus
 import com.rudkids.rudkids.domain.user.UserReader;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,6 +41,12 @@ public class OrderServiceImpl implements OrderService {
     public OrderInfo.Detail find(UUID orderId) {
         var order = orderReader.getOrder(orderId);
         return orderMapper.toDetail(order);
+    }
+
+    @Override
+    public Page<OrderInfo.Main> findAll(Pageable pageable) {
+        return orderReader.getOrders(pageable)
+            .map(orderMapper::toInfo);
     }
 
     @Override
