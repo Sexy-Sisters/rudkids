@@ -42,7 +42,17 @@ public class ProductControllerFixtures {
         );
     }
 
-    public static Page<ProductResponse.Main> PRODUCT_MAIN_RESPONSE() {
+    public static ProductResponse.Main PRODUCT_MAIN_RESPONSE() {
+        return new ProductResponse.Main(
+            프로덕트_아이디,
+            프로덕트_제목,
+            프로덕트_앞_이미지,
+            프로덕트_뒤_이미지,
+            프로덕트_상태
+        );
+    }
+
+    public static Page<ProductResponse.Main> PRODUCT_MAIN_RESPONSES() {
         return new PageImpl<>(List.of(new ProductResponse.Main(
             프로덕트_아이디,
             프로덕트_제목,
