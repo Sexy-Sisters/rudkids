@@ -6,6 +6,8 @@ import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import com.rudkids.rudkids.interfaces.order.dto.OrderResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
@@ -13,12 +15,13 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import static com.rudkids.rudkids.common.ControllerTest.pageResponseFieldsWith;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
 public class OrderControllerFixtures {
 
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
-    public static final UUID userId = UUID.randomUUID();
     public static final UUID orderId = UUID.randomUUID();
     public static final OrderStatus orderStatus = OrderStatus.INIT;
     private static final PayMethod payMethod = PayMethod.TOSS;
@@ -98,6 +101,12 @@ public class OrderControllerFixtures {
             .payMethod(payMethod)
             .receipt(receipt)
             .build();
+    }
+
+    public static Page<OrderInfo.Main> ORDER_전체_조회_INFO() {
+        return new PageImpl<>(List.of(
+            new OrderInfo.Main(orderId, createdAt)
+        ));
     }
 
     public static List<OrderInfo.Main> ORDER_주문내역_조회_INFO() {
@@ -248,6 +257,20 @@ public class OrderControllerFixtures {
             fieldWithPath("etcMessage")
                 .type(JsonFieldType.STRING)
                 .description("배송시 요청사항")
+        );
+    }
+
+    public static List<FieldDescriptor> ORDER_전체_주문_조회_응답_필드() {
+        return pageResponseFieldsWith(
+            List.of(
+                fieldWithPath("content.[].orderId")
+                    .type(JsonFieldType.STRING)
+                    .description("주문 ID"),
+
+                fieldWithPath("content.[].createdAt")
+                    .type(JsonFieldType.STRING)
+                    .description("주문한 시간")
+            )
         );
     }
 }

@@ -36,7 +36,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResponse.Main>> findAll(@AuthenticationPrincipal AuthUser.Login loginUser) {
+    public ResponseEntity<List<OrderResponse.Main>> findAllMine(@AuthenticationPrincipal AuthUser.Login loginUser) {
         var responseList = orderService.findAllMine(loginUser.id()).stream()
             .map(orderDtoMapper::toResponse)
             .toList();

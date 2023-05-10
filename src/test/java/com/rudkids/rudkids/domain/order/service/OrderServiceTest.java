@@ -7,6 +7,7 @@ import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -52,6 +53,20 @@ class OrderServiceTest extends OrderServiceFixtures {
             assertThat(info.receipt().totalPrice()).isEqualTo(9000);
             assertThat(info.receipt().items()).hasSize(1);
         });
+    }
+
+    @DisplayName("[주문-전체조회")
+    @Test
+    void 주문을_전체조회한다() {
+        // Given
+        var pageable = Pageable.ofSize(2);
+
+        // When
+        var infoPage = orderService.findAll(pageable);
+
+        // Then
+        var content = infoPage.getContent();
+        assertThat(content).hasSize(1);
     }
 
     @DisplayName("[주문-주문내역 조회")

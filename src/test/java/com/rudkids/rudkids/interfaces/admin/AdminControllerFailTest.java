@@ -17,10 +17,11 @@ import java.util.UUID;
 
 import static com.rudkids.rudkids.common.fixtures.admin.AdminControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.magazine.MagazineControllerFixtures.*;
-import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.ORDER_상태변경_요청;
+import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.PRODUCT_상태_변경_요청;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -596,6 +597,25 @@ public class AdminControllerFailTest extends ControllerTest {
                 )
             ))
             .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("[주문-전체조회-403에러")
+    @Test
+    void 전체_주문을_조회한다() throws Exception {
+        doThrow(new NotAdminRoleException())
+            .when(orderService)
+            .findAll(any());
+
+        mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+            .andDo(print())
+            .andDo(document("order/findAll",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(JWT_ACCESS_TOKEN()),
+                responseFields(Error_응답_필드())
+            ))
+            .andExpect(status().isForbidden());
     }
 
     @DisplayName("[주문-상태변경-404-에러]")
