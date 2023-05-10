@@ -20,7 +20,9 @@ public class ProductController {
     @GetMapping
     public ResponseEntity findAll(@PageableDefault Pageable pageable) {
         var info = productService.findAll(pageable);
-        var response = productDtoMapper.toResponse(info);
+        var response = info.stream()
+            .map(productDtoMapper::toResponse)
+            .toList();
         return ResponseEntity.ok(response);
     }
 

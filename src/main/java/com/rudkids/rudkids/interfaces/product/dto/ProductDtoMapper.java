@@ -26,10 +26,6 @@ public class ProductDtoMapper {
         );
     }
 
-    public Page<ProductResponse.Main> toResponse(Page<ProductInfo.Main> info) {
-        return info.map(this::toResponse);
-    }
-
     public ProductResponse.Main toResponse(ProductInfo.Main info) {
         return ProductResponse.Main.builder()
             .productId(info.productId())

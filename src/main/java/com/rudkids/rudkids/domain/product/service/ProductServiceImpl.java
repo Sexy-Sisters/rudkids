@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Page<ProductInfo.Main> findAll(Pageable pageable) {
         return productRepository.findAll(pageable)
-            .map(productMapper::toInfo);
+            .map(productMapper::toMain);
     }
 
     @Override

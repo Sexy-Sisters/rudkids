@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface ImageService {
     ImageInfo.Main upload(MultipartFile image);
-    List<ImageInfo.Main> uploads(List<MultipartFile> images);
+    ImageInfo.All uploads(List<MultipartFile> images);
     void delete(Item item);
     void delete(Product product);
     void delete(User user);
