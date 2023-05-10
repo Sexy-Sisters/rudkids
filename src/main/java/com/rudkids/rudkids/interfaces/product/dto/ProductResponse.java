@@ -1,10 +1,9 @@
 package com.rudkids.rudkids.interfaces.product.dto;
 
 import com.rudkids.rudkids.domain.item.domain.ItemStatus;
-import com.rudkids.rudkids.domain.product.ProductInfo;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
-import com.rudkids.rudkids.interfaces.item.dto.ItemResponse;
 import lombok.Builder;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +26,7 @@ public class ProductResponse {
         String bio,
         String frontImageUrl,
         String backImageUrl,
-        List<ProductResponse.ProductItem> items
+        Page<ProductResponse.ProductItem> items
     ) {}
 
     @Builder

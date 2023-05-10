@@ -70,11 +70,11 @@ class ImageControllerTest extends ControllerTest {
                         .description("JWT Access Token")
                 ),
                 responseFields(
-                    fieldWithPath("[].path")
+                    fieldWithPath("images[].path")
                         .type(JsonFieldType.STRING)
                         .description("이미지 경로"),
 
-                    fieldWithPath("[].url")
+                    fieldWithPath("images[].url")
                         .type(JsonFieldType.STRING)
                         .description("이미지 url")
                 )

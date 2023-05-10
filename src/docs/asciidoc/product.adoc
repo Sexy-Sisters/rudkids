@@ -3,7 +3,7 @@
 
 [[Product-전체조회]]
 === Product 전체조회
-operation::product/findAll[snippets='http-request,http-response']
+operation::product/findAll[snippets='http-request,http-response,response-fields']
 
 [[Product-상세조회]]
 === Product 상세조회

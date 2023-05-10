@@ -45,15 +45,6 @@ public class ItemDtoMapper {
             .build();
     }
 
-    public ItemResponse.Main to(ItemInfo.Main info) {
-        return ItemResponse.Main.builder()
-            .id(info.id())
-            .name(info.name())
-            .price(info.price())
-            .itemStatus(info.itemStatus())
-            .build();
-    }
-
     public ItemResponse.Detail to(ItemInfo.Detail info) {
         var itemOptionGroupResponseList = info.itemOptionGroupInfoList().stream()
             .map(this::to)

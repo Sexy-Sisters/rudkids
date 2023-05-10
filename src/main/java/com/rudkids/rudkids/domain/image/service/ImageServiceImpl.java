@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor
@@ -22,10 +26,10 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageInfo.Main> uploads(List<MultipartFile> images) {
+    public ImageInfo.All uploads(List<MultipartFile> images) {
         return images.stream()
             .map(s3ImageUploader::upload)
-            .toList();
+            .collect(collectingAndThen(toList(), ImageInfo.All::new));
     }
 
     @Override

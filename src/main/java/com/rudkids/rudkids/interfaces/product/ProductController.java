@@ -2,8 +2,9 @@ package com.rudkids.rudkids.interfaces.product;
 
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
-import com.rudkids.rudkids.interfaces.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,18 @@ public class ProductController {
     private final ProductDtoMapper productDtoMapper;
 
     @GetMapping
-    public ResponseEntity findAll() {
-        var response = productService.findAll().stream()
+    public ResponseEntity findAll(@PageableDefault Pageable pageable) {
+        var info = productService.findAll(pageable);
+        var response = info.stream()
             .map(productDtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity find(@PathVariable UUID id) {
-        var info = productService.find(id);
-        ProductResponse.Detail response = productDtoMapper.toResponse(info);
+    public ResponseEntity find(@PathVariable UUID id, @PageableDefault Pageable pageable) {
+        var info = productService.find(id, pageable);
+        var response = productDtoMapper.toResponse(info);
         return ResponseEntity.ok(response);
     }
 

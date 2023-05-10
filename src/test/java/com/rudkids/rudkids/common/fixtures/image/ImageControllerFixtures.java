@@ -41,10 +41,12 @@ public class ImageControllerFixtures {
         return new ImageInfo.Main(IMAGE_PATH, IMAGE_URL);
     }
 
-    public static List<ImageInfo.Main> IMAGE_여러개_응답() {
-        return List.of(
-            new ImageInfo.Main(IMAGE_PATH, IMAGE_URL),
-            new ImageInfo.Main(IMAGE_PATH, IMAGE_URL)
+    public static ImageInfo.All IMAGE_여러개_응답() {
+        return new ImageInfo.All(
+            List.of(
+                new ImageInfo.Main(IMAGE_PATH, IMAGE_URL),
+                new ImageInfo.Main(IMAGE_PATH, IMAGE_URL)
+            )
         );
     }
 }
