@@ -15,7 +15,8 @@ public interface OrderService {
     OrderInfo.Detail find(UUID orderId);
 
     Page<OrderInfo.Main> findAll(Pageable pageable);
-    List<OrderInfo.Main> findAll(UUID userId);
+
+    List<OrderInfo.Main> findAllMine(UUID userId);
 
     void changeStatus(OrderStatus orderStatus, UUID orderId);
 

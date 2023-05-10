@@ -18,9 +18,11 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 public class OrderControllerFixtures {
 
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
+    public static final UUID userId = UUID.randomUUID();
     public static final UUID orderId = UUID.randomUUID();
     public static final OrderStatus orderStatus = OrderStatus.INIT;
     private static final PayMethod payMethod = PayMethod.TOSS;
+    private static final ZonedDateTime createdAt = ZonedDateTime.now();
 
     private static final String receiverName = "이규진";
     private static final String receiverPhone = "010-5476-5574";
@@ -99,18 +101,11 @@ public class OrderControllerFixtures {
     }
 
     public static List<OrderInfo.Main> ORDER_주문내역_조회_INFO() {
-        return List.of(
-            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
-            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
-            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now()),
-            new OrderInfo.Main(UUID.randomUUID(), ZonedDateTime.now())
-        );
+        return List.of(new OrderInfo.Main(orderId, createdAt));
     }
 
     public static OrderResponse.Main ORDER_주문내역_조회_응답() {
-        return new OrderResponse.Main(
-            UUID.randomUUID(), ZonedDateTime.now()
-        );
+        return new OrderResponse.Main(orderId, createdAt);
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {

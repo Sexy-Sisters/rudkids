@@ -6,11 +6,11 @@ import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.exception.OrderStatusNotFoundException;
 import com.rudkids.rudkids.domain.order.service.strategy.orderStatus.OrderStatusChangeStrategy;
 import com.rudkids.rudkids.domain.user.UserReader;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -38,19 +38,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public OrderInfo.Detail find(UUID orderId) {
         var order = orderReader.getOrder(orderId);
         return orderMapper.toDetail(order);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<OrderInfo.Main> findAll(Pageable pageable) {
         return orderReader.getOrders(pageable)
             .map(orderMapper::toInfo);
     }
 
     @Override
-    public List<OrderInfo.Main> findAll(UUID userId) {
+    @Transactional(readOnly = true)
+    public List<OrderInfo.Main> findAllMine(UUID userId) {
         var user = userReader.getUser(userId);
         return user.getOrders().stream()
             .map(orderMapper::toInfo)

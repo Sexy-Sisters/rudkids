@@ -6,10 +6,12 @@ import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipal;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
+import com.rudkids.rudkids.interfaces.order.dto.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,9 +36,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity findAll(@AuthenticationPrincipal AuthUser.Login loginUser) {
-        var infoList = orderService.findAll(loginUser.id());
-        var responseList = infoList.stream()
+    public ResponseEntity<List<OrderResponse.Main>> findAll(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var responseList = orderService.findAllMine(loginUser.id()).stream()
             .map(orderDtoMapper::toResponse)
             .toList();
         return ResponseEntity.ok(responseList);

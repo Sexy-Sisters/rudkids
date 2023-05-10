@@ -16,8 +16,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -72,18 +71,18 @@ class OrderControllerTest extends ControllerTest {
 
     @DisplayName("[주문-주문 내역 조회]")
     @Test
-    void 주문_내역을_조회한다() throws Exception {
+    void 자신의_주문_내역을_조회한다() throws Exception {
+        given(orderService.findAllMine(any()))
+            .willReturn(ORDER_주문내역_조회_INFO());
+
         given(orderDtoMapper.toResponse(any()))
             .willReturn(ORDER_주문내역_조회_응답());
-
-        given(orderService.findAll(any()))
-            .willReturn(ORDER_주문내역_조회_INFO());
 
         mockMvc.perform(get(ORDER_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
-            .andDo(document("order/findAll",
+            .andDo(document("order/findAllMine",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(
