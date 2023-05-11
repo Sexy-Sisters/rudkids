@@ -15,7 +15,7 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @PostMapping("/sms")
-    public void send(@RequestBody NotificationRequest.Send request) {
+    public void send(@RequestBody NotificationRequest.SendSms request) {
         notificationService.sendSms(request);
     }
 }

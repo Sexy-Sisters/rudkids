@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationDtoMapper {
 
-    public Message toMessage(NotificationRequest.Send request) {
+    public Message toMessage(NotificationRequest.SendSms request) {
         Message message = new Message();
         message.setFrom(request.senderPhoneNumber());
         message.setTo(request.recipientPhoneNumber());

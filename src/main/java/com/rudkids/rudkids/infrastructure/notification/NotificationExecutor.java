@@ -27,7 +27,7 @@ public class NotificationExecutor implements NotificationService {
     }
 
     @Override
-    public void sendSms(NotificationRequest.Send request){
+    public void sendSms(NotificationRequest.SendSms request){
         var message = notificationDtoMapper.toMessage(request);
         messageService.sendOne(new SingleMessageSendingRequest(message));
     }
