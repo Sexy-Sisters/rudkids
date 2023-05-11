@@ -70,20 +70,20 @@ class OrderControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("[주문-주문 내역 조회]")
+    @DisplayName("[주문-내역조회]")
     @Test
-    void 주문_내역을_조회한다() throws Exception {
+    void 자신의_주문_내역을_조회한다() throws Exception {
+        given(orderService.findAllMine(any()))
+            .willReturn(ORDER_주문내역_조회_INFO());
+
         given(orderDtoMapper.toResponse(any()))
             .willReturn(ORDER_주문내역_조회_응답());
-
-        given(orderService.findAll(any()))
-            .willReturn(ORDER_주문내역_조회_INFO());
 
         mockMvc.perform(get(ORDER_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
             )
             .andDo(print())
-            .andDo(document("order/findAll",
+            .andDo(document("order/findAllMine",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(

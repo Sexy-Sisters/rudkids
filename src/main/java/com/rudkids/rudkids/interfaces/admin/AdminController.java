@@ -13,6 +13,8 @@ import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,6 +112,15 @@ public class AdminController {
         @PathVariable("id") UUID magazineId
     ) {
         magazineService.delete(magazineId);
+    }
+
+    @GetMapping("/order")
+    public ResponseEntity findAll(
+        @AuthenticationAdminAuthority
+        @PageableDefault Pageable pageable
+    ) {
+        var info = orderService.findAll(pageable);
+        return ResponseEntity.ok(info);
     }
 
     @PatchMapping("/order/{id}")

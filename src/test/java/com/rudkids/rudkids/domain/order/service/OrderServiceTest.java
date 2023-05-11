@@ -1,16 +1,13 @@
 package com.rudkids.rudkids.domain.order.service;
 
-import com.amazonaws.services.ec2.model.VgwTelemetry;
 import com.rudkids.rudkids.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.rudkids.domain.cart.domain.CartStatus;
-import com.rudkids.rudkids.domain.order.OrderInfo;
 import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import com.rudkids.rudkids.domain.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -58,6 +55,20 @@ class OrderServiceTest extends OrderServiceFixtures {
         });
     }
 
+    @DisplayName("[주문-전체조회")
+    @Test
+    void 주문을_전체조회한다() {
+        // Given
+        var pageable = Pageable.ofSize(2);
+
+        // When
+        var infoPage = orderService.findAll(pageable);
+
+        // Then
+        var content = infoPage.getContent();
+        assertThat(content).hasSize(1);
+    }
+
     @DisplayName("[주문-주문내역 조회")
     @Test
     void 주문내역을_조회한다() {
@@ -66,7 +77,7 @@ class OrderServiceTest extends OrderServiceFixtures {
         orderService.create(ORDER_주문_요청(), userId);
 
         // When
-        var infoList = orderService.findAll(userId);
+        var infoList = orderService.findAllMine(userId);
 
         // Then
         assertThat(infoList).hasSize(1);

@@ -6,11 +6,14 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.headers.HeaderDescriptor;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.snippet.Snippet;
 
 import static com.rudkids.rudkids.common.fixtures.admin.AdminControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.magazine.MagazineControllerFixtures.*;
-import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.ORDER_상태변경_요청;
+import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.PRODUCT_상태_변경_요청;
 import static org.mockito.ArgumentMatchers.any;
@@ -297,10 +300,7 @@ public class AdminControllerTest extends ControllerTest {
             .andDo(document("magazine/create",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
+                requestHeaders(JWT_ACCESS_TOKEN()),
                 requestFields(
                     fieldWithPath("title")
                         .type(JsonFieldType.STRING)
@@ -372,6 +372,24 @@ public class AdminControllerTest extends ControllerTest {
                     parameterWithName("id")
                         .description("매거진 id")
                 )
+            ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[주문-전체조회")
+    @Test
+    void 전체_주문을_조회한다() throws Exception {
+        given(orderService.findAll(any()))
+            .willReturn(ORDER_전체_조회_INFO());
+
+        mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+            .andDo(print())
+            .andDo(document("order/findAll",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(JWT_ACCESS_TOKEN()),
+                responseFields(ORDER_전체_주문_조회_응답_필드())
             ))
             .andExpect(status().isOk());
     }

@@ -34,10 +34,15 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
@@ -139,5 +144,69 @@ public abstract class ControllerTest {
         return fieldWithPath("message")
             .type(JsonFieldType.STRING)
             .description("에러 메시지");
+    }
+
+    protected HeaderDescriptor JWT_ACCESS_TOKEN() {
+        return headerWithName("Authorization")
+            .description("JWT Access Token");
+    }
+
+    public static List<FieldDescriptor> pageResponseFieldsWith(List<FieldDescriptor> content) {
+        return Stream.concat(
+                Stream.of(
+                    fieldWithPath("pageable")
+                        .type(JsonFieldType.STRING)
+                        .description("페이징 응답"),
+
+                    fieldWithPath("last")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("마지막 페이지 인지 아닌지 여부"),
+
+                    fieldWithPath("totalPages")
+                        .type(JsonFieldType.NUMBER)
+                        .description("총 페이지 수"),
+
+                    fieldWithPath("totalElements")
+                        .type(JsonFieldType.NUMBER)
+                        .description("프로덕트 전체 데이터 갯수"),
+
+                    fieldWithPath("first")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("첫번째 페이지 인지 여부"),
+
+                    fieldWithPath("size")
+                        .type(JsonFieldType.NUMBER)
+                        .description("페이지 당 나타낼 수 있는 데이터의 갯수"),
+
+                    fieldWithPath("number")
+                        .type(JsonFieldType.NUMBER)
+                        .description("현재 페이지의 번호"),
+
+                    fieldWithPath("sort")
+                        .type(JsonFieldType.OBJECT)
+                        .description("정렬 값들"),
+
+                    fieldWithPath("sort.empty")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("정렬 값이 비어있는지 여부"),
+
+                    fieldWithPath("sort.sorted")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("정렬 했는지 여부"),
+
+                    fieldWithPath("sort.unsorted")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("정렬 하지 않았는지 여부"),
+
+                    fieldWithPath("numberOfElements")
+                        .type(JsonFieldType.NUMBER)
+                        .description("실제 데이터의 갯수"),
+
+                    fieldWithPath("empty")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("리스트가 비어있는지 여부")
+
+                ), content.stream())
+            .toList();
     }
 }
