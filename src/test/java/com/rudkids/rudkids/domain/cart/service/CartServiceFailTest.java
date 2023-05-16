@@ -4,13 +4,7 @@ import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
 import com.rudkids.rudkids.domain.cart.exception.CartItemNotFoundException;
-import com.rudkids.rudkids.domain.cart.exception.CartNotFoundException;
 import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
-import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
-import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.domain.UserName;
-import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,8 +56,6 @@ public class CartServiceFailTest extends CartServiceFixtures {
     void 존재하지_않는장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartReader.getActiveCart(user);
 
         //when
         UUID invalidCartItemId = UUID.randomUUID();
