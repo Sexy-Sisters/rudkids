@@ -87,6 +87,12 @@ public class Cart extends AbstractEntity {
             .sum();
     }
 
+    public int getCartItemAmount() {
+        return cartItems.stream()
+            .mapToInt(CartItem::getAmount)
+            .sum();
+    }
+
     public void hasItem(CartItem cartItem) {
         if (!this.cartItems.contains(cartItem)) {
             throw new CartItemNotFoundException();
