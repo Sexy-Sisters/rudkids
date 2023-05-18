@@ -4,9 +4,6 @@ import com.rudkids.rudkids.domain.order.domain.OrderStatus;
 import com.rudkids.rudkids.domain.order.domain.PayMethod;
 import lombok.Builder;
 
-import java.util.List;
-import java.util.UUID;
-
 public class OrderRequest {
 
 

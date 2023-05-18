@@ -41,20 +41,6 @@ public class OrderServiceFailTest extends OrderServiceFixtures {
             .isInstanceOf(OrderNotFoundException.class);
     }
 
-    @Disabled("@AuthenticationAdminAuthority 어떻게 테스트 하는지 알아보기")
-    @DisplayName("주문-상태변경-NotAdminRoleException")
-    @Test
-    void 어드민이_아닌_유저가_주문_상태를_변경_시_예외가_발생한다() {
-        // Given
-        var status = OrderStatus.DELIVERY_COMPLETE;
-        var orderId = order.getId();
-
-        // When & Then
-        user.changeAuthorityPartner();
-        assertThatThrownBy(() -> orderService.changeStatus(status, orderId))
-            .isInstanceOf(NotAdminRoleException.class);
-    }
-
     @DisplayName("주문-상태변경-OrderNotFoundException")
     @Test
     void 존재하지_않는_주문의_상태를_변경_시_예외가_발생한다() {
