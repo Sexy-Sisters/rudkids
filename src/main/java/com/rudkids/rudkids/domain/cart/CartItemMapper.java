@@ -16,7 +16,7 @@ public class CartItemMapper {
 
         return CartItemInfo.Main.builder()
             .id(cartItem.getId())
-            .imageUrl(cartItem.getName())
+            .imageUrl(cartItem.getImageUrl())
             .name(cartItem.getName())
             .price(cartItem.getPrice())
             .amount(cartItem.getAmount())

@@ -44,6 +44,7 @@ public class CartItem {
         this.item = item;
         this.amount = amount;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
     public int calculateTotalItemPrice() {
@@ -87,6 +88,10 @@ public class CartItem {
 
     public int getAmount() {
         return amount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public List<CartItemOptionGroup> getCartItemOptionGroups() {
