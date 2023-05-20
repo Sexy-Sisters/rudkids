@@ -71,6 +71,7 @@ public class CartItemReaderImpl implements CartItemReader {
             .item(item)
             .price(item.getPrice())
             .amount(command.amount())
+            .imageUrl(item.getCartItemImageUrl())
             .build();
         cart.addCartItem(cartItem);
 
