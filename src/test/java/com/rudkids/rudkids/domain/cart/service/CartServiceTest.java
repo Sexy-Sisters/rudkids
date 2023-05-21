@@ -71,6 +71,9 @@ class CartServiceTest extends CartServiceFixtures {
             .itemBio(ItemBio.create("옷 팝니다!"))
             .limitType(LimitType.LIMITED)
             .build();
+
+        ItemImage image = ItemImage.create(newItem, "path", "url");
+        newItem.addImage(image);
         itemRepository.save(newItem);
 
         //when
