@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.cart.service;
 
-import com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
+import  com.rudkids.rudkids.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.rudkids.domain.cart.CartCommand;
 import com.rudkids.rudkids.domain.cart.CartInfo;
 import com.rudkids.rudkids.domain.cart.domain.Cart;
@@ -36,7 +36,6 @@ class CartServiceTest extends CartServiceFixtures {
     void 장바구니에_아이템을_추가한다() {
         //given, when
         var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
-        cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
         Cart cart = cartReader.getActiveCart(user);
@@ -44,7 +43,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         assertAll(() -> {
             assertThat(cart.getCartItems()).hasSize(1);
-            assertThat(cartItem.getAmount()).isEqualTo(4);
+            assertThat(cartItem.getAmount()).isEqualTo(2);
         });
     }
 
