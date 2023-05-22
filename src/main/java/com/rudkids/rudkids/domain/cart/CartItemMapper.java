@@ -18,7 +18,7 @@ public class CartItemMapper {
             .id(cartItem.getId())
             .imageUrl(cartItem.getImageUrl())
             .name(cartItem.getName())
-            .price(cartItem.getPrice())
+            .price(cartItem.calculateTotalItemPrice())
             .amount(cartItem.getAmount())
             .optionGroups(optionGroups)
             .itemStatus(cartItem.getItemStatus())
