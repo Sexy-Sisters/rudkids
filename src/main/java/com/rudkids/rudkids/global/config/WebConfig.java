@@ -1,5 +1,7 @@
 package com.rudkids.rudkids.global.config;
 
+import com.rudkids.rudkids.interfaces.admin.AuthenticationAdminAuthorityArgumentResolver;
+import com.rudkids.rudkids.interfaces.auth.AuthenticationPrincipalArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,8 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
-    private final HandlerMethodArgumentResolver authenticationPrincipalArgumentResolver;
+    private final AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver;
+    private final AuthenticationAdminAuthorityArgumentResolver authenticationAdminAuthority;
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -24,6 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(authenticationPrincipalArgumentResolver);
+        resolvers.add(authenticationAdminAuthority);
     }
 
     @Override

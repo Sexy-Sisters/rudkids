@@ -23,7 +23,6 @@ public class MagazineServiceImpl implements MagazineService {
     @Override
     public void create(UUID userId, MagazineCommand.Create command) {
         var user = userReader.getUser(userId);
-        user.validateAdminRole();
         var initMagazine = magazineFactory.create(command, user);
         magazineStore.store(initMagazine);
     }
