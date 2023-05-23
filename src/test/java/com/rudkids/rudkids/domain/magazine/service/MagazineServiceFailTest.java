@@ -52,45 +52,6 @@ public class MagazineServiceFailTest extends MagazineServiceFixtures {
                 .isInstanceOf(InvalidMagazineContentException.class);
     }
 
-    @DisplayName("[매거진-생성-NotAdminRoleException]")
-    @Test
-    void 일반사용자가_매거진_글을_작성할_경우_예외가_발생한다() {
-        //given
-        User user = User.builder()
-                .email("namse@gmail.com")
-                .name(UserName.create("남세"))
-                .age(18)
-                .gender("MALE")
-                .phoneNumber(PhoneNumber.create("010-2940-1509"))
-                .socialType(SocialType.GOOGLE)
-                .build();
-        userRepository.save(user);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.create(user.getId(), MAGAZINE_작성_요청))
-                .isInstanceOf(NotAdminRoleException.class);
-    }
-
-    @DisplayName("[매거진-생성-NotAdminRoleException]")
-    @Test
-    void 파트너가_매거진_글을_작성할_경우_예외가_발생한다() {
-        //given
-        User partner = User.builder()
-                .email("namse@gmail.com")
-                .name(UserName.create("남세"))
-                .age(18)
-                .gender("MALE")
-                .phoneNumber(PhoneNumber.create("010-2940-1509"))
-                .socialType(SocialType.GOOGLE)
-                .build();
-        partner.changeAuthorityPartner();
-        userRepository.save(partner);
-
-        //when, then
-        assertThatThrownBy(() -> magazineService.create(partner.getId(), MAGAZINE_작성_요청))
-                .isInstanceOf(NotAdminRoleException.class);
-    }
-
     @DisplayName("[매거진-수정-InvalidMagazineTitleException]")
     @Test
     void 잘못된_제목을_입력하고_글을_수정할_경우_예외가_발생한다() {

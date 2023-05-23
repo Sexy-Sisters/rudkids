@@ -116,7 +116,7 @@ public class AdminController {
 
     @GetMapping("/order")
     public ResponseEntity findAll(
-        @AuthenticationAdminAuthority
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PageableDefault Pageable pageable
     ) {
         var info = orderService.findAll(pageable);
