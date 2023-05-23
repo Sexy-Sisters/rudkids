@@ -153,4 +153,8 @@ public class Item extends AbstractEntity {
     public boolean hasImages() {
         return images.isEmpty();
     }
+
+    public String getCartItemImageUrl() {
+        return images.get(0).getUrl();
+    }
 }

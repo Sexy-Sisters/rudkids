@@ -12,15 +12,14 @@ public class CartControllerFixtures {
 
     public static final String CART_DEFAULT_URL = "/api/v1/cart";
     public static final UUID 아이템_ID = UUID.randomUUID();
-    public static final UUID CART_ID = UUID.randomUUID();
     public static final UUID CART_아이템_ID = UUID.randomUUID();
     public static final int 아이템_수량 = 2;
     public static final int CART_아이템_수량 = 3;
     public static final int 장바구니_아이템_총_가격 = 9980;
     public static final List<CartItemInfo.Main> 장바구니_아이템 = List.of(
-        new CartItemInfo.Main(UUID.randomUUID(), "옷", 1000, 3,  optionGroups(), ItemStatus.SELLING),
-        new CartItemInfo.Main(UUID.randomUUID(), "스티커", 500, 3, optionGroups(), ItemStatus.SOLD_OUT),
-        new CartItemInfo.Main(UUID.randomUUID(), "알약", 990, 3, optionGroups(), ItemStatus.SELLING)
+        new CartItemInfo.Main(UUID.randomUUID(), "옷", "url", 1000, 3,  optionGroups(), ItemStatus.SELLING),
+        new CartItemInfo.Main(UUID.randomUUID(), "스티커", "url", 500, 3, optionGroups(), ItemStatus.SOLD_OUT),
+        new CartItemInfo.Main(UUID.randomUUID(), "알약", "url", 990, 3, optionGroups(), ItemStatus.SELLING)
     );
 
     private static List<CartItemInfo.CartItemOptionGroup> optionGroups() {
@@ -45,7 +44,7 @@ public class CartControllerFixtures {
     }
 
     public static CartRequest.UpdateCartItemAmount CART_아이템_수량_변경_요청() {
-        return new CartRequest.UpdateCartItemAmount(CART_ID, CART_아이템_ID, CART_아이템_수량);
+        return new CartRequest.UpdateCartItemAmount(CART_아이템_ID, CART_아이템_수량);
     }
 
     public static CartRequest.DeleteCartItems CART_아이템_선택삭제_변경_요청() {

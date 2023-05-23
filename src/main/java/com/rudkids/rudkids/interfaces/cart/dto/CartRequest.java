@@ -23,7 +23,6 @@ public class CartRequest {
     }
 
     public record UpdateCartItemAmount(
-            UUID cartId,
             UUID cartItemId,
             int amount
     ) {

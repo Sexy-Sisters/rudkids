@@ -99,10 +99,6 @@ public class CartControllerFailTest extends ControllerTest {
                                         .description("다른 사용자의 JWT Access Token")
                         ),
                         requestFields(
-                                fieldWithPath("cartId")
-                                        .type(JsonFieldType.STRING)
-                                        .description("장바구니 ID"),
-
                                 fieldWithPath("cartItemId")
                                         .type(JsonFieldType.STRING)
                                         .description("장바구니아이템 ID"),
@@ -136,10 +132,6 @@ public class CartControllerFailTest extends ControllerTest {
                                         .description("다른 사용자의 JWT Access Token")
                         ),
                         requestFields(
-                                fieldWithPath("cartId")
-                                        .type(JsonFieldType.STRING)
-                                        .description("장바구니 ID"),
-
                                 fieldWithPath("cartItemId")
                                         .type(JsonFieldType.STRING)
                                         .description("존재하지 않는 장바구니아이템 ID"),

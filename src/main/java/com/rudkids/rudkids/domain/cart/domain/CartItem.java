@@ -33,16 +33,18 @@ public class CartItem {
 
     private int amount;
     private int price;
+    private String imageUrl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cartItem", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CartItemOptionGroup> cartItemOptionGroups = new ArrayList<>();
 
     @Builder
-    public CartItem(Cart cart, Item item, int amount, int price) {
+    public CartItem(Cart cart, Item item, int amount, int price, String imageUrl) {
         this.cart = cart;
         this.item = item;
         this.amount = amount;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
     public int calculateTotalItemPrice() {
@@ -86,6 +88,10 @@ public class CartItem {
 
     public int getAmount() {
         return amount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public List<CartItemOptionGroup> getCartItemOptionGroups() {

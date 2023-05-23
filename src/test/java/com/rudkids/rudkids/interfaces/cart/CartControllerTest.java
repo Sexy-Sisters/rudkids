@@ -98,6 +98,10 @@ class CartControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("장바구니아이템 id"),
 
+                    fieldWithPath("cartItems.[].imageUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("장바구니아이템 이미지 url"),
+
                     fieldWithPath("cartItems.[].name")
                         .type(JsonFieldType.STRING)
                         .description("장바구니아이템 이름"),
@@ -151,10 +155,6 @@ class CartControllerTest extends ControllerTest {
                         .description("JWT Access Token")
                 ),
                 requestFields(
-                    fieldWithPath("cartId")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니 ID"),
-
                     fieldWithPath("cartItemId")
                         .type(JsonFieldType.STRING)
                         .description("장바구니아이템 ID"),

@@ -71,6 +71,9 @@ public class CartServiceFixtures {
                 .itemBio(ItemBio.create("소개글입니다~"))
                 .limitType(LimitType.LIMITED)
                 .build();
+
+        ItemImage image = ItemImage.create(item, "path", "url");
+        item.addImage(image);
         itemRepository.save(item);
 
         //저장된 itemId 넣음
