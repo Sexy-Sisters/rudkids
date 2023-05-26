@@ -2,7 +2,6 @@ package com.rudkids.rudkids.domain.magazine.service;
 
 import com.rudkids.rudkids.domain.magazine.*;
 import com.rudkids.rudkids.domain.magazine.domain.Magazine;
-import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +13,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 public class MagazineServiceImpl implements MagazineService {
-    private final UserReader userReader;
     private final MagazineStore magazineStore;
     private final MagazineReader magazineReader;
     private final MagazineMapper magazineMapper;
     private final MagazineFactory magazineFactory;
 
     @Override
-    public void create(UUID userId, MagazineCommand.Create command) {
-        var user = userReader.getUser(userId);
-        var initMagazine = magazineFactory.create(command, user);
+    public void create(MagazineCommand.Create command) {
+        var initMagazine = magazineFactory.create(command);
         magazineStore.store(initMagazine);
     }
 

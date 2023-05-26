@@ -12,16 +12,17 @@ public class MagazineControllerFixtures {
     public static final UUID MAGAZINE_ID = UUID.randomUUID();
     public static final String MAGAZINE_제목 = "제목";
     public static final String MAGAZINE_내용 = "내용";
+    public static final String MAGAZINE_작성자 = "작성자";
     public static final String MAGAZINE_새로운_제목 = "새로운 제목";
     public static final String MAGAZINE_새로운_내용 = "새로운 내용";
-    public static final String MAGAZINE_작성자 = "작성자";
+    public static final String MAGAZINE_새로운_작성자 = "새로운 작성자";
 
     public static MagazineRequest.Create MAGAZINE_작성_요청() {
-        return new MagazineRequest.Create(MAGAZINE_제목, MAGAZINE_내용);
+        return new MagazineRequest.Create(MAGAZINE_제목, MAGAZINE_내용, MAGAZINE_작성자);
     }
 
     public static MagazineRequest.Create MAGAZINE_수정_요청() {
-        return new MagazineRequest.Create(MAGAZINE_새로운_제목, MAGAZINE_새로운_내용);
+        return new MagazineRequest.Create(MAGAZINE_새로운_제목, MAGAZINE_새로운_내용, MAGAZINE_새로운_작성자);
     }
 
     public static List<MagazineInfo.Main> MAGAZINE_전체조회_응답() {

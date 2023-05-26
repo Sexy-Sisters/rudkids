@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.domain.magazine.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
-import com.rudkids.rudkids.domain.user.domain.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,32 +16,32 @@ public class Magazine extends AbstractEntity {
     @Column(name = "magazine_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Embedded
     private Title title;
 
     @Embedded
     private Content content;
 
+    @Embedded
+    private Writer writer;
+
     protected Magazine() {
     }
 
-    private Magazine(User user, Title title, Content content) {
-        this.user = user;
+    private Magazine(Title title, Content content, Writer writer) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
     }
 
-    public static Magazine create(User user, Title title, Content content) {
-        return new Magazine(user, title, content);
+    public static Magazine create(Title title, Content content, Writer writer) {
+        return new Magazine(title, content, writer);
     }
 
-    public void update(Title title, Content content) {
+    public void update(Title title, Content content, Writer writer) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
     }
 
     public UUID getId() {
@@ -57,11 +56,7 @@ public class Magazine extends AbstractEntity {
         return content.getValue();
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public String getWriter() {
-        return user.getName();
+        return writer.getValue();
     }
 }
