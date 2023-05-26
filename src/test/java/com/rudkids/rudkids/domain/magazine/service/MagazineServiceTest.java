@@ -56,7 +56,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         assertAll(() -> {
             assertThat(actual.getTitle()).isEqualTo("새로운 제목");
             assertThat(actual.getContent()).isEqualTo("새로운 내용");
-            assertThat(actual.getContent()).isEqualTo("새로운 작성자");
+            assertThat(actual.getWriter()).isEqualTo("새로운 작성자");
         });
     }
 

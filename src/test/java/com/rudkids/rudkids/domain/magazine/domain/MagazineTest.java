@@ -2,10 +2,7 @@ package com.rudkids.rudkids.domain.magazine.domain;
 
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineContentException;
 import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineTitleException;
-import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
-import com.rudkids.rudkids.domain.user.domain.SocialType;
-import com.rudkids.rudkids.domain.user.domain.User;
-import com.rudkids.rudkids.domain.user.domain.UserName;
+import com.rudkids.rudkids.domain.magazine.exception.InvalidMagazineWriterException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -89,6 +86,6 @@ class MagazineTest {
         String invalidWriter = " ";
 
         assertThatThrownBy(() -> magazine.update(newTitle, newContent, Writer.create(invalidWriter)))
-            .isInstanceOf(InvalidMagazineContentException.class);
+            .isInstanceOf(InvalidMagazineWriterException.class);
     }
 }
