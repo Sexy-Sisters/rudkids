@@ -447,7 +447,7 @@ public class AdminControllerFailTest extends ControllerTest {
     void 어드민_권한이_아닌_사용자가_매거진을_작성할_경우_상태코드_403을_반환한다() throws Exception {
         doThrow(new NotAdminRoleException())
             .when(magazineService)
-            .create(any(), any());
+            .create(any());
 
         mockMvc.perform(post(ADMIN_MAGAZINE_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -469,7 +469,11 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("내용")
+                        .description("내용"),
+
+                    fieldWithPath("writer")
+                        .type(JsonFieldType.STRING)
+                        .description("작성자")
                 )
             ))
             .andExpect(status().isForbidden());
@@ -506,7 +510,11 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("writer")
+                        .type(JsonFieldType.STRING)
+                        .description("새로운 작성자")
                 )
             ))
             .andExpect(status().isForbidden());
@@ -543,7 +551,11 @@ public class AdminControllerFailTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("writer")
+                        .type(JsonFieldType.STRING)
+                        .description("새로운 작성자")
                 )
             ))
             .andExpect(status().isNotFound());
