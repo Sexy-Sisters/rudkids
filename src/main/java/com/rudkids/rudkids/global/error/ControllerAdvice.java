@@ -2,6 +2,8 @@ package com.rudkids.rudkids.global.error;
 
 import com.rudkids.rudkids.global.error.dto.ErrorResponse;
 import com.rudkids.rudkids.global.error.exception.*;
+import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +44,17 @@ public class ControllerAdvice {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<ErrorResponse> handleFeignException(FeignException e) {
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+        log.error("에러 내용 : " + errorResponse.message());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
-        ErrorResponse errorResponse = new ErrorResponse("알 수 없는 에러가 발생하였습니다.");
-        log.error(errorResponse.message() + e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+        log.error("알 수 없는 에러가 발생하였습니다. " + e.getMessage());
         return ResponseEntity.internalServerError().body(errorResponse);
     }
 }

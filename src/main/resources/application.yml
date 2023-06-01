@@ -42,22 +42,29 @@ oauth:
     response-type: code
     scopes:
       - https://www.googleapis.com/auth/userinfo.profile
-      - https://www.googleapis.com/auth/userinfo.email
       - https://www.googleapis.com/auth/directory.readonly
       - https://www.googleapis.com/auth/user.birthday.read
       - https://www.googleapis.com/auth/user.gender.read
       - https://www.googleapis.com/auth/user.phonenumbers.read
-    token-uri: https://oauth2.googleapis.com/token
+      - https://www.googleapis.com/auth/user.emails.read
+      - https://www.googleapis.com/auth/userinfo.email
+      - https://www.googleapis.com/auth/profile.emails.read
     access-type: offline
-    people-uri: https://people.googleapis.com/v1/people/me?personFields=genders,birthdays,phoneNumbers&key=AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs
+    person-fields:
+      - names
+      - photos
+      - genders
+      - birthdays
+      - emailAddresses
+      - phoneNumbers
+    key: AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs
 
   kakao:
     client-id: ${KAKAO_CLIENT_ID}
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
-    token-uri: https://kauth.kakao.com/oauth/token
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
     account-uri: https://kapi.kakao.com/v2/user/me
-    client-secret: ${KAKAO_CLIENT_SECRET}
+    token-uri: https://kauth.kakao.com/oauth/token
 
 sms:
   api:
