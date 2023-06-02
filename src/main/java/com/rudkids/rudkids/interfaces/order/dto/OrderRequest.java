@@ -6,17 +6,8 @@ import lombok.Builder;
 
 public class OrderRequest {
 
-
     @Builder
-    public record Register(
-        PayMethod payMethod,
-        String receiverName,
-        String receiverPhone,
-        String receiverZipcode,
-        String receiverAddress1,
-        String receiverAddress2,
-        String etcMessage
-    ) {
+    public record Register(PayMethod payMethod) {
     }
 
     @Builder

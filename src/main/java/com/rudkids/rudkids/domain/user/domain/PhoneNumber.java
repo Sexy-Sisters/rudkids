@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.user.domain;
 
-import com.amazonaws.util.StringUtils;
 import com.rudkids.rudkids.domain.user.exception.InvalidPhoneNumberException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

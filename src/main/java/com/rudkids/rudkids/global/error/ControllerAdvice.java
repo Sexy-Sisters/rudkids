@@ -2,7 +2,6 @@ package com.rudkids.rudkids.global.error;
 
 import com.rudkids.rudkids.global.error.dto.ErrorResponse;
 import com.rudkids.rudkids.global.error.exception.*;
-import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
