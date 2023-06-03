@@ -18,7 +18,7 @@ spring:
     url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: ${MYSQL_PASSWORD}
+    password: nswon0729@
 
   servlet:
     multipart:
@@ -28,7 +28,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: ${SECRET_KEY}
+      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
       access:
         expire-length: 3600000 #1시간
       refresh:
@@ -36,8 +36,8 @@ security:
 
 oauth:
   google:
-    client-id: ${CLIENT_ID}
-    client-secret: ${CLIENT_SECRET}
+    client-id: 727793852011-l9dk92pfd4l9hv43ldkt8c53ova8hcui.apps.googleusercontent.com
+    client-secret: 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
     oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
     response-type: code
     scopes:
@@ -60,7 +60,7 @@ oauth:
     key: AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs
 
   kakao:
-    client-id: ${KAKAO_CLIENT_ID}
+    client-id: 60e95622dc0ddd18b407815d105fdb74
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
     account-uri: https://kapi.kakao.com/v2/user/me
@@ -68,8 +68,8 @@ oauth:
 
 sms:
   api:
-    key: ${SMS_KEY}
-    secret: ${SMS_SECRET}
+    key: NCSXGQWD932OYAFZ
+    secret: TQHAVI4N1Y22UTPT2HRA7RIQMOOZSSPN
     domain-uri: https://api.coolsms.co.kr
 
 payment:

@@ -1,6 +1,7 @@
 package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.community.domain.Community;
 import com.rudkids.rudkids.domain.delivery.domain.Delivery;
 import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
@@ -56,6 +57,9 @@ public class User extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private final List<Delivery> deliveries = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private final List<Community> communities = new ArrayList<>();
+
     @Builder
     private User(String email, UserName name, String gender,
                  int age, PhoneNumber phoneNumber, ProfileImage profileImage, SocialType socialType) {
@@ -80,6 +84,10 @@ public class User extends AbstractEntity {
         if (!roleType.equals(RoleType.ADMIN)) {
             throw new NotAdminRoleException();
         }
+    }
+
+    public boolean isAdminRole() {
+        return roleType == RoleType.ADMIN;
     }
 
     public void validateAdminOrPartnerRole() {
@@ -124,5 +132,9 @@ public class User extends AbstractEntity {
 
     public void addDeliveryAddress(Delivery delivery) {
         deliveries.add(delivery);
+    }
+
+    public void writeCommunity(Community community) {
+        communities.add(community);
     }
 }

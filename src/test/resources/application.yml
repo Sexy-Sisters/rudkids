@@ -33,8 +33,8 @@ security:
 
 oauth:
   google:
-    client-id: ${CLIENT_ID}
-    client-secret: ${CLIENT_SECRET}
+    client-id: 727793852011-l9dk92pfd4l9hv43ldkt8c53ova8hcui.apps.googleusercontent.com
+    client-secret: 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
     oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
     response-type: code
     scopes:
@@ -45,6 +45,6 @@ oauth:
 
 sms:
   api:
-    key: ${SMS_KEY}
-    secret: ${SMS_SECRET}
+    key: NCSXGQWD932OYAFZ
+    secret: TQHAVI4N1Y22UTPT2HRA7RIQMOOZSSPN
     domain-uri: https://api.coolsms.co.kr

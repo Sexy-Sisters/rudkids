@@ -47,32 +47,32 @@ operation::product/changeStatus/failByNotFoundError[snippets='http-request,path-
 
 [[Admin-매거진-생성]]
 === Admin 매거진 생성
-operation::magazine/create[snippets='http-request,request-headers,request-fields,http-response']
+operation::community/create[snippets='http-request,request-headers,request-fields,http-response']
 
 [[Admin-매거진-생성-권한-에러]]
 === Admin 매거진 생성 (권한 에러)
-operation::magazine/create/failForbiddenError[snippets='http-request,request-headers,request-fields,http-response']
+operation::community/create/failForbiddenError[snippets='http-request,request-headers,request-fields,http-response']
 
 [[Admin-매거진-수정]]
 === Admin 매거진 수정
-operation::magazine/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+operation::community/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
 
 [[Admin-매거진-수정-권한-에러]]
 === Admin 매거진 수정 (권한 에러)
-operation::magazine/update/failForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+operation::community/update/failForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
 
 [[Admin-매거진-수정-존재하지-않는-매거진-에러]]
 === Admin 매거진 수정 (존재하지 않는 매거진 에러)
-operation::magazine/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+operation::community/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
 
 [[Admin-매거진-삭제]]
 === Admin 매거진-삭제
-operation::magazine/delete[snippets='http-request,request-headers,path-parameters,http-response']
+operation::community/delete[snippets='http-request,request-headers,path-parameters,http-response']
 
 [[Admin-매거진-삭제-권한-에러]]
 === Admin 매거진 삭제 (권한 에러)
-operation::magazine/delete/failByForbiddenError[snippets='http-request,request-headers,path-parameters,http-response']
+operation::community/delete/failByForbiddenError[snippets='http-request,request-headers,path-parameters,http-response']
 
 [[Admin-매거진-삭제-존재하지-않는-매거진-에러]]
 === Admin 매거진 삭제 (존재하지 않는 매거진 에러)
-operation::magazine/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']
+operation::community/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']

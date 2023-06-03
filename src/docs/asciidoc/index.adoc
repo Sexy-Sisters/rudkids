@@ -12,7 +12,7 @@ include::user.adoc[]
 
 include::cart.adoc[]
 
-include::magazine.adoc[]
+include::community.adoc[]
 
 include::product.adoc[]
 
