@@ -5,6 +5,7 @@ import com.rudkids.rudkids.domain.magazine.MagazineInfo;
 import com.rudkids.rudkids.domain.magazine.domain.Content;
 import com.rudkids.rudkids.domain.magazine.domain.Magazine;
 import com.rudkids.rudkids.domain.magazine.domain.Title;
+import com.rudkids.rudkids.domain.magazine.domain.Writer;
 import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
 import com.rudkids.rudkids.domain.user.domain.SocialType;
 import com.rudkids.rudkids.domain.user.domain.User;
@@ -22,7 +23,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
     @Test
     void 관리자는_매거진_글을_작성한다() {
         //given, when
-        magazineService.create(admin.getId(), MAGAZINE_작성_요청);
+        magazineService.create(MAGAZINE_작성_요청);
 
         //then
         Magazine actual = magazineRepository.findByTitleValue(MAGAZINE_작성_요청.title())
@@ -31,7 +32,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         assertAll(() -> {
             assertThat(actual.getTitle()).isEqualTo("제목");
             assertThat(actual.getContent()).isEqualTo("내용");
-            admin.validateAdminRole();
+            assertThat(actual.getWriter()).isEqualTo("작성자");
         });
     }
 
@@ -41,7 +42,8 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         //given
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
+        Writer writer = Writer.create("작성자");
+        Magazine magazine = Magazine.create(title, content, writer);
         magazineRepository.save(magazine);
 
         //when
@@ -54,7 +56,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         assertAll(() -> {
             assertThat(actual.getTitle()).isEqualTo("새로운 제목");
             assertThat(actual.getContent()).isEqualTo("새로운 내용");
-            admin.validateAdminRole();
+            assertThat(actual.getWriter()).isEqualTo("새로운 작성자");
         });
     }
 
@@ -64,7 +66,8 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         //given
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
+        Writer writer = Writer.create("작성자");
+        Magazine magazine = Magazine.create(title, content, writer);
         magazineRepository.save(magazine);
 
         //when
@@ -72,23 +75,19 @@ class MagazineServiceTest extends MagazineServiceFixtures {
 
         //then
         boolean actual = magazineRepository.findById(magazine.getId()).isPresent();
-
         assertThat(actual).isFalse();
-        admin.validateAdminRole();
     }
 
     @DisplayName("[매거진-전체조회]")
     @Test
     void 아무나_매거진_글을_전체조회할_수_있다() {
         //given
-        Title title = Title.create("제목");
-        Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
-        magazineRepository.save(magazine);
+        magazineService.create(MAGAZINE_작성_요청);
 
         Title newTitle = Title.create("새로운 제목");
         Content newContent = Content.create("새로운 내용");
-        Magazine newMagazine = Magazine.create(admin, newTitle, newContent);
+        Writer newWriter = Writer.create("작성자");
+        Magazine newMagazine = Magazine.create(newTitle, newContent, newWriter);
         magazineRepository.save(newMagazine);
 
         //when
@@ -104,7 +103,8 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         //given
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Magazine magazine = Magazine.create(admin, title, content);
+        Writer writer = Writer.create("작성자");
+        Magazine magazine = Magazine.create(title, content, writer);
         magazineRepository.save(magazine);
 
         //when
@@ -113,7 +113,7 @@ class MagazineServiceTest extends MagazineServiceFixtures {
         //then
         assertAll(() -> {
             assertThat(actual.title()).isEqualTo("제목");
-            assertThat(actual.writer()).isEqualTo(admin.getName());
+            assertThat(actual.writer()).isEqualTo("작성자");
             assertThat(actual.content()).isEqualTo("내용");
         });
     }

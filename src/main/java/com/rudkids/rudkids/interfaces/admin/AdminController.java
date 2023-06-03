@@ -93,7 +93,7 @@ public class AdminController {
         @RequestBody MagazineRequest.Create request
     ) {
         var command = magazineDtoMapper.to(request);
-        magazineService.create(loginUser.id(), command);
+        magazineService.create(command);
     }
 
     @PutMapping("/magazine/{id}")

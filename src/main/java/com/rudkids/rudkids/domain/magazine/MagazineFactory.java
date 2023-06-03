@@ -4,6 +4,6 @@ import com.rudkids.rudkids.domain.magazine.domain.Magazine;
 import com.rudkids.rudkids.domain.user.domain.User;
 
 public interface MagazineFactory {
-    Magazine create(MagazineCommand.Create command, User user);
+    Magazine create(MagazineCommand.Create command);
     void update(MagazineCommand.Update command, Magazine magazine);
 }

@@ -8,10 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
-/**
- * 2023.4.26 nswon
- * aws 계정 받고 나서 주석 해제
- */
 @Component
 public class S3ImageUploaderImpl implements S3ImageUploader {
 //    @Value("${cloud.aws.s3.bucket}")
@@ -22,10 +18,9 @@ public class S3ImageUploaderImpl implements S3ImageUploader {
     @Override
     public ImageInfo.Main upload(MultipartFile image) {
         String path = UUID.randomUUID() + "_" + image.getOriginalFilename();
-        var objectMetadata = generateObjectMetadata(image);
-        putS3(bucket, path, image, objectMetadata);
-//        String url = amazonS3Client.getUrl(bucket, path);
         String url = "";
+        putS3(path, image, generateObjectMetadata(image));
+//        String url = amazonS3Client.getUrl(bucket, path);
         return new ImageInfo.Main(path, url);
     }
 
@@ -36,7 +31,7 @@ public class S3ImageUploaderImpl implements S3ImageUploader {
         return objectMetadata;
     }
 
-    private void putS3(String bucket, String path, MultipartFile image, ObjectMetadata objectMetadata) {
+    private void putS3(String path, MultipartFile image, ObjectMetadata objectMetadata) {
 //        try {
 //            amazonS3.putObject(new PutObjectRequest(bucket, path, image.getInputStream(), objectMetadata)
 //                    .withCannedAcl(CannedAccessControlList.PublicRead));

@@ -289,7 +289,7 @@ public class AdminControllerTest extends ControllerTest {
     void 매거진을_작성한다() throws Exception {
         willDoNothing()
             .given(magazineService)
-            .create(any(), any());
+            .create(any());
 
         mockMvc.perform(post(ADMIN_MAGAZINE_DEFAULT_URL)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -308,7 +308,11 @@ public class AdminControllerTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("내용")
+                        .description("내용"),
+
+                    fieldWithPath("writer")
+                        .type(JsonFieldType.STRING)
+                        .description("작성자")
                 )
             ))
             .andExpect(status().isOk());
@@ -345,7 +349,11 @@ public class AdminControllerTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("writer")
+                        .type(JsonFieldType.STRING)
+                        .description("새로운 작성자")
                 )
             ))
             .andExpect(status().isOk());

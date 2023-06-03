@@ -26,27 +26,29 @@ repositories {
 }
 
 dependencies {
+	//feign
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0'
+
 	//aws s3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	implementation 'com.google.code.gson:gson:2.8.7'
 
 	//sms 문자
 	implementation 'net.nurigo:sdk:4.3.0'
 
-	//json 파싱
-	implementation 'com.google.code.gson:gson:2.8.7'
-
 	//annotation processer
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-	//test용 DB 의존성
+	//test db
 	runtimeOnly 'com.h2database:h2'
 
-	//jwt 관련 의존성
+	//jwt
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	//Restdocs 관련 의존성
+	//Restdocs
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
