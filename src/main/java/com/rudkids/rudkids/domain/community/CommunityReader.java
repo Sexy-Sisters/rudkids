@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommunityReader {
-    Community getMagazine(UUID magazineId);
+    Community get(UUID communityId);
     List<Community> getCommunities(String type);
 }

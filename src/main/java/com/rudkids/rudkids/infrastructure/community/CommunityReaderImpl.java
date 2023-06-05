@@ -16,8 +16,8 @@ public class CommunityReaderImpl implements CommunityReader {
     private final CommunityRepository communityRepository;
 
     @Override
-    public Community getMagazine(UUID magazineId) {
-        return communityRepository.findById(magazineId)
+    public Community get(UUID communityId) {
+        return communityRepository.findById(communityId)
                 .orElseThrow(CommunityNotFoundException::new);
     }
 

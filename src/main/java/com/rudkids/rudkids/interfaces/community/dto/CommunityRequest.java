@@ -5,15 +5,10 @@ public class CommunityRequest {
     public record Create(
         String title,
         String content,
-        String writer,
         String type
     ) {
     }
 
-    public record Update(
-        String title,
-        String content,
-        String writer
-    ) {
+    public record Update(String title, String content) {
     }
 }

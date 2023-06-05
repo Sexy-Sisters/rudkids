@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommunityService {
-    void create(UUID userId, CommunityCommand.Create command);
+    UUID create(UUID userId, CommunityCommand.Create command);
     List<CommunityInfo.Main> findAll(String type);
-    CommunityInfo.Detail find(UUID magazineId);
-    void update(UUID magazineId, CommunityCommand.Update command);
-    void delete(UUID magazineId);
+    CommunityInfo.Detail find(UUID communityId);
+    void update(UUID userId, UUID communityId, CommunityCommand.Update command);
+    void delete(UUID userId, UUID communityId);
 }

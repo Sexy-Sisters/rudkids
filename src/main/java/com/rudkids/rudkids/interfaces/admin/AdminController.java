@@ -1,14 +1,11 @@
 package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.domain.admin.service.AdminService;
-import com.rudkids.rudkids.domain.community.service.CommunityService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
-import com.rudkids.rudkids.interfaces.community.dto.CommunityDtoMapper;
-import com.rudkids.rudkids.interfaces.community.dto.CommunityRequest;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
@@ -27,10 +24,8 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminDtoMapper adminDtoMapper;
     private final ProductService productService;
-    private final CommunityService communityService;
     private final OrderService orderService;
     private final ProductDtoMapper productDtoMapper;
-    private final CommunityDtoMapper communityDtoMapper;
 
     @GetMapping("/user")
     public ResponseEntity searchUser(
@@ -85,24 +80,6 @@ public class AdminController {
         @PathVariable(name = "id") UUID productId
     ) {
         productService.delete(productId);
-    }
-
-    @PutMapping("/magazine/{id}")
-    public void updateMagazine(
-        @AuthenticationAdminAuthority
-        @PathVariable("id") UUID magazineId,
-        @RequestBody CommunityRequest.Update request
-    ) {
-        var command = communityDtoMapper.toCommand(request);
-        communityService.update(magazineId, command);
-    }
-
-    @DeleteMapping("/magazine/{id}")
-    public void deleteMagazine(
-        @AuthenticationAdminAuthority
-        @PathVariable("id") UUID magazineId
-    ) {
-        communityService.delete(magazineId);
     }
 
     @GetMapping("/order")

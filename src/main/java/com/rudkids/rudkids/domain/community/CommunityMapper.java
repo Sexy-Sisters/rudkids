@@ -8,16 +8,17 @@ public class CommunityMapper {
 
     public CommunityInfo.Main toMain(Community community) {
         return CommunityInfo.Main.builder()
-                .title(community.getTitle())
-//                .writer(community.getWriter())
-                .build();
+            .title(community.getTitle())
+            .writer(community.getWriter())
+            .build();
     }
 
     public CommunityInfo.Detail toDetail(Community community) {
         return CommunityInfo.Detail.builder()
-                .title(community.getTitle())
-//                .writer(community.getWriter())
-                .content(community.getContent())
-                .build();
+            .title(community.getTitle())
+            .content(community.getContent())
+            .writer(community.getWriter())
+            .writerProfileImage(community.getWriterProfileImage())
+            .build();
     }
 }

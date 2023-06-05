@@ -10,7 +10,6 @@ public class CommunityDtoMapper {
         return CommunityCommand.Create.builder()
             .title(request.title())
             .content(request.content())
-            .writer(request.writer())
             .type(request.type())
             .build();
     }
@@ -19,7 +18,6 @@ public class CommunityDtoMapper {
         return CommunityCommand.Update.builder()
             .title(request.title())
             .content(request.content())
-            .writer(request.writer())
             .build();
     }
 }

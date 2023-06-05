@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.community.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
 import com.rudkids.rudkids.domain.user.domain.User;
+import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -55,6 +56,12 @@ public class Community extends AbstractEntity {
         }
     }
 
+    public void validateHasSameUser(User user) {
+        if(!this.user.equals(user)) {
+            throw new DifferentUserException();
+        }
+    }
+
     public UUID getId() {
         return id;
     }
@@ -65,5 +72,17 @@ public class Community extends AbstractEntity {
 
     public String getContent() {
         return content.getValue();
+    }
+
+    public CommunityType getCommunityType() {
+        return communityType;
+    }
+
+    public String getWriter() {
+        return user.getName();
+    }
+
+    public String getWriterProfileImage() {
+        return user.getProfileImageUrl();
     }
 }

@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.infrastructure.user;
 
 import com.rudkids.rudkids.domain.auth.AuthCommand;
-import com.rudkids.rudkids.domain.user.UserFactory;
 import com.rudkids.rudkids.domain.user.UserReader;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
@@ -15,7 +14,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserReaderImpl implements UserReader {
     private final UserRepository userRepository;
-    private final UserFactory userFactory;
 
     @Override
     public User getUser(UUID id) {
@@ -30,7 +28,7 @@ public class UserReaderImpl implements UserReader {
     }
 
     private User saveUser(AuthCommand.OAuthUser oAuthUser) {
-        var user = userFactory.create(oAuthUser);
+        var user = oAuthUser.toEntity();
         return userRepository.save(user);
     }
 

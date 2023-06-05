@@ -6,10 +6,8 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.user.dto.UserDtoMapper;
 import com.rudkids.rudkids.interfaces.user.dto.UserRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -19,11 +17,14 @@ public class UserController {
     private final UserDtoMapper userDtoMapper;
 
     @PutMapping
-    public void update(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody UserRequest.Update request
-    ) {
+    public void update(@AuthenticationPrincipal AuthUser.Login loginUser, @RequestBody UserRequest.Update request) {
         var command = userDtoMapper.toCommand(request);
         userService.update(loginUser.id(), command);
+    }
+
+    @GetMapping
+    public ResponseEntity find(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = userService.find(loginUser.id());
+        return ResponseEntity.ok(response);
     }
 }

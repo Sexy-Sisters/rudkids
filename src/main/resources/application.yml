@@ -18,7 +18,7 @@ spring:
     url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: nswon0729@
+    password: root
 
   servlet:
     multipart:
@@ -77,3 +77,10 @@ payment:
     client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
     secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
     confirm-uri: https://api.tosspayments.com/v1/payments/confirm
+
+springdoc:
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    url: /docs/open-api-3.0.1.json
+    path: /docs/swagger

@@ -12,21 +12,16 @@ public class CommunityCommand {
     public record Create(
         String title,
         String content,
-        String writer,
         String type
     ) {
         public Community toEntity(User user) {
-            var title = Title.create(title());
-            var content = Content.create(content());
-            return Community.create(user, title, content);
+            var initTitle = Title.create(title);
+            var initContent = Content.create(content);
+            return Community.create(user, initTitle, initContent);
         }
     }
 
     @Builder
-    public record Update(
-        String title,
-        String content,
-        String writer
-    ) {
+    public record Update(String title, String content) {
     }
 }

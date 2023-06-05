@@ -19,9 +19,11 @@ public class CommunityController {
     private final CommunityDtoMapper communityDtoMapper;
 
     @PostMapping
-    public void create(@AuthenticationPrincipal AuthUser.Login loginUser, @RequestBody CommunityRequest.Create request) {
+    public ResponseEntity create(@AuthenticationPrincipal AuthUser.Login loginUser,
+                                 @RequestBody CommunityRequest.Create request) {
         var command = communityDtoMapper.toCommand(request);
-        communityService.create(loginUser.id(), command);
+        var response = communityService.create(loginUser.id(), command);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -30,9 +32,25 @@ public class CommunityController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/magazine/{id}")
-    public ResponseEntity findMagazine(@PathVariable UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity find(@PathVariable UUID id) {
         var response = communityService.find(id);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public void update(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable("id") UUID communityId,
+        @RequestBody CommunityRequest.Update request
+    ) {
+        var command = communityDtoMapper.toCommand(request);
+        communityService.update(loginUser.id(), communityId, command);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@AuthenticationPrincipal AuthUser.Login loginUser,
+                       @PathVariable("id") UUID communityId) {
+        communityService.delete(loginUser.id(), communityId);
     }
 }

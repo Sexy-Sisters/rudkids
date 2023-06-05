@@ -11,7 +11,9 @@ public class CommunityInfo {
     @Builder
     public record Detail(
         String title,
+        String content,
         String writer,
-        String content) {
+        String writerProfileImage
+        ) {
     }
 }
