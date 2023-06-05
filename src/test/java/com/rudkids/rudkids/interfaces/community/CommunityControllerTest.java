@@ -73,11 +73,11 @@ class CommunityControllerTest extends ControllerTest {
                 responseFields(
                     fieldWithPath("[].title")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 제목"),
+                        .description("커뮤니티 제목"),
 
                     fieldWithPath("[].writer")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 작성자")
+                        .description("커뮤니티 작성자")
                 )
             ))
             .andExpect(status().isOk());
@@ -100,19 +100,23 @@ class CommunityControllerTest extends ControllerTest {
                 responseFields(
                     fieldWithPath("title")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 제목"),
+                        .description("커뮤니티 제목"),
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 내용"),
+                        .description("커뮤니티 내용"),
 
                     fieldWithPath("writer")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 작성자"),
+                        .description("커뮤니티 작성자"),
 
                     fieldWithPath("writerProfileImage")
                         .type(JsonFieldType.STRING)
-                        .description("매거진 작성자 프로필 사진")
+                        .description("커뮤니티 작성자 프로필 사진"),
+
+                    fieldWithPath("likeCount")
+                        .type(JsonFieldType.NUMBER)
+                        .description("커뮤니티 좋아요 개수")
                 )
             ))
             .andExpect(status().isOk());
@@ -137,7 +141,7 @@ class CommunityControllerTest extends ControllerTest {
                 requestHeaders(JWT_ACCESS_TOKEN()),
                 pathParameters(
                     parameterWithName("id")
-                        .description("매거진 id")
+                        .description("커뮤니티 id")
                 ),
                 requestFields(
                     fieldWithPath("title")
@@ -168,7 +172,7 @@ class CommunityControllerTest extends ControllerTest {
                 requestHeaders(JWT_ACCESS_TOKEN()),
                 pathParameters(
                     parameterWithName("id")
-                        .description("매거진 id")
+                        .description("커뮤니티 id")
                 )
             ))
             .andExpect(status().isOk());
