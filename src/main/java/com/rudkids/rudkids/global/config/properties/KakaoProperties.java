@@ -11,19 +11,16 @@ public class KakaoProperties {
     private final String tokenUri;
     private final String appAdminKey;
     private final String accountUri;
-    private final String clientSecret;
 
     public KakaoProperties(String clientId,
                            String oAuthEndPoint,
                            String tokenUri,
                            String appAdminKey,
-                           String accountUri,
-                           String clientSecret) {
+                           String accountUri) {
         this.clientId = clientId;
         this.oAuthEndPoint = oAuthEndPoint;
         this.tokenUri = tokenUri;
         this.appAdminKey = appAdminKey;
         this.accountUri = accountUri;
-        this.clientSecret = clientSecret;
     }
 }

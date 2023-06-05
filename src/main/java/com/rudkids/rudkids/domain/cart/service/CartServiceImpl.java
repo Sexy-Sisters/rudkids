@@ -46,9 +46,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public void updateCartItemAmount(UUID userId, CartCommand.UpdateCartItemAmount command) {
         var user = userReader.getUser(userId);
-        var cart = cartReader.getActiveCart(user);
+        var cart = cartReader.getActiveCartOrCreate(user);
+        cart.validateHasSameUser(user);
         var cartItem = cartItemReader.getCartItem(command.cartItemId());
-        cart.hasItem(cartItem);
         cartItem.updateAmount(command.amount());
     }
 

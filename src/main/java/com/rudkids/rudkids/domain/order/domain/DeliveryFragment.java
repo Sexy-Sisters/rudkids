@@ -1,7 +1,5 @@
 package com.rudkids.rudkids.domain.order.domain;
 
-import com.rudkids.rudkids.domain.order.exception.InvalidDeliveryFragmentException;
-import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.Embeddable;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,13 +25,6 @@ public class DeliveryFragment {
         String receiverAddress2,
         String etcMessage
     ) {
-        if (StringUtils.isEmpty(receiverName)) throw new InvalidDeliveryFragmentException();
-        if (StringUtils.isEmpty(receiverPhone)) throw new InvalidDeliveryFragmentException();
-        if (StringUtils.isEmpty(receiverZipcode)) throw new InvalidDeliveryFragmentException();
-        if (StringUtils.isEmpty(receiverAddress1)) throw new InvalidDeliveryFragmentException();
-        if (StringUtils.isEmpty(receiverAddress2)) throw new InvalidDeliveryFragmentException();
-        if (StringUtils.isEmpty(etcMessage)) throw new InvalidDeliveryFragmentException();
-
         this.receiverName = receiverName;
         this.receiverPhone = receiverPhone;
         this.receiverZipcode = receiverZipcode;

@@ -11,6 +11,7 @@ public class CartItemInfo {
     @Builder
     public record Main(
             UUID id,
+            String imageUrl,
             String name,
             int price,
             int amount,

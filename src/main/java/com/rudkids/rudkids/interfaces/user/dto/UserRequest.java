@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.interfaces.user.dto;
 
 public class UserRequest {
+    public record SignUp(String phoneNumber) {
+    }
 
     public record Update(
         String name,

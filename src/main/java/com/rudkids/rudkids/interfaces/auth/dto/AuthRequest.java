@@ -11,4 +11,8 @@ public class AuthRequest {
     @Builder
     public record Token(String authorizationCode, String redirectUri) {
     }
+
+    @Builder
+    public record Validate(String token) {
+    }
 }

@@ -2,6 +2,7 @@ package com.rudkids.rudkids.domain.auth.service;
 
 import com.rudkids.rudkids.domain.auth.AuthCommand;
 import com.rudkids.rudkids.domain.auth.TokenCreator;
+import com.rudkids.rudkids.domain.auth.exception.ExpiredTokenException;
 import com.rudkids.rudkids.domain.user.UserReader;
 import com.rudkids.rudkids.domain.user.exception.NotFoundUserException;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthResponse;

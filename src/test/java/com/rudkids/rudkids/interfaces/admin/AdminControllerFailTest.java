@@ -1,9 +1,7 @@
 package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.common.ControllerTest;
-import com.rudkids.rudkids.domain.magazine.exception.MagazineNotFoundException;
-import com.rudkids.rudkids.domain.order.OrderStore;
-import com.rudkids.rudkids.domain.order.domain.OrderStatus;
+import com.rudkids.rudkids.domain.community.exception.CommunityNotFoundException;
 import com.rudkids.rudkids.domain.order.exception.OrderStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
@@ -13,15 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import java.util.UUID;
-
 import static com.rudkids.rudkids.common.fixtures.admin.AdminControllerFixtures.*;
-import static com.rudkids.rudkids.common.fixtures.magazine.MagazineControllerFixtures.*;
+import static com.rudkids.rudkids.common.fixtures.community.CommunityControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.PRODUCT_상태_변경_요청;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -437,163 +432,6 @@ public class AdminControllerFailTest extends ControllerTest {
                 pathParameters(
                     parameterWithName("id")
                         .description("존재하지 않는 프로덕트 id")
-                )
-            ))
-            .andExpect(status().isNotFound());
-    }
-
-    @DisplayName("[매거진-생성-403-에러]")
-    @Test
-    void 어드민_권한이_아닌_사용자가_매거진을_작성할_경우_상태코드_403을_반환한다() throws Exception {
-        doThrow(new NotAdminRoleException())
-            .when(magazineService)
-            .create(any(), any());
-
-        mockMvc.perform(post(ADMIN_MAGAZINE_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(MAGAZINE_작성_요청())))
-            .andDo(print())
-            .andDo(document("magazine/create/failForbiddenError",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("어드민 권한이 아닌 사용자의 JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("제목"),
-
-                    fieldWithPath("content")
-                        .type(JsonFieldType.STRING)
-                        .description("내용")
-                )
-            ))
-            .andExpect(status().isForbidden());
-    }
-
-    @DisplayName("[매거진-수정-403-에러]")
-    @Test
-    void 어드민_권한이_아닌_사용자가_매거진을_수정할_경우_상태코드_403를_반환한다() throws Exception {
-        doThrow(new NotAdminRoleException())
-            .when(magazineService)
-            .update(any(), any());
-
-        mockMvc.perform(put(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(MAGAZINE_수정_요청())))
-            .andDo(print())
-            .andDo(document("magazine/update/failForbiddenError",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("어드민 권한이 아닌 사용자의 JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("매거진 id")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 제목"),
-
-                    fieldWithPath("content")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
-                )
-            ))
-            .andExpect(status().isForbidden());
-    }
-
-    @DisplayName("[매거진-수정-404-에러]")
-    @Test
-    void 존재하지_않는_매거진을_수정할_경우_상태코드_404를_반환한다() throws Exception {
-        doThrow(new MagazineNotFoundException())
-            .when(magazineService)
-            .update(any(), any());
-
-        mockMvc.perform(put(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(MAGAZINE_수정_요청())))
-            .andDo(print())
-            .andDo(document("magazine/update/failByNotFoundError",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("존재하지 않는 매거진 id")
-                ),
-                requestFields(
-                    fieldWithPath("title")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 제목"),
-
-                    fieldWithPath("content")
-                        .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
-                )
-            ))
-            .andExpect(status().isNotFound());
-    }
-
-    @DisplayName("[매거진-삭제-403-에러]")
-    @Test
-    void 어드민_권한이_아닌_사용자가_매거진을_삭제할_경우_상태코드_403를_반환한다() throws Exception {
-        doThrow(new NotAdminRoleException())
-            .when(magazineService)
-            .delete(any());
-
-        mockMvc.perform(delete(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("magazine/delete/failByForbiddenError",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("어드민 권한이 아닌 사용자의 JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("존재하지 않는 매거진 id")
-                )
-            ))
-            .andExpect(status().isForbidden());
-    }
-
-    @DisplayName("[매거진-삭제-404-에러]")
-    @Test
-    void 존재하지_않는_매거진을_삭제할_경우_상태코드_404를_반환한다() throws Exception {
-        doThrow(new MagazineNotFoundException())
-            .when(magazineService)
-            .delete(any());
-
-        mockMvc.perform(delete(ADMIN_MAGAZINE_DEFAULT_URL + "/{id}", MAGAZINE_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("magazine/delete/failByNotFoundError",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("존재하지 않는 매거진 id")
                 )
             ))
             .andExpect(status().isNotFound());

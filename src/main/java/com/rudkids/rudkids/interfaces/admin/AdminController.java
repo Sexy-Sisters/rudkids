@@ -1,14 +1,11 @@
 package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.domain.admin.service.AdminService;
-import com.rudkids.rudkids.domain.magazine.service.MagazineService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminDtoMapper;
 import com.rudkids.rudkids.interfaces.admin.dto.AdminRequest;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
-import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
-import com.rudkids.rudkids.interfaces.magazine.dto.MagazineRequest;
 import com.rudkids.rudkids.interfaces.order.dto.OrderRequest;
 import com.rudkids.rudkids.interfaces.product.dto.ProductDtoMapper;
 import com.rudkids.rudkids.interfaces.product.dto.ProductRequest;
@@ -27,10 +24,8 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminDtoMapper adminDtoMapper;
     private final ProductService productService;
-    private final MagazineService magazineService;
     private final OrderService orderService;
     private final ProductDtoMapper productDtoMapper;
-    private final MagazineDtoMapper magazineDtoMapper;
 
     @GetMapping("/user")
     public ResponseEntity searchUser(
@@ -87,36 +82,9 @@ public class AdminController {
         productService.delete(productId);
     }
 
-    @PostMapping("/magazine")
-    public void createMagazine(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @RequestBody MagazineRequest.Create request
-    ) {
-        var command = magazineDtoMapper.to(request);
-        magazineService.create(loginUser.id(), command);
-    }
-
-    @PutMapping("/magazine/{id}")
-    public void updateMagazine(
-        @AuthenticationAdminAuthority
-        @PathVariable("id") UUID magazineId,
-        @RequestBody MagazineRequest.Update request
-    ) {
-        var command = magazineDtoMapper.to(request);
-        magazineService.update(magazineId, command);
-    }
-
-    @DeleteMapping("/magazine/{id}")
-    public void deleteMagazine(
-        @AuthenticationAdminAuthority
-        @PathVariable("id") UUID magazineId
-    ) {
-        magazineService.delete(magazineId);
-    }
-
     @GetMapping("/order")
     public ResponseEntity findAll(
-        @AuthenticationAdminAuthority
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PageableDefault Pageable pageable
     ) {
         var info = orderService.findAll(pageable);

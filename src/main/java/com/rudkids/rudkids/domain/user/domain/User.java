@@ -1,6 +1,8 @@
 package com.rudkids.rudkids.domain.user.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.community.domain.Community;
+import com.rudkids.rudkids.domain.delivery.domain.Delivery;
 import com.rudkids.rudkids.domain.order.domain.Order;
 import com.rudkids.rudkids.domain.user.exception.NotAdminOrPartnerRoleException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
@@ -50,7 +52,13 @@ public class User extends AbstractEntity {
     private RoleType roleType = RoleType.USER;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Order> orders = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private final List<Delivery> deliveries = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private final List<Community> communities = new ArrayList<>();
 
     @Builder
     private User(String email, UserName name, String gender,
@@ -68,10 +76,6 @@ public class User extends AbstractEntity {
         roleType = RoleType.ADMIN;
     }
 
-    public void changeAuthorityPartner() {
-        roleType = RoleType.PARTNER;
-    }
-
     public void changeAuthorityUser() {
         roleType = RoleType.USER;
     }
@@ -82,10 +86,18 @@ public class User extends AbstractEntity {
         }
     }
 
+    public boolean isAdminRole() {
+        return roleType == RoleType.ADMIN;
+    }
+
     public void validateAdminOrPartnerRole() {
         if (!roleType.equals(RoleType.PARTNER) && !roleType.equals(RoleType.ADMIN)) {
             throw new NotAdminOrPartnerRoleException();
         }
+    }
+
+    public void signUp(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
@@ -120,5 +132,13 @@ public class User extends AbstractEntity {
 
     public String getPhoneNumber() {
         return phoneNumber.getValue();
+    }
+
+    public void addDeliveryAddress(Delivery delivery) {
+        deliveries.add(delivery);
+    }
+
+    public void writeCommunity(Community community) {
+        communities.add(community);
     }
 }

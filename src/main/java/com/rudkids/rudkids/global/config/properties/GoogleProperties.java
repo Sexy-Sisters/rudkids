@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.global.config.properties;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @ConfigurationProperties("oauth.google")
 @Getter
+@AllArgsConstructor
 public class GoogleProperties {
 
     private final String clientId;
@@ -17,22 +19,6 @@ public class GoogleProperties {
     private final String tokenUri;
     private final String accessType;
     private final String peopleUri;
-
-    public GoogleProperties(String clientId,
-                            String clientSecret,
-                            String oAuthEndPoint,
-                            String responseType,
-                            List<String> scopes,
-                            String tokenUri,
-                            String accessType,
-                            String peopleUri) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.oAuthEndPoint = oAuthEndPoint;
-        this.responseType = responseType;
-        this.scopes = scopes;
-        this.tokenUri = tokenUri;
-        this.accessType = accessType;
-        this.peopleUri = peopleUri;
-    }
+    private final List<String> personFields;
+    private final String key;
 }

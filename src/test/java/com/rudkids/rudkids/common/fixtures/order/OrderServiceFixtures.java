@@ -126,6 +126,9 @@ public class OrderServiceFixtures {
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.LIMITED)
             .build();
+
+        ItemImage image = ItemImage.create(item, "path", "url");
+        item.addImage(image);
         itemStore.store(item);
 
         cartService.addCartItem(user.getId(), CART_아이템_요청());

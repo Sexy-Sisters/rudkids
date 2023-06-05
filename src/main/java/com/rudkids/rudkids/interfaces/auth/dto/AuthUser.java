@@ -8,11 +8,11 @@ import java.util.UUID;
 public class AuthUser {
 
     @Builder
-        public record Login(UUID id) {
+    public record Login(UUID id) {
     }
 
     @Builder
-        public record OAuth(
+    public record OAuth(
         String email,
         String name,
         String gender,

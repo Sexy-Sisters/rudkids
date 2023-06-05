@@ -30,7 +30,6 @@ public class CartItemReaderImpl implements CartItemReader {
     public CartItem getCartItemOrCreate(Cart cart, Item item, CartCommand.AddCartItem command) {
         if (cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
             CartItem cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
-
             List<String> cartItemOptionNames = cartItem.getCartItemOptionGroups().stream()
                 .map(CartItemOptionGroup::getOptionName)
                 .toList();
@@ -71,6 +70,7 @@ public class CartItemReaderImpl implements CartItemReader {
             .item(item)
             .price(item.getPrice())
             .amount(command.amount())
+            .imageUrl(item.getCartItemImageUrl())
             .build();
         cart.addCartItem(cartItem);
 
