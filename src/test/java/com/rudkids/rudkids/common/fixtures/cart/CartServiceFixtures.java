@@ -59,7 +59,7 @@ public class CartServiceFixtures {
                 .name(UserName.create("남세"))
                 .age(18)
                 .gender("MALE")
-                .phoneNumber(PhoneNumber.create("010-2940-1509"))
+                .phoneNumber(PhoneNumber.create("01029401509"))
                 .socialType(SocialType.GOOGLE)
                 .build();
         userRepository.save(user);

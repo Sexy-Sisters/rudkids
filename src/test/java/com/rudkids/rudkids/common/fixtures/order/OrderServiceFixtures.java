@@ -59,7 +59,7 @@ public class OrderServiceFixtures {
 
     protected static DeliveryFragment deliveryFragment = DeliveryFragment.builder()
         .receiverName("이규진")
-        .receiverPhone("010-5476-5574")
+        .receiverPhone("01029401509")
         .receiverAddress1("부산시 사하구 윤공단로123")
         .receiverAddress2("나는 몰라용~")
         .receiverZipcode("494999")
@@ -70,7 +70,7 @@ public class OrderServiceFixtures {
     protected static OrderCommand.CreateRequest ORDER_주문_요청() {
         return OrderCommand.CreateRequest.builder()
             .receiverName("이규진")
-            .receiverPhone("010-5476-5574")
+            .receiverPhone("01029401509")
             .receiverAddress1("부산시 사하구 윤공단로123")
             .receiverAddress2("나는 몰라용~")
             .receiverZipcode("494999")
@@ -114,7 +114,7 @@ public class OrderServiceFixtures {
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MAIL")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         userRepository.save(user);

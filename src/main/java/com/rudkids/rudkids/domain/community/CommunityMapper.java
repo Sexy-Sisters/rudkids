@@ -19,6 +19,7 @@ public class CommunityMapper {
             .content(community.getContent())
             .writer(community.getWriter())
             .writerProfileImage(community.getWriterProfileImage())
+            .likeCount(community.getLikeCount())
             .build();
     }
 }

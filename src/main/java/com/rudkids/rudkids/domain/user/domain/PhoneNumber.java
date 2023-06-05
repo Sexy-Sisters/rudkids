@@ -11,16 +11,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
-    private static final int MAX_LENGTH = 13;
+    private static final int MAX_LENGTH = 11;
 
     @Column(name = "phone_number")
     private String value;
 
     private PhoneNumber(String value) {
-        if (value == null || value.isBlank()) {
-            this.value =  null;
-        }
-        else this.value = value.replace("-", "");
+        this.value = value;
     }
 
     public static PhoneNumber create(String value) {
@@ -29,6 +26,9 @@ public class PhoneNumber {
     }
 
     public static PhoneNumber createDefault(String value) {
+        if (value == null || value.isBlank()) {
+            value =  "";
+        }
         return new PhoneNumber(value);
     }
 

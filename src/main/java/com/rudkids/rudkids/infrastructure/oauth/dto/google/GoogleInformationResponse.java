@@ -46,7 +46,7 @@ public class GoogleInformationResponse {
 
     public String getPhoneNumber() {
         if(phoneNumbers == null) {
-            return null;
+            return "";
         }
         return phoneNumbers.get(0).getValue();
     }

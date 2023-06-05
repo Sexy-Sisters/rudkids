@@ -59,7 +59,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .profileImage(profileImage)
             .socialType(SocialType.GOOGLE)
             .build();
@@ -125,7 +125,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
             .name(UserName.create("다른유저"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .profileImage(profileImage)
             .socialType(SocialType.GOOGLE)
             .build();

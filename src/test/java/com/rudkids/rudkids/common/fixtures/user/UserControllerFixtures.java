@@ -6,6 +6,6 @@ public class UserControllerFixtures {
     public static final String USER_DEFAULT_URL = "/api/v1/user";
 
     public static UserRequest.Update USER_수정_요청() {
-        return new UserRequest.Update("남세", "01012345678", "path", "url");
+        return new UserRequest.Update("남세", "01029401509", "path", "url");
     }
 }

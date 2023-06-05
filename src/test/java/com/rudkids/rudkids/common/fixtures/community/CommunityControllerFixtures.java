@@ -15,6 +15,7 @@ public class CommunityControllerFixtures {
     public static final String COMMUNITY_타입 = "POST";
     public static final String COMMUNITY_작성자 = "작성자";
     public static final String COMMUNITY_작성자_이미지 = "작성자";
+    public static final int COMMUNITY_좋아요_개수 = 3;
 
     public static CommunityRequest.Create COMMUNITY_작성_요청() {
         return new CommunityRequest.Create(COMMUNITY_제목, COMMUNITY_내용, COMMUNITY_타입);
@@ -29,6 +30,12 @@ public class CommunityControllerFixtures {
     }
 
     public static CommunityInfo.Detail COMMUNITY_상세조회_응답() {
-        return new CommunityInfo.Detail(COMMUNITY_제목, COMMUNITY_내용, COMMUNITY_작성자, COMMUNITY_작성자_이미지);
+        return CommunityInfo.Detail.builder()
+            .title(COMMUNITY_제목)
+            .content(COMMUNITY_내용)
+            .writer(COMMUNITY_작성자)
+            .writerProfileImage(COMMUNITY_작성자_이미지)
+            .likeCount(COMMUNITY_좋아요_개수)
+            .build();
     }
 }

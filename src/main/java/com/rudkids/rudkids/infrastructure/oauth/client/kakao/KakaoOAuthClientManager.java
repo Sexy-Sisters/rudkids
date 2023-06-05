@@ -36,6 +36,7 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
             .name(information.getNickname())
             .gender(information.getGender())
             .profileImage(information.getProfileImage())
+            .phoneNumber("")
             .socialType(SocialType.KAKAO)
             .build();
     }
