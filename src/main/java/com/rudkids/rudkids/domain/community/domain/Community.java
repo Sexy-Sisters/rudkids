@@ -1,11 +1,14 @@
 package com.rudkids.rudkids.domain.community.domain;
 
 import com.rudkids.rudkids.common.AbstractEntity;
+import com.rudkids.rudkids.domain.communityLike.domain.CommunityLike;
 import com.rudkids.rudkids.domain.user.domain.User;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +33,9 @@ public class Community extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private CommunityType communityType = CommunityType.POST;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "community")
+    private final List<CommunityLike> communityLikes = new ArrayList<>();
 
     protected Community() {
     }
@@ -62,6 +68,10 @@ public class Community extends AbstractEntity {
         }
     }
 
+    public void addCommunityLike(CommunityLike communityLike) {
+        communityLikes.add(communityLike);
+    }
+
     public UUID getId() {
         return id;
     }
@@ -84,5 +94,9 @@ public class Community extends AbstractEntity {
 
     public String getWriterProfileImage() {
         return user.getProfileImageUrl();
+    }
+
+    public int getLikeCount() {
+        return communityLikes.size();
     }
 }

@@ -13,7 +13,8 @@ public class CommunityInfo {
         String title,
         String content,
         String writer,
-        String writerProfileImage
-        ) {
+        String writerProfileImage,
+        int likeCount
+    ) {
     }
 }
