@@ -12,7 +12,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   datasource:
     url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
@@ -77,10 +77,3 @@ payment:
     client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
     secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
     confirm-uri: https://api.tosspayments.com/v1/payments/confirm
-
-springdoc:
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-  swagger-ui:
-    url: /docs/open-api-3.0.1.json
-    path: /docs/swagger
