@@ -8,7 +8,7 @@ import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
 import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
-import com.rudkids.rudkids.domain.magazine.service.MagazineService;
+import com.rudkids.rudkids.domain.community.service.CommunityService;
 import com.rudkids.rudkids.domain.order.service.OrderService;
 import com.rudkids.rudkids.domain.product.service.ProductService;
 import com.rudkids.rudkids.domain.user.service.UserService;
@@ -21,8 +21,8 @@ import com.rudkids.rudkids.interfaces.cart.dto.CartDtoMapper;
 import com.rudkids.rudkids.interfaces.image.ImageController;
 import com.rudkids.rudkids.interfaces.item.ItemController;
 import com.rudkids.rudkids.interfaces.item.dto.ItemDtoMapper;
-import com.rudkids.rudkids.interfaces.magazine.MagazineController;
-import com.rudkids.rudkids.interfaces.magazine.dto.MagazineDtoMapper;
+import com.rudkids.rudkids.interfaces.community.CommunityController;
+import com.rudkids.rudkids.interfaces.community.dto.CommunityDtoMapper;
 import com.rudkids.rudkids.interfaces.order.OrderController;
 import com.rudkids.rudkids.interfaces.order.dto.OrderDtoMapper;
 import com.rudkids.rudkids.interfaces.product.ProductController;
@@ -52,7 +52,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
     ProductController.class,
     ItemController.class,
     CartController.class,
-    MagazineController.class,
+    CommunityController.class,
     OrderController.class,
     AdminController.class,
     ImageController.class,
@@ -79,7 +79,7 @@ public abstract class ControllerTest {
     protected CartService cartService;
 
     @MockBean
-    protected MagazineService magazineService;
+    protected CommunityService communityService;
 
     @MockBean
     protected OrderService orderService;
@@ -108,7 +108,7 @@ public abstract class ControllerTest {
     protected CartDtoMapper cartDtoMapper;
 
     @MockBean
-    protected MagazineDtoMapper magazineDtoMapper;
+    protected CommunityDtoMapper communityDtoMapper;
 
     @MockBean
     protected OrderDtoMapper orderDtoMapper;

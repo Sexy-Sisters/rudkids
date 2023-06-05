@@ -6,10 +6,9 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: rudkids
-      MYSQL_USER: rudkids
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Seoul
     command:
       - --character-set-server=utf8mb4

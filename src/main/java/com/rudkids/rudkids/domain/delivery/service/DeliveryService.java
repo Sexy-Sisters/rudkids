@@ -2,7 +2,6 @@ package com.rudkids.rudkids.domain.delivery.service;
 
 import com.rudkids.rudkids.domain.delivery.*;
 import com.rudkids.rudkids.domain.delivery.domain.Address;
-import com.rudkids.rudkids.domain.delivery.domain.Delivery;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,14 +21,7 @@ public class DeliveryService {
 
     public void create(UUID userId, DeliveryCommand.Create command) {
         var user = userReader.getUser(userId);
-        var address = Address.create(command.address1(), command.address2(), command.zipCode());
-        var delivery = Delivery.builder()
-            .user(user)
-            .receiverName(command.receiverName())
-            .receiverPhone(command.receiverPhone())
-            .address(address)
-            .message(command.message())
-            .build();
+        var delivery = deliveryMapper.toEntity(user, command);
         user.addDeliveryAddress(delivery);
 
         deliveryStore.store(delivery);

@@ -1,0 +1,42 @@
+[[Community-API]]
+== Community API
+
+[[Community-생성]]
+=== Community 생성
+operation::community/create[snippets='http-request,request-headers,request-fields,http-response']
+
+[[Community-전체조회]]
+=== Community 전체조회
+operation::community/findAll[snippets='http-request,query-parameters,http-response,response-fields']
+
+[[Community-상세조회]]
+=== Community 상세조회
+operation::community/find[snippets='http-request,path-parameters,http-response,response-fields']
+
+[[Community-상세조회-존재하지-않는-커뮤니티-에러]]
+=== Community 상세조회 (존재하지 않는 커뮤니티 에러)
+operation::community/find/failByNotFoundError[snippets='http-request,path-parameters,http-response']
+
+[[Community-수정]]
+=== Community 수정
+operation::community/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+
+[[Community-수정-권한-에러]]
+=== Community 수정 (권한 에러)
+operation::community/update/failForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+
+[[Community-수정-존재하지-않는-커뮤니티-에러]]
+=== Community 수정 (존재하지 않는 커뮤니티 에러)
+operation::community/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+
+[[Community-삭제]]
+=== Community 삭제
+operation::community/delete[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Community-삭제-권한-에러]]
+=== Community 삭제 (권한 에러)
+operation::community/delete/failByForbiddenError[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Community-삭제-존재하지-않는-커뮤니티-에러]]
+=== Community 삭제 (존재하지 않는 커뮤니티 에러)
+operation::community/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']
