@@ -25,7 +25,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         Title title = Title.create("제목");
@@ -53,7 +53,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         Title title = Title.create("제목");
@@ -77,7 +77,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         Title title = Title.create("제목");
@@ -101,7 +101,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         user.changeAuthorityAdmin();
@@ -125,7 +125,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         Title title = Title.create("제목");
@@ -148,7 +148,7 @@ class CommunityTest {
             .name(UserName.create("남세"))
             .age(18)
             .gender("MALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         Title title = Title.create("제목");
@@ -161,7 +161,7 @@ class CommunityTest {
             .name(UserName.create("다른사람"))
             .age(18)
             .gender("FEMALE")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.KAKAO)
             .build();
 

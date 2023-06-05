@@ -45,7 +45,7 @@ public class ProductServiceFixtures {
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MAIL")
-            .phoneNumber(PhoneNumber.create("010-2940-1509"))
+            .phoneNumber(PhoneNumber.create("01029401509"))
             .socialType(SocialType.GOOGLE)
             .build();
         user.changeAuthorityAdmin();

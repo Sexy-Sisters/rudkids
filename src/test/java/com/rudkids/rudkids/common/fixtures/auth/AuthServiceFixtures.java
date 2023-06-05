@@ -21,7 +21,7 @@ public class AuthServiceFixtures {
         .name("남세")
         .gender("MALE")
         .age(18)
-        .phoneNumber("010-2940-1509")
+        .phoneNumber("01029401509")
         .profileImage("http://")
         .socialType(SocialType.GOOGLE)
         .build();
