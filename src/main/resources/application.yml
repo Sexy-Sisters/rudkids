@@ -59,14 +59,14 @@ oauth:
     account-uri: https://kapi.kakao.com/v2/user/me
     client-secret: ${KAKAO_CLIENT_SECRET}
 
-#sms:
-#  api:
-#    key: ${SMS_KEY}
-#    secret: ${SMS_SECRET}
-#    domain-uri: https://api.coolsms.co.kr
-#
-#payment:
-#  toss:
-#    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
-#    secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
-#    confirm-uri: https://api.tosspayments.com/v1/payments/confirm
+sms:
+  api:
+    key: NCSXGQWD932OYAFZ
+    secret: TQHAVI4N1Y22UTPT2HRA7RIQMOOZSSPN
+    domain-uri: https://api.coolsms.co.kr
+
+payment:
+  toss:
+    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
+    secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
+    confirm-uri: https://api.tosspayments.com/v1/payments/confirm
