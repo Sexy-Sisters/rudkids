@@ -16,6 +16,12 @@ public class UserController {
     private final UserService userService;
     private final UserDtoMapper userDtoMapper;
 
+    @PatchMapping
+    public void signUp(@AuthenticationPrincipal AuthUser.Login loginUser, @RequestBody UserRequest.SignUp request) {
+        var command = userDtoMapper.toCommand(request);
+        userService.signUp(loginUser.id(), command);
+    }
+
     @PutMapping
     public void update(@AuthenticationPrincipal AuthUser.Login loginUser, @RequestBody UserRequest.Update request) {
         var command = userDtoMapper.toCommand(request);

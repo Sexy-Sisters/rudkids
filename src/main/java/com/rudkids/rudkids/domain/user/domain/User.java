@@ -96,6 +96,10 @@ public class User extends AbstractEntity {
         }
     }
 
+    public void signUp(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
         this.name = name;
         this.phoneNumber = phoneNumber;
