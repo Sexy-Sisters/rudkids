@@ -5,7 +5,11 @@ import lombok.Builder;
 public class CommunityInfo {
 
     @Builder
-    public record Main(String title, String writer) {
+    public record Main(
+        String title,
+        String writer,
+        String image
+    ) {
     }
 
     @Builder
@@ -13,6 +17,7 @@ public class CommunityInfo {
         String title,
         String content,
         String writer,
+        String image,
         String writerProfileImage,
         int likeCount
     ) {

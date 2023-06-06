@@ -5,6 +5,7 @@ import com.rudkids.rudkids.domain.community.domain.Community;
 import com.rudkids.rudkids.domain.community.domain.CommunityType;
 import com.rudkids.rudkids.domain.community.exception.CommunityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class CommunityReaderImpl implements CommunityReader {
     }
 
     @Override
-    public List<Community> getCommunities(String type) {
+    public List<Community> getCommunities(String type, Pageable pageable) {
         CommunityType communityType = CommunityType.toEnum(type);
-        return communityRepository.findByCommunityType(communityType);
+        return communityRepository.findByCommunityType(communityType, pageable);
     }
 }

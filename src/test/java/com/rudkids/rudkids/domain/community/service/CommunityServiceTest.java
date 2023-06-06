@@ -3,11 +3,14 @@ package com.rudkids.rudkids.domain.community.service;
 import com.rudkids.rudkids.common.fixtures.community.CommunityServiceFixtures;
 import com.rudkids.rudkids.domain.community.CommunityInfo;
 import com.rudkids.rudkids.domain.community.domain.Community;
+import com.rudkids.rudkids.domain.community.domain.CommunityImage;
 import com.rudkids.rudkids.domain.community.domain.Content;
 import com.rudkids.rudkids.domain.community.domain.Title;
 import com.rudkids.rudkids.domain.community.exception.CommunityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -70,14 +73,13 @@ class CommunityServiceTest extends CommunityServiceFixtures {
     void 아무나_전체조회할_수_있다() {
         //given
         communityService.create(user.getId(), COMMUNITY_작성_요청);
-
-        Title newTitle = Title.create("새로운 제목");
-        Content newContent = Content.create("새로운 내용");
-        Community newCommunity = Community.create(user, newTitle, newContent);
-        communityRepository.save(newCommunity);
+        communityService.create(user.getId(), COMMUNITY_작성_요청);
 
         //when
-        List<CommunityInfo.Main> actual = communityService.findAll("POST");
+        int page = 0;
+        int size = 4;
+        Pageable pageable = PageRequest.of(page, size);
+        List<CommunityInfo.Main> actual = communityService.findAll("POST", pageable);
 
         //then
         assertThat(actual).hasSize(2);

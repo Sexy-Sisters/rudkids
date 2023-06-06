@@ -31,6 +31,12 @@ public class Community extends AbstractEntity {
     @Embedded
     private Content content;
 
+    @Embedded
+    private View view;
+
+    @Embedded
+    private CommunityImage communityImage;
+
     @Enumerated(EnumType.STRING)
     private CommunityType communityType = CommunityType.POST;
 
@@ -40,20 +46,23 @@ public class Community extends AbstractEntity {
     protected Community() {
     }
 
-    private Community(User user, Title title, Content content) {
+    private Community(User user, Title title, Content content, CommunityImage communityImage) {
         this.user = user;
         user.writeCommunity(this);
         this.title = title;
         this.content = content;
+        this.view = new View();
+        this.communityImage = communityImage;
     }
 
-    public static Community create(User user, Title title, Content content) {
-        return new Community(user, title, content);
+    public static Community create(User user, Title title, Content content, CommunityImage communityImage) {
+        return new Community(user, title, content, communityImage);
     }
 
-    public void update(Title title, Content content) {
+    public void update(Title title, Content content, CommunityImage communityImage) {
         this.title = title;
         this.content = content;
+        this.communityImage = communityImage;
     }
 
     public void choiceType(String type) {
@@ -66,6 +75,14 @@ public class Community extends AbstractEntity {
         if(!this.user.equals(user)) {
             throw new DifferentUserException();
         }
+    }
+
+    public void addView() {
+        view.addValue();
+    }
+
+    public boolean hasImage() {
+        return communityImage.hasImage();
     }
 
     public void addCommunityLike(CommunityLike communityLike) {
@@ -98,5 +115,13 @@ public class Community extends AbstractEntity {
 
     public int getLikeCount() {
         return communityLikes.size();
+    }
+
+    public String getPath() {
+        return communityImage.getPath();
+    }
+
+    public String getUrl() {
+        return communityImage.getUrl();
     }
 }

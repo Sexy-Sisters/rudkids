@@ -30,12 +30,14 @@ class CommunityTest {
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when
         Title newTitle = Title.create("새로운 제목");
         Content newContent = Content.create("새로운 내용");
-        community.update(newTitle, newContent);
+        CommunityImage newImage = CommunityImage.create("path", "url");
+        community.update(newTitle, newContent, newImage);
 
         //then
         assertAll(() -> {
@@ -58,13 +60,15 @@ class CommunityTest {
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when, then
         String invalidTitle = " ";
         Content newContent = Content.create("새로운 내용");
+        CommunityImage newImage = CommunityImage.create("path", "url");
 
-        assertThatThrownBy(() -> community.update(Title.create(invalidTitle), newContent))
+        assertThatThrownBy(() -> community.update(Title.create(invalidTitle), newContent, newImage))
             .isInstanceOf(InvalidCommunityTitleException.class);
     }
 
@@ -82,13 +86,15 @@ class CommunityTest {
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when, then
         Title newTitle = Title.create("새로운 제목");
         String invalidContent = " ";
+        CommunityImage newImage = CommunityImage.create("path", "url");
 
-        assertThatThrownBy(() -> community.update(newTitle, Content.create(invalidContent)))
+        assertThatThrownBy(() -> community.update(newTitle, Content.create(invalidContent), newImage))
             .isInstanceOf(InvalidCommunityContentException.class);
     }
 
@@ -107,7 +113,8 @@ class CommunityTest {
         user.changeAuthorityAdmin();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when
         community.choiceType("MAGAZINE");
@@ -130,7 +137,8 @@ class CommunityTest {
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when
         community.choiceType("MAGAZINE");
@@ -153,7 +161,8 @@ class CommunityTest {
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
-        Community community = Community.create(user, title, content);
+        CommunityImage image = CommunityImage.create("path", "url");
+        Community community = Community.create(user, title, content, image);
 
         //when, then
         User anotherUser = User.builder()

@@ -10,6 +10,7 @@ public class CommunityMapper {
         return CommunityInfo.Main.builder()
             .title(community.getTitle())
             .writer(community.getWriter())
+            .image(community.getUrl())
             .build();
     }
 
@@ -18,6 +19,7 @@ public class CommunityMapper {
             .title(community.getTitle())
             .content(community.getContent())
             .writer(community.getWriter())
+            .image(community.getUrl())
             .writerProfileImage(community.getWriterProfileImage())
             .likeCount(community.getLikeCount())
             .build();

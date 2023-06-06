@@ -11,6 +11,7 @@ public class CommunityDtoMapper {
             .title(request.title())
             .content(request.content())
             .type(request.type())
+            .image(request.image())
             .build();
     }
 
@@ -18,6 +19,7 @@ public class CommunityDtoMapper {
         return CommunityCommand.Update.builder()
             .title(request.title())
             .content(request.content())
+            .image(request.image())
             .build();
     }
 }

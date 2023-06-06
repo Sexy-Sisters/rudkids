@@ -8,6 +8,7 @@ import com.rudkids.rudkids.domain.community.exception.InvalidCommunityContentExc
 import com.rudkids.rudkids.domain.community.exception.InvalidCommunityTitleException;
 import com.rudkids.rudkids.domain.user.domain.*;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
             .title(invalidTitle)
             .content("내용")
             .type("POST")
+            .image(new ImageRequest("path", "url"))
             .build();
 
         //when, then
@@ -42,6 +44,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
             .title("제목")
             .content(invalidContent)
             .type("POST")
+            .image(new ImageRequest("path", "url"))
             .build();
 
         //when, then
@@ -71,6 +74,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
             .title("제목")
             .content("내용")
             .type(invalidType)
+            .image(new ImageRequest("path", "url"))
             .build();
 
         //when, then
@@ -89,6 +93,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
         CommunityCommand.Update updateCommand = CommunityCommand.Update.builder()
             .title(invalidTitle)
             .content("새로운 내용")
+            .image(new ImageRequest("path", "url"))
             .build();
 
         assertThatThrownBy(() -> communityService.update(user.getId(), communityId, updateCommand))
@@ -106,6 +111,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
         CommunityCommand.Update updateCommand = CommunityCommand.Update.builder()
             .title("새로운 제목")
             .content(invalidContent)
+            .image(new ImageRequest("path", "url"))
             .build();
 
         assertThatThrownBy(() -> communityService.update(user.getId(), communityId, updateCommand))
@@ -133,6 +139,7 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
         CommunityCommand.Update updateCommand = CommunityCommand.Update.builder()
             .title("새로운 제목")
             .content("새로운 내용")
+            .image(new ImageRequest("path", "url"))
             .build();
 
         assertThatThrownBy(() -> communityService.update(anotherUser.getId(), communityId, updateCommand))
