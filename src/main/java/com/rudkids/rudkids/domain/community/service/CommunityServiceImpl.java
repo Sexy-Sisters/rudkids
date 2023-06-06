@@ -2,10 +2,10 @@ package com.rudkids.rudkids.domain.community.service;
 
 import com.rudkids.rudkids.domain.community.*;
 import com.rudkids.rudkids.domain.community.domain.Community;
-import com.rudkids.rudkids.domain.community.domain.Content;
-import com.rudkids.rudkids.domain.community.domain.Title;
+import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +20,7 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityStore communityStore;
     private final CommunityReader communityReader;
     private final CommunityMapper communityMapper;
+    private final ImageService imageService;
 
     @Override
     public UUID create(UUID userId, CommunityCommand.Create command) {
@@ -31,16 +32,17 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityInfo.Main> findAll(String type) {
-        return communityReader.getCommunities(type).stream()
+    public List<CommunityInfo.Main> findAll(String type, Pageable pageable) {
+        return communityReader.getCommunities(type, pageable).stream()
                 .map(communityMapper::toMain)
                 .toList();
     }
 
     @Override
     public CommunityInfo.Detail find(UUID communityId) {
-        var magazine = communityReader.get(communityId);
-        return communityMapper.toDetail(magazine);
+        var community = communityReader.get(communityId);
+        community.addView();
+        return communityMapper.toDetail(community);
     }
 
     @Override
@@ -48,10 +50,8 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userReader.getUser(userId);
         var community = communityReader.get(communityId);
         community.validateHasSameUser(user);
-
-        var title = Title.create(command.title());
-        var content = Content.create(command.content());
-        community.update(title, content);
+        imageService.delete(community);
+        community.update(command.toTitle(), command.toContent(), command.toImage());
     }
 
     @Override
@@ -59,6 +59,7 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userReader.getUser(userId);
         Community community = communityReader.get(communityId);
         community.validateHasSameUser(user);
+        imageService.delete(community);
         communityStore.delete(community);
     }
 }

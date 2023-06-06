@@ -6,6 +6,8 @@ import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
 import com.rudkids.rudkids.interfaces.community.dto.CommunityDtoMapper;
 import com.rudkids.rudkids.interfaces.community.dto.CommunityRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,16 +21,21 @@ public class CommunityController {
     private final CommunityDtoMapper communityDtoMapper;
 
     @PostMapping
-    public ResponseEntity create(@AuthenticationPrincipal AuthUser.Login loginUser,
-                                 @RequestBody CommunityRequest.Create request) {
+    public ResponseEntity create(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @RequestBody CommunityRequest.Create request
+    ) {
         var command = communityDtoMapper.toCommand(request);
         var response = communityService.create(loginUser.id(), command);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public ResponseEntity findAll(@RequestParam("type") String type) {
-        var response = communityService.findAll(type);
+    public ResponseEntity findAll(
+        @RequestParam("type") String type,
+        @PageableDefault Pageable pageable
+    ) {
+        var response = communityService.findAll(type, pageable);
         return ResponseEntity.ok(response);
     }
 
@@ -49,8 +56,10 @@ public class CommunityController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@AuthenticationPrincipal AuthUser.Login loginUser,
-                       @PathVariable("id") UUID communityId) {
+    public void delete(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable("id") UUID communityId
+    ) {
         communityService.delete(loginUser.id(), communityId);
     }
 }

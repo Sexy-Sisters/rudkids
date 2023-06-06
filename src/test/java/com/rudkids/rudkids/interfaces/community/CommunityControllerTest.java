@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.interfaces.community;
 
 import com.rudkids.rudkids.common.ControllerTest;
-import kotlinx.serialization.json.Json;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import static com.rudkids.rudkids.common.fixtures.community.CommunityControllerF
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -50,7 +48,19 @@ class CommunityControllerTest extends ControllerTest {
 
                     fieldWithPath("type")
                         .type(JsonFieldType.STRING)
-                        .description("커뮤니티 타입")
+                        .description("커뮤니티 타입"),
+
+                    fieldWithPath("image")
+                        .type(JsonFieldType.OBJECT)
+                        .description("커뮤니티 글 썸네일"),
+
+                    fieldWithPath("image.path")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 path"),
+
+                    fieldWithPath("image.url")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 url")
                 )
             ))
             .andExpect(status().isOk());
@@ -59,7 +69,7 @@ class CommunityControllerTest extends ControllerTest {
     @DisplayName("[커뮤니티-전체조회]")
     @Test
     void 커뮤니티를_전체조회한다() throws Exception {
-        given(communityService.findAll(any())).willReturn(COMMUNITY_전체조회_응답());
+        given(communityService.findAll(any(), any())).willReturn(COMMUNITY_전체조회_응답());
 
         mockMvc.perform(get(COMMUNITY_DEFAULT_URL + "?type={type}", COMMUNITY_타입))
             .andDo(print())
@@ -77,8 +87,12 @@ class CommunityControllerTest extends ControllerTest {
 
                     fieldWithPath("[].writer")
                         .type(JsonFieldType.STRING)
-                        .description("커뮤니티 작성자")
-                )
+                        .description("커뮤니티 작성자"),
+
+                    fieldWithPath("[].image")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일")
+                    )
             ))
             .andExpect(status().isOk());
     }
@@ -109,6 +123,10 @@ class CommunityControllerTest extends ControllerTest {
                     fieldWithPath("writer")
                         .type(JsonFieldType.STRING)
                         .description("커뮤니티 작성자"),
+
+                    fieldWithPath("image")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일"),
 
                     fieldWithPath("writerProfileImage")
                         .type(JsonFieldType.STRING)
@@ -150,7 +168,19 @@ class CommunityControllerTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("image")
+                        .type(JsonFieldType.OBJECT)
+                        .description("커뮤니티 글 썸네일"),
+
+                    fieldWithPath("image.path")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 path"),
+
+                    fieldWithPath("image.url")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 url")
                 )
             ))
             .andExpect(status().isOk());

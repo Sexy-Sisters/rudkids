@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.image.service;
 
+import com.rudkids.rudkids.domain.community.domain.Community;
 import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.item.domain.Item;
 import com.rudkids.rudkids.domain.product.domain.Product;
@@ -15,4 +16,5 @@ public interface ImageService {
     void delete(Item item);
     void delete(Product product);
     void delete(User user);
+    void delete(Community community);
 }

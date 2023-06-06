@@ -20,13 +20,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public void signUp(UUID userId, UserCommand.SignUp command) {
-        var user = userReader.getUser(userId);
-        var phoneNumber = PhoneNumber.create(command.phoneNumber());
-        user.signUp(phoneNumber);
-    }
-
-    @Override
     public void update(UUID userId, UserCommand.Update command) {
         var user = userReader.getUser(userId);
         imageService.delete(user);

@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.image.service;
 
+import com.rudkids.rudkids.domain.community.domain.Community;
 import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.image.S3ImageUploader;
 import com.rudkids.rudkids.domain.item.domain.Item;
@@ -51,6 +52,13 @@ public class ImageServiceImpl implements ImageService {
     public void delete(User user) {
         if(!user.isCustomProfileImage()) {
             s3ImageUploader.delete(user.getProfileImagePath());
+        }
+    }
+
+    @Override
+    public void delete(Community community) {
+        if(!community.hasImage()) {
+            s3ImageUploader.delete(community.getPath());
         }
     }
 }

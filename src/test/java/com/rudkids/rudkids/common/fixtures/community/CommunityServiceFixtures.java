@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.community.service.CommunityService;
 import com.rudkids.rudkids.domain.user.domain.*;
 import com.rudkids.rudkids.infrastructure.community.CommunityRepository;
 import com.rudkids.rudkids.infrastructure.user.UserRepository;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,11 +28,13 @@ public class CommunityServiceFixtures {
         .title("제목")
         .content("내용")
         .type("POST")
+        .image(new ImageRequest("path", "url"))
         .build();
 
     protected CommunityCommand.Update COMMUNITY_수정_요청 = CommunityCommand.Update.builder()
         .title("새로운 제목")
         .content("새로운 내용")
+        .image(new ImageRequest("path", "url"))
         .build();
 
     @BeforeEach

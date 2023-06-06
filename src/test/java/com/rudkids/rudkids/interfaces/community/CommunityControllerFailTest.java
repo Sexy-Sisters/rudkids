@@ -3,7 +3,6 @@ package com.rudkids.rudkids.interfaces.community;
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.community.exception.CommunityNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.DifferentUserException;
-import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -78,7 +77,19 @@ public class CommunityControllerFailTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("image")
+                        .type(JsonFieldType.OBJECT)
+                        .description("커뮤니티 글 썸네일"),
+
+                    fieldWithPath("image.path")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 path"),
+
+                    fieldWithPath("image.url")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 url")
                 )
             ))
             .andExpect(status().isForbidden());
@@ -112,7 +123,19 @@ public class CommunityControllerFailTest extends ControllerTest {
 
                     fieldWithPath("content")
                         .type(JsonFieldType.STRING)
-                        .description("새로운 내용")
+                        .description("새로운 내용"),
+
+                    fieldWithPath("image")
+                        .type(JsonFieldType.OBJECT)
+                        .description("커뮤니티 글 썸네일"),
+
+                    fieldWithPath("image.path")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 path"),
+
+                    fieldWithPath("image.url")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 글 썸네일 url")
                 )
             ))
             .andExpect(status().isNotFound());
