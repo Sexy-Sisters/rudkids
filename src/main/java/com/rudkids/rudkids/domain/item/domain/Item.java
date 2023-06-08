@@ -150,7 +150,7 @@ public class Item extends AbstractEntity {
             .toList();
     }
 
-    public boolean hasImages() {
+    public boolean hasImage() {
         return images.isEmpty();
     }
 

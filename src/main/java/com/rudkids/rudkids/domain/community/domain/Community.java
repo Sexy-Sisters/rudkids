@@ -32,7 +32,7 @@ public class Community extends AbstractEntity {
     private Content content;
 
     @Embedded
-    private View view;
+    private ViewCount viewCount;
 
     @Embedded
     private CommunityImage communityImage;
@@ -51,7 +51,7 @@ public class Community extends AbstractEntity {
         user.writeCommunity(this);
         this.title = title;
         this.content = content;
-        this.view = new View();
+        this.viewCount = new ViewCount();
         this.communityImage = communityImage;
     }
 
@@ -77,8 +77,8 @@ public class Community extends AbstractEntity {
         }
     }
 
-    public void addView() {
-        view.addValue();
+    public void increaseViewCount() {
+        viewCount.increase();
     }
 
     public boolean hasImage() {

@@ -28,7 +28,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      secret-key: ${JWT_SECRET_KEY}
       access:
         expire-length: 3600000 #1시간
       refresh:
@@ -36,8 +36,8 @@ security:
 
 oauth:
   google:
-    client-id: 727793852011-l9dk92pfd4l9hv43ldkt8c53ova8hcui.apps.googleusercontent.com
-    client-secret: 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
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
     oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
     response-type: code
     scopes:
@@ -57,10 +57,10 @@ oauth:
       - birthdays
       - emailAddresses
       - phoneNumbers
-    key: AIzaSyAhJ-d-2DsR1uwtbXG2o5TitukPP1shxNs
+    key: ${GOOGLE_KEY}
 
   kakao:
-    client-id: 60e95622dc0ddd18b407815d105fdb74
+    client-id: ${KAKAO_CLIENT_ID}
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
     account-uri: https://kapi.kakao.com/v2/user/me
@@ -68,8 +68,8 @@ oauth:
 
 sms:
   api:
-    key: NCSXGQWD932OYAFZ
-    secret: TQHAVI4N1Y22UTPT2HRA7RIQMOOZSSPN
+    key: ${SMS_KEY}
+    secret: ${SMS_SECRET}
     domain-uri: https://api.coolsms.co.kr
 
 payment:
@@ -77,3 +77,27 @@ payment:
     client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
     secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
     confirm-uri: https://api.tosspayments.com/v1/payments/confirm
+
+application:
+  bucket:
+    name: rudkids-image
+  cloudfront:
+    url: https://duu9477ot0it6.cloudfront.net/
+  sub-domain:
+    url: dev-img.rudkids.com/
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    access-key: ${AWS_S3_ACCESS_KEY}
+    secret-key: ${AWS_S3_SECRET_KEY}
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR

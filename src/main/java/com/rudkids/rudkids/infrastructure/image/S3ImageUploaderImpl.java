@@ -1,27 +1,44 @@
 package com.rudkids.rudkids.infrastructure.image;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.rudkids.rudkids.domain.image.ImageInfo;
 import com.rudkids.rudkids.domain.image.S3ImageUploader;
+import com.rudkids.rudkids.domain.image.exception.FileUploadFailException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
+import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class S3ImageUploaderImpl implements S3ImageUploader {
-//    @Value("${cloud.aws.s3.bucket}")
+
+    private final AmazonS3 amazonS3;
+
+    @Value("${application.bucket.name}")
     private String bucket;
-//    private final AmazonS3 amazonS3;
-//    private final AmazonS3Client amazonS3Client;
+
+    @Value("${application.sub-domain.url}")
+    private String imageDomainUrl;
 
     @Override
-    public ImageInfo.Main upload(MultipartFile image) {
-        String path = UUID.randomUUID() + "_" + image.getOriginalFilename();
-        String url = "";
-        putS3(path, image, generateObjectMetadata(image));
-//        String url = amazonS3Client.getUrl(bucket, path);
-        return new ImageInfo.Main(path, url);
+    public String upload(MultipartFile file, String fileName) {
+        putImageFileToS3(file, fileName);
+        return createUploadUrl(fileName);
+    }
+
+    private void putImageFileToS3(MultipartFile file, String fileName) {
+        try {
+            amazonS3.putObject(new PutObjectRequest(
+                bucket,
+                fileName,
+                file.getInputStream(),
+                generateObjectMetadata(file)));
+        } catch (IOException e) {
+            throw new FileUploadFailException();
+        }
     }
 
     private ObjectMetadata generateObjectMetadata(MultipartFile image) {
@@ -31,17 +48,12 @@ public class S3ImageUploaderImpl implements S3ImageUploader {
         return objectMetadata;
     }
 
-    private void putS3(String path, MultipartFile image, ObjectMetadata objectMetadata) {
-//        try {
-//            amazonS3.putObject(new PutObjectRequest(bucket, path, image.getInputStream(), objectMetadata)
-//                    .withCannedAcl(CannedAccessControlList.PublicRead));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+    private String createUploadUrl(String fileName) {
+        return imageDomainUrl + fileName;
     }
 
     @Override
     public void delete(String path) {
-//        amazonS3.deleteObject(new DeleteObjectRequest(bucket, path));
+        amazonS3.deleteObject(new DeleteObjectRequest(bucket, path));
     }
 }

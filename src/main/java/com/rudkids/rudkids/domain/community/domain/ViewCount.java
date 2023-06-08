@@ -6,17 +6,17 @@ import lombok.Getter;
 
 @Embeddable
 @Getter
-public class View {
+public class ViewCount {
     private static final int INITIAL_VIEW = 0;
 
     @Column(name = "view")
     private long value;
 
-    public View() {
+    public ViewCount() {
         value = INITIAL_VIEW;
     }
 
-    public void addValue() {
+    public void increase() {
         value++;
     }
 }

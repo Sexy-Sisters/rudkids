@@ -41,7 +41,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public CommunityInfo.Detail find(UUID communityId) {
         var community = communityReader.get(communityId);
-        community.addView();
+        community.increaseViewCount();
         return communityMapper.toDetail(community);
     }
 
