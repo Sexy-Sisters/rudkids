@@ -28,7 +28,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: ${JWT_SECRET_KEY}
+      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
       access:
         expire-length: 3600000 #1시간
       refresh:
@@ -57,7 +57,7 @@ oauth:
       - birthdays
       - emailAddresses
       - phoneNumbers
-    key: ${GOOGLE_KEY}
+    key: ${GOOGLE_API_KEY}
 
   kakao:
     client-id: ${KAKAO_CLIENT_ID}
@@ -90,8 +90,8 @@ cloud:
   aws:
     region:
       static: ap-northeast-2
-    access-key: ${AWS_S3_ACCESS_KEY}
-    secret-key: ${AWS_S3_SECRET_KEY}
+    access-key: ${IAM_ACCESS_KEY}
+    secret-key: ${IAM_SECRET_KEY}
     stack:
       auto: false
 

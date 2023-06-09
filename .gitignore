@@ -42,3 +42,6 @@ out/
 
 ### REST Docs ###
 /src/main/resources/static/docs/**
+
+### Test yml ###
+/src/main/resources/application-test.yml
