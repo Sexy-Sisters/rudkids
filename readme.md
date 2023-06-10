@@ -1,2 +1,2 @@
-## CI-TEST
-ddd
+# Restdocs
+http://rudkids.com/docs/index.html

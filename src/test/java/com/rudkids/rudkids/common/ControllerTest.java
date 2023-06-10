@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.domain.image.S3ImageUploader;
 import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.community.service.CommunityService;
@@ -37,6 +38,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -44,7 +46,6 @@ import java.util.stream.Stream;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
 @AutoConfigureRestDocs
 @WebMvcTest({
@@ -58,6 +59,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
     ImageController.class,
     UserController.class
 })
+@ActiveProfiles("test")
 public abstract class ControllerTest {
 
     @Autowired
@@ -135,6 +137,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected OAuthClient oAuthClient;
+
+
+    // image
+
+    @MockBean
+    private S3ImageUploader s3ImageUploader;
 
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";

@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.product.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.product.*;
 import com.rudkids.rudkids.domain.product.domain.ProductStatus;
 import com.rudkids.rudkids.domain.product.exception.ProductStatusNotFoundException;
@@ -25,7 +24,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ProductFactory productFactory;
     private final List<ChangeProductStatusStrategy> changeProductStatusStrategies;
-    private final ImageService imageService;
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
 
@@ -68,7 +66,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(ProductCommand.UpdateRequest command, UUID productId) {
         var product = productReader.getProduct(productId);
-        imageService.delete(product);
         productFactory.update(product, command);
     }
 
@@ -82,7 +79,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(UUID productId) {
         var product = productReader.getProduct(productId);
-        imageService.delete(product);
         productStore.delete(product);
     }
 

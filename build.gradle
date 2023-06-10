@@ -34,7 +34,7 @@ dependencies {
 
 	implementation 'com.google.code.gson:gson:2.8.7'
 
-	//sms 문자
+	//sms
 	implementation 'net.nurigo:sdk:4.3.0'
 
 	//annotation processer
@@ -48,9 +48,12 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	//Restdocs
+	//restdocs
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+	//IO
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'

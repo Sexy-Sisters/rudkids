@@ -2,7 +2,6 @@ package com.rudkids.rudkids.domain.community.service;
 
 import com.rudkids.rudkids.domain.community.*;
 import com.rudkids.rudkids.domain.community.domain.Community;
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,6 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityStore communityStore;
     private final CommunityReader communityReader;
     private final CommunityMapper communityMapper;
-    private final ImageService imageService;
 
     @Override
     public UUID create(UUID userId, CommunityCommand.Create command) {
@@ -41,7 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public CommunityInfo.Detail find(UUID communityId) {
         var community = communityReader.get(communityId);
-        community.addView();
+        community.increaseViewCount();
         return communityMapper.toDetail(community);
     }
 
@@ -50,7 +48,6 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userReader.getUser(userId);
         var community = communityReader.get(communityId);
         community.validateHasSameUser(user);
-        imageService.delete(community);
         community.update(command.toTitle(), command.toContent(), command.toImage());
     }
 
@@ -59,7 +56,6 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userReader.getUser(userId);
         Community community = communityReader.get(communityId);
         community.validateHasSameUser(user);
-        imageService.delete(community);
         communityStore.delete(community);
     }
 }

@@ -16,13 +16,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserReader userReader;
-    private final ImageService imageService;
     private final UserMapper userMapper;
 
     @Override
     public void update(UUID userId, UserCommand.Update command) {
         var user = userReader.getUser(userId);
-        imageService.delete(user);
 
         var name = UserName.create(command.name());
         var phoneNumber = PhoneNumber.create(command.phoneNumber());
