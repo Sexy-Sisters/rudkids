@@ -1,0 +1,103 @@
+server:
+  port: 4000
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:rudkidstest?serverTimezone=Asia/Seoul;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+security:
+  jwt:
+    token:
+      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      access:
+        expire-length: 3600000 #1시간
+      refresh:
+        expire-length: 1210000000 #14일
+
+oauth:
+  google:
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
+    oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
+    response-type: code
+    scopes:
+      - https://www.googleapis.com/auth/userinfo.profile
+      - https://www.googleapis.com/auth/directory.readonly
+      - https://www.googleapis.com/auth/user.birthday.read
+      - https://www.googleapis.com/auth/user.gender.read
+      - https://www.googleapis.com/auth/user.phonenumbers.read
+      - https://www.googleapis.com/auth/user.emails.read
+      - https://www.googleapis.com/auth/userinfo.email
+      - https://www.googleapis.com/auth/profile.emails.read
+    access-type: offline
+    person-fields:
+      - names
+      - photos
+      - genders
+      - birthdays
+      - emailAddresses
+      - phoneNumbers
+    key: ${GOOGLE_API_KEY}
+
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID}
+    oauth-end-point: https://kauth.kakao.com/oauth/authorize
+    app-admin-key: f9831d648ad4a0b602209f819bb84b55
+    account-uri: https://kapi.kakao.com/v2/user/me
+    token-uri: https://kauth.kakao.com/oauth/token
+
+sms:
+  api:
+    key: ${SMS_KEY}
+    secret: ${SMS_SECRET}
+    domain-uri: https://api.coolsms.co.kr
+
+payment:
+  toss:
+    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
+    secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
+    confirm-uri: https://api.tosspayments.com/v1/payments/confirm
+
+application:
+  bucket:
+    name: rudkids-image
+  cloudfront:
+    url: https://duu9477ot0it6.cloudfront.net/
+  sub-domain:
+    url: dev-img.rudkids.com/
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    access-key: AKIA2XNUIJ6E33H4J6KV
+    secret-key: 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
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR

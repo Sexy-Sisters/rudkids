@@ -87,7 +87,6 @@ class ProductServiceTest extends ProductServiceFixtures {
         var product = products.get(0);
         var status = ProductStatus.OPEN;
         var productId = product.getId();
-        var userId = user.getId();
 
         // When
         productService.changeStatus(status, productId);

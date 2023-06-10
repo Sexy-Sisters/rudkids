@@ -37,6 +37,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.restdocs.headers.HeaderDescriptor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -44,7 +45,6 @@ import java.util.stream.Stream;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
 @AutoConfigureRestDocs
 @WebMvcTest({
@@ -58,6 +58,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
     ImageController.class,
     UserController.class
 })
+@ActiveProfiles("test")
 public abstract class ControllerTest {
 
     @Autowired
