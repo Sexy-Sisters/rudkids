@@ -51,9 +51,4 @@ public class S3ImageUploaderImpl implements S3ImageUploader {
     private String createUploadUrl(String fileName) {
         return imageDomainUrl + fileName;
     }
-
-    @Override
-    public void delete(String path) {
-        amazonS3.deleteObject(new DeleteObjectRequest(bucket, path));
-    }
 }

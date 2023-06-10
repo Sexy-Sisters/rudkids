@@ -36,8 +36,8 @@ security:
 
 oauth:
   google:
-    client-id: ${GOOGLE_CLIENT_ID}
-    client-secret: ${GOOGLE_CLIENT_SECRET}
+    client-id: googleClientId
+    client-secret: googleClientSecret
     oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
     response-type: code
     scopes:
@@ -57,10 +57,10 @@ oauth:
       - birthdays
       - emailAddresses
       - phoneNumbers
-    key: ${GOOGLE_API_KEY}
+    key: apiKey
 
   kakao:
-    client-id: ${KAKAO_CLIENT_ID}
+    client-id: kakaoClientId
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
     account-uri: https://kapi.kakao.com/v2/user/me
@@ -68,30 +68,24 @@ oauth:
 
 sms:
   api:
-    key: ${SMS_KEY}
-    secret: ${SMS_SECRET}
+    key: smsKey
+    secret: smsSecret
     domain-uri: https://api.coolsms.co.kr
-
-payment:
-  toss:
-    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
-    secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
-    confirm-uri: https://api.tosspayments.com/v1/payments/confirm
 
 application:
   bucket:
-    name: rudkids-image
+    name: bucketName
   cloudfront:
-    url: https://duu9477ot0it6.cloudfront.net/
+    url: https://cloudfront/
   sub-domain:
-    url: dev-img.rudkids.com/
+    url: sub-domain.com/
 
 cloud:
   aws:
     region:
       static: ap-northeast-2
-    access-key: AKIA2XNUIJ6E33H4J6KV
-    secret-key: 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
+    access-key: awsAccessKey
+    secret-key: awsSecretKey
     stack:
       auto: false
 

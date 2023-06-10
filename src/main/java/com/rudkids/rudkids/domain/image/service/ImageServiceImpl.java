@@ -53,33 +53,4 @@ public class ImageServiceImpl implements ImageService {
     private boolean isEmptyFileName(final MultipartFile uploadImageFile) {
         return Objects.requireNonNull(uploadImageFile.getOriginalFilename()).trim().isEmpty();
     }
-
-    @Override
-    public void delete(Item item) {
-        if(!item.hasImage()) {
-            item.getImagePaths().forEach(s3ImageUploader::delete);
-        }
-    }
-
-    @Override
-    public void delete(Product product) {
-        if(!product.hasImage()) {
-            s3ImageUploader.delete(product.getFrontImagePath());
-            s3ImageUploader.delete(product.getBackImagePath());
-        }
-    }
-
-    @Override
-    public void delete(User user) {
-        if(!user.isCustomProfileImage()) {
-            s3ImageUploader.delete(user.getProfileImagePath());
-        }
-    }
-
-    @Override
-    public void delete(Community community) {
-        if(!community.hasImage()) {
-            s3ImageUploader.delete(community.getPath());
-        }
-    }
 }

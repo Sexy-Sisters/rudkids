@@ -4,5 +4,4 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface S3ImageUploader {
     String upload(MultipartFile image, String fileName);
-    void delete(String path);
 }

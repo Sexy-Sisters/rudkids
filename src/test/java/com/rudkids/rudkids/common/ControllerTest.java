@@ -6,6 +6,7 @@ import com.rudkids.rudkids.domain.auth.service.AuthService;
 import com.rudkids.rudkids.domain.auth.OAuthClient;
 import com.rudkids.rudkids.domain.auth.OAuthUri;
 import com.rudkids.rudkids.domain.cart.service.CartService;
+import com.rudkids.rudkids.domain.image.S3ImageUploader;
 import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.service.ItemService;
 import com.rudkids.rudkids.domain.community.service.CommunityService;
@@ -136,6 +137,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected OAuthClient oAuthClient;
+
+
+    // image
+
+    @MockBean
+    private S3ImageUploader s3ImageUploader;
 
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";

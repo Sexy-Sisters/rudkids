@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.item.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.item.*;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.domain.item.exception.ItemStatusNotFoundException;
@@ -26,7 +25,6 @@ public class ItemServiceImpl implements ItemService {
     private final ProductReader productReader;
     private final UserReader userReader;
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
-    private final ImageService imageService;
 
     @Override
     public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
@@ -52,7 +50,6 @@ public class ItemServiceImpl implements ItemService {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemReader.getItem(itemId);
-        imageService.delete(item);
         itemFactory.update(item, command);
     }
 
@@ -72,7 +69,6 @@ public class ItemServiceImpl implements ItemService {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemReader.getItem(itemId);
-        imageService.delete(item);
         itemStore.delete(item);
     }
 
