@@ -66,8 +66,11 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(accessToken);
-        String personFields = String.join(",", properties.getPersonFields());
 
-        return googleInformationClient.get(headers, personFields, properties.getKey());
+        return googleInformationClient.get(headers, getQueryParameters(), properties.getKey());
+    }
+
+    private String getQueryParameters() {
+        return String.join(",", properties.getPersonFields());
     }
 }
