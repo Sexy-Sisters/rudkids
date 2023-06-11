@@ -27,4 +27,10 @@ public class UserController {
         var response = userService.find(loginUser.id());
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/address")
+    public ResponseEntity findAddresses(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = userService.findAddresses(loginUser.id());
+        return ResponseEntity.ok(response);
+    }
 }

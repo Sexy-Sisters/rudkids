@@ -14,4 +14,15 @@ public class UserInfo {
         String profileImage
     ) {
     }
+
+    @Builder
+    public record Addresses(
+        String receiverName,
+        String receiverPhone,
+        String receiverAddress1,
+        String receiverAddress2,
+        String receiverZipCode,
+        String message
+    ) {
+    }
 }
