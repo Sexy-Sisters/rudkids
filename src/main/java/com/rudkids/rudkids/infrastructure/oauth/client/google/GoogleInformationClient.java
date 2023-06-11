@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.infrastructure.oauth.client.google;
 
+import feign.FeignException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,5 +15,5 @@ public interface GoogleInformationClient {
         @RequestHeader HttpHeaders headers,
         @RequestParam(name = "personFields") String personFields,
         @RequestParam(name = "key") String key
-    );
+    ) throws FeignException;
 }
