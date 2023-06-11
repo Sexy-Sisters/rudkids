@@ -22,13 +22,13 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 security:
   jwt:
     token:
-      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      secret-key: ${JWT_SECRET_KEY}
       access:
         expire-length: 3600000 #1시간
       refresh:

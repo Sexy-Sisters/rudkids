@@ -28,7 +28,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: bmFtc2Utc3ByaW5nLWJvb3Qtand0LXNlY3JldA==
+      secret-key: c3ByaW5nLWJvb3QtdGVzdC1zZWNyZXQta2V5
       access:
         expire-length: 3600000 #1시간
       refresh:

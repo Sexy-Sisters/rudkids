@@ -1,5 +1,6 @@
 package com.rudkids.rudkids.domain.image.domain;
 
+import com.rudkids.rudkids.domain.image.exception.UnsupportedFileExtensionException;
 import lombok.AllArgsConstructor;
 
 import java.util.stream.Stream;
@@ -14,8 +15,11 @@ public enum FileExtension {
 
     private final String value;
 
-    public static boolean isSupport(String extension) {
+    public static String getSupportedExtension(String extension) {
         return Stream.of(values())
-            .anyMatch(it -> it.value.equalsIgnoreCase(extension));
+            .filter(it -> it.value.equalsIgnoreCase(extension))
+            .findAny()
+            .orElseThrow(UnsupportedFileExtensionException::new)
+            .value;
     }
 }

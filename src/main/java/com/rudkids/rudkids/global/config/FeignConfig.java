@@ -4,6 +4,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableFeignClients(basePackages = "com.rudkids.rudkids.infrastructure.oauth")
+@EnableFeignClients(basePackages = "com.rudkids.rudkids.infrastructure")
 public class FeignConfig {
 }

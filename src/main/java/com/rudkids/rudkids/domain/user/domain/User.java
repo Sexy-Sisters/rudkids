@@ -96,10 +96,6 @@ public class User extends AbstractEntity {
         }
     }
 
-    public void signUp(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -112,14 +108,6 @@ public class User extends AbstractEntity {
 
     public void order(Order order) {
         orders.add(order);
-    }
-
-    public boolean isCustomProfileImage() {
-        return profileImage.isCustomImage();
-    }
-
-    public String getProfileImagePath() {
-        return profileImage.getPath();
     }
 
     public String getProfileImageUrl() {

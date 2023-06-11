@@ -1,13 +1,11 @@
 package com.rudkids.rudkids.domain.user.service;
 
 import com.rudkids.rudkids.domain.user.*;
-import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
-import com.rudkids.rudkids.domain.user.domain.ProfileImage;
-import com.rudkids.rudkids.domain.user.domain.UserName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,11 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UUID userId, UserCommand.Update command) {
         var user = userReader.getUser(userId);
-
-        var name = UserName.create(command.name());
-        var phoneNumber = PhoneNumber.create(command.phoneNumber());
-        var profileImage = ProfileImage.create(command.profileImagePath(), command.profileImageUrl());
-        user.update(name, phoneNumber, profileImage);
+        user.update(command.toName(), command.toPhoneNumber(), command.toProfileImage());
     }
 
     @Transactional(readOnly = true)
@@ -32,5 +26,14 @@ public class UserServiceImpl implements UserService {
     public UserInfo.Main find(UUID userId) {
         var user = userReader.getUser(userId);
         return userMapper.toInfo(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UserInfo.Addresses> findAddresses(UUID userId) {
+        var user = userReader.getUser(userId);
+        return user.getDeliveries().stream()
+            .map(userMapper::toInfo)
+            .toList();
     }
 }

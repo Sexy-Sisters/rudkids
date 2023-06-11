@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.infrastructure.image;
 
 import com.rudkids.rudkids.domain.image.domain.FileExtension;
-import com.rudkids.rudkids.domain.image.exception.UnsupportedFileExtensionException;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +21,6 @@ public class FileNameGenerator {
 
     private String getExtension(String originFileName) {
         String extension = FilenameUtils.getExtension(originFileName);
-        if(FileExtension.isSupport(extension)) {
-            return extension;
-        }
-        throw new UnsupportedFileExtensionException();
+        return FileExtension.getSupportedExtension(extension);
     }
 }

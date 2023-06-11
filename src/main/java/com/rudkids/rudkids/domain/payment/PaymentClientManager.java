@@ -1,6 +1,6 @@
 package com.rudkids.rudkids.domain.payment;
 
-public interface PaymentClient {
+public interface PaymentClientManager {
 
     void confirm(PaymentCommand.Confirm command);
 }
