@@ -2,6 +2,7 @@ package com.rudkids.rudkids.infrastructure.oauth.client.google;
 
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleTokenRequest;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleTokenResponse;
+import feign.FeignException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -9,5 +10,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface GoogleTokenClient {
 
     @PostMapping
-    GoogleTokenResponse get(GoogleTokenRequest request);
+    GoogleTokenResponse get(GoogleTokenRequest request) throws FeignException;
 }

@@ -8,7 +8,9 @@ import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleTokenRequest;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleInformationResponse;
 import com.rudkids.rudkids.infrastructure.oauth.dto.google.GoogleTokenResponse;
+import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -55,7 +57,11 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
             .redirectUri(redirectUri)
             .build();
 
-        return googleTokenClient.get(googleTokenRequest);
+        try {
+            return googleTokenClient.get(googleTokenRequest);
+        } catch (FeignException e) {
+            throw new OAuthException();
+        }
     }
 
     private String decodeAuthorizationCode(String code) {
@@ -66,8 +72,15 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(accessToken);
-        String personFields = String.join(",", properties.getPersonFields());
 
-        return googleInformationClient.get(headers, personFields, properties.getKey());
+        try {
+            return googleInformationClient.get(headers, getQueryParameters(), properties.getKey());
+        } catch (FeignException e) {
+            throw new OAuthException();
+        }
+    }
+
+    private String getQueryParameters() {
+        return String.join(",", properties.getPersonFields());
     }
 }

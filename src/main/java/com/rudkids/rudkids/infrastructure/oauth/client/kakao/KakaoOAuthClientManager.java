@@ -7,7 +7,9 @@ import com.rudkids.rudkids.infrastructure.oauth.OAuthProvider;
 import com.rudkids.rudkids.infrastructure.oauth.dto.kakao.KakaoTokenRequest;
 import com.rudkids.rudkids.infrastructure.oauth.dto.kakao.KakaoTokenResponse;
 import com.rudkids.rudkids.infrastructure.oauth.dto.kakao.account.KakaoInformationResponse;
+import com.rudkids.rudkids.infrastructure.oauth.exception.OAuthException;
 import com.rudkids.rudkids.interfaces.auth.dto.AuthUser;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -48,7 +50,11 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
             .redirectUri(redirectUri)
             .build();
 
-        return kakaoTokenClient.get(kakaoTokenRequest);
+        try {
+            return kakaoTokenClient.get(kakaoTokenRequest);
+        } catch (FeignException e) {
+            throw new OAuthException();
+        }
     }
 
     private KakaoInformationResponse requestInformation(String accessToken) {
@@ -56,6 +62,10 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setBearerAuth(accessToken);
 
-        return kakaoInformationClient.get(headers);
+        try {
+            return kakaoInformationClient.get(headers);
+        } catch (FeignException e) {
+            throw new OAuthException();
+        }
     }
 }
