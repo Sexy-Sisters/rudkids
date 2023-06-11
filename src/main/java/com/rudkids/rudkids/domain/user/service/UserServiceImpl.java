@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.toInfo(user);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserInfo.Addresses> findAddresses(UUID userId) {
         var user = userReader.getUser(userId);
