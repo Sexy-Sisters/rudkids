@@ -1,6 +1,5 @@
 package com.rudkids.rudkids.domain.user.service;
 
-import com.rudkids.rudkids.domain.image.service.ImageService;
 import com.rudkids.rudkids.domain.user.*;
 import com.rudkids.rudkids.domain.user.domain.PhoneNumber;
 import com.rudkids.rudkids.domain.user.domain.ProfileImage;
