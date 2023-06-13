@@ -48,7 +48,6 @@ oauth:
       - https://www.googleapis.com/auth/user.phonenumbers.read
       - https://www.googleapis.com/auth/user.emails.read
       - https://www.googleapis.com/auth/userinfo.email
-      - https://www.googleapis.com/auth/profile.emails.read
     access-type: offline
     person-fields:
       - names

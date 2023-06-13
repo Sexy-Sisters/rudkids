@@ -3,8 +3,11 @@ package com.rudkids.rudkids.infrastructure.product;
 import com.rudkids.rudkids.domain.product.ProductCommand;
 import com.rudkids.rudkids.domain.product.ProductFactory;
 import com.rudkids.rudkids.domain.product.domain.*;
+import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -22,7 +25,21 @@ public class ProductFactoryImpl implements ProductFactory {
             command.backImage().path(),
             command.backImage().url()
         );
-        return Product.create(title, productBio, productFrontImage, productBackImage);
+
+        var product = Product.builder()
+            .title(title)
+            .productBio(productBio)
+            .frontImage(productFrontImage)
+            .backImage(productBackImage)
+            .build();
+
+        List<ImageRequest> images = command.bannerImages();
+        for(ImageRequest bannerImage: images) {
+            var image = ProductBannerImage.create(product, bannerImage.path(), bannerImage.url());
+            product.addBannerImage(image);
+        }
+
+        return product;
     }
 
     @Override

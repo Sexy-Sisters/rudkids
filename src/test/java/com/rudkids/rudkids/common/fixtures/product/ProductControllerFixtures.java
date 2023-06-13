@@ -22,14 +22,21 @@ public class ProductControllerFixtures {
     public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
     public static final String 프로덕트_앞_이미지 = "https://~";
     public static final String 프로덕트_뒤_이미지 = "https://~";
+    public static final List<String> 프로덕트_배너_이미지들 = List.of("https://", "https://");
     public static final ProductStatus 프로덕트_상태 = ProductStatus.OPEN;
 
     public static ProductRequest.Create PRODUCT_등록_요청() {
-        return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지());
+        return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지(), 배너이미지());
     }
 
     private static ImageRequest 이미지() {
         return new ImageRequest("image", "image.jpg");
+    }
+
+    private static List<ImageRequest> 배너이미지() {
+        return List.of(
+            new ImageRequest("image", "image.jpg")
+        );
     }
 
     public static ProductInfo.Main PRODUCT_MAIN_INFO() {
@@ -72,6 +79,7 @@ public class ProductControllerFixtures {
             .bio(프로덕트_소개글)
             .frontImageUrl(프로덕트_앞_이미지)
             .backImageUrl(프로덕트_뒤_이미지)
+            .bannerImageUrls(프로덕트_배너_이미지들)
             .items(
                 new PageImpl<>(List.of(
                     ITEM_리스트_조회_INFO()
@@ -103,6 +111,7 @@ public class ProductControllerFixtures {
             .bio(프로덕트_소개글)
             .frontImageUrl(프로덕트_앞_이미지)
             .backImageUrl(프로덕트_뒤_이미지)
+            .bannerImageUrls(프로덕트_배너_이미지들)
             .items(
                 new PageImpl<>(List.of(
                     ITEM_리스트_조회_RESPONSE()

@@ -4,6 +4,8 @@ import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.Builder;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public class ProductCommand {
 
     @Builder
@@ -11,7 +13,8 @@ public class ProductCommand {
         String title,
         String productBio,
         ImageRequest frontImage,
-        ImageRequest backImage
+        ImageRequest backImage,
+        List<ImageRequest> bannerImages
     ) {
     }
 

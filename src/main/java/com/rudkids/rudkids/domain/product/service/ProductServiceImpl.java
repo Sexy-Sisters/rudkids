@@ -52,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
             .bio(product.getProductBio())
             .frontImageUrl(product.getFrontImageUrl())
             .backImageUrl(product.getBackImageUrl())
+            .bannerImageUrls(product.getBannerUrls())
             .items(itemInfo)
             .build();
     }

@@ -26,6 +26,7 @@ public class ProductResponse {
         String bio,
         String frontImageUrl,
         String backImageUrl,
+        List<String> bannerImageUrls,
         Page<ProductResponse.ProductItem> items
     ) {}
 

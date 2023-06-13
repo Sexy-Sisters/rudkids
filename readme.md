@@ -1,2 +1,2 @@
 # Restdocs
-http://rudkids.com/docs/index.html
+https://rudkids.com/docs/index.html
