@@ -1,7 +1,6 @@
 package com.rudkids.rudkids.interfaces.admin;
 
 import com.rudkids.rudkids.common.ControllerTest;
-import com.rudkids.rudkids.domain.community.exception.CommunityNotFoundException;
 import com.rudkids.rudkids.domain.order.exception.OrderStatusNotFoundException;
 import com.rudkids.rudkids.domain.product.exception.ProductNotFoundException;
 import com.rudkids.rudkids.domain.user.exception.NotAdminRoleException;
@@ -12,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.rudkids.common.fixtures.admin.AdminControllerFixtures.*;
-import static com.rudkids.rudkids.common.fixtures.community.CommunityControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.order.OrderControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.*;
 import static com.rudkids.rudkids.common.fixtures.product.ProductControllerFixtures.PRODUCT_상태_변경_요청;
