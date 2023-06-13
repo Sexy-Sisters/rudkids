@@ -5,8 +5,6 @@ import com.rudkids.rudkids.domain.item.ItemFactory;
 import com.rudkids.rudkids.domain.item.domain.*;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 public class ItemFactoryImpl implements ItemFactory {
 

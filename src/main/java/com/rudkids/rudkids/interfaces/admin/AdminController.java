@@ -48,7 +48,7 @@ public class AdminController {
 
     @PostMapping("/product")
     public void create(
-        @AuthenticationAdminAuthority
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @RequestBody ProductRequest.Create request
     ) {
         var command = productDtoMapper.toCommand(request);

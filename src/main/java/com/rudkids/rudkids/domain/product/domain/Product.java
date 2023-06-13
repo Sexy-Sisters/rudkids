@@ -43,6 +43,9 @@ public class Product extends AbstractEntity{
     @Embedded
     private ProductBackImage backImage;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    private final List<ProductBannerImage> productBannerImages = new ArrayList<>();
+
     @Builder
     public Product(final Title title,
                    final ProductBio productBio,
@@ -81,6 +84,10 @@ public class Product extends AbstractEntity{
         productStatus = ProductStatus.CLOSED;
     }
 
+    public void addBannerImage(ProductBannerImage bannerImage) {
+        productBannerImages.add(bannerImage);
+    }
+
     public String getTitle() {
         return title.getValue();
     }
@@ -107,5 +114,11 @@ public class Product extends AbstractEntity{
 
     public boolean hasImage() {
         return frontImage.hasImage() || backImage.hasImage();
+    }
+
+    public List<String> getBannerUrls() {
+        return productBannerImages.stream()
+            .map(ProductBannerImage::getUrl)
+            .toList();
     }
 }

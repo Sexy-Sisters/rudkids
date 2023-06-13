@@ -26,6 +26,7 @@ public class ProductInfo {
         String bio,
         String frontImageUrl,
         String backImageUrl,
+        List<String> bannerImageUrls,
         Page<ProductInfo.ProductItem> items
     ) {
     }

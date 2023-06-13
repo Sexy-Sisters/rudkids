@@ -14,6 +14,7 @@ public class ProductDtoMapper {
             .productBio(request.productBio())
             .frontImage(request.frontImage())
             .backImage(request.backImage())
+            .bannerImages(request.bannerImages())
             .build();
     }
 
@@ -44,6 +45,7 @@ public class ProductDtoMapper {
             .bio(info.bio())
             .frontImageUrl(info.frontImageUrl())
             .backImageUrl(info.backImageUrl())
+            .bannerImageUrls(info.bannerImageUrls())
             .items(items)
             .build();
     }
