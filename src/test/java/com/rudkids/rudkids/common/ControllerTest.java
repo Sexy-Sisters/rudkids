@@ -65,9 +65,7 @@ public abstract class ControllerTest {
     @Autowired
     protected MockMvc mockMvc;
 
-
     // service
-
     @MockBean
     protected AuthService authService;
 
@@ -96,7 +94,6 @@ public abstract class ControllerTest {
     protected UserService userService;
 
     // dto mapper
-
     @MockBean
     protected AuthDtoMapper authDtoMapper;
 
@@ -122,25 +119,20 @@ public abstract class ControllerTest {
     protected UserDtoMapper userDtoMapper;
 
     // etc
-
     @MockBean
     protected RestTemplateBuilder restTemplateBuilder;
 
     @Autowired
     protected ObjectMapper objectMapper;
 
-
     // auth
-
     @MockBean
     protected OAuthUri oAuthUri;
 
     @MockBean
     protected OAuthClient oAuthClient;
 
-
     // image
-
     @MockBean
     private S3ImageUploader s3ImageUploader;
 
