@@ -42,7 +42,6 @@ oauth:
     response-type: code
     scopes:
       - https://www.googleapis.com/auth/userinfo.profile
-      - https://www.googleapis.com/auth/directory.readonly
       - https://www.googleapis.com/auth/user.birthday.read
       - https://www.googleapis.com/auth/user.gender.read
       - https://www.googleapis.com/auth/user.phonenumbers.read
