@@ -3,26 +3,31 @@ package com.rudkids.rudkids.domain.item.domain;
 import com.rudkids.rudkids.domain.item.exception.InvalidItemNameException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Embeddable
 @Getter
+@Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Name {
     private static final int MAX_LENGTH = 20;
 
-    @Column(name = "name", unique = true)
-    private String value;
+    @Column(name = "enName", unique = true)
+    private String enName;
 
-    protected Name() {
+    @Column(name = "koName", unique = true)
+    private String koName;
+
+    public Name(String enName, String koName) {
+        this.enName = enName;
+        this.koName = koName;
     }
 
-    private Name(String value) {
-        this.value = value;
-    }
-
-    public static Name create(String value) {
-        validate(value);
-        return new Name(value);
+    public static Name create(String enName, String koName) {
+        validate(enName);
+        validate(koName);
+        return new Name(enName, koName);
     }
 
     private static void validate(String value) {

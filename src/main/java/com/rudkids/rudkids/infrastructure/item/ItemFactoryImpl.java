@@ -10,7 +10,7 @@ public class ItemFactoryImpl implements ItemFactory {
 
     @Override
     public Item create(ItemCommand.CreateItemRequest command) {
-        var name = Name.create(command.name());
+        var name = Name.create(command.enName(), command.koName());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());
@@ -25,7 +25,7 @@ public class ItemFactoryImpl implements ItemFactory {
 
     @Override
     public void update(Item item, ItemCommand.UpdateRequest command) {
-        var name = Name.create(command.name());
+        var name = Name.create(command.enName(), command.koName());
         var itemBio = ItemBio.create(command.itemBio());
         var price = Price.create(command.price());
         var quantity = Quantity.create(command.quantity());

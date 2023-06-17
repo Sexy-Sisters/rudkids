@@ -12,7 +12,8 @@ public class ItemInfo {
 
     @Builder
     public record Detail(
-        String name,
+        String enName,
+        String koName,
         String itemBio,
         int price,
         int quantity,

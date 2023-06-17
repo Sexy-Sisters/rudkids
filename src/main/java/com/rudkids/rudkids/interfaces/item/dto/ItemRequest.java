@@ -3,7 +3,6 @@ package com.rudkids.rudkids.interfaces.item.dto;
 import com.rudkids.rudkids.domain.item.domain.*;
 import com.rudkids.rudkids.interfaces.image.dto.ImageRequest;
 import lombok.Builder;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,7 +10,8 @@ public class ItemRequest {
 
     @Builder
     public record RegisterItem(
-        String name,
+        String enName,
+        String koName,
         String itemBio,
         int price,
         int quantity,
@@ -37,7 +37,8 @@ public class ItemRequest {
 
     @Builder
     public record Update(
-        String name,
+        String enName,
+        String koName,
         String itemBio,
         int price,
         int quantity,

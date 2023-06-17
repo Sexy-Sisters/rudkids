@@ -45,7 +45,8 @@ public class ItemServiceFixtures {
 
     protected ItemCommand.UpdateRequest 아이템_수정_요청() {
         return ItemCommand.UpdateRequest.builder()
-            .name("아이템")
+            .enName("item")
+            .koName("아이템")
             .itemBio("소개글")
             .price(1000)
             .quantity(100)
@@ -95,7 +96,7 @@ public class ItemServiceFixtures {
         productStore.store(product);
 
         item = Item.builder()
-            .name(Name.create("No.1"))
+            .name(Name.create("No.1", "남바완"))
             .price(Price.create(2_990))
             .quantity(Quantity.create(1_000))
             .itemBio(ItemBio.create("소개글입니다~"))
@@ -108,7 +109,8 @@ public class ItemServiceFixtures {
         itemStore.store(item);
 
         ITEM_등록_요청 = ItemCommand.CreateItemRequest.builder()
-            .name("Red Pill")
+            .enName("Red Pill")
+            .koName("레드필")
             .price(1_000_000)
             .quantity(1)
             .itemBio("소개글입니다~")

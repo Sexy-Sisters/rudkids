@@ -9,6 +9,8 @@ import com.rudkids.rudkids.domain.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -18,11 +20,11 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_생성한다() {
-        itemService.create(ITEM_등록_요청, product.getId(), user.getId());
+        UUID itemId = itemService.create(ITEM_등록_요청, product.getId(), user.getId());
 
-        Item findItem = itemReader.getItem(ITEM_등록_요청.name());
+        Item findItem = itemReader.getItem(itemId);
         assertAll(
-            () -> assertThat(findItem.getName()).isEqualTo("Red Pill"),
+            () -> assertThat(findItem.getEnName()).isEqualTo("Red Pill"),
             () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
             () -> assertThat(findItem.getQuantity()).isEqualTo(1),
             () -> assertThat(findItem.getItemBio()).isEqualTo("소개글입니다~"),
@@ -44,7 +46,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
         ItemInfo.Detail findItem = itemService.find(item.getId());
 
         assertAll(
-            () -> assertThat(findItem.name()).isEqualTo("No.1"),
+            () -> assertThat(findItem.enName()).isEqualTo("No.1"),
             () -> assertThat(findItem.price()).isEqualTo(2_990),
             () -> assertThat(findItem.quantity()).isEqualTo(1_000),
             () -> assertThat(findItem.itemBio()).isEqualTo("소개글입니다~"),
@@ -65,7 +67,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
         // Then
         assertAll(
-            () -> assertThat(item.getName()).isEqualTo("아이템"),
+            () -> assertThat(item.getEnName()).isEqualTo("item"),
             () -> assertThat(item.getItemBio()).isEqualTo("소개글"),
             () -> assertThat(item.getPrice()).isEqualTo(1000),
             () -> assertThat(item.getQuantity()).isEqualTo(100),

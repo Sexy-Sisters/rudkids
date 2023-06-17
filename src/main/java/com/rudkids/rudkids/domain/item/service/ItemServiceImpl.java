@@ -27,7 +27,7 @@ public class ItemServiceImpl implements ItemService {
     private final List<ItemStatusChangeStrategy> itemStatusChangeStrategyList;
 
     @Override
-    public void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
+    public UUID create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId) {
         var user = userReader.getUser(userId);
         user.validateAdminOrPartnerRole();
         var initItem = itemFactory.create(command);
@@ -35,6 +35,7 @@ public class ItemServiceImpl implements ItemService {
         itemOptionSeriesFactory.store(command, item);
         var product = productReader.getProduct(productId);
         initItem.setProduct(product);
+        return item.getId();
     }
 
     @Override
