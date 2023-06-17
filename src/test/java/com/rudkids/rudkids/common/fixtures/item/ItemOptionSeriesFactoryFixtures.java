@@ -16,12 +16,13 @@ public class ItemOptionSeriesFactoryFixtures {
     protected static Item item = Item.builder().build();
 
     protected static ItemCommand.CreateItemRequest ITEM_빈_리스트_등록_요청 = ItemCommand.CreateItemRequest.builder()
-        .name("Red Pill")
-            .price(1_000_000)
-            .quantity(1)
-            .itemBio("소개글입니다~")
-            .limitType(LimitType.LIMITED)
-            .itemOptionGroupList(null)
-            .build();
+        .enName("Red Pill")
+        .koName("레드필")
+        .price(1_000_000)
+        .quantity(1)
+        .itemBio("소개글입니다~")
+        .limitType(LimitType.LIMITED)
+        .itemOptionGroupList(null)
+        .build();
 
 }

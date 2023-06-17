@@ -52,9 +52,13 @@ public class ItemControllerFailTest extends ControllerTest {
                         .description("프로덕트 id")
                 ),
                 requestFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("상품명"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("itemBio")
                         .type(JsonFieldType.STRING)
@@ -138,9 +142,13 @@ public class ItemControllerFailTest extends ControllerTest {
                         .description("존재하지 않는 프로덕트 id")
                 ),
                 requestFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("상품명"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("itemBio")
                         .type(JsonFieldType.STRING)
@@ -320,9 +328,13 @@ public class ItemControllerFailTest extends ControllerTest {
                         .description("존재하지 않는 아이템 ID")
                 ),
                 requestFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("상품명"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("itemBio")
                         .type(JsonFieldType.STRING)

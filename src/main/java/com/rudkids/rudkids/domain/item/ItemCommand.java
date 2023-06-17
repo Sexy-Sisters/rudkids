@@ -16,7 +16,8 @@ public class ItemCommand {
 
     @Builder
     public record CreateItemRequest(
-        String name,
+        String enName,
+        String koName,
         String itemBio,
         int price,
         int quantity,
@@ -66,7 +67,8 @@ public class ItemCommand {
 
     @Builder
     public record UpdateRequest(
-        String name,
+        String enName,
+        String koName,
         String itemBio,
         int price,
         int quantity,

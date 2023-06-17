@@ -65,7 +65,7 @@ class CartServiceTest extends CartServiceFixtures {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
         Item newItem = Item.builder()
-            .name(Name.create("No.2"))
+            .name(Name.create("No.2", "남바투"))
             .price(Price.create(6_990))
             .quantity(Quantity.create(3_000))
             .itemBio(ItemBio.create("옷 팝니다!"))

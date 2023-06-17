@@ -15,7 +15,8 @@ public class NameTest {
     @Test
     void create_Exception_ContentLength() {
         String invalid = "a".repeat(21);
-        assertThatThrownBy(() -> Name.create(invalid))
+        String koName = "아이템";
+        assertThatThrownBy(() -> Name.create(invalid, koName))
             .isInstanceOf(InvalidItemNameException.class);
     }
 
@@ -24,7 +25,8 @@ public class NameTest {
     @ValueSource(strings = {"", " "})
     @NullSource
     void create_Exception_NoContent(String invalid) {
-        assertThatThrownBy(() -> Name.create(invalid))
+        String koName = "아이템";
+        assertThatThrownBy(() -> Name.create(invalid, koName))
             .isInstanceOf(InvalidItemNameException.class);
     }
 }

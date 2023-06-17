@@ -7,7 +7,7 @@ import com.rudkids.rudkids.domain.item.domain.ItemStatus;
 import java.util.UUID;
 
 public interface ItemService {
-    void create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId);
+    UUID create(ItemCommand.CreateItemRequest command, UUID productId, UUID userId);
     ItemInfo.Detail find(UUID itemId);
     ItemStatus changeItemStatus(UUID itemId, ItemStatus userId, UUID itemStatus);
     void update(ItemCommand.UpdateRequest command, UUID itemId, UUID userId);

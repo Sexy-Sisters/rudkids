@@ -65,7 +65,7 @@ public class CartServiceFixtures {
         userRepository.save(user);
 
         item = Item.builder()
-                .name(Name.create("No.1"))
+                .name(Name.create("No.1", "남바완"))
                 .price(Price.create(3_000))
                 .quantity(Quantity.create(1_000))
                 .itemBio(ItemBio.create("소개글입니다~"))

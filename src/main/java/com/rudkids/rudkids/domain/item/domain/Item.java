@@ -106,8 +106,12 @@ public class Item extends AbstractEntity {
         return id;
     }
 
-    public String getName() {
-        return name.getValue();
+    public String getEnName() {
+        return name.getEnName();
+    }
+
+    public String getKoName() {
+        return name.getKoName();
     }
 
     public int getPrice() {

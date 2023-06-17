@@ -75,7 +75,7 @@ public class CartItem {
     }
 
     public String getName() {
-        return item.getName();
+        return item.getEnName();
     }
 
     public int getPrice() {

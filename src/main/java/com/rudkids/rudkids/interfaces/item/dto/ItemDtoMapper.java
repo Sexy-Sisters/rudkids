@@ -13,7 +13,8 @@ public class ItemDtoMapper {
             .toList();
 
         return ItemCommand.CreateItemRequest.builder()
-            .name(request.name())
+            .enName(request.enName())
+            .koName(request.koName())
             .itemBio(request.itemBio())
             .price(request.price())
             .quantity(request.quantity())
@@ -51,7 +52,8 @@ public class ItemDtoMapper {
             .toList();
 
         return ItemResponse.Detail.builder()
-            .name(info.name())
+            .enName(info.enName())
+            .koName(info.koName())
             .price(info.price())
             .itemBio(info.itemBio())
             .quantity(info.quantity())
@@ -83,9 +85,9 @@ public class ItemDtoMapper {
 
     public ItemCommand.UpdateRequest toCommand(ItemRequest.Update request) {
         return ItemCommand.UpdateRequest.builder()
-            .name(request.name())
+            .enName(request.enName())
+            .koName(request.koName())
             .itemBio(request.itemBio())
-            .name(request.name())
             .quantity(request.quantity())
             .limitType(request.limitType())
             .images(request.images())

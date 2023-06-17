@@ -2,7 +2,6 @@ package com.rudkids.rudkids.interfaces.item;
 
 import com.rudkids.rudkids.common.ControllerTest;
 import com.rudkids.rudkids.domain.item.ItemInfo;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -27,9 +26,8 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_등록한다() throws Exception {
-        willDoNothing()
-            .given(itemService)
-            .create(any(), any(), any());
+        given(itemService.create(any(), any(), any()))
+            .willReturn(아이템_아이디);
 
         mockMvc.perform(post(ITEM_DEFAULT_URL + "/{productId}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
@@ -45,9 +43,13 @@ class ItemControllerTest extends ControllerTest {
                         .description("JWT Access Token")
                 ),
                 requestFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("상품명"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("itemBio")
                         .type(JsonFieldType.STRING)
@@ -120,9 +122,13 @@ class ItemControllerTest extends ControllerTest {
                         .description("아이템 id")
                 ),
                 responseFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("이름"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("price")
                         .type(JsonFieldType.NUMBER)
@@ -212,9 +218,13 @@ class ItemControllerTest extends ControllerTest {
                     parameterWithName("id").description("아이템 ID")
                 ),
                 requestFields(
-                    fieldWithPath("name")
+                    fieldWithPath("enName")
                         .type(JsonFieldType.STRING)
-                        .description("상품명"),
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("koName")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 한국 이름"),
 
                     fieldWithPath("itemBio")
                         .type(JsonFieldType.STRING)

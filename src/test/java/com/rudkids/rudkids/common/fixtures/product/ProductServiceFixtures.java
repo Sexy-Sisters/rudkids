@@ -81,7 +81,7 @@ public class ProductServiceFixtures {
 
 
         item = Item.builder()
-            .name(Name.create("No.3"))
+            .name(Name.create("No.3", "남바쓰리"))
             .price(Price.create(2_990))
             .quantity(Quantity.create(1_000))
             .itemBio(ItemBio.create("소개글입니다~"))

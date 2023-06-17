@@ -20,7 +20,7 @@ public class ProductMapper {
     public ProductInfo.ProductItem toInfo(Item item) {
         return ProductInfo.ProductItem.builder()
             .itemId(item.getId())
-            .name(item.getName())
+            .name(item.getEnName())
             .price(item.getPrice())
             .imageUrls(item.getImageUrls())
             .itemStatus(item.getItemStatus())

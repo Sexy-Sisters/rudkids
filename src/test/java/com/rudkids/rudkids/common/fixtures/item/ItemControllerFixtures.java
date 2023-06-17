@@ -17,7 +17,8 @@ public class ItemControllerFixtures {
     public static final String ITEM_DEFAULT_URL = "/api/v1/item";
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
     public static final UUID 아이템_아이디 = UUID.randomUUID();
-    public static final String 아이템_이름 = "No.1";
+    public static final String 아이템_영어_이름 = "No.1";
+    public static final String 아이템_한국_이름 = "남바완";
     public static final String 아이템_소개글 = "소개합니다~~~~";
     public static final int 아이템_가격 = 10_000;
     public static final int 아이템_수량 = 100;
@@ -33,7 +34,8 @@ public class ItemControllerFixtures {
 
     public static ItemRequest.RegisterItem ITEM_등록_요청() {
         return ItemRequest.RegisterItem.builder()
-            .name(아이템_이름)
+            .enName(아이템_영어_이름)
+            .koName(아이템_한국_이름)
             .itemBio(아이템_소개글)
             .price(아이템_가격)
             .quantity(아이템_수량)
@@ -69,7 +71,8 @@ public class ItemControllerFixtures {
 
     public static ItemInfo.Detail ITEM_상세정보_조회_응답() {
         return ItemInfo.Detail.builder()
-            .name(아이템_이름)
+            .enName(아이템_영어_이름)
+            .koName(아이템_한국_이름)
             .price(아이템_가격)
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
@@ -81,7 +84,8 @@ public class ItemControllerFixtures {
 
     public static ItemResponse.Detail ITEM_상세정보_조회_DTO_응답() {
         return ItemResponse.Detail.builder()
-            .name(아이템_이름)
+            .enName(아이템_영어_이름)
+            .koName(아이템_한국_이름)
             .price(아이템_가격)
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
@@ -97,7 +101,8 @@ public class ItemControllerFixtures {
 
     public static ItemRequest.Update ITEM_수정_요청() {
         return ItemRequest.Update.builder()
-            .name(아이템_이름)
+            .enName(아이템_영어_이름)
+            .koName(아이템_한국_이름)
             .itemBio(아이템_소개글)
             .price(아이템_가격)
             .quantity(아이템_수량)

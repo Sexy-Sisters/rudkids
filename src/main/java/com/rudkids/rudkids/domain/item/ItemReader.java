@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface ItemReader {
     Item getItem(UUID id);
-    Item getItem(String name);
     List<ItemInfo.ItemOptionGroupInfo> getItemOptionSeries(Item item);
 }
