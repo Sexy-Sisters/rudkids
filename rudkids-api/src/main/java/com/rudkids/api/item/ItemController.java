@@ -5,6 +5,8 @@ import com.rudkids.core.auth.infrastructure.dto.AuthUser;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,12 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     public ResponseEntity get(@PathVariable UUID id) {
         var response = itemService.get(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity getPopularItems(@PageableDefault Pageable pageable) {
+        var response = itemService.getPopularItems(pageable);
         return ResponseEntity.ok(response);
     }
 

@@ -16,4 +16,6 @@ public interface JpaItemRepository extends JpaRepository<Item, UUID> {
 
     @Query("SELECT i.id FROM Item i WHERE i.name.enName = :name")
     List<UUID> findIdsByName(@Param("name") String name);
+
+    Page<Item> findAllByOrderByQuantityValueAsc(Pageable pageable);
 }

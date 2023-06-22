@@ -6,6 +6,8 @@ import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,12 @@ public class ItemServiceImpl implements ItemService {
     public ItemResponse.Detail get(UUID itemId) {
         var item = itemRepository.get(itemId);
         return new ItemResponse.Detail(item);
+    }
+
+    @Override
+    public Page<ItemResponse.Main> getPopularItems(Pageable pageable) {
+        return itemRepository.getPopularItems(pageable)
+            .map(ItemResponse.Main::new);
     }
 
     @Override

@@ -29,6 +29,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
+    public Page<Item> getPopularItems(Pageable pageable) {
+        return itemRepository.findAllByOrderByQuantityValueAsc(pageable);
+    }
+
+    @Override
     public List<UUID> search(String name) {
         return itemRepository.findIdsByName(name);
     }

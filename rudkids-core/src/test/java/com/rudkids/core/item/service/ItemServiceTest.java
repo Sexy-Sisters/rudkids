@@ -9,6 +9,8 @@ import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 
@@ -54,6 +56,15 @@ public class ItemServiceTest extends ItemServiceFixtures {
             () -> assertThat(findItem.limitType()).isEqualTo(LimitType.LIMITED),
             () -> assertThat(findItem.imageUrls()).hasSize(2)
         );
+    }
+
+    @DisplayName("[아이템-인기있는아이템 조회]")
+    @Test
+    void 인기있는_아이템을_조회한다() {
+        Pageable pageable = PageRequest.of(0, 5);
+        var response = itemService.getPopularItems(pageable);
+
+        assertThat(response).hasSize(1);
     }
 
     @DisplayName("[아이템-아이디검색]")
