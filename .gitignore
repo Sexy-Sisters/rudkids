@@ -41,7 +41,7 @@ out/
 .DS_Store
 
 ### REST Docs ###
-/rudkids-api/src/main/resources/docs/**
+/rudkids-api/src/main/resources/docs/
 
 ### Logs ###
 /rudkids-api/logs/
