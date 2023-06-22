@@ -1,1 +1,0 @@
-2023-06-10 18:55:13.624 [ERROR] [http-nio-8080-exec-4] [c.r.r.global.error.ControllerAdvice] - 알 수 없는 에러가 발생하였습니다. Cannot invoke "com.rudkids.rudkids.domain.user.domain.ProfileImage.getUrl()" because "this.profileImage" is null

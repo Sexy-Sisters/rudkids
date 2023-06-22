@@ -45,3 +45,5 @@ out/
 
 ### Logs ###
 /rudkids-api/logs/
+
+/logs/
