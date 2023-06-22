@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,6 +38,13 @@ public class ItemServiceImpl implements ItemService {
     public ItemResponse.Detail get(UUID itemId) {
         var item = itemRepository.get(itemId);
         return new ItemResponse.Detail(item);
+    }
+
+    @Override
+    public List<ItemResponse.Search> search(String name) {
+        return itemRepository.search(name).stream()
+            .map(ItemResponse.Search::new)
+            .toList();
     }
 
     @Override

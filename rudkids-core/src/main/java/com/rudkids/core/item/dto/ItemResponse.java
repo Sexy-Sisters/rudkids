@@ -78,4 +78,6 @@ public class ItemResponse {
             this(option.getOrdering(), option.getItemOptionName(), option.getItemOptionPrice());
         }
     }
+
+    public record Search(UUID itemId) {}
 }

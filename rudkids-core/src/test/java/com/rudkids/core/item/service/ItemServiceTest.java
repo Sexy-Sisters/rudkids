@@ -56,6 +56,15 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
     }
 
+    @DisplayName("[아이템-아이디검색]")
+    @Test
+    void 아이템_이름으로_아이디를_검색한다() {
+        String itemName = "No.1";
+        var response = itemService.search(itemName);
+
+        assertThat(response.get(0).itemId()).isEqualTo(item.getId());
+    }
+
     @DisplayName("[아이템-수정]")
     @Test
     void 아이템을_수정한다() {

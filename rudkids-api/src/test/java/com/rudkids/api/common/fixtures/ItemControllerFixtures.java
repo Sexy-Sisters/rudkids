@@ -94,4 +94,10 @@ public class ItemControllerFixtures {
             .images(아이템_여러_이미지_수정_요청())
             .build();
     }
+
+    public static List<ItemResponse.Search> ITEM_검색_응답() {
+        return List.of(
+            new ItemResponse.Search(아이템_아이디)
+        );
+    }
 }

@@ -3,6 +3,7 @@ package com.rudkids.api.admin;
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.service.AdminService;
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.item.service.ItemService;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import com.rudkids.core.product.dto.ProductRequest;
@@ -22,6 +23,7 @@ public class AdminController {
     private final AdminService adminService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final ItemService itemService;
 
     @GetMapping("/user")
     public ResponseEntity searchUser(
@@ -43,7 +45,7 @@ public class AdminController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Void> create(
+    public ResponseEntity<Void> createProduct(
         @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @RequestBody ProductRequest.Create request
     ) {
@@ -80,8 +82,17 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/item")
+    public ResponseEntity searchItemId(
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
+        @RequestParam String name
+    ) {
+        var response = itemService.search(name);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/order")
-    public ResponseEntity findAll(
+    public ResponseEntity findAllOrder(
         @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PageableDefault Pageable pageable
     ) {
@@ -90,7 +101,7 @@ public class AdminController {
     }
 
     @PatchMapping("/order/{id}")
-    public ResponseEntity<Void> changeStatus(
+    public ResponseEntity<Void> changeOrderStatus(
         @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PathVariable(name = "id") UUID orderId,
         @RequestBody OrderRequest.ChangeStatus request
