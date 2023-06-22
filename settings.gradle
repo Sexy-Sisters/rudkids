@@ -1,1 +1,4 @@
 rootProject.name = 'rudkids'
+include 'rudkids-api'
+include 'rudkids-core'
+include 'rudkids-batch'
