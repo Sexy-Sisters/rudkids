@@ -1,0 +1,29 @@
+spring:
+  batch:
+    job:
+      name: ${job.name:NONE}
+
+  config:
+    activate:
+      on-profile: batch
+  jpa:
+    database: mysql
+    database-platform=org: hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/rudkids_batch?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+logging:
+  level:
+    com:
+      batch: DEBUG
