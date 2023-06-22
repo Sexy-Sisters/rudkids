@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface JpaItemRepository extends JpaRepository<Item, UUID> {
-    boolean existsByEnNameOrKoName(String enName, String koName);
+    boolean existsByNameEnNameOrNameKoName(String enName, String koName);
 
     Page<Item> findByProduct(Product product, Pageable pageable);
 

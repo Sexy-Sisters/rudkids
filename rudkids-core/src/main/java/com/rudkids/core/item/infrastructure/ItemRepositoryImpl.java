@@ -25,7 +25,7 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     private void validateDuplicateName(Item item) {
-        if(itemRepository.existsByEnNameOrKoName(item.getEnName(), item.getKoName())) {
+        if(itemRepository.existsByNameEnNameOrNameKoName(item.getEnName(), item.getKoName())) {
             throw new DuplicatedNameException();
         }
     }
