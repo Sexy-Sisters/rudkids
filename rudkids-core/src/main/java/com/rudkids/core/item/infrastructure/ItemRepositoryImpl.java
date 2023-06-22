@@ -2,6 +2,7 @@ package com.rudkids.core.item.infrastructure;
 
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemRepository;
+import com.rudkids.core.item.exception.DuplicatedNameException;
 import com.rudkids.core.item.exception.ItemNotFoundException;
 import com.rudkids.core.product.domain.Product;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,14 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public void save(Item item) {
+        validateDuplicateName(item);
         itemRepository.save(item);
+    }
+
+    private void validateDuplicateName(Item item) {
+        if(itemRepository.existsByEnNameOrKoName(item.getEnName(), item.getKoName())) {
+            throw new DuplicatedNameException();
+        }
     }
 
     @Override
@@ -30,7 +38,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public Page<Item> getPopularItems(Pageable pageable) {
-        return itemRepository.findAllByOrderByQuantityValueAsc(pageable);
+        return itemRepository.findAllByOrderByStatusAndQuantityAsc(pageable);
     }
 
     @Override

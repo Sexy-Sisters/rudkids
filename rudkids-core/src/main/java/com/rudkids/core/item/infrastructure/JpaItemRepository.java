@@ -12,10 +12,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface JpaItemRepository extends JpaRepository<Item, UUID> {
+    boolean existsByEnNameOrKoName(String enName, String koName);
+
     Page<Item> findByProduct(Product product, Pageable pageable);
 
-    @Query("SELECT i.id FROM Item i WHERE i.name.enName = :name")
+    @Query("SELECT i.id FROM Item i WHERE i.name.enName LIKE CONCAT('%', :name, '%')")
     List<UUID> findIdsByName(@Param("name") String name);
 
-    Page<Item> findAllByOrderByQuantityValueAsc(Pageable pageable);
+    @Query("SELECT i FROM Item i ORDER BY CASE WHEN i.itemStatus = com.rudkids.core.item.domain.ItemStatus.SOLD_OUT THEN 1 ELSE 0 END, i.quantity.value ASC")
+    Page<Item> findAllByOrderByStatusAndQuantityAsc(Pageable pageable);
 }
