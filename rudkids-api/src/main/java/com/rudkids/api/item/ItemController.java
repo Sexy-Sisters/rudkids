@@ -28,9 +28,9 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/detail/{id}")
-    public ResponseEntity get(@PathVariable UUID id) {
-        var response = itemService.get(id);
+    @GetMapping
+    public ResponseEntity get(@RequestParam String name) {
+        var response = itemService.get(name);
         return ResponseEntity.ok(response);
     }
 
