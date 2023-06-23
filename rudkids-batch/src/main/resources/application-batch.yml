@@ -26,7 +26,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: batchtest0729
-    password: emcnsnvlwfnyaglm
+    password: ${MALE_PASSWORD}
     properties:
       mail:
         smtp:
