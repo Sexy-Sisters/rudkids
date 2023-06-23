@@ -30,10 +30,10 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 존재하지_않는_아이템_상세_조회시_예외가_발생한다() {
         // Given
-        var invalidItemId = UUID.randomUUID();
+        var invalidItemName = "invalid";
 
         // When & Then
-        assertThatThrownBy(() -> itemService.get(invalidItemId))
+        assertThatThrownBy(() -> itemService.get(invalidItemName))
             .isInstanceOf(ItemNotFoundException.class);
     }
 
