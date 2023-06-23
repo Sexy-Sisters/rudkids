@@ -34,7 +34,7 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping
+    @GetMapping("/popular")
     public ResponseEntity getPopularItems(@PageableDefault Pageable pageable) {
         var response = itemService.getPopularItems(pageable);
         return ResponseEntity.ok(response);
