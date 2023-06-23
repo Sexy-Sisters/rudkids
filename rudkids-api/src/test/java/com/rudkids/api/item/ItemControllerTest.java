@@ -108,14 +108,14 @@ class ItemControllerTest extends ControllerTest {
         given(itemService.get(any()))
             .willReturn(ITEM_상세정보_조회_응답());
 
-        mockMvc.perform(get(ITEM_DEFAULT_URL + "/detail/{id}", 아이템_아이디))
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "?name={name}", 아이템_영어_이름))
             .andDo(print())
             .andDo(document("item/find",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("아이템 id")
+                queryParameters(
+                    parameterWithName("name")
+                        .description("아이템 영어이름")
                 ),
                 responseFields(
                     fieldWithPath("enName")

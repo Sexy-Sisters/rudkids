@@ -19,8 +19,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -213,14 +212,14 @@ public class ItemControllerFailTest extends ControllerTest {
             .when(itemService)
             .get(any());
 
-        mockMvc.perform(get(ITEM_DEFAULT_URL + "/detail/{id}", 아이템_아이디))
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "?name={name}", 아이템_영어_이름))
             .andDo(print())
             .andDo(document("item/find/failByNotFoundError",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("존재하지 않는 아이템 id")
+                queryParameters(
+                    parameterWithName("name")
+                        .description("아이템 영어이름")
                 ),
                 responseFields(
                     fieldWithPath("message")

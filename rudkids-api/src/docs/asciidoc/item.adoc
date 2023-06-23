@@ -16,7 +16,7 @@ operation::item/create/failByForbiddenError[snippets='http-request,http-response
 
 [[아이템-상세-조회]]
 === 아이템 상세 조회
-operation::item/find[snippets='http-request,http-response,path-parameters,request-body,response-body,response-fields']
+operation::item/find[snippets='http-request,query-parameters,request-body,http-response,response-body,response-fields']
 
 [[아이템-상세-조회-존재하지-않는-아이템-에러]]
 === 아이템 상세 조회 (존재하지 않는 아이템 에러)
