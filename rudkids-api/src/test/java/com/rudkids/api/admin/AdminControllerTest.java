@@ -1,12 +1,14 @@
 package com.rudkids.api.admin;
 
 import com.rudkids.api.common.ControllerTest;
+import com.rudkids.api.common.fixtures.ItemControllerFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.api.common.fixtures.AdminControllerFixtures.*;
+import static com.rudkids.api.common.fixtures.ItemControllerFixtures.아이템_영어_이름;
 import static com.rudkids.api.common.fixtures.OrderControllerFixtures.*;
 import static com.rudkids.api.common.fixtures.ProductControllerFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -301,6 +303,35 @@ public class AdminControllerTest extends ControllerTest {
                 preprocessResponse(prettyPrint()),
                 requestHeaders(JWT_ACCESS_TOKEN()),
                 responseFields(ORDER_전체_주문_조회_응답_필드())
+            ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[아이템-검색]")
+    @Test
+    void 아이템_이름으로_검색해서_아이디를_반환한다() throws Exception {
+        given(itemService.search(any()))
+            .willReturn(ItemControllerFixtures.ITEM_검색_응답());
+
+        mockMvc.perform(get(ADMIN_ITEM_DEFAULT_URL + "?name={name}", 아이템_영어_이름)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+            .andDo(print())
+            .andDo(document("admin/searchItemId",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestHeaders(
+                    headerWithName("Authorization")
+                        .description("JWT Access Token")
+                ),
+                queryParameters(
+                    parameterWithName("name")
+                        .description("아이템 영어이름")
+                ),
+                responseFields(
+                    fieldWithPath("[]itemId")
+                        .type(JsonFieldType.STRING)
+                        .description("아이템 id")
+                )
             ))
             .andExpect(status().isOk());
     }
