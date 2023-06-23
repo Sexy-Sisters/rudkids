@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,8 +36,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = true)
-    public ItemResponse.Detail get(UUID itemId) {
-        var item = itemRepository.get(itemId);
+    public ItemResponse.Detail get(String name) {
+        var item = itemRepository.getByEnNme(name);
         return new ItemResponse.Detail(item);
     }
 
@@ -46,13 +45,6 @@ public class ItemServiceImpl implements ItemService {
     public Page<ItemResponse.Main> getPopularItems(Pageable pageable) {
         return itemRepository.getPopularItems(pageable)
             .map(ItemResponse.Main::new);
-    }
-
-    @Override
-    public List<ItemResponse.Search> search(String name) {
-        return itemRepository.search(name).stream()
-            .map(ItemResponse.Search::new)
-            .toList();
     }
 
     @Override

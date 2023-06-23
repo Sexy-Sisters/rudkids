@@ -46,7 +46,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("[아이템-상세조회]")
     @Test
     void 아이템을_상세조회한다() {
-        ItemResponse.Detail findItem = itemService.get(item.getId());
+        ItemResponse.Detail findItem = itemService.get(item.getEnName());
 
         assertAll(
             () -> assertThat(findItem.enName()).isEqualTo("No.1"),
@@ -65,15 +65,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
         var response = itemService.getPopularItems(pageable);
 
         assertThat(response).hasSize(1);
-    }
-
-    @DisplayName("[아이템-아이디검색]")
-    @Test
-    void 아이템_이름으로_아이디를_검색한다() {
-        String itemName = "No.1";
-        var response = itemService.search(itemName);
-
-        assertThat(response.get(0).itemId()).isEqualTo(item.getId());
     }
 
     @DisplayName("[아이템-수정]")

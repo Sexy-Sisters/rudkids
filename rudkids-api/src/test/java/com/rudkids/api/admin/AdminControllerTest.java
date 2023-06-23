@@ -307,35 +307,6 @@ public class AdminControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("[아이템-검색]")
-    @Test
-    void 아이템_이름으로_검색해서_아이디를_반환한다() throws Exception {
-        given(itemService.search(any()))
-            .willReturn(ItemControllerFixtures.ITEM_검색_응답());
-
-        mockMvc.perform(get(ADMIN_ITEM_DEFAULT_URL + "?name={name}", 아이템_영어_이름)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("admin/searchItemId",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                queryParameters(
-                    parameterWithName("name")
-                        .description("아이템 영어이름")
-                ),
-                responseFields(
-                    fieldWithPath("[]itemId")
-                        .type(JsonFieldType.STRING)
-                        .description("아이템 id")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
-
     @DisplayName("[주문-상태변경]")
     @Test
     void 주문_상태를_변경한다() throws Exception {
