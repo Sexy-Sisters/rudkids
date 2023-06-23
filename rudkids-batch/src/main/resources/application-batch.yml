@@ -2,10 +2,9 @@ spring:
   batch:
     job:
       name: ${job.name:NONE}
+#    jdbc:
+#      initialize-schema: always
 
-  config:
-    activate:
-      on-profile: batch
   jpa:
     database: mysql
     database-platform=org: hibernate.dialect.MySQL8Dialect
@@ -18,10 +17,22 @@ spring:
       ddl-auto: update
 
   datasource:
-    url: jdbc:mysql://localhost:3307/rudkids_batch?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: batchtest0729
+    password: emcnsnvlwfnyaglm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:
