@@ -83,12 +83,14 @@ public class OrderServiceFixtures {
             .build();
         deliveryRepository.save(delivery);
 
+        ProfileImage profileImage = ProfileImage.create("path", "url");
         user = User.builder()
             .name(UserName.create("이규진"))
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MAIL")
             .phoneNumber(PhoneNumber.create("01029401509"))
+            .profileImage(profileImage)
             .socialType(SocialType.GOOGLE)
             .build();
         jpaUserRepository.save(user);

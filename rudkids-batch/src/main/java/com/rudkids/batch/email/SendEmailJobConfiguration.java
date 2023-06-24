@@ -1,4 +1,4 @@
-package com.rudkids.batch.sendEmail;
+package com.rudkids.batch.email;
 
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;

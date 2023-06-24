@@ -144,14 +144,10 @@ public class Item extends AbstractEntity {
             .toList();
     }
 
-    public List<String> getImagePaths() {
-        return images.stream()
-            .map(ItemImage::getPath)
-            .toList();
-    }
-
-    public boolean hasImage() {
-        return images.isEmpty();
+    public void deleteItemImage() {
+        for(ItemImage image: images) {
+            image.deleteImage();
+        }
     }
 
     public String getCartItemImageUrl() {

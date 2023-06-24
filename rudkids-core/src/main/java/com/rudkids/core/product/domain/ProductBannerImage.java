@@ -25,6 +25,8 @@ public class ProductBannerImage {
     @Column(name = "url")
     private String url;
 
+    private boolean deleted;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -33,9 +35,14 @@ public class ProductBannerImage {
         this.product = product;
         this.path = path;
         this.url = url;
+        this.deleted = false;
     }
 
     public static ProductBannerImage create(Product product, String path, String url) {
         return new ProductBannerImage(product, path, url);
+    }
+
+    public void deleteImage() {
+        deleted = true;
     }
 }

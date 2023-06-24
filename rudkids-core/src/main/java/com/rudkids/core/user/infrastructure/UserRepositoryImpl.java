@@ -26,6 +26,11 @@ public class UserRepositoryImpl implements UserRepository {
             .orElseGet(() -> saveUser(oauthUser));
     }
 
+    @Override
+    public List<String> getImageFileNames() {
+        return userRepository.findPathsByDeletedTrue();
+    }
+
     private User saveUser(AuthUser.OAuth oauthUser) {
         var user = oauthUser.toEntity();
         return userRepository.save(user);

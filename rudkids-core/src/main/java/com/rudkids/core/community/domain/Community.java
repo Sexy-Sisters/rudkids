@@ -81,10 +81,6 @@ public class Community extends AbstractEntity {
         viewCount.increase();
     }
 
-    public boolean hasImage() {
-        return communityImage.hasImage();
-    }
-
     public void addCommunityLike(CommunityLike communityLike) {
         communityLikes.add(communityLike);
     }
@@ -123,5 +119,13 @@ public class Community extends AbstractEntity {
 
     public String getUrl() {
         return communityImage.getUrl();
+    }
+
+    public void deleteCommunityImage() {
+        communityImage.deleteImage();
+    }
+
+    public boolean isImageDeleted() {
+        return communityImage.isDeleted();
     }
 }
