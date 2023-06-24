@@ -52,6 +52,8 @@ public class ItemServiceImpl implements ItemService {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemRepository.get(itemId);
+        item.deleteItemImage();
+
         itemFactory.update(item, request);
     }
 
@@ -71,6 +73,7 @@ public class ItemServiceImpl implements ItemService {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemRepository.get(itemId);
+        item.deleteItemImage();
         itemRepository.delete(item);
     }
 }

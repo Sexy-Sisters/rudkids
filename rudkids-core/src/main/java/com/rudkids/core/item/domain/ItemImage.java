@@ -28,10 +28,13 @@ public class ItemImage {
     @Column(name = "url")
     private String url;
 
+    private boolean deleted;
+
     private ItemImage(Item item, String path, String url) {
         this.item = item;
         this.path = path;
         this.url = url;
+        this.deleted = false;
     }
 
     public static ItemImage create(Item item, String path, String url) {
@@ -44,5 +47,9 @@ public class ItemImage {
 
     public String getPath() {
         return path;
+    }
+
+    public void deleteImage() {
+        deleted = true;
     }
 }

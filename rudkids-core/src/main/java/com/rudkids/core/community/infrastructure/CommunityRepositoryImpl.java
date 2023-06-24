@@ -28,6 +28,11 @@ public class CommunityRepositoryImpl implements CommunityRepository {
     }
 
     @Override
+    public List<String> getImageFileNames() {
+        return communityRepository.findPathsByDeletedTrue();
+    }
+
+    @Override
     public Community getCommunity(UUID id) {
         return communityRepository.findById(id)
             .orElseThrow(CommunityNotFoundException::new);

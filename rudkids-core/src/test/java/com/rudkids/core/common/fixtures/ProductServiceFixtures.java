@@ -4,10 +4,7 @@ import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.product.domain.*;
 import com.rudkids.core.product.service.ProductService;
-import com.rudkids.core.user.domain.PhoneNumber;
-import com.rudkids.core.user.domain.SocialType;
-import com.rudkids.core.user.domain.User;
-import com.rudkids.core.user.domain.UserName;
+import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.infrastructure.JpaUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +31,14 @@ public class ProductServiceFixtures {
 
     @BeforeEach
     void inputData() {
+        ProfileImage profileImage = ProfileImage.create("path", "url");
         user = User.builder()
             .name(UserName.create("이규진"))
             .age(19)
             .email("leekuin14@gmail.com")
             .gender("MAIL")
             .phoneNumber(PhoneNumber.create("01029401509"))
+            .profileImage(profileImage)
             .socialType(SocialType.GOOGLE)
             .build();
         user.changeAuthorityAdmin();

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -30,6 +31,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Product get(UUID productId) {
         return productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
+    }
+
+    @Override
+    public List<String> getImageFileNames() {
+        List<String> backImagePaths = productRepository.findPathsByBackImageDeletedTrue();
+        List<String> frontImagePaths = productRepository.findPathsByFrontImageDeletedTrue();
+        return Stream.concat(backImagePaths.stream(), frontImagePaths.stream())
+            .toList();
     }
 
     @Override

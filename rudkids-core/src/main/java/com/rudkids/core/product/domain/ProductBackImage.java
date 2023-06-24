@@ -14,19 +14,23 @@ public class ProductBackImage {
     @Column(name = "back_url")
     private String url;
 
+    @Column(name = "back_deleted")
+    private boolean deleted;
+
     protected ProductBackImage() {
     }
 
     private ProductBackImage(String path, String url) {
         this.path = path;
         this.url = url;
+        this.deleted = false;
     }
 
     public static ProductBackImage create(String path, String url) {
         return new ProductBackImage(path, url);
     }
 
-    public boolean hasImage() {
-        return !path.isBlank() && !url.isBlank();
+    public void deleteImage() {
+        deleted = true;
     }
 }
