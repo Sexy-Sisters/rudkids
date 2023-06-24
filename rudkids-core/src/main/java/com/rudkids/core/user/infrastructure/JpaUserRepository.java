@@ -12,6 +12,6 @@ public interface JpaUserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByEmail(String email);
     List<User> findByEmailContaining(String email);
 
-    @Query("SELECT u.profileImage.path FROM User u WHERE u.profileImage.deleted is true")
+    @Query("SELECT u.profileImage.path FROM User u WHERE u.profileImage.deleted = true")
     List<String> findPathsByDeletedTrue();
 }

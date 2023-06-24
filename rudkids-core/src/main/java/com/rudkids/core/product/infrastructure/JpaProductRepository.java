@@ -10,9 +10,9 @@ import java.util.UUID;
 public interface JpaProductRepository extends JpaRepository<Product, UUID> {
     List<Product> findByTitleValueContaining(String title);
 
-    @Query("SELECT p.backImage.path FROM Product p WHERE p.backImage.deleted is true")
+    @Query("SELECT p.backImage.path FROM Product p WHERE p.backImage.deleted = true")
     List<String> findPathsByBackImageDeletedTrue();
 
-    @Query("SELECT p.frontImage.path FROM Product p WHERE p.frontImage.deleted is true")
+    @Query("SELECT p.frontImage.path FROM Product p WHERE p.frontImage.deleted = true")
     List<String> findPathsByFrontImageDeletedTrue();
 }

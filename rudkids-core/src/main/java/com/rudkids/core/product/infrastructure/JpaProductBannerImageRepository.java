@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface JpaProductBannerImageRepository extends JpaRepository<ProductBannerImage, UUID> {
 
-    @Query("SELECT p.path FROM ProductBannerImage p WHERE p.deleted is true")
+    @Query("SELECT p.path FROM ProductBannerImage p WHERE p.deleted = true")
     List<String> findPathsByDeletedTrue();
 }
