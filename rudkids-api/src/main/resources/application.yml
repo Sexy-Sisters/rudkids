@@ -3,6 +3,10 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  batch:
+    jdbc:
+      initialize-schema: always
+
   jpa:
     database: mysql
     database-platform=org: hibernate.dialect.MySQL8Dialect
