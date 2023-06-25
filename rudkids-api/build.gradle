@@ -3,15 +3,12 @@ plugins {
 }
 
 dependencies {
-    //restdocs
+    implementation project(':rudkids-core')
+
     asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
-    //sms
     implementation 'net.nurigo:sdk:4.3.0'
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation project(':rudkids-core')
 }
 
 ext {

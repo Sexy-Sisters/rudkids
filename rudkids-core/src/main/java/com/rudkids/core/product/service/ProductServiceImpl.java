@@ -20,26 +20,13 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
+    private final ProductFactory productFactory;
 
     @Override
     public UUID create(ProductRequest.Create request) {
-        var product = generateProduct(request);
+        var product = productFactory.create(request);
         productRepository.save(product);
         return product.getId();
-    }
-
-    private Product generateProduct(ProductRequest.Create request) {
-        var title = Title.create(request.title());
-        var bio = ProductBio.create(request.productBio());
-        var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
-        var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
-
-        return Product.builder()
-            .title(title)
-            .productBio(bio)
-            .frontImage(frontImage)
-            .backImage(backImage)
-            .build();
     }
 
     @Override
@@ -53,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public ProductResponse.Detail get(UUID productId, Pageable pageable) {
         var product = productRepository.get(productId);
-        var itemInfo = itemRepository.get(product, pageable)
+        var items = itemRepository.get(product, pageable)
             .map(ItemResponse.Main::new);
 
         return ProductResponse.Detail.builder()
@@ -62,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
             .frontImageUrl(product.getFrontImageUrl())
             .backImageUrl(product.getBackImageUrl())
             .bannerImageUrls(product.getBannerUrls())
-            .items(itemInfo)
+            .items(items)
             .build();
     }
 
@@ -77,12 +64,7 @@ public class ProductServiceImpl implements ProductService {
     public void update(UUID productId, ProductRequest.Update request) {
         var product = productRepository.get(productId);
         product.deleteProductImages();
-
-        var title = Title.create(request.title());
-        var bio = ProductBio.create(request.productBio());
-        var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
-        var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
-        product.update(title, bio, frontImage, backImage);
+        productFactory.update(product, request);
     }
 
     @Override

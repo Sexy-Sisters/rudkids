@@ -64,6 +64,10 @@ public class Product {
         this.backImage = backImage;
     }
 
+    public void addBannerImage(ProductBannerImage productBannerImage) {
+        productBannerImages.add(productBannerImage);
+    }
+
     public void changeStatus(ProductStatus status) {
         this.productStatus = status;
     }

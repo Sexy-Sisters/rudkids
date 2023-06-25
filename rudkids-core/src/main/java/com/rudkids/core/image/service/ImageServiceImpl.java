@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Objects;
 
-
 @Component
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
