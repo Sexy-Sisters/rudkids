@@ -11,10 +11,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class NameTest {
 
-    @DisplayName("이름 20자 초과 시 예외 발생")
+    @DisplayName("이름 50자 초과 시 예외 발생")
     @Test
     void create_Exception_ContentLength() {
-        String invalid = "a".repeat(21);
+        String invalid = "a".repeat(51);
         String koName = "아이템";
         assertThatThrownBy(() -> Name.create(invalid, koName))
             .isInstanceOf(InvalidItemNameException.class);
