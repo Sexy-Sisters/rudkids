@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Name {
-    private static final int MAX_LENGTH = 20;
+    private static final int MAX_LENGTH = 50;
 
     @Column(name = "enName", unique = true)
     private String enName;
