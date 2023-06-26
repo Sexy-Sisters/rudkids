@@ -22,15 +22,16 @@ public class SimpleJobConfiguration {
     @Bean
     public Job simpleJob() {
         return new JobBuilder("simpleJob", jobRepository)
-            .start(simpleStep1())
+            .start(simpleStep())
             .build();
     }
 
     @Bean
-    public Step simpleStep1() {
-        return new StepBuilder("simpleStep1", jobRepository)
+    public Step simpleStep() {
+        return new StepBuilder("simpleStep", jobRepository)
             .tasklet(((contribution, chunkContext) -> {
-                log.info(">>>>> This is Step1");
+                log.info(">>>>> This is Step");
+                log.info(">>>>> Jenkins로 Batch 돌리기 성공");
                 return RepeatStatus.FINISHED;
             }), transactionManager)
             .build();
