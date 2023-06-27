@@ -17,7 +17,13 @@ public class ItemTest {
         var price = Price.create(1000);
         var quantity = Quantity.create(100);
         var limitType = LimitType.LIMITED;
-        var item = Item.create(name, itemBio, price, quantity, limitType);
+        var item = Item.builder()
+            .name(name)
+            .itemBio(itemBio)
+            .price(price)
+            .quantity(quantity)
+            .limitType(limitType)
+            .build();
 
         var updatedName = Name.create("updated item", "업데이트된 아이템");
         var updatedItemBio = ItemBio.create("업데이트된 아이템 소개글");

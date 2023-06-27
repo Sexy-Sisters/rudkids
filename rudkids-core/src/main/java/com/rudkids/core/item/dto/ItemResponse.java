@@ -37,7 +37,8 @@ public class ItemResponse {
         LimitType limitType,
         List<String> imageUrls,
         ItemStatus itemStatus,
-        List<DetailOptionGroup> itemOptionGroupInfoList
+        List<DetailOptionGroup> itemOptionGroupInfoList,
+        String videoUrl
     ) {
         public Detail(Item item) {
             this(
@@ -49,7 +50,8 @@ public class ItemResponse {
                 item.getLimitType(),
                 item.getImageUrls(),
                 item.getItemStatus(),
-                getOptionGroup(item)
+                getOptionGroup(item),
+                item.getVideoUrl()
             );
         }
 
@@ -79,5 +81,15 @@ public class ItemResponse {
         }
     }
 
-    public record Search(UUID itemId) {}
+    public record VideoImage(String name, String imageUrl) {
+        public VideoImage(Item item) {
+            this(item.getEnName(), item.getVideoImageUrl());
+        }
+    }
+
+    public record Video(String name, String videoUrl) {
+        public Video(Item item) {
+            this(item.getEnName(), item.getVideoUrl());
+        }
+    }
 }

@@ -96,7 +96,27 @@ class ItemControllerTest extends ControllerTest {
 
                     fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
                         .type(JsonFieldType.NUMBER)
-                        .description("옵션 가격")
+                        .description("옵션 가격"),
+
+                    fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        .type(JsonFieldType.NUMBER)
+                        .description("옵션 가격"),
+
+                    fieldWithPath("videoImage")
+                        .type(JsonFieldType.OBJECT)
+                        .description("콘티영상 url"),
+
+                    fieldWithPath("videoImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 path"),
+
+                    fieldWithPath("videoImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 url"),
+
+                    fieldWithPath("videoUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 url")
                 )
             ))
             .andExpect(status().isOk());
@@ -152,7 +172,63 @@ class ItemControllerTest extends ControllerTest {
 
                     fieldWithPath("itemOptionGroupInfoList")
                         .type(JsonFieldType.NULL)
-                        .description("옵션 그룹 응답 리스트 (테스트 코드 수정 필요")
+                        .description("옵션 그룹 응답 리스트 (테스트 코드 수정 필요"),
+
+                    fieldWithPath("videoUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 url")
+                )
+            ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[아이템-비디오 이미지조회]")
+    @Test
+    void 아이템_비디오_이미지들을_조회한다() throws Exception {
+        given(itemService.getItemVideoImages())
+            .willReturn(ITEM_영상_이미지_응답());
+
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "/video-image"))
+            .andDo(print())
+            .andDo(document("item/getVideoImage",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                responseFields(
+                    fieldWithPath("[]name")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("[]imageUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 영상 이미지 url")
+                )
+            ))
+            .andExpect(status().isOk());
+    }
+
+    @DisplayName("[아이템-비디오조회]")
+    @Test
+    void 아이템_비디오를_조회한다() throws Exception {
+        given(itemService.getItemVideo(any()))
+            .willReturn(ITEM_영상_응답());
+
+        mockMvc.perform(get(ITEM_DEFAULT_URL + "/video?name={name}", 아이템_영어_이름))
+            .andDo(print())
+            .andDo(document("item/getVideo",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                queryParameters(
+                    parameterWithName("name")
+                        .description("아이템 영어이름")
+                ),
+                responseFields(
+                    fieldWithPath("name")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 영어 이름"),
+
+                    fieldWithPath("videoUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("상품 영상 url")
                 )
             ))
             .andExpect(status().isOk());

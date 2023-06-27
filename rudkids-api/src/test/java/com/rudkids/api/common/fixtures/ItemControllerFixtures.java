@@ -42,6 +42,8 @@ public class ItemControllerFixtures {
                 new ImageRequest.Create("path", "url")
             ))
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .videoImage(new ImageRequest.Create("path", "url"))
+            .videoUrl("비디오 url")
             .build();
     }
 
@@ -76,6 +78,7 @@ public class ItemControllerFixtures {
             .limitType(아이템_수량_한정_여부)
             .imageUrls(아이템_여러_이미지)
             .itemStatus(ItemStatus.SELLING)
+            .videoUrl("영상 url")
             .build();
     }
 
@@ -95,9 +98,13 @@ public class ItemControllerFixtures {
             .build();
     }
 
-    public static List<ItemResponse.Search> ITEM_검색_응답() {
+    public static List<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
         return List.of(
-            new ItemResponse.Search(아이템_아이디)
+            new ItemResponse.VideoImage(아이템_영어_이름, "url")
         );
+    }
+
+    public static ItemResponse.Video ITEM_영상_응답() {
+        return new ItemResponse.Video(아이템_영어_이름, "url");
     }
 }

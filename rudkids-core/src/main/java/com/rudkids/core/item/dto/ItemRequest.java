@@ -17,7 +17,9 @@ public class ItemRequest {
         int quantity,
         LimitType limitType,
         List<ImageRequest.Create> images,
-        List<CreateItemOptionGroup> itemOptionGroupList
+        List<CreateItemOptionGroup> itemOptionGroupList,
+        ImageRequest.Create videoImage,
+        String videoUrl
     ) {}
 
     @Builder

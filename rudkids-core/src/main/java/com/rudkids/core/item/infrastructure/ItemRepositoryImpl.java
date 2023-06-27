@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -44,6 +45,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Page<Item> getPopularItems(Pageable pageable) {
         return itemRepository.findAllByOrderByStatusAndQuantityAsc(pageable);
+    }
+
+    @Override
+    public List<Item> getAll() {
+        return itemRepository.findAll();
     }
 
     @Override

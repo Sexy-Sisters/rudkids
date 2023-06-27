@@ -1,5 +1,5 @@
 <configuration>
-    <property resource="logback-variables.properties"/>
+    <property resource="logback/logback-variables.properties"/>
 
     <timestamp key="ToDay" datePattern="yyyy-MM-dd"/>
 
