@@ -92,7 +92,7 @@ create table if not exists tbl_item_image
 create table if not exists tbl_item
 (
     item_id     binary(16)   not null
-        primary key,
+    primary key,
     created_at  datetime(6)  null,
     updated_at  datetime(6)  null,
     item_bio    varchar(255) null,
@@ -103,12 +103,15 @@ create table if not exists tbl_item
     price       int          null,
     quantity    int          null,
     product_id  binary(16)   null,
+    image_path  varchar(255) null,
+    image_url   varchar(255) null,
+    video_url   varchar(255) null,
     constraint UK_fwtb92bsdey9v6l7f21kpd4we
-        unique (ko_name),
+    unique (ko_name),
     constraint UK_ivjhccb30o5qqi4qff1y1ng3b
-        unique (en_name),
+    unique (en_name),
     constraint FKsf84ufa6fltpskcbqft9e7nm3
-        foreign key (product_id) references tbl_product (product_id)
+    foreign key (product_id) references tbl_product (product_id)
 );
 
 create table if not exists tbl_delivery
