@@ -27,18 +27,24 @@ public class ItemFactoryImpl implements ItemFactory {
         var price = Price.create(request.price());
         var quantity = Quantity.create(request.quantity());
         var limitType = request.limitType();
+        var video = ItemVideo.create(request.videoImage().path(), request.videoImage().url(), request.videoUrl());
 
-        var item = Item.create(name, itemBio, price, quantity, limitType);
+        return Item.builder()
+            .name(name)
+            .itemBio(itemBio)
+            .price(price)
+            .quantity(quantity)
+            .limitType(limitType)
+            .video(video)
+            .build();
+    }
 
-        for (ImageRequest.Create imageRequest : request.images()) {
+    private void generateChildEntities(Item item, ItemRequest.Create request) {
+        for(ImageRequest.Create imageRequest : request.images()) {
             var image = ItemImage.create(item, imageRequest.path(), imageRequest.url());
             item.addImage(image);
         }
 
-        return item;
-    }
-
-    private void generateChildEntities(Item item, ItemRequest.Create request) {
         request.itemOptionGroupList().forEach(group -> {
                 var optionGroup = generateItemOptionGroup(item, group);
 

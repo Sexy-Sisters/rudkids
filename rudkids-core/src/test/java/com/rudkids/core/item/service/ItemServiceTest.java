@@ -67,6 +67,29 @@ public class ItemServiceTest extends ItemServiceFixtures {
         assertThat(response).hasSize(1);
     }
 
+    @DisplayName("[아이템-영상이미지 조회]")
+    @Test
+    void 아이템_영상이미지들을_조회한다() {
+        var response = itemService.getItemVideoImages();
+
+        var actual = response.get(0);
+        assertAll(() -> {
+            assertThat(actual.name()).isEqualTo("No.1");
+            assertThat(actual.imageUrl()).isEqualTo("url");
+        });
+    }
+
+    @DisplayName("[아이템-영상 조회]")
+    @Test
+    void 아이템_영상을_조회한다() {
+        var actual = itemService.getItemVideo(item.getEnName());
+
+        assertAll(() -> {
+            assertThat(actual.name()).isEqualTo("No.1");
+            assertThat(actual.videoUrl()).isEqualTo("videoUrl");
+        });
+    }
+
     @DisplayName("[아이템-수정]")
     @Test
     void 아이템을_수정한다() {

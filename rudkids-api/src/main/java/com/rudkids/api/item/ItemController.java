@@ -40,6 +40,18 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/video-image")
+    public ResponseEntity getItemVideoImages() {
+        var response = itemService.getItemVideoImages();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/video")
+    public ResponseEntity getItemVideo(@RequestParam String name) {
+        var response = itemService.getItemVideo(name);
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> update(
         @AuthenticationPrincipal AuthUser.Login loginUser,

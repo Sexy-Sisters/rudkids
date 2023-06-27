@@ -104,7 +104,23 @@ public class ItemControllerFailTest extends ControllerTest {
 
                     fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
                         .type(JsonFieldType.NUMBER)
-                        .description("옵션 가격")
+                        .description("옵션 가격"),
+
+                    fieldWithPath("videoImage")
+                        .type(JsonFieldType.OBJECT)
+                        .description("콘티영상 url"),
+
+                    fieldWithPath("videoImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 path"),
+
+                    fieldWithPath("videoImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 url"),
+
+                    fieldWithPath("videoUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 url")
                 ),
                 responseFields(
                     fieldWithPath("message")
@@ -194,7 +210,23 @@ public class ItemControllerFailTest extends ControllerTest {
 
                     fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
                         .type(JsonFieldType.NUMBER)
-                        .description("옵션 가격")
+                        .description("옵션 가격"),
+
+                    fieldWithPath("videoImage")
+                        .type(JsonFieldType.OBJECT)
+                        .description("콘티영상 url"),
+
+                    fieldWithPath("videoImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 path"),
+
+                    fieldWithPath("videoImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 이미지 url"),
+
+                    fieldWithPath("videoUrl")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 url")
                 ),
                 responseFields(
                     fieldWithPath("message")

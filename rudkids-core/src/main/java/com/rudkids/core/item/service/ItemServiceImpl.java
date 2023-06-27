@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,6 +46,19 @@ public class ItemServiceImpl implements ItemService {
     public Page<ItemResponse.Main> getPopularItems(Pageable pageable) {
         return itemRepository.getPopularItems(pageable)
             .map(ItemResponse.Main::new);
+    }
+
+    @Override
+    public List<ItemResponse.VideoImage> getItemVideoImages() {
+        return itemRepository.getAll().stream()
+            .map(ItemResponse.VideoImage::new)
+            .toList();
+    }
+
+    @Override
+    public ItemResponse.Video getItemVideo(String name) {
+        var item = itemRepository.getByEnNme(name);
+        return new ItemResponse.Video(item);
     }
 
     @Override
