@@ -5,9 +5,10 @@ plugins {
 dependencies {
     implementation project(':rudkids-core')
 
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    implementation 'net.nurigo:sdk:4.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 

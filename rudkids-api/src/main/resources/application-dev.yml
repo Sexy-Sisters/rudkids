@@ -1,11 +1,2 @@
-spring:
-  jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-        show-sql: true
-    generate-ddl: true
+application:
+  url: https://www.rudkids.com #temp

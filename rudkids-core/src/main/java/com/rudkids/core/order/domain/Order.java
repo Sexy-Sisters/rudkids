@@ -56,22 +56,6 @@ public class Order extends AbstractEntity {
         return new Order(user, cart, delivery, payMethod);
     }
 
-    public void startDelivery() {
-        this.orderStatus = OrderStatus.IN_DELIVERY;
-    }
-
-    public void prepareDelivery() {
-        this.orderStatus = OrderStatus.DELIVERY_PREPARE;
-    }
-
-    public void completeDelivery() {
-        this.orderStatus = OrderStatus.DELIVERY_COMPLETE;
-    }
-
-    public void completeOrder() {
-        this.orderStatus = OrderStatus.ORDER_COMPLETE;
-    }
-
     public void validateNotPaid() {
         if(OrderStatus.INIT != orderStatus) {
             throw new OrderAlreadyPaidException();

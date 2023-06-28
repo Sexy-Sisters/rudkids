@@ -7,5 +7,4 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.batch:spring-batch-test'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
