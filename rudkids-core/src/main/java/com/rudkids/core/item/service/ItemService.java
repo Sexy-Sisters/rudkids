@@ -12,7 +12,7 @@ public interface ItemService {
     UUID create(UUID userId, UUID productId, ItemRequest.Create request);
     ItemResponse.Detail get(String name);
     Page<ItemResponse.Main> getPopularItems(Pageable pageable);
-    List<ItemResponse.VideoImage> getItemVideoImages();
+    Page<ItemResponse.VideoImage> getItemVideoImages(Pageable pageable);
     ItemResponse.Video getItemVideo(String name);
     String changeStatus(UUID userId, UUID itemId, ItemRequest.ChangeStatus request);
     void update(UUID userId, UUID itemId, ItemRequest.Update request);

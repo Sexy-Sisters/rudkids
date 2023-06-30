@@ -185,7 +185,7 @@ class ItemControllerTest extends ControllerTest {
     @DisplayName("[아이템-비디오 이미지조회]")
     @Test
     void 아이템_비디오_이미지들을_조회한다() throws Exception {
-        given(itemService.getItemVideoImages())
+        given(itemService.getItemVideoImages(any()))
             .willReturn(ITEM_영상_이미지_응답());
 
         mockMvc.perform(get(ITEM_DEFAULT_URL + "/video-image"))
@@ -193,15 +193,7 @@ class ItemControllerTest extends ControllerTest {
             .andDo(document("item/getVideoImage",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
-                responseFields(
-                    fieldWithPath("[]name")
-                        .type(JsonFieldType.STRING)
-                        .description("상품 영어 이름"),
-
-                    fieldWithPath("[]imageUrl")
-                        .type(JsonFieldType.STRING)
-                        .description("상품 영상 이미지 url")
-                )
+                responseFields(ITEM_영상_이미지_응답_필드())
             ))
             .andExpect(status().isOk());
     }

@@ -48,8 +48,8 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public List<Item> getAll() {
-        return itemRepository.findAll();
+    public Page<Item> getAll(Pageable pageable) {
+        return itemRepository.findAll(pageable);
     }
 
     @Override

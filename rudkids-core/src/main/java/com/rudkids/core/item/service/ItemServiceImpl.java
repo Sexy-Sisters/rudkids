@@ -49,10 +49,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemResponse.VideoImage> getItemVideoImages() {
-        return itemRepository.getAll().stream()
-            .map(ItemResponse.VideoImage::new)
-            .toList();
+    public Page<ItemResponse.VideoImage> getItemVideoImages(Pageable pageable) {
+        return itemRepository.getAll(pageable)
+            .map(ItemResponse.VideoImage::new);
     }
 
     @Override
