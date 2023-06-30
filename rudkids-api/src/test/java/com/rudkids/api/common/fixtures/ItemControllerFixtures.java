@@ -5,9 +5,16 @@ import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.dto.ItemResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.List;
 import java.util.UUID;
+
+import static com.rudkids.api.common.ControllerTest.pageResponseFieldsWith;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
 public class ItemControllerFixtures {
 
@@ -98,13 +105,27 @@ public class ItemControllerFixtures {
             .build();
     }
 
-    public static List<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
-        return List.of(
+    public static Page<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
+        return new PageImpl<>(List.of(
             new ItemResponse.VideoImage(아이템_영어_이름, "url")
-        );
+        ));
     }
 
     public static ItemResponse.Video ITEM_영상_응답() {
         return new ItemResponse.Video(아이템_영어_이름, "url");
+    }
+
+    public static List<FieldDescriptor> ITEM_영상_이미지_응답_필드() {
+        return pageResponseFieldsWith(
+            List.of(
+                fieldWithPath("content[]name")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 영어 이름"),
+
+                fieldWithPath("content[]imageUrl")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 영상 이미지 url")
+            )
+        );
     }
 }

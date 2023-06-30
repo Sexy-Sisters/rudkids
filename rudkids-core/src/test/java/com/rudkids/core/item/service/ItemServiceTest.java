@@ -70,12 +70,12 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("[아이템-영상이미지 조회]")
     @Test
     void 아이템_영상이미지들을_조회한다() {
-        var response = itemService.getItemVideoImages();
+        Pageable pageable = PageRequest.of(0, 5);
+        var response = itemService.getItemVideoImages(pageable);
 
-        var actual = response.get(0);
         assertAll(() -> {
-            assertThat(actual.name()).isEqualTo("No.1");
-            assertThat(actual.imageUrl()).isEqualTo("url");
+            assertThat(response.getContent().get(0).name()).isEqualTo("No.1");
+            assertThat(response.getContent().get(0).imageUrl()).isEqualTo("url");
         });
     }
 

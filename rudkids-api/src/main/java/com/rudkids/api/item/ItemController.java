@@ -41,8 +41,8 @@ public class ItemController {
     }
 
     @GetMapping("/video-image")
-    public ResponseEntity getItemVideoImages() {
-        var response = itemService.getItemVideoImages();
+    public ResponseEntity getItemVideoImages(@PageableDefault Pageable pageable) {
+        var response = itemService.getItemVideoImages(pageable);
         return ResponseEntity.ok(response);
     }
 
