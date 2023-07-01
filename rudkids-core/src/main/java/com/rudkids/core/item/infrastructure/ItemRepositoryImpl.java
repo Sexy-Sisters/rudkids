@@ -49,14 +49,6 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public List<String> getImagePaths() {
-        return itemRepository.findPathsItemImage().stream()
-            .flatMap(List::stream)
-            .map(ItemImage::getPath)
-            .toList();
-    }
-
-    @Override
     public void delete(Item item) {
         itemRepository.delete(item);
     }

@@ -44,9 +44,4 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getUsers(String email) {
         return userRepository.findByEmailContaining(email);
     }
-
-    @Override
-    public List<String> getImagePaths() {
-        return userRepository.findPaths();
-    }
 }

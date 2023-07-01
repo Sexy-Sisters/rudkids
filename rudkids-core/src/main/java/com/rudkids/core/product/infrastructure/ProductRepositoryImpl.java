@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -25,19 +24,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Page<Product> getAll(Pageable pageable) {
         return productRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<String> getImagePaths() {
-        List<String> frontPaths = productRepository.findPathsByFrontImage();
-        List<String> backPaths = productRepository.findPathsByBackImage();
-        List<String> bannerPaths = productRepository.findPathsByBannerImage().stream()
-            .flatMap(List::stream)
-            .toList();
-
-        return Stream.of(frontPaths, backPaths, bannerPaths)
-            .flatMap(List::stream)
-            .toList();
     }
 
     @Override

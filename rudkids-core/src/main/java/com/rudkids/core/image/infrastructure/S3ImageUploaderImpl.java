@@ -3,18 +3,17 @@ package com.rudkids.core.image.infrastructure;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.rudkids.core.image.exception.FileUploadFailException;
-import com.rudkids.core.image.service.S3ImageClient;
+import com.rudkids.core.image.service.S3ImageUploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class S3ImageClientImpl implements S3ImageClient {
+public class S3ImageUploaderImpl implements S3ImageUploader {
 
     private final AmazonS3 amazonS3;
 
@@ -51,18 +50,5 @@ public class S3ImageClientImpl implements S3ImageClient {
 
     private String createUploadUrl(String fileName) {
         return imageDomainUrl + fileName;
-    }
-
-    @Override
-    public List<String> getObjectKeys() {
-        ObjectListing objectListing = amazonS3.listObjects(bucket);
-        return objectListing.getObjectSummaries().stream()
-            .map(S3ObjectSummary::getKey)
-            .toList();
-    }
-
-    @Override
-    public void delete(String fileName) {
-        amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
 }
