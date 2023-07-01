@@ -56,14 +56,6 @@ public class AdminControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("유저 이름"),
 
-                    fieldWithPath("[]age")
-                        .type(JsonFieldType.NUMBER)
-                        .description("유저 나이"),
-
-                    fieldWithPath("[]gender")
-                        .type(JsonFieldType.STRING)
-                        .description("유저 성별"),
-
                     fieldWithPath("[]phoneNumber")
                         .type(JsonFieldType.STRING)
                         .description("유저 전화번호"),

@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final TokenCreator tokenCreator;
@@ -35,11 +35,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UUID extractUserId(String accessToken) {
-        UUID userId = tokenCreator.extractPayload(accessToken);
-        if (!userRepository.existsUser(userId)) {
-            throw new NotFoundUserException();
-        }
-        return userId;
+        return tokenCreator.extractPayload(accessToken);
     }
 
     @Override
@@ -47,4 +43,12 @@ public class AuthServiceImpl implements AuthService {
         var user = userRepository.getUser(userId);
         user.validateAdminRole();
     }
+
+    @Override
+    public void validatePhoneNumber(UUID userId) {
+        var user = userRepository.getUser(userId);
+        user.validateEmptyPhoneNumber();
+    }
+
+
 }

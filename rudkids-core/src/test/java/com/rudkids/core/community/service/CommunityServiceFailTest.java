@@ -56,15 +56,10 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
     @Test
     void 어드민_사용자가_잘못된_타입을_입력하고_매거진글을_작성할_경우_예외가_발생한다() {
         //given
-        var profileImage = ProfileImage.create("path", "url");
         User admin = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .profileImage(profileImage)
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         admin.changeAuthorityAdmin();
         jpaUserRepository.save(admin);
@@ -125,15 +120,10 @@ public class CommunityServiceFailTest extends CommunityServiceFixtures {
         var communityId = communityService.create(user.getId(), COMMUNITY_작성_요청);
 
         //when, then
-        var profileImage = ProfileImage.create("path", "url");
         User anotherUser = User.builder()
-            .email("another@gmail.com")
+            .email("anotherUser@gmail.com")
             .name(UserName.create("다른유저"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .profileImage(profileImage)
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         jpaUserRepository.save(anotherUser);
         CommunityRequest.Update updateCommand = CommunityRequest.Update.builder()

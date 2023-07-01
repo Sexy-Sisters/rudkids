@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     private final ItemFactory itemFactory;
 
     @Override
-    public UUID create(UUID userId, UUID productId, ItemRequest.Create request) {
+    public String create(UUID userId, UUID productId, ItemRequest.Create request) {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemFactory.create(request);
@@ -32,7 +32,7 @@ public class ItemServiceImpl implements ItemService {
 
         var product = productRepository.get(productId);
         item.setProduct(product);
-        return item.getId();
+        return item.getEnName();
     }
 
     @Override
@@ -61,20 +61,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void update(UUID userId, UUID itemId, ItemRequest.Update request) {
+    public void update(UUID userId, String itemName, ItemRequest.Update request) {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
-        var item = itemRepository.get(itemId);
+        var item = itemRepository.getByEnNme(itemName);
         item.deleteItemImage();
 
         itemFactory.update(item, request);
     }
 
     @Override
-    public String changeStatus(UUID userId, UUID itemId, ItemRequest.ChangeStatus request) {
+    public String changeStatus(UUID userId, String itemName, ItemRequest.ChangeStatus request) {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
-        var item = itemRepository.get(itemId);
+        var item = itemRepository.getByEnNme(itemName);
 
         var status = ItemStatus.toEnum(request.itemStatus());
         item.changeStatus(status);
@@ -82,10 +82,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void delete(UUID itemId, UUID userId) {
+    public void delete(UUID userId, String itemName) {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
-        var item = itemRepository.get(itemId);
+        var item = itemRepository.getByEnNme(itemName);
         item.deleteItemImage();
         itemRepository.delete(item);
     }

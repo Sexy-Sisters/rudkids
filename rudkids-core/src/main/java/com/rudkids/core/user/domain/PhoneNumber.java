@@ -25,13 +25,6 @@ public class PhoneNumber {
         return new PhoneNumber(value);
     }
 
-    public static PhoneNumber createDefault(String value) {
-        if (value == null || value.isBlank()) {
-            value =  "";
-        }
-        return new PhoneNumber(value);
-    }
-
     private static void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new InvalidPhoneNumberException();
@@ -39,5 +32,9 @@ public class PhoneNumber {
         if (value.length() != MAX_LENGTH) {
             throw new InvalidPhoneNumberException();
         }
+    }
+
+    public boolean isEmpty() {
+        return value == null;
     }
 }

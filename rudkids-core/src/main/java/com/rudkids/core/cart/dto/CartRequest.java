@@ -10,7 +10,7 @@ public class CartRequest {
 
     @Builder
     public record AddCartItem(
-        UUID itemId,
+        String itemName,
         int amount,
         List<AddCartItemOptionGroup> optionGroups
     ) {}

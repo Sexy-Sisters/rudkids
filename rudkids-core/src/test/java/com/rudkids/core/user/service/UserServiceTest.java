@@ -3,6 +3,7 @@ package com.rudkids.core.user.service;
 import com.rudkids.core.common.fixtures.UserServiceFixtures;
 import com.rudkids.core.delivery.domain.Address;
 import com.rudkids.core.delivery.domain.Delivery;
+import com.rudkids.core.user.domain.PhoneNumber;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
@@ -43,15 +44,14 @@ public class UserServiceTest extends UserServiceFixtures {
     @Test
     void 유저_정보를_조회한다() {
         //given, when
+        user.updatePhoneNumber(PhoneNumber.create("01023456789"));
         UserResponse.Info actual = userService.get(user.getId());
 
         //then
         assertAll(() -> {
             assertThat(actual.email()).isEqualTo("namse@gmail.com");
             assertThat(actual.name()).isEqualTo("남세원");
-            assertThat(actual.gender()).isEqualTo("MALE");
-            assertThat(actual.age()).isEqualTo(19);
-            assertThat(actual.phoneNumber()).isEqualTo("01029401509");
+            assertThat(actual.phoneNumber()).isEqualTo("01023456789");
             assertThat(actual.profileImage()).isEqualTo("url");
         });
     }

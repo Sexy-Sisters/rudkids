@@ -89,14 +89,6 @@ class UserControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("이름"),
 
-                    fieldWithPath("gender")
-                        .type(JsonFieldType.STRING)
-                        .description("성별"),
-
-                    fieldWithPath("age")
-                        .type(JsonFieldType.NUMBER)
-                        .description("나이"),
-
                     fieldWithPath("phoneNumber")
                         .type(JsonFieldType.STRING)
                         .description("폰번호"),

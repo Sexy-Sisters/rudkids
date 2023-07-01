@@ -25,8 +25,6 @@ public class AdminControllerFixtures {
         return List.of(new AdminResponse.UserInfo(
             "email@gmail.com",
                 "name",
-                18,
-                "MALE",
                 "01012345678",
                 "url",
                 "PARTNER"

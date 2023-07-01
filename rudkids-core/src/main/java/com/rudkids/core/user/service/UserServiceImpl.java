@@ -17,11 +17,11 @@ import java.util.UUID;
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userReader;
+    private final UserRepository userRepository;
 
     @Override
     public void update(UUID userId, UserRequest.Update request) {
-        var user = userReader.getUser(userId);
+        var user = userRepository.getUser(userId);
         user.deleteUserImage();
 
         var name = UserName.create(request.name());
@@ -33,14 +33,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserResponse.Info get(UUID userId) {
-        var user = userReader.getUser(userId);
+        var user = userRepository.getUser(userId);
         return new UserResponse.Info(user);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<UserResponse.Address> getAddresses(UUID userId) {
-        var user = userReader.getUser(userId);
+        var user = userRepository.getUser(userId);
         return user.getDeliveries().stream()
             .map(UserResponse.Address::new)
             .toList();

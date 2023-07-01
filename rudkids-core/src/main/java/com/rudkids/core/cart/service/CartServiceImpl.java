@@ -29,7 +29,7 @@ public class CartServiceImpl implements CartService {
     public UUID addCartItem(UUID userId, CartRequest.AddCartItem request) {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.getActiveCartOrCreate(user);
-        var item = itemRepository.get(request.itemId());
+        var item = itemRepository.getByEnNme(request.itemName());
         var cartItem = cartItemRepository.getOrCreate(cart, item, request);
         return cartItem.getId();
     }

@@ -29,6 +29,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String accessToken = AuthorizationExtractor.extract(request);
         UUID id = authService.extractUserId(accessToken);
+        authService.validatePhoneNumber(id);
         return new AuthUser.Login(id);
     }
 }

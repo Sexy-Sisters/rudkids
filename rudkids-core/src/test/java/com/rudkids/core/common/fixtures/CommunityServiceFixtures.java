@@ -50,11 +50,7 @@ public class CommunityServiceFixtures {
         user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .profileImage(profileImage)
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         jpaUserRepository.save(user);
     }

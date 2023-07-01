@@ -90,6 +90,7 @@ public class ItemFactoryImpl implements ItemFactory {
             item.addImage(image);
         }
 
+        item.testUpdate(name);
         item.update(name, itemBio, price, quantity, limitType);
     }
 }

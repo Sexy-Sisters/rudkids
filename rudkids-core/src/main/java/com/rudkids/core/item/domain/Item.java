@@ -68,6 +68,10 @@ public class Item extends AbstractEntity {
         this.video = video;
     }
 
+    public void testUpdate(Name name) {
+        this.name = name;
+    }
+
     public void update(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
         this.name = name;
         this.itemBio = itemBio;

@@ -10,8 +10,6 @@ public class UserResponse {
     public record Info(
         String email,
         String name,
-        String gender,
-        int age,
         String phoneNumber,
         String profileImage
     ) {
@@ -19,8 +17,6 @@ public class UserResponse {
             this(
                 user.getEmail(),
                 user.getName(),
-                user.getGender(),
-                user.getAge(),
                 user.getPhoneNumber(),
                 user.getProfileImageUrl()
             );

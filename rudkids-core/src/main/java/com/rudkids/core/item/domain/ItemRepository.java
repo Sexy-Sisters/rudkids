@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public interface ItemRepository {
     void save(Item item);
-    Item get(UUID id);
     Item getByEnNme(String name);
     Page<Item> getPopularItems(Pageable pageable);
     Page<Item> getAll(Pageable pageable);

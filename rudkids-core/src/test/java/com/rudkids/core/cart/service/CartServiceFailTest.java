@@ -20,9 +20,9 @@ public class CartServiceFailTest extends CartServiceFixtures {
     @Test
     void 장바구니에_존재하지_않는_아이템을_추가할_경우_예외가_발생한다() {
         //given, when
-        UUID invalidCartItemId = UUID.randomUUID();
+        String invalidCartItemName = "invalid";
         CartRequest.AddCartItem invalidRequest = CartRequest.AddCartItem.builder()
-                .itemId(invalidCartItemId)
+                .itemName(invalidCartItemName)
                 .amount(2)
                 .build();
 
@@ -36,8 +36,6 @@ public class CartServiceFailTest extends CartServiceFixtures {
     void 존재하지_않는_장바구니_아이템의_수량을_변경할_시_예외가_발생한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
-
-        Cart cart = cartRepository.getActiveCart(user);
 
         UUID invalidCartItemId = UUID.randomUUID();
         CartRequest.UpdateCartItemAmount CART_아이템_수량_변경_요청 = CartRequest.UpdateCartItemAmount.builder()

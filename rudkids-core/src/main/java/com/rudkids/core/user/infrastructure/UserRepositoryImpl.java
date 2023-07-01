@@ -1,7 +1,9 @@
 package com.rudkids.core.user.infrastructure;
 
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.user.domain.ProfileImage;
 import com.rudkids.core.user.domain.User;
+import com.rudkids.core.user.domain.UserName;
 import com.rudkids.core.user.domain.UserRepository;
 import com.rudkids.core.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +28,21 @@ public class UserRepositoryImpl implements UserRepository {
             .orElseGet(() -> saveUser(oauthUser));
     }
 
+    private User saveUser(AuthUser.OAuth oauthUser) {
+        UserName userName = UserName.create(oauthUser.name());
+        ProfileImage image = ProfileImage.create("", oauthUser.picture());
+
+        var user = User.builder()
+            .email(oauthUser.email())
+            .name(userName)
+            .profileImage(image)
+            .build();
+        return userRepository.save(user);
+    }
+
     @Override
     public List<String> getImageFileNames() {
         return userRepository.findPathsByDeletedTrue();
-    }
-
-    private User saveUser(AuthUser.OAuth oauthUser) {
-        var user = oauthUser.toEntity();
-        return userRepository.save(user);
     }
 
     @Override

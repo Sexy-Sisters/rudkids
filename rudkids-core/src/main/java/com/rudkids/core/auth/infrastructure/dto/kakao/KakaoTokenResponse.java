@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class KakaoTokenResponse {
-    private String accessToken;
+    private String idToken;
 }

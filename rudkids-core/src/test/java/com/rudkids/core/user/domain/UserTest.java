@@ -15,10 +15,6 @@ class UserTest {
         User user = User.builder()
                 .email("namse@gmail.com")
                 .name(UserName.create("남세"))
-                .age(18)
-                .gender("MALE")
-                .phoneNumber(PhoneNumber.create("01029401509"))
-                .socialType(SocialType.GOOGLE)
                 .build();
 
         //when
@@ -35,10 +31,6 @@ class UserTest {
         User user = User.builder()
                 .email("namse@gmail.com")
                 .name(UserName.create("남세"))
-                .age(18)
-                .gender("MALE")
-                .phoneNumber(PhoneNumber.create("01029401509"))
-                .socialType(SocialType.GOOGLE)
                 .build();
 
         //then

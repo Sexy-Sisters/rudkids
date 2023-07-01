@@ -5,6 +5,7 @@ import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.user.exception.NotAdminOrPartnerRoleException;
 import com.rudkids.core.user.exception.NotAdminRoleException;
+import com.rudkids.core.user.exception.PhoneNumberEmptyException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -32,20 +33,11 @@ public class User {
     @Embedded
     private UserName name;
 
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "age")
-    private int age;
-
-    @Embedded
-    private PhoneNumber phoneNumber;
-
     @Embedded
     private ProfileImage profileImage;
 
-    @Enumerated(EnumType.STRING)
-    private SocialType socialType;
+    @Embedded
+    private PhoneNumber phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
@@ -60,21 +52,26 @@ public class User {
     private final List<Community> communities = new ArrayList<>();
 
     @Builder
-    public User(String email, UserName name, String gender, int age,
-                PhoneNumber phoneNumber, ProfileImage profileImage, SocialType socialType) {
+    public User(String email, UserName name, ProfileImage profileImage) {
         this.email = email;
         this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
-        this.socialType = socialType;
     }
 
     public void validateAdminRole() {
         if (!roleType.equals(RoleType.ADMIN)) {
             throw new NotAdminRoleException();
         }
+    }
+
+    public void validateEmptyPhoneNumber() {
+        if(phoneNumber.isEmpty()) {
+            throw new PhoneNumberEmptyException();
+        }
+    }
+
+    public void updatePhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void changeAuthorityAdmin() {
