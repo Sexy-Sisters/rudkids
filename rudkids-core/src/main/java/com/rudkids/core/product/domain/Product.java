@@ -72,20 +72,6 @@ public class Product {
         this.productStatus = status;
     }
 
-    public String getFrontImagePath() {
-        return frontImage.getPath();
-    }
-
-    public String getBackImagePath() {
-        return backImage.getPath();
-    }
-
-    public List<String> getBannerImagePaths() {
-        return productBannerImages.stream()
-            .map(ProductBannerImage::getPath)
-            .toList();
-    }
-
     public void addItem(Item item) {
         items.add(item);
     }
