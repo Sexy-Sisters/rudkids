@@ -72,6 +72,20 @@ public class Product {
         this.productStatus = status;
     }
 
+    public String getFrontImagePath() {
+        return frontImage.getPath();
+    }
+
+    public String getBackImagePath() {
+        return backImage.getPath();
+    }
+
+    public List<String> getBannerImagePaths() {
+        return productBannerImages.stream()
+            .map(ProductBannerImage::getPath)
+            .toList();
+    }
+
     public void addItem(Item item) {
         items.add(item);
     }
@@ -92,19 +106,9 @@ public class Product {
         return backImage.getUrl();
     }
 
-
     public List<String> getBannerUrls() {
         return productBannerImages.stream()
             .map(ProductBannerImage::getUrl)
             .toList();
-    }
-
-    public void deleteProductImages() {
-        backImage.deleteImage();
-        frontImage.deleteImage();
-
-        for(ProductBannerImage image: productBannerImages) {
-            image.deleteImage();
-        }
     }
 }

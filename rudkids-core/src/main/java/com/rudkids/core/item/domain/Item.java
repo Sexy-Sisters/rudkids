@@ -137,16 +137,16 @@ public class Item extends AbstractEntity {
         return itemOptionGroups;
     }
 
+    public List<String> getImagePaths() {
+        return images.stream()
+            .map(ItemImage::getPath)
+            .toList();
+    }
+
     public List<String> getImageUrls() {
         return images.stream()
             .map(ItemImage::getUrl)
             .toList();
-    }
-
-    public void deleteItemImage() {
-        for(ItemImage image: images) {
-            image.deleteImage();
-        }
     }
 
     public String getCartItemImageUrl() {

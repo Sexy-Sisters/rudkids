@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UUID userId, UserRequest.Update request) {
         var user = userRepository.getUser(userId);
-        user.deleteUserImage();
 
         var name = UserName.create(request.name());
         var phoneNumber = PhoneNumber.create(request.phoneNumber());

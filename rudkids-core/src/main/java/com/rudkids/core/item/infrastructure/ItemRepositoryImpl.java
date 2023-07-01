@@ -1,6 +1,7 @@
 package com.rudkids.core.item.infrastructure;
 
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.exception.DuplicatedNameException;
 import com.rudkids.core.item.exception.ItemNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,6 +46,14 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Page<Item> getAll(Pageable pageable) {
         return itemRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<String> getImagePaths() {
+        return itemRepository.findPathsItemImage().stream()
+            .flatMap(List::stream)
+            .map(ItemImage::getPath)
+            .toList();
     }
 
     @Override

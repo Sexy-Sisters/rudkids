@@ -63,7 +63,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(UUID productId, ProductRequest.Update request) {
         var product = productRepository.get(productId);
-        product.deleteProductImages();
         productFactory.update(product, request);
     }
 
@@ -77,7 +76,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(UUID productId) {
         var product = productRepository.get(productId);
-        product.deleteProductImages();
         productRepository.delete(product);
     }
 }

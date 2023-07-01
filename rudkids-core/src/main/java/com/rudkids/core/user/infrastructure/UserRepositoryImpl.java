@@ -41,17 +41,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<String> getImageFileNames() {
-        return userRepository.findPathsByDeletedTrue();
-    }
-
-    @Override
-    public boolean existsUser(UUID userId) {
-        return userRepository.existsById(userId);
-    }
-
-    @Override
     public List<User> getUsers(String email) {
         return userRepository.findByEmailContaining(email);
+    }
+
+    @Override
+    public List<String> getImagePaths() {
+        return userRepository.findPaths();
     }
 }

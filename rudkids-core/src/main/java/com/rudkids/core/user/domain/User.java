@@ -129,8 +129,4 @@ public class User {
     public void writeCommunity(Community community) {
         communities.add(community);
     }
-
-    public void deleteUserImage() {
-        profileImage.deleteImage();
-    }
 }

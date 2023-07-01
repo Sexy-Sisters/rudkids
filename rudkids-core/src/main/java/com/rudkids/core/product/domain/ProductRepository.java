@@ -9,8 +9,8 @@ import java.util.UUID;
 public interface ProductRepository {
     void save(Product product);
     Page<Product> getAll(Pageable pageable);
+    List<String> getImagePaths();
     Product get(UUID productId);
-    List<String> getImageFileNames();
     List<Product> get(String title);
     void delete(Product product);
 }

@@ -28,8 +28,8 @@ public class CommunityRepositoryImpl implements CommunityRepository {
     }
 
     @Override
-    public List<String> getImageFileNames() {
-        return communityRepository.findPathsByDeletedTrue();
+    public List<String> getImagePaths() {
+        return communityRepository.findPaths();
     }
 
     @Override

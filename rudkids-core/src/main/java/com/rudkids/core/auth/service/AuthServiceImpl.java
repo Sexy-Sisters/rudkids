@@ -49,6 +49,4 @@ public class AuthServiceImpl implements AuthService {
         var user = userRepository.getUser(userId);
         user.validateEmptyPhoneNumber();
     }
-
-
 }

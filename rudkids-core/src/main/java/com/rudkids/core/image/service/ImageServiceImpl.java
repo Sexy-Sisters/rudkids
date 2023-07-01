@@ -13,14 +13,14 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
-    private final S3ImageUploader s3ImageUploader;
+    private final S3ImageClient s3ImageClient;
     private final FileNameGenerator fileNameGenerator;
 
     @Override
     public ImageResponse.Info upload(MultipartFile file) {
         validate(file);
         String fileName = fileNameGenerator.generate(file.getOriginalFilename());
-        String uploadUrl = s3ImageUploader.upload(file, fileName);
+        String uploadUrl = s3ImageClient.upload(file, fileName);
         return new ImageResponse.Info(fileName, uploadUrl);
     }
 
@@ -30,7 +30,7 @@ public class ImageServiceImpl implements ImageService {
             .map(it ->  {
                 validate(it);
                 String fileName = fileNameGenerator.generate(it.getOriginalFilename());
-                String uploadUrl = s3ImageUploader.upload(it, fileName);
+                String uploadUrl = s3ImageClient.upload(it, fileName);
                 return new ImageResponse.Info(fileName, uploadUrl);
             })
             .toList();

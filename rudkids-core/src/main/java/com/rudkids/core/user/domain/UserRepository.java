@@ -8,7 +8,6 @@ import java.util.UUID;
 public interface UserRepository {
     User getUser(UUID id);
     User getUser(AuthUser.OAuth oauthUser);
-    List<String> getImageFileNames();
-    boolean existsUser(UUID id);
     List<User> getUsers(String email);
+    List<String> getImagePaths();
 }

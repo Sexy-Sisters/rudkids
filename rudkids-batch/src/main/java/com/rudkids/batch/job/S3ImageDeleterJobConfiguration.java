@@ -7,7 +7,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,25 +14,26 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class SimpleJobConfiguration {
+public class S3ImageDeleterJobConfiguration {
+    public static final String JOB_NAME = "testBatch";
+    public static final String BEAN_PREFIX = JOB_NAME + "_";
+
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final S3ImageDeleterTasklet imageDeleterTasklet;
 
-    @Bean
-    public Job simpleJob() {
-        return new JobBuilder("simpleJob", jobRepository)
-            .start(simpleStep())
+    @Bean(JOB_NAME)
+    public Job testJob() {
+        return new JobBuilder(JOB_NAME, jobRepository)
+            .preventRestart()
+            .start(processorConvertStep())
             .build();
     }
 
-    @Bean
-    public Step simpleStep() {
-        return new StepBuilder("simpleStep", jobRepository)
-            .tasklet(((contribution, chunkContext) -> {
-                log.info(">>>>> This is Step");
-                log.info(">>>>> Jenkins로 Batch 돌리기 성공");
-                return RepeatStatus.FINISHED;
-            }), transactionManager)
+    @Bean(BEAN_PREFIX + "step")
+    public Step processorConvertStep() {
+        return new StepBuilder(BEAN_PREFIX + "step", jobRepository)
+            .tasklet(imageDeleterTasklet, transactionManager)
             .build();
     }
 }

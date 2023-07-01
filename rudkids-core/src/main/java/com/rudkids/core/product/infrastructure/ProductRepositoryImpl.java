@@ -28,17 +28,22 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product get(UUID productId) {
-        return productRepository.findById(productId)
-            .orElseThrow(ProductNotFoundException::new);
+    public List<String> getImagePaths() {
+        List<String> frontPaths = productRepository.findPathsByFrontImage();
+        List<String> backPaths = productRepository.findPathsByBackImage();
+        List<String> bannerPaths = productRepository.findPathsByBannerImage().stream()
+            .flatMap(List::stream)
+            .toList();
+
+        return Stream.of(frontPaths, backPaths, bannerPaths)
+            .flatMap(List::stream)
+            .toList();
     }
 
     @Override
-    public List<String> getImageFileNames() {
-        List<String> backImagePaths = productRepository.findPathsByBackImageDeletedTrue();
-        List<String> frontImagePaths = productRepository.findPathsByFrontImageDeletedTrue();
-        return Stream.concat(backImagePaths.stream(), frontImagePaths.stream())
-            .toList();
+    public Product get(UUID productId) {
+        return productRepository.findById(productId)
+            .orElseThrow(ProductNotFoundException::new);
     }
 
     @Override

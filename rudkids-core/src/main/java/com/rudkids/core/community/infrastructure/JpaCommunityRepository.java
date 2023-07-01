@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface JpaCommunityRepository extends JpaRepository<Community, UUID> {
     List<Community> findByCommunityType(CommunityType type, Pageable pageable);
 
-    @Query("SELECT c.communityImage.path FROM Community c WHERE c.communityImage.deleted = true")
-    List<String> findPathsByDeletedTrue();
+    @Query("SELECT c.communityImage.path FROM Community c")
+    List<String> findPaths();
 }

@@ -17,19 +17,12 @@ public class CommunityImage {
     @Column(name = "url")
     private String url;
 
-    private boolean deleted;
-
     private CommunityImage(String path, String url) {
         this.path = path;
         this.url = url;
-        this.deleted = false;
     }
 
     public static CommunityImage create(String path, String url) {
         return new CommunityImage(path, url);
-    }
-
-    public void deleteImage() {
-        deleted = true;
     }
 }

@@ -51,7 +51,6 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userRepository.getUser(userId);
         var community = communityRepository.getCommunity(communityId);
         community.validateHasSameUser(user);
-        community.deleteCommunityImage();
 
         var title = Title.create(request.title());
         var content = Content.create(request.content());
@@ -64,7 +63,6 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userRepository.getUser(userId);
         var community = communityRepository.getCommunity(communityId);
         community.validateHasSameUser(user);
-        community.deleteCommunityImage();
         communityRepository.delete(community);
     }
 }
