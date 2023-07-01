@@ -3,7 +3,7 @@ package com.rudkids.core.community.domain;
 import com.rudkids.core.community.exception.InvalidCommunityContentException;
 import com.rudkids.core.community.exception.InvalidCommunityTitleException;
 import com.rudkids.core.user.domain.PhoneNumber;
-import com.rudkids.core.user.domain.SocialType;
+import com.rudkids.core.user.domain.ProfileImage;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.domain.UserName;
 import com.rudkids.core.user.exception.DifferentUserException;
@@ -23,10 +23,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -53,10 +50,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -79,10 +73,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -105,10 +96,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         user.changeAuthorityAdmin();
         Title title = Title.create("제목");
@@ -130,10 +118,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -154,10 +139,7 @@ class CommunityTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Title title = Title.create("제목");
         Content content = Content.create("내용");
@@ -166,12 +148,9 @@ class CommunityTest {
 
         //when, then
         User anotherUser = User.builder()
-            .email("another@gmail.com")
-            .name(UserName.create("다른사람"))
-            .age(18)
-            .gender("FEMALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.KAKAO)
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
 
         assertThatThrownBy(() -> community.validateHasSameUser(anotherUser))

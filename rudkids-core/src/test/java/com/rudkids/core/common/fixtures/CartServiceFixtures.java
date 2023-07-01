@@ -51,11 +51,7 @@ public class CartServiceFixtures {
         user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
             .profileImage(profileImage)
-            .socialType(SocialType.GOOGLE)
             .build();
         userRepository.save(user);
 
@@ -73,7 +69,7 @@ public class CartServiceFixtures {
 
         //저장된 itemId 넣음
         CART_아이템_요청 = CartRequest.AddCartItem.builder()
-            .itemId(item.getId())
+            .itemName(item.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("사이즈")

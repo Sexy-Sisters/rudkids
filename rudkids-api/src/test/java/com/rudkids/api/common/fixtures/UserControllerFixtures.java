@@ -19,8 +19,6 @@ public class UserControllerFixtures {
         return UserResponse.Info.builder()
             .email("namse@gmail.com")
             .name(USER_이름)
-            .gender("MALE")
-            .age(19)
             .phoneNumber(USER_폰번호)
             .profileImage(USER_프로필_이미지)
             .build();

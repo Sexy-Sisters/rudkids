@@ -2,7 +2,7 @@ package com.rudkids.core.cart.domain;
 
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.user.domain.PhoneNumber;
-import com.rudkids.core.user.domain.SocialType;
+import com.rudkids.core.user.domain.ProfileImage;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.domain.UserName;
 import com.rudkids.core.user.exception.DifferentUserException;
@@ -21,10 +21,7 @@ class CartTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Cart cart = Cart.create(user);
 
@@ -42,10 +39,7 @@ class CartTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Cart cart = Cart.create(user);
 
@@ -93,10 +87,7 @@ class CartTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Cart cart = Cart.create(user);
 
@@ -113,10 +104,7 @@ class CartTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Cart cart = Cart.create(user);
 
@@ -131,21 +119,15 @@ class CartTest {
         User user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         Cart cart = Cart.create(user);
 
         //then
         User differentUser = User.builder()
             .email("namse@gmail.com")
-            .name(UserName.create("다른 유저"))
-            .age(18)
-            .gender("MALE")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .socialType(SocialType.GOOGLE)
+            .name(UserName.create("다른유저"))
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
 
         //then

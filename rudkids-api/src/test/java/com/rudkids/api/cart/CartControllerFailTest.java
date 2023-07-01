@@ -46,9 +46,9 @@ public class CartControllerFailTest extends ControllerTest {
                                         .description("JWT Access Token")
                         ),
                         requestFields(
-                                fieldWithPath("itemId")
+                                fieldWithPath("itemName")
                                         .type(JsonFieldType.STRING)
-                                        .description("존재하지 않는 아이템 ID"),
+                                        .description("존재하지 않는 아이템 이름"),
 
                                 fieldWithPath("optionGroups")
                                         .type(JsonFieldType.ARRAY)

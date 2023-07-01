@@ -37,12 +37,6 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public Item get(UUID id) {
-        return itemRepository.findById(id)
-            .orElseThrow(ItemNotFoundException::new);
-    }
-
-    @Override
     public Page<Item> getPopularItems(Pageable pageable) {
         return itemRepository.findAllByOrderByStatusAndQuantityAsc(pageable);
     }

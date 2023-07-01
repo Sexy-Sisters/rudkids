@@ -52,19 +52,19 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{name}")
     public ResponseEntity<Void> update(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID itemId,
+        @PathVariable(name = "name") String itemName,
         @RequestBody ItemRequest.Update  request
     ) {
-        itemService.update(loginUser.id(), itemId, request);
+        itemService.update(loginUser.id(), itemName, request);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{name}")
     public ResponseEntity changeStatus(
-        @PathVariable(name = "id") UUID itemId,
+        @PathVariable(name = "name") String itemId,
         @RequestBody ItemRequest.ChangeStatus request,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
@@ -72,12 +72,12 @@ public class ItemController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     public ResponseEntity<Void> delete(
-        @PathVariable(name = "id") UUID itemId,
+        @PathVariable(name = "name") String itemName,
         @AuthenticationPrincipal AuthUser.Login loginUser
     ) {
-        itemService.delete(loginUser.id(), itemId);
+        itemService.delete(loginUser.id(), itemName);
         return ResponseEntity.ok().build();
     }
 }

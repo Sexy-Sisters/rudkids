@@ -31,20 +31,8 @@ oauth:
     response-type: code
     scopes:
       - https://www.googleapis.com/auth/userinfo.profile
-      - https://www.googleapis.com/auth/user.birthday.read
-      - https://www.googleapis.com/auth/user.gender.read
-      - https://www.googleapis.com/auth/user.phonenumbers.read
-      - https://www.googleapis.com/auth/user.emails.read
       - https://www.googleapis.com/auth/userinfo.email
     access-type: offline
-    person-fields:
-      - names
-      - photos
-      - genders
-      - birthdays
-      - emailAddresses
-      - phoneNumbers
-    key: ${GOOGLE_API_KEY}
 
   kakao:
     client-id: ${KAKAO_CLIENT_ID}
@@ -58,6 +46,9 @@ sms:
     key: ${SMS_KEY}
     secret: ${SMS_SECRET}
     domain-uri: https://api.coolsms.co.kr
+  info:
+    sender:
+      phone-number: ${SMS_SENDER_PHONE_NUMBER}
 
 payment:
   toss:

@@ -1,8 +1,8 @@
 package com.rudkids.core.auth.infrastructure;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum OAuthProvider {
     GOOGLE("google"),
     KAKAO("kakao");

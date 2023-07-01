@@ -77,7 +77,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartRequest.AddCartItem CART_새로운_아이템_요청 = CartRequest.AddCartItem.builder()
-            .itemId(newItem.getId())
+            .itemName(newItem.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("사이즈")
@@ -101,7 +101,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartRequest.AddCartItem CART_새로운_아이템_요청 = CartRequest.AddCartItem.builder()
-            .itemId(item.getId())
+            .itemName(item.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("사이즈")
@@ -130,7 +130,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartRequest.AddCartItem CART_새로운_아이템_요청 = CartRequest.AddCartItem.builder()
-            .itemId(item.getId())
+            .itemName(item.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("색깔")
@@ -163,7 +163,7 @@ class CartServiceTest extends CartServiceFixtures {
 
         //when
         CartRequest.AddCartItem CART_새로운_아이템_요청 = CartRequest.AddCartItem.builder()
-            .itemId(item.getId())
+            .itemName(item.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("색깔")

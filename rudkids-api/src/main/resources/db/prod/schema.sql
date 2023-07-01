@@ -1,17 +1,14 @@
 create table if not exists tbl_user
 (
     user_id      binary(16)   not null
-        primary key,
-    age          int          null,
+    primary key,
     email        varchar(255) null,
-    gender       varchar(255) null,
     name         varchar(255) null,
     phone_number varchar(255) null,
     deleted      bit          not null,
     path         varchar(255) null,
     url          varchar(255) null,
-    role_type    varchar(255) null,
-    social_type  varchar(255) null
+    role_type    varchar(255) null
 );
 
 create table if not exists tbl_product

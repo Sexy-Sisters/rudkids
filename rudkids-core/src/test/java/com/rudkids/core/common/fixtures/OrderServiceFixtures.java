@@ -58,7 +58,7 @@ public class OrderServiceFixtures {
 
     protected static CartRequest.AddCartItem CART_아이템_요청() {
         return CartRequest.AddCartItem.builder()
-            .itemId(item.getId())
+            .itemName(item.getEnName())
             .optionGroups(List.of(
                 CartRequest.AddCartItemOptionGroup.builder()
                     .name("사이즈")
@@ -83,15 +83,10 @@ public class OrderServiceFixtures {
             .build();
         deliveryRepository.save(delivery);
 
-        ProfileImage profileImage = ProfileImage.create("path", "url");
         user = User.builder()
-            .name(UserName.create("이규진"))
-            .age(19)
-            .email("leekuin14@gmail.com")
-            .gender("MAIL")
-            .phoneNumber(PhoneNumber.create("01029401509"))
-            .profileImage(profileImage)
-            .socialType(SocialType.GOOGLE)
+            .email("namse@gmail.com")
+            .name(UserName.create("남세"))
+            .profileImage(ProfileImage.create("path", "url"))
             .build();
         jpaUserRepository.save(user);
 

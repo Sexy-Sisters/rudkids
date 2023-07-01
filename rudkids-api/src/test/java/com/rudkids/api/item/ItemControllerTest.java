@@ -26,7 +26,7 @@ class ItemControllerTest extends ControllerTest {
     @Test
     void 아이템을_등록한다() throws Exception {
         given(itemService.create(any(), any(), any()))
-            .willReturn(아이템_아이디);
+            .willReturn(아이템_영어_이름);
 
         mockMvc.perform(post(ITEM_DEFAULT_URL + "/{productId}", 프로덕트_아이디)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

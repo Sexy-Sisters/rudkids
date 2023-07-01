@@ -23,9 +23,9 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @DisplayName("[아이템-생성]")
     @Test
     void 아이템을_생성한다() {
-        UUID itemId = itemService.create(user.getId(), product.getId(), ITEM_등록_요청);
+        String itemName = itemService.create(user.getId(), product.getId(), ITEM_등록_요청);
 
-        Item findItem = itemRepository.get(itemId);
+        Item findItem = itemRepository.getByEnNme(itemName);
         assertAll(
             () -> assertThat(findItem.getEnName()).isEqualTo("Red Pill"),
             () -> assertThat(findItem.getPrice()).isEqualTo(1_000_000),
@@ -94,11 +94,11 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void 아이템을_수정한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
 
         // When
-        itemService.update(userId, itemId, 아이템_수정_요청());
+        itemService.update(userId, itemName, 아이템_수정_요청());
 
         // Then
         assertAll(
@@ -114,13 +114,13 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void 아이템의_상태를_파는중으로_변경한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
         var itemStatus = "SELLING";
 
         // When
         ItemRequest.ChangeStatus statusRequest = new ItemRequest.ChangeStatus(itemStatus);
-        var changedStatus = itemService.changeStatus(userId, itemId, statusRequest);
+        var changedStatus = itemService.changeStatus(userId, itemName, statusRequest);
 
         // Then
         assertThat(changedStatus).isEqualTo("SELLING");
@@ -130,13 +130,13 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void 아이템의_상태를_판매완료로_변경한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
         var itemStatus = "SOLD_OUT";
 
         // When
         ItemRequest.ChangeStatus statusRequest = new ItemRequest.ChangeStatus(itemStatus);
-        var changedStatus = itemService.changeStatus(userId, itemId, statusRequest);
+        var changedStatus = itemService.changeStatus(userId, itemName, statusRequest);
 
         // Then
         assertThat(changedStatus).isEqualTo("SOLD_OUT");
@@ -146,13 +146,13 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void 아이템의_상태를_준비중으로_변경한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
         var itemStatus = "PREPARING";
 
         // When
         ItemRequest.ChangeStatus statusRequest = new ItemRequest.ChangeStatus(itemStatus);
-        var changedStatus = itemService.changeStatus(userId, itemId, statusRequest);
+        var changedStatus = itemService.changeStatus(userId, itemName, statusRequest);
 
         // Then
         assertThat(changedStatus).isEqualTo("PREPARING");
@@ -162,14 +162,14 @@ public class ItemServiceTest extends ItemServiceFixtures {
     @Test
     void 아이템을_삭제한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
 
         // When
-        itemService.delete(itemId, userId);
+        itemService.delete(userId, itemName);
 
         // Then
-        assertThatThrownBy(() -> itemRepository.get(itemId))
+        assertThatThrownBy(() -> itemRepository.getByEnNme(itemName))
             .isInstanceOf(ItemNotFoundException.class);
     }
 }

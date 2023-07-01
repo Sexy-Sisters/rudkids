@@ -2,9 +2,10 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
+    implementation 'net.jodah:expiringmap:0.5.9'
+    implementation 'net.nurigo:sdk:4.3.0'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0'
-    implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'

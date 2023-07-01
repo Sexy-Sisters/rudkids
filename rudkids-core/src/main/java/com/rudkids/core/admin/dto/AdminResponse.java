@@ -7,8 +7,6 @@ public class AdminResponse {
     public record UserInfo(
         String email,
         String name,
-        int age,
-        String gender,
         String phoneNumber,
         String profileImageUrl,
         String roleType
@@ -17,8 +15,6 @@ public class AdminResponse {
             this(
                 user.getEmail(),
                 user.getName(),
-                user.getAge(),
-                user.getGender(),
                 user.getPhoneNumber(),
                 user.getProfileImageUrl(),
                 user.getRoleType().name()

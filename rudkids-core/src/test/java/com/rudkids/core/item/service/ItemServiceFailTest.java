@@ -41,11 +41,11 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 존재하지_않는_아이템_수정_시_예외가_발생한다() {
         // Given
-        var itemId = UUID.randomUUID();
+        var invalidItemName = "invalid";
         var userId = user.getId();
 
         // When & Then
-        assertThatThrownBy(() -> itemService.update(userId, itemId, 아이템_수정_요청()))
+        assertThatThrownBy(() -> itemService.update(userId, invalidItemName, 아이템_수정_요청()))
             .isInstanceOf(ItemNotFoundException.class);
     }
 
@@ -53,13 +53,13 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_수정_시_예외가_발생한다() {
         // Given
-        var itemId = item.getId();
+        var invalidItemName = "invalid";
         var userId = user.getId();
         var user = userRepository.getUser(userId);
         user.changeAuthorityUser();
 
         // When & Then
-        assertThatThrownBy(() -> itemService.update(userId, itemId, 아이템_수정_요청()))
+        assertThatThrownBy(() -> itemService.update(userId, invalidItemName, 아이템_수정_요청()))
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 
@@ -67,13 +67,13 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 존재하지_않는_아이템_상태_변경시_예외가_발생한다() {
         // Given
-        var invalidItemId = UUID.randomUUID();
+        var invalidItemName = "invalid";
         var status = "SOLD_OUT";
         var userId = user.getId();
 
         // When & Then
         ItemRequest.ChangeStatus statusRequest = new ItemRequest.ChangeStatus(status);
-        assertThatThrownBy(() -> itemService.changeStatus(userId, invalidItemId, statusRequest))
+        assertThatThrownBy(() -> itemService.changeStatus(userId, invalidItemName, statusRequest))
             .isInstanceOf(ItemNotFoundException.class);
     }
 
@@ -81,7 +81,7 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 관리자나_파트너_권한이_아닌_유저가_아이템_상태_변경시_예외가_발생한다() {
         // Given
-        var invalidItemId = item.getId();
+        var invalidItemName = "invalid";
         var status = "SOLD_OUT";
         var userId = user.getId();
         var user = userRepository.getUser(userId);
@@ -89,7 +89,7 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
 
         // When & Then
         ItemRequest.ChangeStatus statusRequest = new ItemRequest.ChangeStatus(status);
-        assertThatThrownBy(() -> itemService.changeStatus(userId, invalidItemId, statusRequest))
+        assertThatThrownBy(() -> itemService.changeStatus(userId, invalidItemName, statusRequest))
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 
@@ -97,13 +97,13 @@ public class ItemServiceFailTest extends ItemServiceFixtures {
     @Test
     void 관리자나_파트너가_아닌_유저가_아이템_삭제_시_예외가_발생한다() {
         // Given
-        var itemId = item.getId();
+        var itemName = item.getEnName();
         var userId = user.getId();
         var user = userRepository.getUser(userId);
         user.changeAuthorityUser();
 
         // When & Then
-        assertThatThrownBy(() -> itemService.delete(itemId, userId))
+        assertThatThrownBy(() -> itemService.delete(userId, itemName))
             .isInstanceOf(NotAdminOrPartnerRoleException.class);
     }
 }

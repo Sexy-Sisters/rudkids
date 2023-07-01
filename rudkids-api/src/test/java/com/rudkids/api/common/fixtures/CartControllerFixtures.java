@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CartControllerFixtures {
 
     public static final String CART_DEFAULT_URL = "/api/v1/cart";
-    public static final UUID 아이템_ID = UUID.randomUUID();
+    public static final String 아이템_이름 = "itemName";
     public static final UUID CART_아이템_ID = UUID.randomUUID();
     public static final int 아이템_수량 = 2;
     public static final int CART_아이템_수량 = 3;
@@ -32,7 +32,7 @@ public class CartControllerFixtures {
 
     public static CartRequest.AddCartItem CART_아이템_추가_요청() {
         return CartRequest.AddCartItem.builder()
-                .itemId(아이템_ID)
+                .itemName(아이템_이름)
                 .optionGroups(List.of(
                        CartRequest.AddCartItemOptionGroup.builder()
                                .name("사이즈")

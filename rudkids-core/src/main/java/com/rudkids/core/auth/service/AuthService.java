@@ -11,4 +11,5 @@ public interface AuthService {
     AuthResponse.AccessToken generateRenewalAccessToken(AuthRequest.RenewalToken request);
     UUID extractUserId(String accessToken);
     void validateAdminAuthority(UUID userId);
+    void validatePhoneNumber(UUID userId);
 }
