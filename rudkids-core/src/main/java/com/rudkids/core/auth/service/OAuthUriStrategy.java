@@ -1,8 +1,7 @@
 package com.rudkids.core.auth.service;
 
+import com.rudkids.core.auth.annotation.OAuthProviderResolver;
 import com.rudkids.core.auth.dto.AuthResponse;
-import com.rudkids.core.auth.exception.OAuthNotFoundException;
-import com.rudkids.core.auth.infrastructure.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,17 +14,7 @@ public class OAuthUriStrategy implements OAuthUri {
 
     @Override
     public AuthResponse.Uri generate(String provider, String redirectUri) {
-        var generator = findByAnnotation(provider);
+        var generator = OAuthProviderResolver.resolve(oAuthUriGenerators, provider, OAuthUriGenerator.class);
         return generator.generate(redirectUri);
-    }
-
-    private OAuthUriGenerator findByAnnotation(String provider) {
-        return oAuthUriGenerators.stream()
-            .filter(it -> {
-                var annotation = it.getClass().getAnnotation(OAuthProvider.class);
-                return annotation.value().isSameDescription(provider);
-            })
-            .findFirst()
-            .orElseThrow(OAuthNotFoundException::new);
     }
 }

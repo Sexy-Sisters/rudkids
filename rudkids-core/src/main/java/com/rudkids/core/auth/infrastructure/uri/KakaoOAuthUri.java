@@ -1,8 +1,8 @@
 package com.rudkids.core.auth.infrastructure.uri;
 
 import com.rudkids.core.auth.dto.AuthResponse;
-import com.rudkids.core.auth.infrastructure.OAuthProvider;
-import com.rudkids.core.auth.infrastructure.OAuthProviderType;
+import com.rudkids.core.auth.annotation.OAuthProvider;
+import com.rudkids.core.auth.annotation.OAuthProviderType;
 import com.rudkids.core.auth.service.OAuthUriGenerator;
 import com.rudkids.core.config.properties.KakaoProperties;
 import lombok.RequiredArgsConstructor;

@@ -2,8 +2,8 @@ package com.rudkids.core.auth.infrastructure.client.google;
 
 import com.rudkids.core.auth.dto.OAuthRequest;
 import com.rudkids.core.auth.dto.OAuthResponse;
-import com.rudkids.core.auth.infrastructure.OAuthProvider;
-import com.rudkids.core.auth.infrastructure.OAuthProviderType;
+import com.rudkids.core.auth.annotation.OAuthProvider;
+import com.rudkids.core.auth.annotation.OAuthProviderType;
 import com.rudkids.core.auth.infrastructure.client.TokenParser;
 import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.OAuthClientManager;
