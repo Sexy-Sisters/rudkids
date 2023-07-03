@@ -1,7 +1,7 @@
 package com.rudkids.api.cart;
 
 import com.rudkids.api.auth.AuthenticationPrincipal;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.cart.dto.CartRequest;
 import com.rudkids.core.cart.service.CartService;
 import lombok.RequiredArgsConstructor;

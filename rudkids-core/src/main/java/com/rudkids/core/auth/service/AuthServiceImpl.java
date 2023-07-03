@@ -2,10 +2,9 @@ package com.rudkids.core.auth.service;
 
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.user.domain.PhoneNumber;
 import com.rudkids.core.user.domain.UserRepository;
-import com.rudkids.core.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

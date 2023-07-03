@@ -1,6 +1,6 @@
 package com.rudkids.core.user.infrastructure;
 
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;

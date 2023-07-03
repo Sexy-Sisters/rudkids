@@ -1,6 +1,6 @@
 package com.rudkids.core.user.domain;
 
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 
 import java.util.List;
 import java.util.UUID;

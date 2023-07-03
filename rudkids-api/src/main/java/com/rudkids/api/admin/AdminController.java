@@ -2,7 +2,7 @@ package com.rudkids.api.admin;
 
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.service.AdminService;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import com.rudkids.core.product.dto.ProductRequest;

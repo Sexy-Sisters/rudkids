@@ -1,6 +1,9 @@
 package com.rudkids.core.auth.infrastructure;
 
+import com.rudkids.core.auth.exception.OAuthNotFoundException;
 import lombok.AllArgsConstructor;
+
+import java.util.Arrays;
 
 @AllArgsConstructor
 public enum OAuthProvider {
@@ -9,11 +12,14 @@ public enum OAuthProvider {
 
     private final String description;
 
-    public static boolean isGoogleProvider(String description) {
-        return GOOGLE.description.equals(description);
+    public static OAuthProvider toEnum(String description) {
+        return Arrays.stream(values())
+            .filter(it -> it.isSameDescription(description))
+            .findFirst()
+            .orElseThrow(OAuthNotFoundException::new);
     }
 
-    public static boolean isKakaoProvider(String description) {
-        return KAKAO.description.equals(description);
+    private boolean isSameDescription(String description) {
+        return this.description.equals(description);
     }
 }
