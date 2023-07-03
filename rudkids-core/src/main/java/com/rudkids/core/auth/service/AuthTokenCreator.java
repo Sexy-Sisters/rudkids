@@ -15,7 +15,7 @@ public class AuthTokenCreator implements TokenCreator {
 
     @Override
     public AuthToken createAuthToken(UUID userId) {
-        String accessToken = tokenProvider.createAccessToken(String.valueOf(userId));
+        String accessToken = tokenProvider.createAccessToken(userId.toString());
         String refreshToken = createRefreshToken(userId);
         return new AuthToken(accessToken, refreshToken);
     }
@@ -23,7 +23,7 @@ public class AuthTokenCreator implements TokenCreator {
     private String createRefreshToken(UUID userId) {
         return tokenRepository.findByUserId(userId)
             .orElseGet(() -> {
-                String refreshToken = tokenProvider.createRefreshToken(String.valueOf(userId));
+                String refreshToken = tokenProvider.createRefreshToken(userId.toString());
                 return tokenRepository.save(userId, refreshToken);
             });
     }
@@ -33,7 +33,7 @@ public class AuthTokenCreator implements TokenCreator {
         tokenProvider.validateToken(refreshToken);
         UUID userId = UUID.fromString(tokenProvider.getPayload(refreshToken));
 
-        String accessTokenForRenew = tokenProvider.createAccessToken(String.valueOf(userId));
+        String accessTokenForRenew = tokenProvider.createAccessToken(userId.toString());
         var renewalAuthToken = new AuthToken(accessTokenForRenew, refreshToken);
         renewalAuthToken.validateHasSameRefreshToken(refreshToken);
         return renewalAuthToken;
