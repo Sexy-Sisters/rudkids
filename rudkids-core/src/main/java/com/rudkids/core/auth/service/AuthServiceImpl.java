@@ -3,6 +3,7 @@ package com.rudkids.core.auth.service;
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.user.domain.PhoneNumber;
 import com.rudkids.core.user.domain.UserRepository;
 import com.rudkids.core.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class AuthServiceImpl implements AuthService {
         return new AuthResponse.AccessToken(authToken.getAccessToken());
     }
 
+    @Transactional
+    @Override
+    public void registerInformation(UUID userId, AuthRequest.Register request) {
+        var user = userRepository.getUser(userId);
+        var phoneNumber = PhoneNumber.create(request.phoneNumber());
+        user.registerInformation(phoneNumber);
+    }
+
     @Override
     public UUID extractUserId(String accessToken) {
         return tokenCreator.extractPayload(accessToken);
@@ -49,6 +58,4 @@ public class AuthServiceImpl implements AuthService {
         var user = userRepository.getUser(userId);
         user.validateEmptyPhoneNumber();
     }
-
-
 }

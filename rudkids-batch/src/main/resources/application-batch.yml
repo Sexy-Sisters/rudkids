@@ -1,11 +1,19 @@
 spring:
   batch:
+    jdbc:
+      initialize-schema: always
     job:
       name: ${job.name:NONE}
 
+  datasource:
+    url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
   jpa:
     database: mysql
-    database-platform=org: hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         format_sql: true
@@ -13,12 +21,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
-  datasource:
-    url: jdbc:mysql://localhost:3307/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
 
   mail:
     host: smtp.gmail.com
@@ -32,7 +34,63 @@ spring:
           starttls:
             enable: true
 
+security:
+  jwt:
+    token:
+      secret-key: c3ByaW5nLWJvb3QtdGVzdC1zZWNyZXQta2V5
+      access:
+        expire-length: 3600000 #1시간
+      refresh:
+        expire-length: 1210000000 #14일
+
+oauth:
+  google:
+    client-id: googleClientId
+    client-secret: googleClientSecret
+    oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
+    response-type: code
+    scopes:
+      - https://www.googleapis.com/auth/userinfo.profile
+      - https://www.googleapis.com/auth/userinfo.email
+    access-type: offline
+
+  kakao:
+    client-id: kakaoClientId
+    oauth-end-point: https://kauth.kakao.com/oauth/authorize
+    app-admin-key: f9831d648ad4a0b602209f819bb84b55
+    account-uri: https://kapi.kakao.com/v2/user/me
+    token-uri: https://kauth.kakao.com/oauth/token
+
+sms:
+  api:
+    key: smsKey
+    secret: smsSecret
+    domain-uri: https://api.coolsms.co.kr
+  info:
+    sender:
+      phone-number: 01012345678
+
+application:
+  bucket:
+    name: rudkids-image
+  cloudfront:
+    url: https://cloudfront/
+  sub-domain:
+    url: sub-domain.com/
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    access-key: ${IAM_ACCESS_KEY}
+    secret-key: ${IAM_SECRET_KEY}
+    stack:
+      auto: false
+
 logging:
   level:
     com:
       batch: DEBUG
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR

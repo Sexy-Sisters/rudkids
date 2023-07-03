@@ -5,4 +5,6 @@ public class AuthRequest {
     public record Token(String authorizationCode, String redirectUri) {}
 
     public record RenewalToken(String refreshToken) {}
+
+    public record Register(String phoneNumber) {}
 }

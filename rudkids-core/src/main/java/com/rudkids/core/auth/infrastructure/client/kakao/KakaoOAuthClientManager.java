@@ -3,6 +3,7 @@ package com.rudkids.core.auth.infrastructure.client.kakao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.infrastructure.dto.kakao.KakaoUserInfo;
 import com.rudkids.core.auth.service.OAuthClientManager;
 import com.rudkids.core.config.properties.KakaoProperties;
 import com.rudkids.core.auth.infrastructure.OAuthProvider;
@@ -35,7 +36,8 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         KakaoTokenResponse kakaoTokenResponse = requestToken(code, redirectUri);
         String payload = getPayload(kakaoTokenResponse.getIdToken());
-        return parseUserInfo(payload);
+        var userInfo = parseUserInfo(payload);
+        return new AuthUser.OAuth(userInfo.email(), userInfo.nickname(), userInfo.picture());
     }
 
     private KakaoTokenResponse requestToken(String code, String redirectUri) {
@@ -57,10 +59,10 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
         return jwt.split(JWT_DELIMITER)[1];
     }
 
-    private AuthUser.OAuth parseUserInfo(String payload) {
+    private KakaoUserInfo parseUserInfo(String payload) {
         String decodedPayload = decodeJwtPayload(payload);
         try {
-            return objectMapper.readValue(decodedPayload, AuthUser.OAuth.class);
+            return objectMapper.readValue(decodedPayload, KakaoUserInfo.class);
         } catch (final JsonProcessingException e) {
             throw new OAuthException();
         }

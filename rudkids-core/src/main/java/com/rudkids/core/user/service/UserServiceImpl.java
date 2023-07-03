@@ -1,9 +1,7 @@
 package com.rudkids.core.user.service;
 
-import com.rudkids.core.user.domain.PhoneNumber;
-import com.rudkids.core.user.domain.ProfileImage;
-import com.rudkids.core.user.domain.UserName;
-import com.rudkids.core.user.domain.UserRepository;
+import com.rudkids.core.image.service.S3ImageClient;
+import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +16,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final S3ImageClient s3ImageClient;
 
     @Override
     public void update(UUID userId, UserRequest.Update request) {
         var user = userRepository.getUser(userId);
-        user.deleteUserImage();
+        deleteImage(user);
 
         var name = UserName.create(request.name());
         var phoneNumber = PhoneNumber.create(request.phoneNumber());
         var profileImage = ProfileImage.create(request.profileImagePath(), request.profileImageUrl());
         user.update(name, phoneNumber, profileImage);
+    }
+
+    private void deleteImage(User user) {
+        if(!user.isDefaultImage()) {
+            s3ImageClient.delete(user.getProfileImagePath());
+        }
     }
 
     @Transactional(readOnly = true)

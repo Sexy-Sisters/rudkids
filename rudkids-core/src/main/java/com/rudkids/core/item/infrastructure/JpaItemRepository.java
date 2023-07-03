@@ -1,6 +1,7 @@
 package com.rudkids.core.item.infrastructure;
 
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.product.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,5 +1,6 @@
 package com.rudkids.core.product.service;
 
+import com.rudkids.core.image.service.S3ImageClient;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.*;
@@ -21,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
     private final ProductFactory productFactory;
+    private final S3ImageClient s3ImageClient;
 
     @Override
     public UUID create(ProductRequest.Create request) {
@@ -63,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(UUID productId, ProductRequest.Update request) {
         var product = productRepository.get(productId);
-        product.deleteProductImages();
+        deleteImage(product);
         productFactory.update(product, request);
     }
 
@@ -77,7 +79,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(UUID productId) {
         var product = productRepository.get(productId);
-        product.deleteProductImages();
+        deleteImage(product);
         productRepository.delete(product);
+    }
+
+    private void deleteImage(Product product) {
+        s3ImageClient.delete(product.getFrontImagePath());
+        s3ImageClient.delete(product.getBackImagePath());
+
+        for(String path: product.getBannerPaths()) {
+            s3ImageClient.delete(path);
+        }
     }
 }

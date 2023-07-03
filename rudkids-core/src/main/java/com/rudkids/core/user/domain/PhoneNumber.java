@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PhoneNumber {
-    private static final int MAX_LENGTH = 11;
+    private static final int LENGTH = 11;
+    private static final String EMPTY_VALUE = "00000000000";
 
     @Column(name = "phone_number")
     private String value;
@@ -25,16 +26,20 @@ public class PhoneNumber {
         return new PhoneNumber(value);
     }
 
+    public static PhoneNumber createDefault() {
+        return new PhoneNumber(EMPTY_VALUE);
+    }
+
     private static void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new InvalidPhoneNumberException();
         }
-        if (value.length() != MAX_LENGTH) {
+        if (value.length() != LENGTH) {
             throw new InvalidPhoneNumberException();
         }
     }
 
     public boolean isEmpty() {
-        return value == null;
+        return value.equals(EMPTY_VALUE);
     }
 }

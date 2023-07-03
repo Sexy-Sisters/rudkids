@@ -84,6 +84,20 @@ public class Product {
         return productBio.getValue();
     }
 
+    public String getFrontImagePath() {
+        return frontImage.getPath();
+    }
+
+    public String getBackImagePath() {
+        return backImage.getPath();
+    }
+
+    public List<String> getBannerPaths() {
+        return productBannerImages.stream()
+            .map(ProductBannerImage::getPath)
+            .toList();
+    }
+
     public String getFrontImageUrl() {
         return frontImage.getUrl();
     }
@@ -92,19 +106,9 @@ public class Product {
         return backImage.getUrl();
     }
 
-
     public List<String> getBannerUrls() {
         return productBannerImages.stream()
             .map(ProductBannerImage::getUrl)
             .toList();
-    }
-
-    public void deleteProductImages() {
-        backImage.deleteImage();
-        frontImage.deleteImage();
-
-        for(ProductBannerImage image: productBannerImages) {
-            image.deleteImage();
-        }
     }
 }

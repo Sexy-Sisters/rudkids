@@ -120,12 +120,4 @@ public class Community extends AbstractEntity {
     public String getUrl() {
         return communityImage.getUrl();
     }
-
-    public void deleteCommunityImage() {
-        communityImage.deleteImage();
-    }
-
-    public boolean isImageDeleted() {
-        return communityImage.isDeleted();
-    }
 }

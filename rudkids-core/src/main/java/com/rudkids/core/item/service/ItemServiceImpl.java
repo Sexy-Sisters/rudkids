@@ -1,5 +1,6 @@
 package com.rudkids.core.item.service;
 
+import com.rudkids.core.image.service.S3ImageClient;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.dto.ItemResponse;
@@ -22,6 +23,7 @@ public class ItemServiceImpl implements ItemService {
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
     private final ItemFactory itemFactory;
+    private final S3ImageClient s3ImageClient;
 
     @Override
     public String create(UUID userId, UUID productId, ItemRequest.Create request) {
@@ -65,8 +67,7 @@ public class ItemServiceImpl implements ItemService {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemRepository.getByEnNme(itemName);
-        item.deleteItemImage();
-
+        deleteImage(item);
         itemFactory.update(item, request);
     }
 
@@ -86,7 +87,13 @@ public class ItemServiceImpl implements ItemService {
         var user = userRepository.getUser(userId);
         user.validateAdminOrPartnerRole();
         var item = itemRepository.getByEnNme(itemName);
-        item.deleteItemImage();
+        deleteImage(item);
         itemRepository.delete(item);
+    }
+
+    private void deleteImage(Item item) {
+        for(String path: item.getImagePaths()) {
+            s3ImageClient.delete(path);
+        }
     }
 }

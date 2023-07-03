@@ -52,9 +52,10 @@ public class User {
     private final List<Community> communities = new ArrayList<>();
 
     @Builder
-    public User(String email, UserName name, ProfileImage profileImage) {
+    public User(String email, UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
         this.email = email;
         this.name = name;
+        this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
     }
 
@@ -68,6 +69,10 @@ public class User {
         if(phoneNumber.isEmpty()) {
             throw new PhoneNumberEmptyException();
         }
+    }
+
+    public boolean isDefaultImage() {
+        return profileImage.isEmptyPath();
     }
 
     public void updatePhoneNumber(PhoneNumber phoneNumber) {
@@ -100,6 +105,10 @@ public class User {
         this.roleType = RoleType.toEnum(role);
     }
 
+    public void registerInformation(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -108,6 +117,10 @@ public class User {
 
     public void order(Order order) {
         orders.add(order);
+    }
+
+    public String getProfileImagePath() {
+        return profileImage.getPath();
     }
 
     public String getProfileImageUrl() {
@@ -128,9 +141,5 @@ public class User {
 
     public void writeCommunity(Community community) {
         communities.add(community);
-    }
-
-    public void deleteUserImage() {
-        profileImage.deleteImage();
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @RequiredArgsConstructor
 public class SimpleJobConfiguration {
+
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
 
@@ -31,7 +32,6 @@ public class SimpleJobConfiguration {
         return new StepBuilder("simpleStep", jobRepository)
             .tasklet(((contribution, chunkContext) -> {
                 log.info(">>>>> This is Step");
-                log.info(">>>>> Jenkins로 Batch 돌리기 성공");
                 return RepeatStatus.FINISHED;
             }), transactionManager)
             .build();

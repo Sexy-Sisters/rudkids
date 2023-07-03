@@ -1,6 +1,7 @@
 package com.rudkids.core.item.infrastructure;
 
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.exception.DuplicatedNameException;
 import com.rudkids.core.item.exception.ItemNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

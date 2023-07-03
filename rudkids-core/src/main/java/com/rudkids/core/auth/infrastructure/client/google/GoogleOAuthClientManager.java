@@ -3,6 +3,7 @@ package com.rudkids.core.auth.infrastructure.client.google;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.infrastructure.dto.google.GoogleUserInfo;
 import com.rudkids.core.auth.service.OAuthClientManager;
 import com.rudkids.core.auth.infrastructure.OAuthProvider;
 import com.rudkids.core.auth.infrastructure.dto.google.GoogleTokenRequest;
@@ -36,7 +37,8 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         GoogleTokenResponse googleTokenResponse = requestToken(code, redirectUri);
         String payload = getPayload(googleTokenResponse.getIdToken());
-        return parseUserInfo(payload);
+        var userInfo = parseUserInfo(payload);
+        return new AuthUser.OAuth(userInfo.email(), userInfo.name(), userInfo.picture());
     }
 
     private GoogleTokenResponse requestToken(String code, String redirectUri) {
@@ -63,10 +65,10 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
         return jwt.split(JWT_DELIMITER)[1];
     }
 
-    private AuthUser.OAuth parseUserInfo(String payload) {
+    private GoogleUserInfo parseUserInfo(String payload) {
         String decodedPayload = decodeJwtPayload(payload);
         try {
-            return objectMapper.readValue(decodedPayload, AuthUser.OAuth.class);
+            return objectMapper.readValue(decodedPayload, GoogleUserInfo.class);
         } catch (final JsonProcessingException e) {
             throw new OAuthException();
         }

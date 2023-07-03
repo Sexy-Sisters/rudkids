@@ -8,7 +8,6 @@ import java.util.UUID;
 public interface CommunityRepository {
     void save(Community community);
     List<Community> getCommunities(String type, Pageable pageable);
-    List<String> getImageFileNames();
     Community getCommunity(UUID id);
     void delete(Community community);
 }
