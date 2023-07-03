@@ -1,13 +1,14 @@
 package com.rudkids.core.auth.infrastructure.uri;
 
 import com.rudkids.core.auth.dto.AuthResponse;
+import com.rudkids.core.auth.infrastructure.OAuthProvider;
+import com.rudkids.core.auth.infrastructure.OAuthProviderType;
 import com.rudkids.core.auth.service.OAuthUriGenerator;
 import com.rudkids.core.config.properties.GoogleProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
+@OAuthProvider(OAuthProviderType.GOOGLE)
 public class GoogleOAuthUri implements OAuthUriGenerator {
     private final GoogleProperties properties;
 

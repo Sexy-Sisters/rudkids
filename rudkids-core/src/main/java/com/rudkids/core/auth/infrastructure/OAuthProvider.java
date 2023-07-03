@@ -1,25 +1,24 @@
 package com.rudkids.core.auth.infrastructure;
 
-import com.rudkids.core.auth.exception.OAuthNotFoundException;
-import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@AllArgsConstructor
-public enum OAuthProvider {
-    GOOGLE("google"),
-    KAKAO("kakao");
+/**
+ * 이 어노테이션이 달린 클래스는 OAuth 공급자임을 나타냅니다.
+ * @author  Namsewon
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Component
+public @interface OAuthProvider {
 
-    private final String description;
-
-    public static OAuthProvider toEnum(String description) {
-        return Arrays.stream(values())
-            .filter(it -> it.isSameDescription(description))
-            .findFirst()
-            .orElseThrow(OAuthNotFoundException::new);
-    }
-
-    private boolean isSameDescription(String description) {
-        return this.description.equals(description);
-    }
+    /**
+     * 어떤 OAuth 공급자를 처리하는지 나타낸다.
+     * @return the oAuthProviderType enum
+     */
+    OAuthProviderType value();
 }

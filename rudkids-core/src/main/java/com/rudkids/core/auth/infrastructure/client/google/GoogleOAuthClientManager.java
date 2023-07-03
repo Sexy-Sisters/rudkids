@@ -2,6 +2,8 @@ package com.rudkids.core.auth.infrastructure.client.google;
 
 import com.rudkids.core.auth.dto.OAuthRequest;
 import com.rudkids.core.auth.dto.OAuthResponse;
+import com.rudkids.core.auth.infrastructure.OAuthProvider;
+import com.rudkids.core.auth.infrastructure.OAuthProviderType;
 import com.rudkids.core.auth.infrastructure.client.TokenParser;
 import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.OAuthClientManager;
@@ -10,14 +12,13 @@ import com.rudkids.core.config.properties.GoogleProperties;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
+@OAuthProvider(OAuthProviderType.GOOGLE)
 public class GoogleOAuthClientManager implements OAuthClientManager {
     private final GoogleProperties properties;
     private final GoogleTokenClient googleTokenClient;

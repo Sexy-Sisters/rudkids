@@ -2,6 +2,8 @@ package com.rudkids.core.auth.infrastructure.client.kakao;
 
 import com.rudkids.core.auth.dto.OAuthRequest;
 import com.rudkids.core.auth.dto.OAuthResponse;
+import com.rudkids.core.auth.infrastructure.OAuthProvider;
+import com.rudkids.core.auth.infrastructure.OAuthProviderType;
 import com.rudkids.core.auth.infrastructure.client.TokenParser;
 import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.OAuthClientManager;
@@ -10,11 +12,10 @@ import com.rudkids.core.auth.exception.OAuthException;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
+@OAuthProvider(OAuthProviderType.KAKAO)
 public class KakaoOAuthClientManager implements OAuthClientManager {
     private final KakaoProperties properties;
     private final KakaoTokenClient kakaoTokenClient;
