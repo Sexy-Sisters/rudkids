@@ -1,7 +1,7 @@
 package com.rudkids.api.admin;
 
 import com.rudkids.api.auth.AuthorizationExtractor;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

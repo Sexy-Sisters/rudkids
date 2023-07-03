@@ -1,7 +1,7 @@
 package com.rudkids.api.user;
 
 import com.rudkids.api.auth.AuthenticationPrincipal;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.service.UserService;
 import lombok.RequiredArgsConstructor;

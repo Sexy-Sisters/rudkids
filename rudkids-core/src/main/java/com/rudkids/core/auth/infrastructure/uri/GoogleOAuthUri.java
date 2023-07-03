@@ -3,7 +3,6 @@ package com.rudkids.core.auth.infrastructure.uri;
 import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.service.OAuthUriGenerator;
 import com.rudkids.core.config.properties.GoogleProperties;
-import com.rudkids.core.auth.infrastructure.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +10,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GoogleOAuthUri implements OAuthUriGenerator {
     private final GoogleProperties properties;
-
-    @Override
-    public boolean isOAuthUri(String provider) {
-        return OAuthProvider.isGoogleProvider(provider);
-    }
 
     @Override
     public AuthResponse.Uri generate(String redirectUri) {

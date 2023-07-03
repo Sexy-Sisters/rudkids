@@ -1,7 +1,7 @@
 package com.rudkids.api.auth;
 
 import com.rudkids.core.auth.dto.AuthRequest;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.AuthService;
 import com.rudkids.core.auth.service.OAuthClient;
 import com.rudkids.core.auth.service.OAuthUri;

@@ -1,7 +1,7 @@
 package com.rudkids.api.order;
 
 import com.rudkids.api.auth.AuthenticationPrincipal;
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import lombok.RequiredArgsConstructor;

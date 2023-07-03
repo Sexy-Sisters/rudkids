@@ -1,4 +1,4 @@
-package com.rudkids.core.auth.infrastructure.dto;
+package com.rudkids.core.auth.dto;
 
 import lombok.Builder;
 

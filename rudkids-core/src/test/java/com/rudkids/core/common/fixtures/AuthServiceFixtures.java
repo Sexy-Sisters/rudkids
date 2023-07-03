@@ -1,6 +1,6 @@
 package com.rudkids.core.common.fixtures;
 
-import com.rudkids.core.auth.infrastructure.dto.AuthUser;
+import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.AuthService;
 import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.user.infrastructure.JpaUserRepository;
