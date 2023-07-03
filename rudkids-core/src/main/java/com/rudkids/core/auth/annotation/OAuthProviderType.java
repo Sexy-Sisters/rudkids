@@ -1,4 +1,4 @@
-package com.rudkids.core.auth.infrastructure;
+package com.rudkids.core.auth.annotation;
 
 import lombok.AllArgsConstructor;
 
