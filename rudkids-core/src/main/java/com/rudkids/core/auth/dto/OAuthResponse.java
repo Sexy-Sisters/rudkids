@@ -12,7 +12,7 @@ public class OAuthResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
-    public class GoogleToken {
+    public static class GoogleToken {
         private String idToken;
     }
 
@@ -26,7 +26,7 @@ public class OAuthResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
-    public class KakaoToken {
+    public static class KakaoToken {
         private String idToken;
     }
 

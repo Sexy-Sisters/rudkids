@@ -22,7 +22,7 @@ public class OAuthRequest {
 
     @NoArgsConstructor
     @Getter
-    public class KakaoToken {
+    public static class KakaoToken {
         @FormProperty("client_id")
         private String clientId;
 
