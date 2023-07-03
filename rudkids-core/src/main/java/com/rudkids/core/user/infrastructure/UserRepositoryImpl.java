@@ -1,10 +1,7 @@
 package com.rudkids.core.user.infrastructure;
 
 import com.rudkids.core.auth.infrastructure.dto.AuthUser;
-import com.rudkids.core.user.domain.ProfileImage;
-import com.rudkids.core.user.domain.User;
-import com.rudkids.core.user.domain.UserName;
-import com.rudkids.core.user.domain.UserRepository;
+import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.exception.NotFoundUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,11 +27,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     private User saveUser(AuthUser.OAuth oauthUser) {
         UserName userName = UserName.create(oauthUser.name());
-        ProfileImage image = ProfileImage.create("", oauthUser.picture());
+        ProfileImage image = ProfileImage.createDefault(oauthUser.picture());
+        PhoneNumber phoneNumber = PhoneNumber.createDefault();
 
         var user = User.builder()
             .email(oauthUser.email())
             .name(userName)
+            .phoneNumber(phoneNumber)
             .profileImage(image)
             .build();
         return userRepository.save(user);

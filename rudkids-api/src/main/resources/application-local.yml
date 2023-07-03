@@ -9,7 +9,3 @@ spring:
         format_sql: true
         show-sql: true
     generate-ddl: true
-
-  batch:
-    jdbc:
-      initialize-schema: always

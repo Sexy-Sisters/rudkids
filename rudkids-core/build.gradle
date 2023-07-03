@@ -2,7 +2,6 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'net.jodah:expiringmap:0.5.9'
     implementation 'net.nurigo:sdk:4.3.0'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"

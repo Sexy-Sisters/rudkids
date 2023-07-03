@@ -1,11 +1,9 @@
 package com.rudkids.core.community.service;
 
-import com.rudkids.core.community.domain.CommunityImage;
-import com.rudkids.core.community.domain.CommunityRepository;
-import com.rudkids.core.community.domain.Content;
-import com.rudkids.core.community.domain.Title;
+import com.rudkids.core.community.domain.*;
 import com.rudkids.core.community.dto.CommunityRequest;
 import com.rudkids.core.community.dto.CommunityResponse;
+import com.rudkids.core.image.service.S3ImageClient;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +19,7 @@ import java.util.UUID;
 public class CommunityServiceImpl implements CommunityService {
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
+    private final S3ImageClient s3ImageClient;
 
     @Override
     public UUID create(UUID userId, CommunityRequest.Create request) {
@@ -51,6 +50,7 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userRepository.getUser(userId);
         var community = communityRepository.getCommunity(communityId);
         community.validateHasSameUser(user);
+        deleteImage(community);
 
         var title = Title.create(request.title());
         var content = Content.create(request.content());
@@ -63,6 +63,11 @@ public class CommunityServiceImpl implements CommunityService {
         var user = userRepository.getUser(userId);
         var community = communityRepository.getCommunity(communityId);
         community.validateHasSameUser(user);
+        deleteImage(community);
         communityRepository.delete(community);
+    }
+
+    private void deleteImage(Community community) {
+        s3ImageClient.delete(community.getPath());
     }
 }
