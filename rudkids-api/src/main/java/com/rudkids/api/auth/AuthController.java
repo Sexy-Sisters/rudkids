@@ -5,7 +5,6 @@ import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.AuthService;
 import com.rudkids.core.auth.service.OAuthClient;
 import com.rudkids.core.auth.service.OAuthUri;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,17 +40,6 @@ public class AuthController {
     public ResponseEntity generateRenewalAccessToken(@RequestBody AuthRequest.RenewalToken request) {
         var response = authService.generateRenewalAccessToken(request);
         return ResponseEntity.ok(response);
-    }
-
-    @PatchMapping("/register")
-    public ResponseEntity<Void> registerInformation(
-        HttpServletRequest httpRequest,
-        @RequestBody AuthRequest.Register request
-    ) {
-        var accessToken = AuthorizationExtractor.extract(httpRequest);
-        var userId = authService.extractUserId(accessToken);
-        authService.registerInformation(userId, request);
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/validate/token")

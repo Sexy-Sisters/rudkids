@@ -6,5 +6,5 @@ public interface VerificationService {
 
     void send(VerifyRequest.Send request);
 
-    void check(VerifyRequest.Check request);
+    String check(VerifyRequest.Check request);
 }

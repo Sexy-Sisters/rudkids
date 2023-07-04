@@ -24,7 +24,7 @@ public class VerificationServiceImpl implements VerificationService {
         validate(request);
         String code = verifyCodeGenerator.generate();
         smsMessenger.send(request.phoneNumber(), code);
-        verificationCodeRepository.save(code);
+        verificationCodeRepository.save(request.phoneNumber(), code);
     }
 
     private void validate(VerifyRequest.Send request) {
@@ -38,9 +38,10 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public void check(VerifyRequest.Check request) {
-        String foundCode = verificationCodeRepository.get(request.code());
+    public String check(VerifyRequest.Check request) {
+        String foundCode = verificationCodeRepository.get(request.phoneNumber());
         var verificationCode = new VerificationCode(foundCode);
         verificationCode.validateHasSameRefreshToken(request.code());
+        return request.phoneNumber();
     }
 }
