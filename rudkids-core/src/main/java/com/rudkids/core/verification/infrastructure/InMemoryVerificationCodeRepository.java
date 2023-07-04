@@ -20,8 +20,8 @@ public class InMemoryVerificationCodeRepository implements VerificationCodeRepos
         .build();
 
     @Override
-    public void save(String code) {
-        CODE_REPOSITORY.put(code, code);
+    public void save(String phoneNumber, String code) {
+        CODE_REPOSITORY.put(phoneNumber, code);
     }
 
     @Override
