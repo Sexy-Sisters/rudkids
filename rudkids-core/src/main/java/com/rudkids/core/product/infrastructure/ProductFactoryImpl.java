@@ -21,12 +21,14 @@ public class ProductFactoryImpl implements ProductFactory {
         var bio = ProductBio.create(request.productBio());
         var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
         var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
+        var category = ProductCategory.toEnum(request.category());
 
         return Product.builder()
             .title(title)
             .productBio(bio)
             .frontImage(frontImage)
             .backImage(backImage)
+            .productCategory(category)
             .build();
     }
 
@@ -43,7 +45,10 @@ public class ProductFactoryImpl implements ProductFactory {
         var bio = ProductBio.create(request.productBio());
         var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
         var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
+        var category = ProductCategory.toEnum(request.category());
 
-        product.update(title, bio, frontImage, backImage);
+        product.update(title, bio, frontImage, backImage, category);
     }
+
+
 }

@@ -11,14 +11,16 @@ public class ProductRequest {
         String productBio,
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
-        List<ImageRequest.Create> bannerImages
+        List<ImageRequest.Create> bannerImages,
+        String category
     ) {}
 
     public record Update(
         String title,
         String productBio,
         ImageRequest.Create frontImage,
-        ImageRequest.Create backImage
+        ImageRequest.Create backImage,
+        String category
     ) {}
 
     public record ChangeStatus(String productStatus) {}
