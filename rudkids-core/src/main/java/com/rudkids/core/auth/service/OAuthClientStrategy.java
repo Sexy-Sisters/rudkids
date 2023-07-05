@@ -14,7 +14,7 @@ public class OAuthClientStrategy implements OAuthClient {
 
     @Override
     public AuthUser.OAuth getOAuthUser(String provider, String code, String redirectUri) {
-        var manager = OAuthProviderResolver.resolve(oAuthClientManagers, provider, OAuthClientManager.class);
+        var manager = OAuthProviderResolver.resolve(oAuthClientManagers, provider);
         return manager.getOAuthUser(code, redirectUri);
     }
 }

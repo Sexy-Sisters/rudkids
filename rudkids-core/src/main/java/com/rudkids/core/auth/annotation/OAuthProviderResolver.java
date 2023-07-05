@@ -4,16 +4,30 @@ import com.rudkids.core.auth.exception.OAuthNotFoundException;
 
 import java.util.List;
 
+/**
+ * 이 클래스는 클라이언트가 요청한 OAuth공급자를 찾아 반환하는 클래스입니다.
+ *
+ * @author Namsewon
+ */
 public class OAuthProviderResolver {
 
-    public static <T> T resolve(List<?> list, String provider, Class<T> responseType) {
+    /**
+     * {@link OAuthProvider @OAuthProvider} 를 적용한 클래스들의 인터페이스 리스트를 받아서 <br>
+     * 클라이언트가 요청한 Provider값을 찾아서 반환해줍니다.
+     * @param list login url generator or oauth client manager
+     * @param provider client request value
+     * @return oauth provider classType
+     */
+    public static <T> T resolve(List<T> list, String provider) {
         return list.stream()
-            .filter(it -> {
-                var annotation = it.getClass().getAnnotation(OAuthProvider.class);
-                return annotation.value().isSameDescription(provider);
-            })
+            .filter(it -> it.getClass().isAnnotationPresent(OAuthProvider.class))
+            .filter(it -> isSameOAuthProvider(it.getClass(), provider))
             .findFirst()
-            .map(responseType::cast)
             .orElseThrow(OAuthNotFoundException::new);
+    }
+
+    private static boolean isSameOAuthProvider(Class<?> providerClass, String provider) {
+        var providerType = providerClass.getAnnotation(OAuthProvider.class).value();
+        return providerType.isSameDescription(provider);
     }
 }

@@ -1,12 +1,13 @@
 package com.rudkids.core.item.service;
 
-import com.rudkids.core.image.service.S3ImageClient;
+import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
     private final ItemFactory itemFactory;
-    private final S3ImageClient s3ImageClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public String create(UUID userId, UUID productId, ItemRequest.Create request) {
@@ -92,7 +93,7 @@ public class ItemServiceImpl implements ItemService {
 
     private void deleteImage(Item item) {
         for(String path: item.getImagePaths()) {
-            s3ImageClient.delete(path);
+            eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }
     }
 }
