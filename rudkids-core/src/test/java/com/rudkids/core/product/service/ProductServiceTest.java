@@ -29,7 +29,8 @@ class ProductServiceTest extends ProductServiceFixtures {
             new ImageRequest.Create("image", "image.jpg"),
             List.of(
                 new ImageRequest.Create("image", "image.jpg")
-            )
+            ),
+            "TOY"
         );
 
         // When
@@ -75,12 +76,12 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("[프로덕트-검색]")
+    @DisplayName("[프로덕트-카테도리별-조회]")
     @Test
-    void 제목으로_프로덕트를_검색한다() {
+    void 카테고리별로_프로덕트들을_조회한다() {
         //given, when
-        final String title = "프로덕트";
-        var productInfo = productService.search(title);
+        final String category = "TOY";
+        var productInfo = productService.getByCategory(category);
 
         //then
         assertThat(productInfo).hasSize(4);

@@ -160,7 +160,11 @@ public class AdminControllerTest extends ControllerTest {
 
                     fieldWithPath("bannerImages[]url")
                         .type(JsonFieldType.STRING)
-                        .description("배너 이미지 url")
+                        .description("배너 이미지 url"),
+
+                    fieldWithPath("category")
+                        .type(JsonFieldType.STRING)
+                        .description("카테고리")
                 )
             ))
             .andExpect(status().isOk());
@@ -248,7 +252,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("backImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("뒤 이미지 url")
+                            .description("뒤 이미지 url"),
+
+                        fieldWithPath("category")
+                            .type(JsonFieldType.STRING)
+                            .description("카테고리")
                     )
                 )
             )

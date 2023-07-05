@@ -56,9 +56,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse.Search> search(String title) {
-        return productRepository.get(title).stream()
-            .map(ProductResponse.Search::new)
+    public List<ProductResponse.Main> getByCategory(String category) {
+        return productRepository.get(category).stream()
+            .map(ProductResponse.Main::new)
             .toList();
     }
 

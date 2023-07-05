@@ -8,4 +8,5 @@ import java.util.List;
 public interface ImageService {
     ImageResponse.Info upload(MultipartFile image);
     List<ImageResponse.Info> uploads(List<MultipartFile> images);
+    void delete(String path);
 }

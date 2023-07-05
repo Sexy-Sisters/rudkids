@@ -38,14 +38,4 @@ public class ProductResponse {
         List<String> bannerImageUrls,
         Page<ItemResponse.Main> items
     ) {}
-
-    public record Search(
-        UUID productId,
-        String title,
-        String frontImageUrl
-    ) {
-        public Search(Product product) {
-            this(product.getId(), product.getTitle(), product.getFrontImageUrl());
-        }
-    }
 }

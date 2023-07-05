@@ -225,33 +225,41 @@ class ProductControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-    @DisplayName("[프로덕트-검색]")
+    @DisplayName("[프로덕트-카테고리별-조회]")
     @Test
-    void 제목으로_프로덕트를_검색한다() throws Exception {
-        given(productService.search(any()))
-            .willReturn(PRODUCT_검색_INFO_응답());
+    void 카테고리별로_프로덕트를_조회한다() throws Exception {
+        given(productService.getByCategory(any()))
+            .willReturn(PRODUCT_카테도리_응답());
 
-        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/search?title={title}", 프로덕트_제목))
+        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/categories?category={category}", 프로덕트_카테고리))
             .andDo(print())
-            .andDo(document("product/search",
+            .andDo(document("product/getByCategory",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     queryParameters(
-                        parameterWithName("title")
-                            .description("프로덕트 제목")
+                        parameterWithName("category")
+                            .description("프로덕트 카테도리")
                     ),
                     responseFields(
                         fieldWithPath("[]productId")
                             .type(JsonFieldType.STRING)
-                            .description("프로덕트 아이티"),
+                            .description("프로덕트 아이디"),
 
                         fieldWithPath("[]title")
                             .type(JsonFieldType.STRING)
-                            .description("프로덕트 제목"),
+                            .description("매거진 제목"),
 
                         fieldWithPath("[]frontImageUrl")
                             .type(JsonFieldType.STRING)
-                            .description("프로덕트 앞 이미지")
+                            .description("프로덕트 앞 이미지"),
+
+                        fieldWithPath("[]backImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 뒤 이미지"),
+
+                        fieldWithPath("[]status")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 상태")
                     )
                 )
             )

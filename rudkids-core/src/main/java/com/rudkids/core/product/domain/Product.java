@@ -39,6 +39,9 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
@@ -49,19 +52,25 @@ public class Product {
     public Product(final Title title,
                    final ProductBio productBio,
                    final ProductFrontImage frontImage,
-                   final ProductBackImage backImage) {
+                   final ProductBackImage backImage,
+                   final ProductCategory productCategory) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
+        this.productCategory = productCategory;
     }
 
-    public void update(Title title, ProductBio productBio,
-                       ProductFrontImage frontImage, ProductBackImage backImage) {
+    public void update(final Title title,
+                       final ProductBio productBio,
+                       final ProductFrontImage frontImage,
+                       final ProductBackImage backImage,
+                       final ProductCategory productCategory) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
+        this.productCategory = productCategory;
     }
 
     public void addBannerImage(ProductBannerImage productBannerImage) {

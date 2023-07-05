@@ -27,9 +27,9 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity search(@RequestParam String title) {
-        var response = productService.search(title);
+    @GetMapping("/categories")
+    public ResponseEntity getByCategory(@RequestParam String category) {
+        var response = productService.getByCategory(category);
         return ResponseEntity.ok(response);
     }
 }

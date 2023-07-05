@@ -18,7 +18,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageResponse.Info upload(MultipartFile file) {
-        validate(file);
+        validate(file.getOriginalFilename());
         String fileName = fileNameGenerator.generate(file.getOriginalFilename());
         String uploadUrl = s3ImageClient.upload(file, fileName);
         return new ImageResponse.Info(fileName, uploadUrl);
@@ -27,22 +27,23 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<ImageResponse.Info> uploads(List<MultipartFile> files) {
         return files.stream()
-            .map(it ->  {
-                validate(it);
-                String fileName = fileNameGenerator.generate(it.getOriginalFilename());
-                String uploadUrl = s3ImageClient.upload(it, fileName);
-                return new ImageResponse.Info(fileName, uploadUrl);
-            })
+            .map(this::upload)
             .toList();
     }
 
-    private void validate(MultipartFile file) {
-        if(isEmptyFileName(file)) {
+    @Override
+    public void delete(String path) {
+        validate(path);
+        s3ImageClient.delete(path);
+    }
+
+    private void validate(String fileName) {
+        if(isEmptyFileName(fileName)) {
             throw new FileNameEmptyException();
         }
     }
 
-    private boolean isEmptyFileName(final MultipartFile uploadImageFile) {
-        return Objects.requireNonNull(uploadImageFile.getOriginalFilename()).trim().isEmpty();
+    private boolean isEmptyFileName(String fileName) {
+        return Objects.requireNonNull(fileName).trim().isEmpty();
     }
 }

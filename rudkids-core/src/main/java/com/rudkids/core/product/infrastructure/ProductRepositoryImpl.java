@@ -1,6 +1,7 @@
 package com.rudkids.core.product.infrastructure;
 
 import com.rudkids.core.product.domain.Product;
+import com.rudkids.core.product.domain.ProductCategory;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.product.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> get(String title) {
-        return productRepository.findByTitleValueContaining(title);
+    public List<Product> get(String category) {
+        var productCategory = ProductCategory.toEnum(category);
+        return productRepository.findAllByCategory(productCategory);
     }
 
     @Override
