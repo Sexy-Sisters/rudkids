@@ -14,7 +14,7 @@ public class OAuthUriStrategy implements OAuthUri {
 
     @Override
     public AuthResponse.Uri generate(String provider, String redirectUri) {
-        var generator = OAuthProviderResolver.resolve(oAuthUriGenerators, provider, OAuthUriGenerator.class);
+        var generator = OAuthProviderResolver.resolve(oAuthUriGenerators, provider);
         return generator.generate(redirectUri);
     }
 }

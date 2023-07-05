@@ -1,12 +1,13 @@
 package com.rudkids.core.product.service;
 
-import com.rudkids.core.image.service.S3ImageClient;
+import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.*;
 import com.rudkids.core.product.dto.ProductRequest;
 import com.rudkids.core.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ItemRepository itemRepository;
     private final ProductFactory productFactory;
-    private final S3ImageClient s3ImageClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public UUID create(ProductRequest.Create request) {
@@ -67,8 +68,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(UUID productId, ProductRequest.Update request) {
         var product = productRepository.get(productId);
-        deleteImage(product);
         productFactory.update(product, request);
+
+        eventPublisher.publishEvent(new ImageDeletedEvent(product.getFrontImagePath()));
+        eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
     }
 
     @Override
@@ -81,16 +84,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(UUID productId) {
         var product = productRepository.get(productId);
-        deleteImage(product);
         productRepository.delete(product);
+        deleteImage(product);
     }
 
     private void deleteImage(Product product) {
-        s3ImageClient.delete(product.getFrontImagePath());
-        s3ImageClient.delete(product.getBackImagePath());
+        eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
+        eventPublisher.publishEvent(new ImageDeletedEvent(product.getFrontImagePath()));
 
         for(String path: product.getBannerPaths()) {
-            s3ImageClient.delete(path);
+            eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }
     }
 }

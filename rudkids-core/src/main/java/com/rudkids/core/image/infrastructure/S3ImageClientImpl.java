@@ -6,7 +6,6 @@ import com.rudkids.core.image.exception.FileUploadFailException;
 import com.rudkids.core.image.service.S3ImageClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,7 +52,6 @@ public class S3ImageClientImpl implements S3ImageClient {
         return imageDomainUrl + fileName;
     }
 
-    @Async("deleteImageExecutor")
     @Override
     public void delete(String fileName) {
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));

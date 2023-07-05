@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 public @interface OAuthProvider {
 
     /**
-     * 어떤 OAuth 공급자를 처리하는지 나타낸냅니다.
+     * 어떤 OAuth 공급자를 처리하는지 나타냅니다.
      * @return the oAuthProviderType enum
      */
     OAuthProviderType value();
