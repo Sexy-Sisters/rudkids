@@ -5,7 +5,6 @@ create table if not exists tbl_user
     email        varchar(255) null,
     name         varchar(255) null,
     phone_number varchar(255) null,
-    deleted      bit          not null,
     path         varchar(255) null,
     url          varchar(255) null,
     role_type    varchar(255) null
@@ -14,18 +13,16 @@ create table if not exists tbl_user
 create table if not exists tbl_product
 (
     product_id     binary(16)   not null
-        primary key,
-    back_deleted   bit          null,
+    primary key,
     back_path      varchar(255) null,
     back_url       varchar(255) null,
-    front_deleted  bit          null,
     front_path     varchar(255) null,
     front_url      varchar(255) null,
     item_bio       varchar(255) null,
     product_status varchar(255) null,
     title          varchar(255) null,
     constraint UK_cou7p71iu1bfkbxq7adatkhm7
-        unique (title)
+    unique (title)
 );
 
 create table if not exists tbl_item
@@ -83,13 +80,12 @@ create table if not exists tbl_item_option
 create table if not exists tbl_item_image
 (
     item_image binary(16)   not null
-        primary key,
-    deleted    bit          not null,
+    primary key,
     path       varchar(255) null,
     url        varchar(255) null,
     item_id    binary(16)   null,
     constraint FKcu395ch9q5kde0eh66stykdaq
-        foreign key (item_id) references tbl_item (item_id)
+    foreign key (item_id) references tbl_item (item_id)
 );
 
 create table if not exists tbl_delivery
@@ -114,7 +110,6 @@ create table if not exists tbl_community
     primary key,
     created_at     datetime(6)  null,
     updated_at     datetime(6)  null,
-    deleted        bit          not null,
     path           varchar(255) null,
     url            varchar(255) null,
     community_type varchar(255) null,
@@ -189,13 +184,12 @@ create table if not exists tbl_cart_item_option_group
 create table if not exists product_banner_image
 (
     product_banner_image_id binary(16)   not null
-        primary key,
-    deleted                 bit          not null,
+    primary key,
     path                    varchar(255) null,
     url                     varchar(255) null,
     product_id              binary(16)   null,
     constraint FKgcyypgr7cmo7v6i0jb5spph1s
-        foreign key (product_id) references tbl_product (product_id)
+    foreign key (product_id) references tbl_product (product_id)
 );
 
 create table if not exists tbl_order
