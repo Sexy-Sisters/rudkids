@@ -35,8 +35,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> get(String category) {
-        var productCategory = ProductCategory.toEnum(category);
-        return productRepository.findAllByCategory(productCategory);
+        return productRepository.findAll();
     }
 
     @Override

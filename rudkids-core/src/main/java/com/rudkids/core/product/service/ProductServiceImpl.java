@@ -57,7 +57,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductResponse.Main> getByCategory(String category) {
+        var productCategory = ProductCategory.toEnum(category);
         return productRepository.get(category).stream()
+            .filter(it -> it.isSameCategory(productCategory))
             .map(ProductResponse.Main::new)
             .toList();
     }

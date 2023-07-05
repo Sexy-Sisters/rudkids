@@ -73,6 +73,10 @@ public class Product {
         this.productCategory = productCategory;
     }
 
+    public boolean isSameCategory(ProductCategory productCategory) {
+        return this.productCategory == productCategory;
+    }
+
     public void addBannerImage(ProductBannerImage productBannerImage) {
         productBannerImages.add(productBannerImage);
     }
