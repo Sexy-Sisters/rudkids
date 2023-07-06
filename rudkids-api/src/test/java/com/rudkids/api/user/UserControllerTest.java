@@ -48,10 +48,6 @@ class UserControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("유저 이름"),
 
-                    fieldWithPath("phoneNumber")
-                        .type(JsonFieldType.STRING)
-                        .description("유저 폰번호"),
-
                     fieldWithPath("profileImagePath")
                         .type(JsonFieldType.STRING)
                         .description("유저 이미지 주소"),

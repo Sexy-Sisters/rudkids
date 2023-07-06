@@ -32,6 +32,7 @@ public class AuthenticationAdminAuthorityArgumentResolver implements HandlerMeth
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String accessToken = AuthorizationExtractor.extract(request);
         UUID userId = authService.extractUserId(accessToken);
+        authService.validatePhoneNumber(userId);
         authService.validateAdminAuthority(userId);
         return new AuthUser.Login(userId);
     }

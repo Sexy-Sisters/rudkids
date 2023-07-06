@@ -1,11 +1,11 @@
 package com.rudkids.core.verification.exception;
 
-import com.rudkids.core.common.exception.NotFoundException;
+import com.rudkids.core.common.exception.UnauthorizedException;
 
-public class VerificationCodeNotFoundException extends NotFoundException {
-    private static final String MESSAGE = "인증코드가 존재하지 않습니다.";
+public class ExpiredCodeException extends UnauthorizedException {
+    private static final String MESSAGE = "인증코드가 만료되었습니다.";
 
-    public VerificationCodeNotFoundException() {
+    public ExpiredCodeException() {
         super(MESSAGE);
     }
 }

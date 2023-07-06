@@ -23,7 +23,6 @@ public class UserServiceTest extends UserServiceFixtures {
         //given
         UserRequest.Update command = UserRequest.Update.builder()
             .name("새로운 이름")
-            .phoneNumber("01012345678")
             .profileImagePath("path")
             .profileImageUrl("url")
             .build();
@@ -35,7 +34,6 @@ public class UserServiceTest extends UserServiceFixtures {
         User actual = userRepository.getUser(user.getId());
         assertAll(() -> {
             assertThat(actual.getName()).isEqualTo("새로운 이름");
-            assertThat(actual.getPhoneNumber()).isEqualTo("01012345678");
             assertThat(actual.getProfileImageUrl()).isEqualTo("url");
         });
     }

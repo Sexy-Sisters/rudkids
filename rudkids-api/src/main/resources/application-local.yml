@@ -3,9 +3,13 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
         show-sql: true
     generate-ddl: true
+
+  batch:
+    jdbc:
+      initialize-schema: always
