@@ -73,12 +73,6 @@ cloud:
     stack:
       auto: false
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: prometheus
-
 logging:
   level:
     com:

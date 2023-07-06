@@ -24,9 +24,8 @@ public class UserServiceImpl implements UserService {
         var user = userRepository.getUser(userId);
 
         var name = UserName.create(request.name());
-        var phoneNumber = PhoneNumber.create(request.phoneNumber());
         var profileImage = ProfileImage.create(request.profileImagePath(), request.profileImageUrl());
-        user.update(name, phoneNumber, profileImage);
+        user.update(name, profileImage);
         deleteImage(user);
     }
 

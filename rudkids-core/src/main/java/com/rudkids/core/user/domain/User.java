@@ -109,9 +109,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void update(UserName name, PhoneNumber phoneNumber, ProfileImage profileImage) {
+    public void update(UserName name, ProfileImage profileImage) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
     }
 

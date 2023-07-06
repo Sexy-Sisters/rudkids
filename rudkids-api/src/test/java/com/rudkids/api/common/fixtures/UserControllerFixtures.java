@@ -12,7 +12,7 @@ public class UserControllerFixtures {
     private static final String USER_프로필_이미지 = "url";
 
     public static UserRequest.Update USER_수정_요청() {
-        return new UserRequest.Update(USER_이름, USER_폰번호, "path", USER_프로필_이미지);
+        return new UserRequest.Update(USER_이름, "path", USER_프로필_이미지);
     }
 
     public static UserResponse.Info USER_정보_조회() {

@@ -13,7 +13,7 @@ public class OAuthProviderResolver {
 
     /**
      * {@link OAuthProvider @OAuthProvider} 를 적용한 클래스들의 인터페이스 리스트를 받아서 <br>
-     * 클라이언트가 요청한 Provider값을 찾아서 반환해줍니다.
+     * 클라이언트가 요청한 Provider가 적용된 클래스를 찾아서 반환해줍니다.
      * @param list login url generator or oauth client manager
      * @param provider client request value
      * @return oauth provider classType
