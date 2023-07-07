@@ -18,20 +18,20 @@ public class SmsMessengerImpl implements SmsMessenger {
     private String senderPhoneNumber;
 
     @Override
-    public void send(String phoneNumber, String verifyCode) {
-        var request = createSendRequest(phoneNumber, verifyCode);
-        sendVerifyCode(request);
+    public void send(String phoneNumber, String content) {
+        var request = createSendRequest(phoneNumber, content);
+        sendMessage(request);
     }
 
-    private SingleMessageSendingRequest createSendRequest(String phoneNumber, String verifyCode) {
+    private SingleMessageSendingRequest createSendRequest(String phoneNumber, String content) {
         Message message = new Message();
         message.setFrom(senderPhoneNumber);
         message.setTo(phoneNumber);
-        message.setText(verifyCode);
+        message.setText(content);
         return new SingleMessageSendingRequest(message);
     }
 
-    private void sendVerifyCode(SingleMessageSendingRequest request) {
+    private void sendMessage(SingleMessageSendingRequest request) {
         try {
             messageService.sendOne(request);
         } catch (Exception e) {

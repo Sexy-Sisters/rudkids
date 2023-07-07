@@ -6,12 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VerificationCode {
     private String code;
 
-    public VerificationCode(String code) {
+    private VerificationCode(String code) {
         this.code = code;
+    }
+
+    public static VerificationCode create(String code) {
+        return new VerificationCode(code);
     }
 
     public void validateHasSameRefreshToken(String code) {

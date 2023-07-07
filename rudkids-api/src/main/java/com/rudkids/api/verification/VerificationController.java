@@ -26,13 +26,14 @@ public class VerificationController {
     }
 
     @PostMapping("/validate")
-    public void check(
+    public ResponseEntity<Void> check(
         HttpServletRequest httpRequest,
         @RequestBody VerifyRequest.Check request
     ) {
         var accessToken = AuthorizationExtractor.extract(httpRequest);
         var userId = authService.extractUserId(accessToken);
         var phoneNumber = verificationService.check(request);
-         authService.registerInformation(userId, phoneNumber);
+        authService.registerInformation(userId, phoneNumber);
+        return ResponseEntity.ok().build();
     }
 }

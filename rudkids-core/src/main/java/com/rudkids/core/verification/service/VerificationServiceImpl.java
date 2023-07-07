@@ -7,13 +7,11 @@ import com.rudkids.core.user.exception.PhoneNumberEmptyException;
 import com.rudkids.core.verification.infrastructure.VerifyCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class VerificationServiceImpl implements VerificationService {
     private final SmsMessenger smsMessenger;
     private final VerifyCodeGenerator verifyCodeGenerator;
@@ -40,7 +38,7 @@ public class VerificationServiceImpl implements VerificationService {
     @Override
     public String check(VerifyRequest.Check request) {
         String foundCode = verificationCodeRepository.get(request.phoneNumber());
-        var verificationCode = new VerificationCode(foundCode);
+        var verificationCode = VerificationCode.create(foundCode);
         verificationCode.validateHasSameRefreshToken(request.code());
         return request.phoneNumber();
     }
