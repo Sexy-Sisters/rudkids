@@ -9,10 +9,13 @@ import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroupName;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.service.ItemFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ItemFactoryImpl implements ItemFactory {
+    private final ItemImageRepository itemImageRepository;
 
     @Override
     public Item create(ItemRequest.Create request) {
@@ -43,6 +46,7 @@ public class ItemFactoryImpl implements ItemFactory {
         for (ImageRequest.Create imageRequest : request.images()) {
             var image = ItemImage.create(item, imageRequest.path(), imageRequest.url());
             item.addImage(image);
+            itemImageRepository.save(image);
         }
 
         request.itemOptionGroupList().forEach(group -> {
