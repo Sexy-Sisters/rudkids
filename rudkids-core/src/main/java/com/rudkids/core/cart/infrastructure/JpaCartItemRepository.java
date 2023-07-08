@@ -11,11 +11,16 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public interface JpaCartItemRepository extends JpaRepository<CartItem, UUID> {
-    Optional<CartItem> findByCartAndItem(Cart cart, Item item);
+    Stream<CartItem> findByCartAndItem(Cart cart, Item item);
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "delete from CartItem c where c.id in :ids")
-    void deleteAllByIds(@Param("ids") List<UUID> ids);
+    @Query("UPDATE CartItem c SET c.selected = true WHERE c.id IN :ids")
+    void updateSelects(@Param("ids") List<UUID> ids);
+
+    @Modifying(clearAutomatically = true)
+    @Query("DELETE FROM CartItem c WHERE c.selected = true")
+    void deleteSelected();
 }

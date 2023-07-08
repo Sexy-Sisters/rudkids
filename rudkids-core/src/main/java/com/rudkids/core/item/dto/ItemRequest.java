@@ -24,7 +24,6 @@ public class ItemRequest {
 
     @Builder
     public record CreateItemOptionGroup(
-        Integer ordering,
         String itemOptionGroupName,
         List<CreateItemOption> itemOptionList
     ) {
@@ -32,7 +31,6 @@ public class ItemRequest {
 
     @Builder
     public record CreateItemOption(
-        Integer ordering,
         String itemOptionName,
         int itemOptionPrice
     ) {}

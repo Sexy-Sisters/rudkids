@@ -292,7 +292,7 @@ public class AdminControllerTest extends ControllerTest {
     @DisplayName("[주문-전체조회")
     @Test
     void 전체_주문을_조회한다() throws Exception {
-        given(orderService.getAll(any()))
+        given(adminService.getAllOrders(any()))
             .willReturn(ORDER_전체_조회_INFO());
 
         mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)

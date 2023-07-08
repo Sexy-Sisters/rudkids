@@ -1,7 +1,6 @@
 package com.rudkids.core.cart.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
-import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.exception.DifferentUserException;
 import jakarta.persistence.*;
@@ -28,18 +27,11 @@ public class Cart extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cart")
-    private Order order;
-
-    @Enumerated(EnumType.STRING)
-    private CartStatus cartStatus;
-
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
     private final List<CartItem> cartItems = new ArrayList<>();
 
     private Cart(User user) {
         this.user = user;
-        this.cartStatus = CartStatus.ACTIVE;
     }
 
     public static Cart create(User user) {
@@ -54,24 +46,8 @@ public class Cart extends AbstractEntity {
         return id;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
     public List<CartItem> getCartItems() {
         return cartItems;
-    }
-
-    public CartStatus getCartStatus() {
-        return cartStatus;
-    }
-
-    public void activate() {
-        this.cartStatus = CartStatus.ACTIVE;
-    }
-
-    public void deactivate() {
-        this.cartStatus = CartStatus.INACTIVE;
     }
 
     public void validateHasSameUser(User user) {

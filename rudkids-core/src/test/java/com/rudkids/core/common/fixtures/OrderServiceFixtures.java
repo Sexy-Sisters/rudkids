@@ -104,9 +104,9 @@ public class OrderServiceFixtures {
 
         cartService.addCartItem(user.getId(), CART_아이템_요청());
 
-        cart = cartRepository.getActiveCart(user);
+        cart = cartRepository.get(user);
 
-        order = Order.create(user, cart, delivery, PayMethod.TOSS);
+        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice());
         orderRepository.save(order);
 
         ORDER_주문_요청 = new OrderRequest.Create(PayMethod.TOSS, delivery.getId());

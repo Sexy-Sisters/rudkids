@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrderService {
+
     UUID create(UUID userId, OrderRequest.Create request);
-
     OrderResponse.Detail get(UUID orderId);
-
-    List<OrderResponse.Main> getAllMine(UUID userId, Pageable pageable);
-
-    Page<OrderResponse.Main> getAll(Pageable pageable);
-
+    List<OrderResponse.Main> getAll(UUID userId, Pageable pageable);
+    void cancel(UUID userId, UUID orderId);
+    List<OrderResponse.Main> getCancelOrders(UUID userId);
     void changeStatus(UUID orderId, OrderRequest.ChangeStatus request);
 
     void delete(UUID orderId);

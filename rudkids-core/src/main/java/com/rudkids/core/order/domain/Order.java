@@ -1,17 +1,20 @@
 package com.rudkids.core.order.domain;
 
-import com.rudkids.core.cart.domain.Cart;
+import com.rudkids.core.cart.domain.CartItem;
 import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.delivery.domain.Delivery;
-import com.rudkids.core.order.exception.OrderAlreadyPaidException;
+import com.rudkids.core.order.exception.DeliveryAlreadyCompletedException;
 import com.rudkids.core.payment.exception.InvalidAmountException;
 import com.rudkids.core.user.domain.User;
+import com.rudkids.core.user.exception.DifferentUserException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -31,10 +34,6 @@ public class Order extends AbstractEntity {
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
-    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -44,30 +43,51 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.INIT;
 
-    private Order(User user, Cart cart, Delivery delivery, PayMethod payMethod) {
+    private int totalPrice;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private final List<OrderItem> orderItems = new ArrayList<>();
+
+    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
         this.user = user;
-        user.registerOrder(this);
-        this.cart = cart;
         this.delivery = delivery;
         this.payMethod = payMethod;
+        this.totalPrice = totalPrice;
     }
 
-    public static Order create(User user, Cart cart, Delivery delivery, PayMethod payMethod) {
-        return new Order(user, cart, delivery, payMethod);
+    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
+        return new Order(user, delivery, payMethod, totalPrice);
     }
 
-    public void validateNotPaid() {
-        if(OrderStatus.INIT != orderStatus) {
-            throw new OrderAlreadyPaidException();
+    public void validateHasSameUser(User user) {
+        if(!this.user.equals(user)) {
+            throw new DifferentUserException();
         }
+    }
+
+    public void cancel() {
+        if(orderStatus == OrderStatus.DELIVERY_COMPLETE) {
+            throw new DeliveryAlreadyCompletedException();
+        }
+
+        orderStatus = OrderStatus.CANCEL;
+        for(OrderItem orderItem: orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    public void removeQuantity() {
+        for(OrderItem orderItem: orderItems) {
+            orderItem.removeQuantity();
+        }
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
     }
 
     public void changeStatus(OrderStatus status) {
         this.orderStatus = status;
-    }
-
-    public void activateCart() {
-        this.cart.activate();
     }
 
     public void changeOrderComplete() {
@@ -75,8 +95,12 @@ public class Order extends AbstractEntity {
     }
 
     public void validateAmount(int amount) {
-        if(cart.calculateTotalPrice() != amount) {
+        if(totalPrice != amount) {
             throw new InvalidAmountException();
         }
+    }
+
+    public boolean isCanceled() {
+        return orderStatus == OrderStatus.CANCEL;
     }
 }

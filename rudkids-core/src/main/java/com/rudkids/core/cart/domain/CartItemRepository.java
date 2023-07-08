@@ -9,5 +9,7 @@ import java.util.UUID;
 public interface CartItemRepository {
     CartItem getOrCreate(Cart cart, Item item, CartRequest.AddCartItem request);
     CartItem get(UUID id);
-    void delete(List<UUID> ids);
+    void selects(List<UUID> ids);
+    void deleteSelected();
+    void delete(CartItem cartItem);
 }

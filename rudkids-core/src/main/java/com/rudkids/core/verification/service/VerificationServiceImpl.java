@@ -21,8 +21,8 @@ public class VerificationServiceImpl implements VerificationService {
     public void send(VerifyRequest.Send request) {
         validate(request);
         String code = verifyCodeGenerator.generate();
-        smsMessenger.send(request.phoneNumber(), code);
         verificationCodeRepository.save(request.phoneNumber(), code);
+        smsMessenger.send(request.phoneNumber(), code);
     }
 
     private void validate(VerifyRequest.Send request) {

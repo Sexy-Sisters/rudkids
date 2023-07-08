@@ -1,5 +1,6 @@
 package com.rudkids.core.cart.service;
 
+import com.rudkids.core.cart.domain.CartItem;
 import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.cart.domain.CartRepository;
 import com.rudkids.core.cart.dto.CartItemResponse;
@@ -11,14 +12,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
@@ -28,8 +30,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public UUID addCartItem(UUID userId, CartRequest.AddCartItem request) {
         var user = userRepository.getUser(userId);
-        var cart = cartRepository.getActiveCartOrCreate(user);
+        var cart = cartRepository.getOrCreate(user);
         var item = itemRepository.getByEnNme(request.itemName());
+
         var cartItem = cartItemRepository.getOrCreate(cart, item, request);
         return cartItem.getId();
     }
@@ -38,19 +41,30 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartResponse.Main getCartItems(UUID userId) {
         var user = userRepository.getUser(userId);
-        var cart = cartRepository.getActiveCartOrCreate(user);
+        var cart = cartRepository.get(user);
         int totalCartItemPrice = cart.calculateTotalPrice();
 
         return cart.getCartItems().stream()
-                .map(CartItemResponse.Main::new)
-                .collect(collectingAndThen(toList(), cartItems ->
-                    new CartResponse.Main(totalCartItemPrice, cartItems)));
+            .map(CartItemResponse.Main::new)
+            .collect(collectingAndThen(toList(), cartItems ->
+                new CartResponse.Main(totalCartItemPrice, cartItems)));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<CartItemResponse.Select> getSelected(UUID userId) {
+        var user = userRepository.getUser(userId);
+        var cart = cartRepository.get(user);
+        return cart.getCartItems().stream()
+            .filter(CartItem::isSelected)
+            .map(CartItemResponse.Select::new)
+            .toList();
     }
 
     @Override
     public void updateCartItemAmount(UUID userId, CartRequest.UpdateCartItemAmount request) {
         var user = userRepository.getUser(userId);
-        var cart = cartRepository.getActiveCartOrCreate(user);
+        var cart = cartRepository.get(user);
         cart.validateHasSameUser(user);
 
         var cartItem = cartItemRepository.get(request.cartItemId());
@@ -58,7 +72,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCartItems(UUID userId, CartRequest.DeleteCartItems request) {
-        cartItemRepository.delete(request.cartItemIds());
+    public void select(UUID userId, CartRequest.SelectCartItem request) {
+        var user = userRepository.getUser(userId);
+        var cart = cartRepository.get(user);
+        cart.validateHasSameUser(user);
+
+        cartItemRepository.selects(request.ids());
+    }
+
+    @Override
+    public void deleteCartItem(UUID userId, UUID cartItemId) {
+        var user = userRepository.getUser(userId);
+        var cart = cartRepository.get(user);
+        cart.validateHasSameUser(user);
+
+        var cartItem = cartItemRepository.get(cartItemId);
+        cartItemRepository.delete(cartItem);
     }
 }

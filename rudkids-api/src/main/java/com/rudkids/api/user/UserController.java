@@ -28,6 +28,12 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/community")
+    public ResponseEntity getMyCommunities(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = userService.getMyCommunities(loginUser.id());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/address")
     public ResponseEntity getAddresses(@AuthenticationPrincipal AuthUser.Login loginUser) {
         var response = userService.getAddresses(loginUser.id());

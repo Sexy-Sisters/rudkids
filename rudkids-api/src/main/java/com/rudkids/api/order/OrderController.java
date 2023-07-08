@@ -34,11 +34,26 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity getAllMine(
+    public ResponseEntity getAll(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @PageableDefault Pageable pageable
     ) {
-        var response = orderService.getAllMine(loginUser.id(), pageable);
+        var response = orderService.getAll(loginUser.id(), pageable);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> cancel(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable(name = "id") UUID orderId
+    ) {
+        orderService.cancel(loginUser.id(), orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/cancel")
+    public ResponseEntity getCancelOrders(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = orderService.getCancelOrders(loginUser.id());
         return ResponseEntity.ok(response);
     }
 

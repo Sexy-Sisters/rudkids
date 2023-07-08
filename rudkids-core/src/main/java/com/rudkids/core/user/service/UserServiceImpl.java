@@ -1,5 +1,6 @@
 package com.rudkids.core.user.service;
 
+import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.dto.UserRequest;
@@ -40,6 +41,14 @@ public class UserServiceImpl implements UserService {
     public UserResponse.Info get(UUID userId) {
         var user = userRepository.getUser(userId);
         return new UserResponse.Info(user);
+    }
+
+    @Override
+    public List<CommunityResponse.Main> getMyCommunities(UUID userId) {
+        var user = userRepository.getUser(userId);
+        return user.getCommunities().stream()
+            .map(CommunityResponse.Main::new)
+            .toList();
     }
 
     @Transactional(readOnly = true)

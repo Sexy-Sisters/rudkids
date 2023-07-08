@@ -30,4 +30,16 @@ public class Quantity {
             throw new InvalidItemQuantityException();
         }
     }
+
+    public void add(int amount) {
+        value += amount;
+    }
+
+    public int getRestQuantity(int quantity) {
+        return value - quantity;
+    }
+
+    public void remove(int restQuantity) {
+        this.value = restQuantity;
+    }
 }

@@ -60,24 +60,22 @@ public class ItemResponse {
                 .map(group -> group.getItemOptions().stream()
                     .map(DetailOption::new)
                     .collect(collectingAndThen(toList(), options
-                        -> new DetailOptionGroup(group.getOrdering(), group.getItemOptionGroupName(), options))))
+                        -> new DetailOptionGroup(group.getItemOptionGroupName(), options))))
                 .toList();
         }
     }
 
     public record DetailOptionGroup(
-        Integer ordering,
         String itemOptionGroupName,
         List<DetailOption> itemOptionInfoList
     ) {}
 
     public record DetailOption(
-        Integer ordering,
         String itemOptionName,
         Integer itemOptionPrice
     ) {
         public DetailOption(ItemOption option) {
-            this(option.getOrdering(), option.getItemOptionName(), option.getItemOptionPrice());
+            this(option.getItemOptionName(), option.getItemOptionPrice());
         }
     }
 

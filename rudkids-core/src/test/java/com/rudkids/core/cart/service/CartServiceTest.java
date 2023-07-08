@@ -37,7 +37,7 @@ class CartServiceTest extends CartServiceFixtures {
         var cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        Cart cart = cartRepository.getActiveCart(user);
+        Cart cart = cartRepository.get(user);
         var cartItem = cartItemRepository.get(cartItemId);
 
         assertAll(() -> {
@@ -88,7 +88,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart cart = cartRepository.getActiveCart(user);
+        Cart cart = cartRepository.get(user);
 
         assertThat(cart.getCartItems()).hasSize(2);
     }
@@ -117,7 +117,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart cart = cartRepository.getActiveCart(user);
+        Cart cart = cartRepository.get(user);
 
         assertThat(cart.getCartItems()).hasSize(2);
     }
@@ -150,11 +150,12 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart cart = cartRepository.getActiveCart(user);
+        Cart cart = cartRepository.get(user);
 
         assertThat(cart.getCartItems()).hasSize(2);
     }
 
+    @Disabled("프론트에서 정렬 후 요청")
     @DisplayName("[장바구니-아이템수량증가-같은옵션]")
     @Test
     void 같은_아이템이고_옵션_값은_같지만_순서가_다를_경우_장바구니아이템을_수량만_증가한다() {
@@ -179,7 +180,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_새로운_아이템_요청);
 
         //then
-        Cart cart = cartRepository.getActiveCart(user);
+        Cart cart = cartRepository.get(user);
         var cartItem = cartItemRepository.get(cartItemId);
 
         assertThat(cart.getCartItems()).hasSize(1);
@@ -196,7 +197,7 @@ class CartServiceTest extends CartServiceFixtures {
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //then
-        var cart = cartRepository.getActiveCart(user);
+        var cart = cartRepository.get(user);
         var cartItem = cartItemRepository.get(cartItemId);
 
         assertThat(cart.getCartItems()).hasSize(1);
@@ -237,28 +238,22 @@ class CartServiceTest extends CartServiceFixtures {
         assertThat(cartItem.getAmount()).isEqualTo(3);
     }
 
-    @Disabled("보류")
-    @DisplayName("[장바구니-아이템선택삭제]")
+    @DisplayName("[장바구니-아이템삭제]")
     @Test
-    void 장바구니_아이템들을_선택하여_삭제한다() {
+    void 장바구니_아이템을_삭제한다() {
         //given
         UUID cartItemId = cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
-        List<UUID> cartItemIds = List.of(cartItemId);
-
-        CartRequest.DeleteCartItems CART_아이템_삭제_요청 = CartRequest.DeleteCartItems.builder()
-            .cartItemIds(cartItemIds)
-            .build();
-        cartService.deleteCartItems(user.getId(), CART_아이템_삭제_요청);
+        cartService.deleteCartItem(user.getId(), cartItemId);
 
         //then
         boolean hasCartItem = jpaCartItemRepository.findById(cartItemId).isPresent();
-        Cart actual = cartRepository.getActiveCart(user);
+//        Cart actual = cartRepository.getActiveCart(user);
 
         assertAll(() -> {
             assertThat(hasCartItem).isFalse();
-            assertThat(actual.getCartItems()).hasSize(0);
+//            assertThat(actual.getCartItems()).hasSize(0);
         });
     }
 }

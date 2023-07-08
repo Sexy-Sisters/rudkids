@@ -2,8 +2,10 @@ package com.rudkids.api.common.fixtures;
 
 import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.item.domain.ItemStatus;
+import com.rudkids.core.order.domain.OrderItem;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.domain.PayMethod;
+import com.rudkids.core.order.dto.OrderItemResponse;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
 import org.springframework.data.domain.Page;
@@ -34,29 +36,6 @@ public class OrderControllerFixtures {
     private static final String receiverZipcode = "494999";
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
-    public static OrderResponse.Receipt receipt = OrderResponse.Receipt.builder()
-        .totalPrice(50000)
-        .items(
-            List.of(
-                OrderResponse.ReceiptItemInfo.builder()
-                    .itemId(UUID.randomUUID())
-                    .name("상품명")
-                    .price(10000)
-                    .amount(5)
-                    .itemStatus(ItemStatus.SELLING)
-                    .optionGroups(
-                        List.of(
-                            OrderResponse.ReceiptOptionGroup.builder()
-                                .name("name")
-                                .optionName("optionName")
-                                .build()
-                        )
-                    )
-                    .build()
-            )
-        )
-        .build();
-
     public static OrderRequest.Create ORDER_주문_요청() {
         return new OrderRequest.Create(payMethod, deliveryId);
     }
@@ -77,27 +56,60 @@ public class OrderControllerFixtures {
 
         return OrderResponse.Detail.builder()
             .orderId(orderId)
-            .deliveryFragment(delivery)
+            .createdAt(createdAt)
             .orderStatus(orderStatus)
+            .orderItems(ORDER_ITEM_응답())
+            .deliveryFragment(delivery)
             .payMethod(payMethod)
-            .receipt(receipt)
             .build();
     }
 
     public static Page<OrderResponse.Main> ORDER_전체_조회_INFO() {
         return new PageImpl<>(List.of(
-            new OrderResponse.Main(orderId, createdAt)
+            new OrderResponse.Main(orderId, createdAt, orderStatus, ORDER_ITEM_응답())
         ));
     }
 
+    public static List<OrderItemResponse> ORDER_ITEM_응답() {
+        return List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000));
+    }
+
     public static List<OrderResponse.Main> ORDER_주문내역_조회_INFO() {
-        return List.of(new OrderResponse.Main(orderId, createdAt));
+        return List.of(new OrderResponse.Main(orderId, createdAt, orderStatus, ORDER_ITEM_응답()));
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {
         return List.of(fieldWithPath("orderId")
                 .type(JsonFieldType.STRING)
                 .description("주문 ID"),
+
+            fieldWithPath("createdAt")
+                .type(JsonFieldType.STRING)
+                .description("주문 날짜"),
+
+            fieldWithPath("orderStatus")
+                .type(JsonFieldType.STRING)
+                .description("주문 상태"),
+
+            fieldWithPath("orderItems")
+                .type(JsonFieldType.ARRAY)
+                .description("주문한 상품들"),
+
+            fieldWithPath("orderItems[].imageUrl")
+                .type(JsonFieldType.STRING)
+                .description("주문한 상품 이미지 url"),
+
+            fieldWithPath("orderItems[].name")
+                .type(JsonFieldType.STRING)
+                .description("주문한 상품 이름"),
+
+            fieldWithPath("orderItems[].amount")
+                .type(JsonFieldType.NUMBER)
+                .description("주문한 상품 개수"),
+
+            fieldWithPath("orderItems[].price")
+                .type(JsonFieldType.NUMBER)
+                .description("주문한 상품 가격"),
 
             fieldWithPath("deliveryFragment.receiverName")
                 .type(JsonFieldType.STRING)
@@ -125,43 +137,7 @@ public class OrderControllerFixtures {
 
             fieldWithPath("payMethod")
                 .type(JsonFieldType.STRING)
-                .description("결제수단"),
-
-            fieldWithPath("orderStatus")
-                .type(JsonFieldType.STRING)
-                .description("주문 상태"),
-
-            fieldWithPath("receipt.totalPrice")
-                .type(JsonFieldType.NUMBER)
-                .description("총 주문 가격"),
-
-            fieldWithPath("receipt.items[].itemId")
-                .type(JsonFieldType.STRING)
-                .description("아이템 ID"),
-
-            fieldWithPath("receipt.items[].name")
-                .type(JsonFieldType.STRING)
-                .description("상품명"),
-
-            fieldWithPath("receipt.items[].price")
-                .type(JsonFieldType.NUMBER)
-                .description("아이템 가격"),
-
-            fieldWithPath("receipt.items[].amount")
-                .type(JsonFieldType.NUMBER)
-                .description("주문한 개수"),
-
-            fieldWithPath("receipt.items[].optionGroups[].name")
-                .type(JsonFieldType.STRING)
-                .description("옵션 그룹 이름"),
-
-            fieldWithPath("receipt.items[].optionGroups[].optionName")
-                .type(JsonFieldType.STRING)
-                .description("옵션 이름"),
-
-            fieldWithPath("receipt.items[].itemStatus")
-                .type(JsonFieldType.STRING)
-                .description("아이템 상태")
+                .description("결제수단")
         );
     }
 
@@ -173,7 +149,31 @@ public class OrderControllerFixtures {
 
             fieldWithPath("[].createdAt")
                 .type(JsonFieldType.STRING)
-                .description("주문한 시간")
+                .description("주문한 시간"),
+
+            fieldWithPath("[].orderStatus")
+                .type(JsonFieldType.STRING)
+                .description("주문 상태"),
+
+            fieldWithPath("[].orderItems")
+                .type(JsonFieldType.ARRAY)
+                .description("주문한 상품들"),
+
+            fieldWithPath("[].orderItems[]imageUrl")
+                .type(JsonFieldType.STRING)
+                .description("주문한 상품 이미지 url"),
+
+            fieldWithPath("[].orderItems[]name")
+                .type(JsonFieldType.STRING)
+                .description("주문한 상품 이름"),
+
+            fieldWithPath("[].orderItems[]amount")
+                .type(JsonFieldType.NUMBER)
+                .description("주문한 상품 개수"),
+
+            fieldWithPath("[].orderItems[]price")
+                .type(JsonFieldType.NUMBER)
+                .description("주문한 상품 가격")
         );
     }
 
@@ -189,34 +189,6 @@ public class OrderControllerFixtures {
         );
     }
 
-    public static List<FieldDescriptor> ORDER_배송정보_수정_요청_필드() {
-        return List.of(
-            fieldWithPath("receiverName")
-                .type(JsonFieldType.STRING)
-                .description("수신자"),
-
-            fieldWithPath("receiverPhone")
-                .type(JsonFieldType.STRING)
-                .description("전화번호"),
-
-            fieldWithPath("receiverAddress1")
-                .type(JsonFieldType.STRING)
-                .description("주소1"),
-
-            fieldWithPath("receiverAddress2")
-                .type(JsonFieldType.STRING)
-                .description("주소2"),
-
-            fieldWithPath("receiverZipcode")
-                .type(JsonFieldType.STRING)
-                .description("우편번"),
-
-            fieldWithPath("etcMessage")
-                .type(JsonFieldType.STRING)
-                .description("배송시 요청사항")
-        );
-    }
-
     public static List<FieldDescriptor> ORDER_전체_주문_조회_응답_필드() {
         return pageResponseFieldsWith(
             List.of(
@@ -226,7 +198,31 @@ public class OrderControllerFixtures {
 
                 fieldWithPath("content.[].createdAt")
                     .type(JsonFieldType.STRING)
-                    .description("주문한 시간")
+                    .description("주문한 시간"),
+
+                fieldWithPath("content.[].orderStatus")
+                    .type(JsonFieldType.STRING)
+                    .description("주문 상태"),
+
+                fieldWithPath("content.[].orderItems")
+                    .type(JsonFieldType.ARRAY)
+                    .description("주문한 상품들"),
+
+                fieldWithPath("content.[].orderItems[]imageUrl")
+                    .type(JsonFieldType.STRING)
+                    .description("주문한 상품 이미지 url"),
+
+                fieldWithPath("content.[].orderItems[]name")
+                    .type(JsonFieldType.STRING)
+                    .description("주문한 상품 이름"),
+
+                fieldWithPath("content.[].orderItems[]amount")
+                    .type(JsonFieldType.NUMBER)
+                    .description("주문한 상품 개수"),
+
+                fieldWithPath("content.[].orderItems[]price")
+                    .type(JsonFieldType.NUMBER)
+                    .description("주문한 상품 가격")
             )
         );
     }

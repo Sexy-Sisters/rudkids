@@ -81,11 +81,11 @@ public class AdminController {
     }
 
     @GetMapping("/order")
-    public ResponseEntity findAllOrder(
+    public ResponseEntity getAllOrders(
         @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PageableDefault Pageable pageable
     ) {
-        var info = orderService.getAll(pageable);
+        var info = adminService.getAllOrders(pageable);
         return ResponseEntity.ok(info);
     }
 
