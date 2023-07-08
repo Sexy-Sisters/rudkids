@@ -35,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
         user.changeRole(request.roleType());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<OrderResponse.Main> getAllOrders(Pageable pageable) {
         return orderRepository.getOrders(pageable)
