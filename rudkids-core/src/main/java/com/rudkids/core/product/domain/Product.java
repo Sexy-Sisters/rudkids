@@ -39,9 +39,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
-    @Enumerated(EnumType.STRING)
-    private ProductCategory productCategory;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
@@ -52,29 +49,21 @@ public class Product {
     public Product(final Title title,
                    final ProductBio productBio,
                    final ProductFrontImage frontImage,
-                   final ProductBackImage backImage,
-                   final ProductCategory productCategory) {
+                   final ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
-        this.productCategory = productCategory;
     }
 
     public void update(final Title title,
                        final ProductBio productBio,
                        final ProductFrontImage frontImage,
-                       final ProductBackImage backImage,
-                       final ProductCategory productCategory) {
+                       final ProductBackImage backImage) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
-        this.productCategory = productCategory;
-    }
-
-    public boolean isSameCategory(ProductCategory productCategory) {
-        return this.productCategory == productCategory;
     }
 
     public void addBannerImage(ProductBannerImage productBannerImage) {
@@ -117,11 +106,5 @@ public class Product {
 
     public String getBackImageUrl() {
         return backImage.getUrl();
-    }
-
-    public List<String> getBannerUrls() {
-        return productBannerImages.stream()
-            .map(ProductBannerImage::getUrl)
-            .toList();
     }
 }

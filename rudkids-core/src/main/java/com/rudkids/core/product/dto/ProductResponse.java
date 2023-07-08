@@ -1,5 +1,6 @@
 package com.rudkids.core.product.dto;
 
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.Product;
 import com.rudkids.core.product.domain.ProductStatus;
@@ -33,9 +34,9 @@ public class ProductResponse {
     public record Detail(
         String title,
         String bio,
-        String frontImageUrl,
-        String backImageUrl,
-        List<String> bannerImageUrls,
+        ImageResponse.Info frontImage,
+        ImageResponse.Info backImage,
+        List<ImageResponse.Info> bannerImages,
         Page<ItemResponse.Main> items
     ) {}
 }

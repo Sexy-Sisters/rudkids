@@ -1,6 +1,7 @@
 package com.rudkids.api.common.fixtures;
 
 import com.rudkids.core.image.dto.ImageRequest;
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.dto.ItemRequest;
@@ -79,7 +80,7 @@ public class ItemControllerFixtures {
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
-            .imageUrls(아이템_여러_이미지)
+            .images(List.of(new ImageResponse.Info("path", "url")))
             .itemStatus(ItemStatus.SELLING)
             .videoUrl("영상 url")
             .build();

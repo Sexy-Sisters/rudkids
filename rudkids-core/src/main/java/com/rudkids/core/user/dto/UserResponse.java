@@ -1,6 +1,7 @@
 package com.rudkids.core.user.dto;
 
 import com.rudkids.core.delivery.domain.Delivery;
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.user.domain.User;
 import lombok.Builder;
 
@@ -11,14 +12,14 @@ public class UserResponse {
         String email,
         String name,
         String phoneNumber,
-        String profileImage
+        ImageResponse.Info profileImage
     ) {
         public Info(User user) {
             this(
                 user.getEmail(),
                 user.getName(),
                 user.getPhoneNumber(),
-                user.getProfileImageUrl()
+                new ImageResponse.Info(user.getProfileImagePath(), user.getProfileImageUrl())
             );
         }
     }

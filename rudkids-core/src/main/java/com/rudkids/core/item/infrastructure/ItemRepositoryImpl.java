@@ -28,7 +28,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public Item getByEnNme(String name) {
-        return itemRepository.findByNameEnName(name)
+        return itemRepository.findByNameEnNameOrderByCreatedAtAsc(name)
             .orElseThrow(ItemNotFoundException::new);
     }
 

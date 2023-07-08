@@ -1,5 +1,6 @@
 package com.rudkids.api.common.fixtures;
 
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
 
@@ -9,7 +10,7 @@ public class UserControllerFixtures {
     public static final String USER_DEFAULT_URL = "/api/v1/user";
     private static final String USER_이름 = "남세";
     private static final String USER_폰번호 = "01029401509";
-    private static final String USER_프로필_이미지 = "url";
+    private static final String USER_프로필_이미지 = "http://";
 
     public static UserRequest.Update USER_수정_요청() {
         return new UserRequest.Update(USER_이름, "path", USER_프로필_이미지);
@@ -20,7 +21,7 @@ public class UserControllerFixtures {
             .email("namse@gmail.com")
             .name(USER_이름)
             .phoneNumber(USER_폰번호)
-            .profileImage(USER_프로필_이미지)
+            .profileImage(new ImageResponse.Info(USER_프로필_이미지, USER_프로필_이미지))
             .build();
     }
 

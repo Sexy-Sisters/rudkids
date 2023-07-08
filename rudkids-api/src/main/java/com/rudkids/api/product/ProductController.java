@@ -26,10 +26,4 @@ public class ProductController {
         var response = productService.get(id, pageable);
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/categories")
-    public ResponseEntity getByCategory(@RequestParam String category) {
-        var response = productService.getByCategory(category);
-        return ResponseEntity.ok(response);
-    }
 }

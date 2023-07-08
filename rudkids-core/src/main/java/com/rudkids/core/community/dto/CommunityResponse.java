@@ -1,6 +1,7 @@
 package com.rudkids.core.community.dto;
 
 import com.rudkids.core.community.domain.Community;
+import com.rudkids.core.image.dto.ImageResponse;
 import lombok.Builder;
 
 public class CommunityResponse {
@@ -20,7 +21,7 @@ public class CommunityResponse {
         String title,
         String content,
         String writer,
-        String image,
+        ImageResponse.Info image,
         String writerProfileImage,
         int likeCount
     ) {
@@ -29,7 +30,7 @@ public class CommunityResponse {
                 community.getTitle(),
                 community.getContent(),
                 community.getWriter(),
-                community.getUrl(),
+                new ImageResponse.Info(community.getPath(), community.getUrl()),
                 community.getWriterProfileImage(),
                 community.getLikeCount()
             );

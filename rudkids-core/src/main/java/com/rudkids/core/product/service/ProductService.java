@@ -13,7 +13,6 @@ public interface ProductService {
     UUID create(ProductRequest.Create request);
     Page<ProductResponse.Main> getAll(Pageable pageable);
     ProductResponse.Detail get(UUID productId, Pageable pageable);
-    List<ProductResponse.Main> getByCategory(String category);
     void update(UUID productId, ProductRequest.Update request);
     void changeStatus(UUID productId, String status);
     void delete(UUID productId);

@@ -154,8 +154,16 @@ class ItemControllerTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("수량 한정 여부"),
 
-                    fieldWithPath("imageUrls")
+                    fieldWithPath("images")
                         .type(JsonFieldType.ARRAY)
+                        .description("여러 이미지들"),
+
+                    fieldWithPath("images[]path")
+                        .type(JsonFieldType.STRING)
+                        .description("여러 이미지 path"),
+
+                    fieldWithPath("images[]url")
+                        .type(JsonFieldType.STRING)
                         .description("여러 이미지 url"),
 
                     fieldWithPath("itemStatus")

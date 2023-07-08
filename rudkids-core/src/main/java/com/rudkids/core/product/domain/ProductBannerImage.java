@@ -10,13 +10,14 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@Table(name = "tbl_product_banner_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductBannerImage {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name = "product_banner_image_id", columnDefinition = "BINARY(16)")
+    @Column(name = "tbl_product_banner_image_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "path")

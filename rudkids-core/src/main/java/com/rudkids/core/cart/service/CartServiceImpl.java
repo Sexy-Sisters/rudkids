@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartResponse.Main getCartItems(UUID userId) {
         var user = userRepository.getUser(userId);
-        var cart = cartRepository.get(user);
+        var cart = cartRepository.getOrCreate(user);
         int totalCartItemPrice = cart.calculateTotalPrice();
 
         return cart.getCartItems().stream()

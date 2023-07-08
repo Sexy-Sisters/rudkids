@@ -3,6 +3,7 @@ package com.rudkids.api.common.fixtures;
 import com.rudkids.core.community.dto.CommunityRequest;
 import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.dto.ImageRequest;
+import com.rudkids.core.image.dto.ImageResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class CommunityControllerFixtures {
     public static final String COMMUNITY_타입 = "POST";
     public static final String COMMUNITY_작성자 = "작성자";
     public static final String COMMUNITY_작성자_이미지 = "url";
-    public static final String COMMUNITY_글_썸네일 = "url";
+    public static final String COMMUNITY_글_썸네일 = "http://";
     public static final int COMMUNITY_좋아요_개수 = 3;
     public static final ImageRequest.Create COMMUNITY_이미지_요청 = new ImageRequest.Create("path", "url");
 
@@ -37,7 +38,7 @@ public class CommunityControllerFixtures {
             .title(COMMUNITY_제목)
             .content(COMMUNITY_내용)
             .writer(COMMUNITY_작성자)
-            .image(COMMUNITY_글_썸네일)
+            .image(new ImageResponse.Info(COMMUNITY_글_썸네일, COMMUNITY_글_썸네일))
             .writerProfileImage(COMMUNITY_작성자_이미지)
             .likeCount(COMMUNITY_좋아요_개수)
             .build();
