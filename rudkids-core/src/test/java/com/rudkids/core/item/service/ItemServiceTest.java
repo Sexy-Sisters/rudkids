@@ -53,7 +53,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
             () -> assertThat(findItem.quantity()).isEqualTo(1_000),
             () -> assertThat(findItem.itemBio()).isEqualTo("소개글입니다~"),
             () -> assertThat(findItem.limitType()).isEqualTo(LimitType.LIMITED),
-            () -> assertThat(findItem.imageUrls()).hasSize(2)
+            () -> assertThat(findItem.images()).hasSize(2)
         );
     }
 

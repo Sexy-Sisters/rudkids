@@ -76,17 +76,6 @@ class ProductServiceTest extends ProductServiceFixtures {
         );
     }
 
-    @DisplayName("[프로덕트-카테도리별-조회]")
-    @Test
-    void 카테고리별로_프로덕트들을_조회한다() {
-        //given, when
-        final String category = "TOY";
-        var productInfo = productService.getByCategory(category);
-
-        //then
-        assertThat(productInfo).hasSize(4);
-    }
-
     @DisplayName("[프로덕트-상태변경-오픈]")
     @Test
     void 프로덕트의_상태를_오픈으로_변경한다() {

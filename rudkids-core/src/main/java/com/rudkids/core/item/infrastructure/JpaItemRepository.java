@@ -15,7 +15,7 @@ import java.util.UUID;
 public interface JpaItemRepository extends JpaRepository<Item, UUID> {
     boolean existsByNameEnNameOrNameKoName(String enName, String koName);
 
-    Optional<Item> findByNameEnName(String enName);
+    Optional<Item> findByNameEnNameOrderByCreatedAtAsc(String enName);
 
     Page<Item> findByProduct(Product product, Pageable pageable);
 

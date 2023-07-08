@@ -132,17 +132,41 @@ class ProductControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("소개글"),
 
-                        fieldWithPath("frontImageUrl")
-                            .type(JsonFieldType.STRING)
+                        fieldWithPath("frontImage")
+                            .type(JsonFieldType.OBJECT)
                             .description("프로덕트 앞 이미지"),
 
-                        fieldWithPath("backImageUrl")
+                        fieldWithPath("frontImage.path")
                             .type(JsonFieldType.STRING)
+                            .description("프로덕트 앞 이미지 path"),
+
+                        fieldWithPath("frontImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 앞 이미지 url"),
+
+                        fieldWithPath("backImage")
+                            .type(JsonFieldType.OBJECT)
                             .description("프로덕트 뒤 이미지"),
 
-                        fieldWithPath("bannerImageUrls")
+                        fieldWithPath("backImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 뒤 이미지 path"),
+
+                        fieldWithPath("backImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 뒤 이미지 url"),
+
+                        fieldWithPath("bannerImages")
                             .type(JsonFieldType.ARRAY)
-                            .description("프로덕트 배너 이미지 urls"),
+                            .description("프로덕트 배너 이미지들"),
+
+                        fieldWithPath("bannerImages[]path")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 배너 이미지 path"),
+
+                        fieldWithPath("bannerImages[]url")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 배너 이미지 url"),
 
                         fieldWithPath("items.content")
                             .type(JsonFieldType.ARRAY)
@@ -219,47 +243,6 @@ class ProductControllerTest extends ControllerTest {
                         fieldWithPath("items.empty")
                             .type(JsonFieldType.BOOLEAN)
                             .description("리스트가 비어있는지 여부")
-                    )
-                )
-            )
-            .andExpect(status().isOk());
-    }
-
-    @DisplayName("[프로덕트-카테고리별-조회]")
-    @Test
-    void 카테고리별로_프로덕트를_조회한다() throws Exception {
-        given(productService.getByCategory(any()))
-            .willReturn(PRODUCT_카테도리_응답());
-
-        mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/categories?category={category}", 프로덕트_카테고리))
-            .andDo(print())
-            .andDo(document("product/getByCategory",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    queryParameters(
-                        parameterWithName("category")
-                            .description("프로덕트 카테도리")
-                    ),
-                    responseFields(
-                        fieldWithPath("[]productId")
-                            .type(JsonFieldType.STRING)
-                            .description("프로덕트 아이디"),
-
-                        fieldWithPath("[]title")
-                            .type(JsonFieldType.STRING)
-                            .description("매거진 제목"),
-
-                        fieldWithPath("[]frontImageUrl")
-                            .type(JsonFieldType.STRING)
-                            .description("프로덕트 앞 이미지"),
-
-                        fieldWithPath("[]backImageUrl")
-                            .type(JsonFieldType.STRING)
-                            .description("프로덕트 뒤 이미지"),
-
-                        fieldWithPath("[]status")
-                            .type(JsonFieldType.STRING)
-                            .description("프로덕트 상태")
                     )
                 )
             )

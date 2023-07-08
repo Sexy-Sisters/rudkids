@@ -40,19 +40,21 @@ public class ItemFactoryImpl implements ItemFactory {
     }
 
     private void generateChildEntities(Item item, ItemRequest.Create request) {
-        for(ImageRequest.Create imageRequest : request.images()) {
+        for (ImageRequest.Create imageRequest : request.images()) {
             var image = ItemImage.create(item, imageRequest.path(), imageRequest.url());
             item.addImage(image);
         }
 
         request.itemOptionGroupList().forEach(group -> {
-                var optionGroup = generateItemOptionGroup(item, group);
+            var optionGroup = generateItemOptionGroup(item, group);
 
-                group.itemOptionList().forEach(option -> {
-                    var itemOption = generateItemOption(optionGroup, option);
-                    optionGroup.addItemOption(itemOption);
-                });
+            group.itemOptionList().forEach(option -> {
+                var itemOption = generateItemOption(optionGroup, option);
+                optionGroup.addItemOption(itemOption);
             });
+
+            item.addOptionGroup(optionGroup);
+        });
     }
 
     private ItemOptionGroup generateItemOptionGroup(Item item, ItemRequest.CreateItemOptionGroup group) {
@@ -88,7 +90,6 @@ public class ItemFactoryImpl implements ItemFactory {
             item.addImage(image);
         }
 
-        item.testUpdate(name);
         item.update(name, itemBio, price, quantity, limitType);
     }
 }

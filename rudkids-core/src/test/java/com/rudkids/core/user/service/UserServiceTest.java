@@ -50,7 +50,8 @@ public class UserServiceTest extends UserServiceFixtures {
             assertThat(actual.email()).isEqualTo("namse@gmail.com");
             assertThat(actual.name()).isEqualTo("남세원");
             assertThat(actual.phoneNumber()).isEqualTo("01023456789");
-            assertThat(actual.profileImage()).isEqualTo("url");
+            assertThat(actual.profileImage().path()).isEqualTo("path");
+            assertThat(actual.profileImage().url()).isEqualTo("url");
         });
     }
 

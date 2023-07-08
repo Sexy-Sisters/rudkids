@@ -1,7 +1,6 @@
 package com.rudkids.core.product.infrastructure;
 
 import com.rudkids.core.product.domain.Product;
-import com.rudkids.core.product.domain.ProductCategory;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.product.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -31,11 +29,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Product get(UUID productId) {
         return productRepository.findById(productId)
             .orElseThrow(ProductNotFoundException::new);
-    }
-
-    @Override
-    public List<Product> get(String category) {
-        return productRepository.findAll();
     }
 
     @Override

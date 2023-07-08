@@ -1,5 +1,6 @@
 package com.rudkids.core.product.service;
 
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.dto.ItemResponse;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,23 +46,18 @@ public class ProductServiceImpl implements ProductService {
         var items = itemRepository.get(product, pageable)
             .map(ItemResponse.Main::new);
 
+        var bannerImages = product.getProductBannerImages().stream()
+            .map(ImageResponse.Info::new)
+            .toList();
+
         return ProductResponse.Detail.builder()
             .title(product.getTitle())
             .bio(product.getProductBio())
-            .frontImageUrl(product.getFrontImageUrl())
-            .backImageUrl(product.getBackImageUrl())
-            .bannerImageUrls(product.getBannerUrls())
+            .frontImage(new ImageResponse.Info(product.getFrontImagePath(), product.getFrontImageUrl()))
+            .backImage(new ImageResponse.Info(product.getBackImagePath(), product.getBackImageUrl()))
+            .bannerImages(bannerImages)
             .items(items)
             .build();
-    }
-
-    @Override
-    public List<ProductResponse.Main> getByCategory(String category) {
-        var productCategory = ProductCategory.toEnum(category);
-        return productRepository.get(category).stream()
-            .filter(it -> it.isSameCategory(productCategory))
-            .map(ProductResponse.Main::new)
-            .toList();
     }
 
     @Override

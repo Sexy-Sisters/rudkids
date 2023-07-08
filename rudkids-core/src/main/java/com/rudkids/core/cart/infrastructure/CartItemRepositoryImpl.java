@@ -18,7 +18,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
 
     @Override
     public CartItem getOrCreate(Cart cart, Item item, CartRequest.AddCartItem request) {
-        var name = cartItemNameGenerator.generate(item.getEnName(), request);
+        String name = cartItemNameGenerator.generate(item.getEnName(), request);
 
         return cartItemRepository.findByCartAndItem(cart, item)
             .filter(cartItem -> cartItem.isSameName(name))
@@ -48,7 +48,8 @@ public class CartItemRepositoryImpl implements CartItemRepository {
 
     private int sumCartItemTotalPrice(CartRequest.AddCartItem request) {
         return request.optionGroups().stream()
-            .mapToInt(it -> it.option().price()).sum();
+            .mapToInt(it -> it.option().price())
+            .sum();
     }
 
     @Override

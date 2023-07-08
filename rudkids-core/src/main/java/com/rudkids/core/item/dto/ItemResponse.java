@@ -1,5 +1,6 @@
 package com.rudkids.core.item.dto;
 
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
@@ -35,7 +36,7 @@ public class ItemResponse {
         int price,
         int quantity,
         LimitType limitType,
-        List<String> imageUrls,
+        List<ImageResponse.Info> images,
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList,
         String videoUrl
@@ -48,7 +49,9 @@ public class ItemResponse {
                 item.getPrice(),
                 item.getQuantity(),
                 item.getLimitType(),
-                item.getImageUrls(),
+                item.getImages().stream()
+                    .map(ImageResponse.Info::new)
+                    .toList(),
                 item.getItemStatus(),
                 getOptionGroup(item),
                 item.getVideoUrl()
@@ -68,7 +71,8 @@ public class ItemResponse {
     public record DetailOptionGroup(
         String itemOptionGroupName,
         List<DetailOption> itemOptionInfoList
-    ) {}
+    ) {
+    }
 
     public record DetailOption(
         String itemOptionName,

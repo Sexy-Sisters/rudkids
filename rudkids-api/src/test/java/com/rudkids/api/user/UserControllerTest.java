@@ -90,8 +90,16 @@ class UserControllerTest extends ControllerTest {
                         .description("폰번호"),
 
                     fieldWithPath("profileImage")
+                        .type(JsonFieldType.OBJECT)
+                        .description("프로필 이미지"),
+
+                    fieldWithPath("profileImage.path")
                         .type(JsonFieldType.STRING)
-                        .description("프로필 이미지")
+                        .description("프로필 이미지 path"),
+
+                    fieldWithPath("profileImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("프로필 이미지 url")
                 )
             ))
             .andExpect(status().isOk());

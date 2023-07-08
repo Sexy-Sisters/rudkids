@@ -125,8 +125,16 @@ class CommunityControllerTest extends ControllerTest {
                         .description("커뮤니티 작성자"),
 
                     fieldWithPath("image")
+                        .type(JsonFieldType.OBJECT)
+                        .description("커뮤니티 썸네일"),
+
+                    fieldWithPath("image.path")
                         .type(JsonFieldType.STRING)
-                        .description("커뮤니티 글 썸네일"),
+                        .description("커뮤니티 썸네일 path"),
+
+                    fieldWithPath("image.url")
+                        .type(JsonFieldType.STRING)
+                        .description("커뮤니티 썸네일 url"),
 
                     fieldWithPath("writerProfileImage")
                         .type(JsonFieldType.STRING)

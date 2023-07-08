@@ -10,6 +10,5 @@ public interface ProductRepository {
     void save(Product product);
     Page<Product> getAll(Pageable pageable);
     Product get(UUID productId);
-    List<Product> get(String category);
     void delete(Product product);
 }

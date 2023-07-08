@@ -68,7 +68,7 @@ public class CartItem {
     }
 
     public String getName() {
-        return item.getEnName();
+        return name;
     }
 
     public ItemStatus getItemStatus() {

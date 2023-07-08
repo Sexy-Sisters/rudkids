@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UUID userId, UserRequest.Update request) {
         var user = userRepository.getUser(userId);
-
         var name = UserName.create(request.name());
         var profileImage = ProfileImage.create(request.profileImagePath(), request.profileImageUrl());
         user.update(name, profileImage);
