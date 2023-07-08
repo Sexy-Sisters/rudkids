@@ -16,6 +16,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -114,18 +115,6 @@ class CartControllerTest extends ControllerTest {
                         .type(JsonFieldType.NUMBER)
                         .description("장바구니아이템 수량"),
 
-                    fieldWithPath("cartItems.[].optionGroups")
-                        .type(JsonFieldType.ARRAY)
-                        .description("장바구니아이템 옵션 그룹"),
-
-                    fieldWithPath("cartItems.[].optionGroups.[].name")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 옵션 그룹 이름"),
-
-                    fieldWithPath("cartItems.[].optionGroups.[].optionName")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 옵션 이름"),
-
                     fieldWithPath("cartItems.[].itemStatus")
                         .type(JsonFieldType.STRING)
                         .description("장바구니아이템 상태")
@@ -172,25 +161,21 @@ class CartControllerTest extends ControllerTest {
     void 장바구니_아이템들을_선택하여_삭제한다() throws Exception {
         willDoNothing()
             .given(cartService)
-            .deleteCartItems(any(), any());
+            .deleteCartItem(any(), any());
 
-        mockMvc.perform(delete(CART_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(CART_아이템_선택삭제_변경_요청())))
+        mockMvc.perform(delete(CART_DEFAULT_URL + "/{id}", CART_아이템_ID)
+                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
             .andDo(print())
-            .andDo(document("cart/deleteCartItems",
+            .andDo(document("cart/deleteCartItem",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 requestHeaders(
                     headerWithName("Authorization")
                         .description("JWT Access Token")
                 ),
-                requestFields(
-                    fieldWithPath("cartItemIds")
-                        .type(JsonFieldType.ARRAY)
-                        .description("장바구니 아이템 ID 리스트")
+                pathParameters(
+                    parameterWithName("id")
+                        .description("장바구니 아이템 id")
                 )
             ))
             .andExpect(status().isOk());

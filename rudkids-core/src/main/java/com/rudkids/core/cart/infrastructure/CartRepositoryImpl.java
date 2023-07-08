@@ -2,7 +2,6 @@ package com.rudkids.core.cart.infrastructure;
 
 import com.rudkids.core.cart.domain.Cart;
 import com.rudkids.core.cart.domain.CartRepository;
-import com.rudkids.core.cart.domain.CartStatus;
 import com.rudkids.core.cart.exception.CartNotFoundException;
 import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +13,14 @@ public class CartRepositoryImpl implements CartRepository {
     private final JpaCartRepository cartRepository;
 
     @Override
-    public Cart getActiveCart(User user) {
-        return cartRepository.findByUserIdAndCartStatus(user.getId(), CartStatus.ACTIVE)
+    public Cart get(User user) {
+        return cartRepository.findByUser(user)
             .orElseThrow(CartNotFoundException::new);
     }
 
     @Override
-    public Cart getActiveCartOrCreate(User user) {
-        return cartRepository.findByUserIdAndCartStatus(user.getId(), CartStatus.ACTIVE)
+    public Cart getOrCreate(User user) {
+        return cartRepository.findByUser(user)
             .orElseGet(() -> saveCart(user));
     }
 

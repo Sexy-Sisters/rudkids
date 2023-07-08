@@ -5,13 +5,13 @@ import com.rudkids.core.item.domain.ItemStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+@Getter
 @Entity
 @Table(name = "tbl_cart_item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,70 +31,51 @@ public class CartItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    private int amount;
-    private int price;
+    private String name;
+
     private String imageUrl;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cartItem", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<CartItemOptionGroup> cartItemOptionGroups = new ArrayList<>();
+    private int amount;
+
+    private int price;
+
+    private boolean selected = false;
 
     @Builder
-    public CartItem(Cart cart, Item item, int amount, int price, String imageUrl) {
+    public CartItem(Cart cart, Item item, String name, String imageUrl, int amount, int price) {
         this.cart = cart;
         this.item = item;
+        this.name = name;
+        this.imageUrl = imageUrl;
         this.amount = amount;
         this.price = price;
-        this.imageUrl = imageUrl;
     }
 
     public int calculateTotalItemPrice() {
-        int optionPrice = cartItemOptionGroups.stream()
-            .mapToInt(CartItemOptionGroup::getOptionPrice)
-            .sum();
-        return (price + optionPrice) * amount;
-    }
-
-    public void addCartItemOptionGroup(CartItemOptionGroup cartItemOptionGroup) {
-        cartItemOptionGroups.add(cartItemOptionGroup);
+        return price * amount;
     }
 
     public void addAmount(int amount) {
         this.amount += amount;
     }
 
+    public boolean isSameName(String name) {
+        return this.name.equals(name);
+    }
+
     public void updateAmount(int amount) {
         this.amount = amount;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getName() {
         return item.getEnName();
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public ItemStatus getItemStatus() {
         return item.getItemStatus();
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public List<CartItemOptionGroup> getCartItemOptionGroups() {
-        return cartItemOptionGroups;
+    public void select() {
+        selected = true;
     }
 }

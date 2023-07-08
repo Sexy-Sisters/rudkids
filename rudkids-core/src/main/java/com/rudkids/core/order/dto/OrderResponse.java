@@ -1,10 +1,6 @@
 package com.rudkids.core.order.dto;
 
-import com.rudkids.core.cart.domain.Cart;
-import com.rudkids.core.cart.domain.CartItem;
-import com.rudkids.core.cart.domain.CartItemOptionGroup;
 import com.rudkids.core.delivery.dto.DeliveryResponse;
-import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.domain.PayMethod;
@@ -16,73 +12,44 @@ import java.util.UUID;
 
 public class OrderResponse {
 
-    public record Main(UUID orderId, ZonedDateTime createdAt) {
-        public Main(Order order) {
-            this(order.getId(), order.getCreatedAt());
-        }
-    }
-
-    @Builder
-    public record Detail(
+    public record Main(
         UUID orderId,
-        DeliveryResponse.Info deliveryFragment,
-        PayMethod payMethod,
+        ZonedDateTime createdAt,
         OrderStatus orderStatus,
-        Receipt receipt
+        List<OrderItemResponse> orderItems
     ) {
-        public Detail(Order order) {
+        public Main(Order order) {
             this(
                 order.getId(),
-                new DeliveryResponse.Info(order.getDelivery()),
-                order.getPayMethod(),
+                order.getCreatedAt(),
                 order.getOrderStatus(),
-                new Receipt(order.getCart())
-            );
-        }
-    }
-
-    @Builder
-    public record Receipt(
-        int totalPrice,
-        List<ReceiptItemInfo> items
-    ) {
-        public Receipt(Cart cart) {
-            this(
-                cart.calculateTotalPrice(),
-                cart.getCartItems().stream()
-                    .map(ReceiptItemInfo::new)
+                order.getOrderItems().stream()
+                    .map(OrderItemResponse::new)
                     .toList()
             );
         }
     }
 
     @Builder
-    public record ReceiptItemInfo(
-        UUID itemId,
-        String name,
-        int price,
-        int amount,
-        List<ReceiptOptionGroup> optionGroups,
-        ItemStatus itemStatus
+    public record Detail(
+        UUID orderId,
+        ZonedDateTime createdAt,
+        OrderStatus orderStatus,
+        List<OrderItemResponse> orderItems,
+        DeliveryResponse.Info deliveryFragment,
+        PayMethod payMethod
     ) {
-        public ReceiptItemInfo(CartItem cartItem) {
+        public Detail(Order order) {
             this(
-                cartItem.getId(),
-                cartItem.getName(),
-                cartItem.getPrice(),
-                cartItem.getAmount(),
-                cartItem.getCartItemOptionGroups().stream()
-                    .map(ReceiptOptionGroup::new)
+                order.getId(),
+                order.getCreatedAt(),
+                order.getOrderStatus(),
+                order.getOrderItems().stream()
+                    .map(OrderItemResponse::new)
                     .toList(),
-                cartItem.getItemStatus()
+                new DeliveryResponse.Info(order.getDelivery()),
+                order.getPayMethod()
             );
-        }
-    }
-
-    @Builder
-    public record ReceiptOptionGroup(String name, String optionName) {
-        public ReceiptOptionGroup(CartItemOptionGroup group) {
-            this(group.getName(), group.getOptionName());
         }
     }
 }

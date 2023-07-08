@@ -12,7 +12,7 @@ public class VerifyCodeGenerator {
 
     public String generate() {
         String code = generateUniqueNumber();
-        log.info("verify code, expire time is 60s = {}", code);
+        log.info("verify code, expire time is 3m = {}", code);
         return code;
     }
 

@@ -1,10 +1,8 @@
 package com.rudkids.core.cart.dto;
 
 import com.rudkids.core.cart.domain.CartItem;
-import com.rudkids.core.cart.domain.CartItemOptionGroup;
 import com.rudkids.core.item.domain.ItemStatus;
 
-import java.util.List;
 import java.util.UUID;
 
 public class CartItemResponse {
@@ -15,7 +13,6 @@ public class CartItemResponse {
         String name,
         int price,
         int amount,
-        List<MainOptionGroup> optionGroups,
         ItemStatus itemStatus
     ) {
         public Main(CartItem cartItem) {
@@ -25,21 +22,14 @@ public class CartItemResponse {
                 cartItem.getName(),
                 cartItem.getPrice(),
                 cartItem.getAmount(),
-                getOptionGroups(cartItem),
                 cartItem.getItemStatus()
             );
         }
-
-        private static List<MainOptionGroup> getOptionGroups(CartItem cartItem) {
-            return cartItem.getCartItemOptionGroups().stream()
-                .map(MainOptionGroup::new)
-                .toList();
-        }
     }
 
-    public record MainOptionGroup(String name, String optionName) {
-        public MainOptionGroup(CartItemOptionGroup optionGroup) {
-            this(optionGroup.getName(), optionGroup.getOptionName());
+    public record Select(String name, int amount) {
+        public Select(CartItem cartItem) {
+            this(cartItem.getName(), cartItem.getAmount());
         }
     }
 }

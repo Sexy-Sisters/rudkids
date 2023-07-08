@@ -86,17 +86,9 @@ public class ItemControllerFailTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("아이템 이미지 url"),
 
-                    fieldWithPath("itemOptionGroupList[].ordering")
-                        .type(JsonFieldType.NUMBER)
-                        .description("옵션 그룹 순서"),
-
                     fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
                         .type(JsonFieldType.STRING)
                         .description("옵션 그룹 이름"),
-
-                    fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
-                        .type(JsonFieldType.NUMBER)
-                        .description("옵션 순서"),
 
                     fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
                         .type(JsonFieldType.STRING)
@@ -192,17 +184,9 @@ public class ItemControllerFailTest extends ControllerTest {
                         .type(JsonFieldType.STRING)
                         .description("아이템 이미지 url"),
 
-                    fieldWithPath("itemOptionGroupList[].ordering")
-                        .type(JsonFieldType.NUMBER)
-                        .description("옵션 그룹 순서"),
-
                     fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
                         .type(JsonFieldType.STRING)
                         .description("옵션 그룹 이름"),
-
-                    fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
-                        .type(JsonFieldType.NUMBER)
-                        .description("옵션 순서"),
 
                     fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
                         .type(JsonFieldType.STRING)

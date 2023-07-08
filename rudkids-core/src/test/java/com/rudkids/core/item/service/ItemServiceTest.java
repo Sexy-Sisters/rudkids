@@ -37,7 +37,6 @@ public class ItemServiceTest extends ItemServiceFixtures {
         );
         var itemOptionGroup = findItem.getItemOptionGroups().get(0);
         assertAll(() -> {
-            assertThat(itemOptionGroup.getOrdering()).isEqualTo(1);
             assertThat(itemOptionGroup.getItemOptionGroupName()).isEqualTo("사이즈");
             assertThat(itemOptionGroup.getItemOptions()).hasSize(3);
         });

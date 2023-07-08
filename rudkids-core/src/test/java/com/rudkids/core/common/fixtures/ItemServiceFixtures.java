@@ -51,21 +51,17 @@ public class ItemServiceFixtures {
     }
 
     private static final ItemRequest.CreateItemOptionGroup itemOptionGroup_사이즈 = ItemRequest.CreateItemOptionGroup.builder()
-        .ordering(1)
         .itemOptionGroupName("사이즈")
         .itemOptionList(List.of(
             ItemRequest.CreateItemOption.builder()
-                .ordering(1)
                 .itemOptionName("S")
                 .itemOptionPrice(0)
                 .build(),
             ItemRequest.CreateItemOption.builder()
-                .ordering(2)
                 .itemOptionName("M")
                 .itemOptionPrice(0)
                 .build(),
             ItemRequest.CreateItemOption.builder()
-                .ordering(3)
                 .itemOptionName("L")
                 .itemOptionPrice(1000)
                 .build()

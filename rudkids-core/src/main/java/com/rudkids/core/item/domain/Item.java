@@ -2,6 +2,7 @@ package com.rudkids.core.item.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
+import com.rudkids.core.item.exception.QuantityDepletedException;
 import com.rudkids.core.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -159,5 +160,19 @@ public class Item extends AbstractEntity {
 
     public String getVideoUrl() {
         return video.getVideoUrl();
+    }
+
+    public void removeQuantity(int quantity) {
+        int restQuantity = this.quantity.getRestQuantity(quantity);
+        if(restQuantity < 0) {
+            itemStatus = ItemStatus.SOLD_OUT;
+            throw new QuantityDepletedException();
+        }
+
+        this.quantity.remove(restQuantity);
+    }
+
+    public void addQuantity(int amount) {
+        quantity.add(amount);
     }
 }

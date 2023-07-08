@@ -57,7 +57,6 @@ create table if not exists tbl_item_option_group
     created_at           datetime(6)  null,
     updated_at           datetime(6)  null,
     name                 varchar(255) null,
-    ordering             int          null,
     item_id              binary(16)   null,
     constraint FKhlupffolfs7ctdeikvriveu0f
         foreign key (item_id) references tbl_item (item_id)
@@ -71,7 +70,6 @@ create table if not exists tbl_item_option
     updated_at           datetime(6)  null,
     name                 varchar(255) null,
     price                int          null,
-    ordering             int          null,
     item_option_group_id binary(16)   null,
     constraint FK36xwufr7uhgrox1sv6o9k2kt4
         foreign key (item_option_group_id) references tbl_item_option_group (item_option_group_id)

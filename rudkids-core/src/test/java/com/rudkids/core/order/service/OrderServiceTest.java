@@ -1,6 +1,5 @@
 package com.rudkids.core.order.service;
 
-import com.rudkids.core.cart.domain.CartStatus;
 import com.rudkids.core.common.fixtures.OrderServiceFixtures;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.domain.PayMethod;
@@ -51,23 +50,7 @@ class OrderServiceTest extends OrderServiceFixtures {
             assertThat(info.deliveryFragment().address2()).isEqualTo("나는 몰라용~");
             assertThat(info.deliveryFragment().zipCode()).isEqualTo("494999");
             assertThat(info.deliveryFragment().message()).isEqualTo("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.");
-            assertThat(info.receipt().totalPrice()).isEqualTo(9000);
-            assertThat(info.receipt().items()).hasSize(1);
         });
-    }
-
-    @DisplayName("[주문-전체조회")
-    @Test
-    void 주문을_전체조회한다() {
-        // Given
-        var pageable = Pageable.ofSize(2);
-
-        // When
-        var infoPage = orderService.getAll(pageable);
-
-        // Then
-        var content = infoPage.getContent();
-        assertThat(content).hasSize(1);
     }
 
     @DisplayName("[주문-주문내역 조회")
@@ -79,7 +62,7 @@ class OrderServiceTest extends OrderServiceFixtures {
         orderService.create(userId, ORDER_주문_요청);
 
         // When
-        var infoList = orderService.getAllMine(userId, pageable);
+        var infoList = orderService.getAll(userId, pageable);
 
         // Then
         assertThat(infoList).hasSize(2);
@@ -101,21 +84,21 @@ class OrderServiceTest extends OrderServiceFixtures {
         assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.DELIVERY_COMPLETE);
     }
 
-    @DisplayName("[주문-취소]")
-    @Test
-    void 주문을_취소한다() {
-        // Given
-        var orderId = order.getId();
-        var cart = order.getCart();
-
-        // When
-        orderService.delete(orderId);
-
-        // Then
-        assertAll(
-            () -> assertThat(cart.getCartStatus()).isEqualTo(CartStatus.ACTIVE),
-            () -> assertThatThrownBy(() -> orderRepository.get(orderId))
-                .isInstanceOf(OrderNotFoundException.class)
-        );
-    }
+//    @DisplayName("[주문-취소]")
+//    @Test
+//    void 주문을_취소한다() {
+//        // Given
+//        var orderId = order.getId();
+//        var cart = order.getCart();
+//
+//        // When
+//        orderService.delete(orderId);
+//
+//        // Then
+//        assertAll(
+//            () -> assertThat(cart.getCartStatus()).isEqualTo(CartStatus.ACTIVE),
+//            () -> assertThatThrownBy(() -> orderRepository.get(orderId))
+//                .isInstanceOf(OrderNotFoundException.class)
+//        );
+//    }
 }

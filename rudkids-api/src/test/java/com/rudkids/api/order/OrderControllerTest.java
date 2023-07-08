@@ -73,7 +73,7 @@ class OrderControllerTest extends ControllerTest {
     @DisplayName("[주문-내역조회]")
     @Test
     void 자신의_주문_내역을_조회한다() throws Exception {
-        given(orderService.getAllMine(any(), any()))
+        given(orderService.getAll(any(), any()))
             .willReturn(ORDER_주문내역_조회_INFO());
 
         mockMvc.perform(get(ORDER_DEFAULT_URL)
@@ -93,14 +93,12 @@ class OrderControllerTest extends ControllerTest {
             .andExpect(status().isOk());
     }
 
-
-    @DisplayName("[주문-취소]")
+    @DisplayName("[주문내역-삭제]")
     @Test
-    void 주문을_취소한다() throws Exception {
+    void 주문내역을_삭제한다() throws Exception {
         willDoNothing()
             .given(orderService)
             .delete(any());
-
 
         mockMvc.perform(delete(ORDER_DEFAULT_URL + "/{id}", orderId)
                 .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

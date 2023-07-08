@@ -14,70 +14,41 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CartItemRepositoryImpl implements CartItemRepository {
     private final JpaCartItemRepository cartItemRepository;
+    private final CartItemNameGenerator cartItemNameGenerator;
 
     @Override
     public CartItem getOrCreate(Cart cart, Item item, CartRequest.AddCartItem request) {
-        if(cartItemRepository.findByCartAndItem(cart, item).isPresent()) {
-            var cartItem = cartItemRepository.findByCartAndItem(cart, item).get();
-            List<String> cartItemOptionNames = cartItem.getCartItemOptionGroups().stream()
-                .map(CartItemOptionGroup::getOptionName)
-                .toList();
+        var name = cartItemNameGenerator.generate(item.getEnName(), request);
 
-            List<String> targetOptionNames = toCartItemOptionGroup(request.optionGroups()).stream()
-                .map(CartItemOptionGroup::getOptionName)
-                .toList();
-
-            if (isSameOptions(cartItemOptionNames, targetOptionNames)) {
+        return cartItemRepository.findByCartAndItem(cart, item)
+            .filter(cartItem -> cartItem.isSameName(name))
+            .findFirst()
+            .map(cartItem -> {
                 cartItem.addAmount(request.amount());
                 return cartItem;
-            }
-        }
-
-        return createCartItem(cart, item, request);
+            })
+            .orElseGet(() -> createCartItem(cart, item, name, request));
     }
 
-    private boolean isSameOptions(List<String> options, List<String> targetOptions) {
-        return options.size() == targetOptions.size()
-            && options.containsAll(targetOptions);
-    }
+    private CartItem createCartItem(Cart cart, Item item, String name, CartRequest.AddCartItem request) {
+        int price = item.getPrice() + sumCartItemTotalPrice(request);
 
-    private List<CartItemOptionGroup> toCartItemOptionGroup(List<CartRequest.AddCartItemOptionGroup> groups) {
-        return groups.stream()
-            .map(this::toCartItemOption)
-            .toList();
-    }
-
-    private CartItemOptionGroup toCartItemOption(CartRequest.AddCartItemOptionGroup option) {
-        return CartItemOptionGroup.builder()
-            .name(option.name())
-            .cartItemOption(option.toCartItemOption())
-            .build();
-    }
-
-    private CartItem createCartItem(Cart cart, Item item, CartRequest.AddCartItem request) {
         var cartItem = CartItem.builder()
             .cart(cart)
             .item(item)
-            .price(item.getPrice())
-            .amount(request.amount())
+            .name(name)
             .imageUrl(item.getCartItemImageUrl())
+            .amount(request.amount())
+            .price(price)
             .build();
         cart.addCartItem(cartItem);
 
-        generateChildEntities(cartItem, request);
         return cartItemRepository.save(cartItem);
     }
 
-    private void generateChildEntities(CartItem cartItem, CartRequest.AddCartItem request) {
-        request.optionGroups().forEach(group -> {
-            var cartItemOptionGroup = CartItemOptionGroup.builder()
-                .cartItem(cartItem)
-                .name(group.name())
-                .cartItemOption(group.toCartItemOption())
-                .build();
-
-            cartItem.addCartItemOptionGroup(cartItemOptionGroup);
-        });
+    private int sumCartItemTotalPrice(CartRequest.AddCartItem request) {
+        return request.optionGroups().stream()
+            .mapToInt(it -> it.option().price()).sum();
     }
 
     @Override
@@ -87,7 +58,17 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     }
 
     @Override
-    public void delete(List<UUID> ids) {
-        cartItemRepository.deleteAllByIds(ids);
+    public void selects(List<UUID> ids) {
+        cartItemRepository.updateSelects(ids);
+    }
+
+    @Override
+    public void deleteSelected() {
+        cartItemRepository.deleteSelected();
+    }
+
+    @Override
+    public void delete(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
     }
 }

@@ -48,23 +48,17 @@ public class CartServiceFailTest extends CartServiceFixtures {
                 .isInstanceOf(CartItemNotFoundException.class);
     }
 
-    @Disabled("벌크연산 말고 다른 방법을 사용하여 커스텀 예외를 구현할 때까지 이 테스트코드는 보류한다.")
-    @DisplayName("[장바구니-아이템선택삭제-CartItemNotFoundException]")
+    @DisplayName("[장바구니-아이템삭제-CartItemNotFoundException]")
     @Test
-    void 존재하지_않는장바구니_아이템들을_선택하여_삭제할_경우_예외가_발생한다() {
+    void 존재하지_않는장바구니_아이템을_삭제할_경우_예외가_발생한다() {
         //given
         cartService.addCartItem(user.getId(), CART_아이템_요청);
 
         //when
         UUID invalidCartItemId = UUID.randomUUID();
-        List<UUID> cartItemIds = List.of(invalidCartItemId);
 
         //then
-        CartRequest.DeleteCartItems CART_아이템_삭제_요청 = CartRequest.DeleteCartItems.builder()
-                .cartItemIds(cartItemIds)
-                .build();
-
-        assertThatThrownBy(() -> cartService.deleteCartItems(user.getId(), CART_아이템_삭제_요청))
+        assertThatThrownBy(() -> cartService.deleteCartItem(user.getId(), invalidCartItemId))
                 .isInstanceOf(CartItemNotFoundException.class);
     }
 }

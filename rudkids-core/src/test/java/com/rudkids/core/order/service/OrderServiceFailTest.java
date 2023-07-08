@@ -13,18 +13,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OrderServiceFailTest extends OrderServiceFixtures {
 
-    @DisplayName("[주문-생성-CartNotFoundException]")
-    @Test
-    void 활성화된_장바구니가_없을_때_주문_생성_시_예외가_발생한다() {
-        // Given
-        var userId = user.getId();
-        cart.deactivate();
-
-        // When & Then
-        assertThatThrownBy(() -> orderService.create(userId, ORDER_주문_요청))
-            .isInstanceOf(CartNotFoundException.class);
-    }
-
     @DisplayName("[주문-상세조회-OrderNotFoundException]")
     @Test
     void 존재하지_않는_주문을_상세조회_시_예외가_발생한다() {

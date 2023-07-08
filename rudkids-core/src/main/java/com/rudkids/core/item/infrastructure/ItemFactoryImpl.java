@@ -60,7 +60,6 @@ public class ItemFactoryImpl implements ItemFactory {
 
         return ItemOptionGroup.builder()
             .item(item)
-            .ordering(group.ordering())
             .itemOptionGroupName(groupName)
             .build();
     }
@@ -71,7 +70,6 @@ public class ItemFactoryImpl implements ItemFactory {
 
         return ItemOption.builder()
             .itemOptionGroup(optionGroup)
-            .ordering(option.ordering())
             .itemOptionName(itemOptionName)
             .itemOptionPrice(itemOptionPrice)
             .build();

@@ -1,7 +1,6 @@
 package com.rudkids.core.order.service;
 
-import com.rudkids.core.cart.domain.CartRepository;
-import com.rudkids.core.delivery.domain.DeliveryRepository;
+import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
@@ -9,7 +8,6 @@ import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,18 +21,17 @@ import java.util.UUID;
 public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
-    private final CartRepository cartRepository;
-    private final DeliveryRepository deliveryRepository;
+    private final OrderFactory orderFactory;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public UUID create(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
-        var cart = cartRepository.getActiveCart(user);
-        var delivery = deliveryRepository.get(request.deliveryId());
-        var order = Order.create(user, cart, delivery, request.payMethod());
-
+        var order = orderFactory.save(user, request);
         orderRepository.save(order);
-        cart.deactivate();
+
+        cartItemRepository.deleteSelected();
+        order.removeQuantity();
         return order.getId();
     }
 
@@ -47,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse.Main> getAllMine(UUID userId, Pageable pageable) {
+    public List<OrderResponse.Main> getAll(UUID userId, Pageable pageable) {
         var user = userRepository.getUser(userId);
         return user.getOrders().stream()
             .map(OrderResponse.Main::new)
@@ -55,10 +52,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Page<OrderResponse.Main> getAll(Pageable pageable) {
-        return orderRepository.getOrders(pageable)
-            .map(OrderResponse.Main::new);
+    public void cancel(UUID userId, UUID orderId) {
+        var user = userRepository.getUser(userId);
+        var order = orderRepository.get(orderId);
+        order.validateHasSameUser(user);
+        order.cancel();
+    }
+
+    @Override
+    public List<OrderResponse.Main> getCancelOrders(UUID userId) {
+        var user = userRepository.getUser(userId);
+        return user.getOrders().stream()
+            .filter(Order::isCanceled)
+            .map(OrderResponse.Main::new)
+            .toList();
     }
 
     @Override
@@ -71,8 +78,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(UUID orderId) {
         var order = orderRepository.get(orderId);
-        order.validateNotPaid();
-        order.activateCart();
         orderRepository.delete(order);
     }
 }
