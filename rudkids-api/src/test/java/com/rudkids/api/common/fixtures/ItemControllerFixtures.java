@@ -104,7 +104,7 @@ public class ItemControllerFixtures {
 
     public static Page<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
         return new PageImpl<>(List.of(
-            new ItemResponse.VideoImage(아이템_영어_이름, "url")
+            new ItemResponse.VideoImage(아이템_영어_이름, new ImageResponse.Info("path", "url"))
         ));
     }
 
@@ -119,7 +119,15 @@ public class ItemControllerFixtures {
                     .type(JsonFieldType.STRING)
                     .description("상품 영어 이름"),
 
-                fieldWithPath("content[]imageUrl")
+                fieldWithPath("content[]image")
+                    .type(JsonFieldType.OBJECT)
+                    .description("상품 영상 이미지"),
+
+                fieldWithPath("content[]image.path")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 영상 이미지 path"),
+
+                fieldWithPath("content[]image.url")
                     .type(JsonFieldType.STRING)
                     .description("상품 영상 이미지 url")
             )

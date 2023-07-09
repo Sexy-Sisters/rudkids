@@ -83,6 +83,8 @@ class AuthControllerTest extends ControllerTest {
     @DisplayName("[Auth-구글-로그인]")
     @Test
     void 구글_로그인을_요청하면_토큰을_발급한다() throws Exception {
+        given(oAuthClient.getOAuthUser(any(), any(), any()))
+            .willReturn(USER_AUTH_응답());
         given(authService.generateAccessAndRefreshToken(any()))
             .willReturn(USER_토큰_응답());
 
@@ -114,7 +116,11 @@ class AuthControllerTest extends ControllerTest {
 
                     fieldWithPath("refreshToken")
                         .type(JsonFieldType.STRING)
-                        .description("루키즈 Refresh Token")
+                        .description("루키즈 Refresh Token"),
+
+                    fieldWithPath("hasPhoneNumber")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("루키즈 폰번호 인증 여부")
                 )
             ))
             .andExpect(status().isOk());
@@ -123,6 +129,8 @@ class AuthControllerTest extends ControllerTest {
     @DisplayName("[Auth-카카오-로그인]")
     @Test
     void 카카오_로그인을_요청하면_토큰을_발급한다() throws Exception {
+        given(oAuthClient.getOAuthUser(any(), any(), any()))
+            .willReturn(USER_AUTH_응답());
         given(authService.generateAccessAndRefreshToken(any()))
             .willReturn(USER_토큰_응답());
 
@@ -154,7 +162,11 @@ class AuthControllerTest extends ControllerTest {
 
                     fieldWithPath("refreshToken")
                         .type(JsonFieldType.STRING)
-                        .description("루키즈 Refresh Token")
+                        .description("루키즈 Refresh Token"),
+
+                    fieldWithPath("hasPhoneNumber")
+                        .type(JsonFieldType.BOOLEAN)
+                        .description("루키즈 폰번호 인증 여부")
                 )
             ))
             .andExpect(status().isOk());
