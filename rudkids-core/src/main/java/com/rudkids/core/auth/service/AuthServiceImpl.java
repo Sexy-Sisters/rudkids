@@ -52,8 +52,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void validatePhoneNumber(UUID userId) {
-        var user = userRepository.getUser(userId);
-        user.validateEmptyPhoneNumber();
+    public boolean getHasPhoneNumber(String email) {
+        var user = userRepository.getUser(email);
+        return user.hasPhoneNumber();
     }
 }
