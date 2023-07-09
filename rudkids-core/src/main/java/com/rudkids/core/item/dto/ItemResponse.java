@@ -83,9 +83,9 @@ public class ItemResponse {
         }
     }
 
-    public record VideoImage(String name, String imageUrl) {
+    public record VideoImage(String name, ImageResponse.Info image) {
         public VideoImage(Item item) {
-            this(item.getEnName(), item.getVideoImageUrl());
+            this(item.getEnName(), new ImageResponse.Info(item.getVideoImagPath(), item.getVideoImageUrl()));
         }
     }
 

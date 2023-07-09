@@ -65,10 +65,8 @@ public class User {
         }
     }
 
-    public void validateEmptyPhoneNumber() {
-        if(phoneNumber.isEmpty()) {
-            throw new PhoneNumberEmptyException();
-        }
+    public boolean hasPhoneNumber() {
+        return !phoneNumber.isEmpty();
     }
 
     public boolean isDefaultImage() {

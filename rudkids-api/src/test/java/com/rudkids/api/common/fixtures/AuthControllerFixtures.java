@@ -2,6 +2,7 @@ package com.rudkids.api.common.fixtures;
 
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
+import com.rudkids.core.auth.dto.AuthUser;
 
 public class AuthControllerFixtures {
 
@@ -15,6 +16,14 @@ public class AuthControllerFixtures {
 
     public static AuthRequest.Token USER_토큰_요청() {
         return new AuthRequest.Token(MEMBER_인증_코드, REDIRECT_URI);
+    }
+
+    public static AuthUser.OAuth USER_AUTH_응답() {
+        return AuthUser.OAuth.builder()
+            .email("email")
+            .name("name")
+            .picture("https://")
+            .build();
     }
 
     public static AuthResponse.AccessAndRefreshToken USER_토큰_응답() {

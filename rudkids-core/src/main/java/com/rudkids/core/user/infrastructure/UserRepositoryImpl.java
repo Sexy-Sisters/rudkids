@@ -20,6 +20,12 @@ public class UserRepositoryImpl implements UserRepository {
             .orElseThrow(NotFoundUserException::new);
     }
 
+    @Override
+    public User getUser(String email) {
+        return userRepository.findByEmail(email)
+            .orElseThrow(NotFoundUserException::new);
+    }
+
     public User getUser(AuthUser.OAuth oauthUser) {
         return userRepository.findByEmail(oauthUser.email())
             .orElseGet(() -> saveUser(oauthUser));

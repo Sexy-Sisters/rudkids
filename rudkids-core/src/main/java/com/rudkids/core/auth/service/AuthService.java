@@ -12,5 +12,5 @@ public interface AuthService {
     void registerInformation(UUID userId, String phoneNumber);
     UUID extractUserId(String accessToken);
     void validateAdminAuthority(UUID userId);
-    void validatePhoneNumber(UUID userId);
+    boolean getHasPhoneNumber(String email);
 }
