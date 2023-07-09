@@ -27,7 +27,7 @@ public class AuthControllerFixtures {
     }
 
     public static AuthResponse.AccessAndRefreshToken USER_토큰_응답() {
-        return new AuthResponse.AccessAndRefreshToken(엑세스_토큰, 리프래쉬_토큰);
+        return new AuthResponse.AccessAndRefreshToken(엑세스_토큰, 리프래쉬_토큰, false);
     }
 
     public static AuthRequest.RenewalToken USER_엑세스_토큰_재발급_요청() {

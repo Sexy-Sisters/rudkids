@@ -22,7 +22,8 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthUser.OAuth oAuthUser) {
         var foundUser = userRepository.getUser(oAuthUser);
         var authToken = tokenCreator.createAuthToken(foundUser.getId());
-        return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken());
+        boolean hasPhoneNumber = foundUser.hasPhoneNumber();
+        return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken(), hasPhoneNumber);
     }
 
     @Override
@@ -49,11 +50,5 @@ public class AuthServiceImpl implements AuthService {
     public void validateAdminAuthority(UUID userId) {
         var user = userRepository.getUser(userId);
         user.validateAdminRole();
-    }
-
-    @Override
-    public boolean getHasPhoneNumber(String email) {
-        var user = userRepository.getUser(email);
-        return user.hasPhoneNumber();
     }
 }

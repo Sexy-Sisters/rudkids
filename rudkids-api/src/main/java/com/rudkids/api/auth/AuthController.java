@@ -1,7 +1,6 @@
 package com.rudkids.api.auth;
 
 import com.rudkids.core.auth.dto.AuthRequest;
-import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.auth.service.AuthService;
 import com.rudkids.core.auth.service.OAuthClient;
@@ -33,10 +32,8 @@ public class AuthController {
         @RequestBody AuthRequest.Token request
     ) {
         var oAuthUser = oAuthClient.getOAuthUser(oauthProvider, request.authorizationCode(), request.redirectUri());
-        var tokens = authService.generateAccessAndRefreshToken(oAuthUser);
-        var hasPhoneNumber = authService.getHasPhoneNumber(oAuthUser.email());
-        var authResponse = new AuthResponse.Login(tokens, hasPhoneNumber);
-        return ResponseEntity.ok(authResponse);
+        var response = authService.generateAccessAndRefreshToken(oAuthUser);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/renewal/access")
