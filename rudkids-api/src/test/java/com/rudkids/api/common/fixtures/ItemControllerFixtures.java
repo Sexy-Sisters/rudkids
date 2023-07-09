@@ -82,6 +82,7 @@ public class ItemControllerFixtures {
             .limitType(아이템_수량_한정_여부)
             .images(List.of(new ImageResponse.Info("path", "url")))
             .itemStatus(ItemStatus.SELLING)
+            .videoImage(new ImageResponse.Info("path", "url"))
             .videoUrl("영상 url")
             .build();
     }
@@ -104,8 +105,8 @@ public class ItemControllerFixtures {
 
     public static Page<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
         return new PageImpl<>(List.of(
-            new ItemResponse.VideoImage(아이템_영어_이름, new ImageResponse.Info("path", "url"))
-        ));
+            new ItemResponse.VideoImage(아이템_영어_이름,"url"))
+        );
     }
 
     public static ItemResponse.Video ITEM_영상_응답() {
@@ -119,15 +120,7 @@ public class ItemControllerFixtures {
                     .type(JsonFieldType.STRING)
                     .description("상품 영어 이름"),
 
-                fieldWithPath("content[]image")
-                    .type(JsonFieldType.OBJECT)
-                    .description("상품 영상 이미지"),
-
-                fieldWithPath("content[]image.path")
-                    .type(JsonFieldType.STRING)
-                    .description("상품 영상 이미지 path"),
-
-                fieldWithPath("content[]image.url")
+                fieldWithPath("content[]imageUrl")
                     .type(JsonFieldType.STRING)
                     .description("상품 영상 이미지 url")
             )

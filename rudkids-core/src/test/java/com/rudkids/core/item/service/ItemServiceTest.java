@@ -74,8 +74,7 @@ public class ItemServiceTest extends ItemServiceFixtures {
 
         assertAll(() -> {
             assertThat(response.getContent().get(0).name()).isEqualTo("No.1");
-            assertThat(response.getContent().get(0).image().path()).isEqualTo("path");
-            assertThat(response.getContent().get(0).image().url()).isEqualTo("url");
+            assertThat(response.getContent().get(0).imageUrl()).isEqualTo("url");
         });
     }
 

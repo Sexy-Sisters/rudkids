@@ -174,6 +174,18 @@ class ItemControllerTest extends ControllerTest {
                         .type(JsonFieldType.NULL)
                         .description("옵션 그룹 응답 리스트 (테스트 코드 수정 필요"),
 
+                    fieldWithPath("videoImage")
+                        .type(JsonFieldType.OBJECT)
+                        .description("콘티영상 썸네일"),
+
+                    fieldWithPath("videoImage.path")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 썸네일 path"),
+
+                    fieldWithPath("videoImage.url")
+                        .type(JsonFieldType.STRING)
+                        .description("콘티영상 썸네일 url"),
+
                     fieldWithPath("videoUrl")
                         .type(JsonFieldType.STRING)
                         .description("콘티영상 url")
