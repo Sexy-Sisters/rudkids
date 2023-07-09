@@ -154,12 +154,12 @@ public class Item extends AbstractEntity {
         return images.get(0).getUrl();
     }
 
-    public String getVideoImagPath() {
-        return video.getImagePath();
-    }
-
     public String getVideoImageUrl() {
         return video.getImageUrl();
+    }
+
+    public String getVideoImagPath() {
+        return video.getImagePath();
     }
 
     public String getVideoUrl() {

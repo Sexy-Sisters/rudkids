@@ -39,6 +39,7 @@ public class ItemResponse {
         List<ImageResponse.Info> images,
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList,
+        ImageResponse.Info videoImage,
         String videoUrl
     ) {
         public Detail(Item item) {
@@ -54,6 +55,7 @@ public class ItemResponse {
                     .toList(),
                 item.getItemStatus(),
                 getOptionGroup(item),
+                new ImageResponse.Info(item.getVideoImagPath(), item.getVideoImageUrl()),
                 item.getVideoUrl()
             );
         }
@@ -83,9 +85,9 @@ public class ItemResponse {
         }
     }
 
-    public record VideoImage(String name, ImageResponse.Info image) {
+    public record VideoImage(String name, String imageUrl) {
         public VideoImage(Item item) {
-            this(item.getEnName(), new ImageResponse.Info(item.getVideoImagPath(), item.getVideoImageUrl()));
+            this(item.getEnName(), item.getVideoImageUrl());
         }
     }
 
