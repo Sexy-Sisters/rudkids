@@ -10,8 +10,8 @@ public class DeliveryResponse {
         String receiverName,
         String receiverPhone,
         String zipCode,
-        String address1,
-        String address2,
+        String address,
+        String extraAddress,
         String message,
         boolean isBasic
     ) {

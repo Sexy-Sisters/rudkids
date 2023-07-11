@@ -12,29 +12,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 
-    @Column(name = "address1")
-    private String address1;
+    @Column(name = "address")
+    private String address;
 
-    @Column(name = "address2")
-    private String address2;
+    @Column(name = "extraAddress")
+    private String extraAddress;
 
     @Column(name = "zip_code")
     private String zipCode;
 
-    private Address(String address1, String address2, String zipCode) {
-        this.address1 = address1;
-        this.address2 = address2;
+    private Address(String address, String extraAddress, String zipCode) {
+        this.address = address;
+        this.extraAddress = extraAddress;
         this.zipCode = zipCode;
     }
 
-    public static Address create(String address1, String address2, String zipCode) {
-        validate(address1, address2, zipCode);
-        return new Address(address1, address2, zipCode);
+    public static Address create(String address, String extraAddress, String zipCode) {
+        validate(address, extraAddress, zipCode);
+        return new Address(address, extraAddress, zipCode);
     }
 
-    private static void validate(String address1, String address2, String zipCode) {
-        if (address1 == null || address2 == null ||
-            address1.isBlank() || address2.isBlank() ||
+    private static void validate(String address, String extraAddress, String zipCode) {
+        if (address == null || extraAddress == null ||
+            address.isBlank() || extraAddress.isBlank() ||
             zipCode == null || zipCode.isBlank()) {
             throw new InvalidNameException();
         }

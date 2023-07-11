@@ -58,7 +58,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         var delivery = deliveryRepository.get(deliveryId);
         delivery.validateHasSameUser(user);
 
-        var address = Address.create(command.address1(), command.address2(), command.zipCode());
+        var address = Address.create(command.address(), command.extraAddress(), command.zipCode());
         delivery.update(command.receiverName(), command.receiverPhone(), address, command.message());
     }
 

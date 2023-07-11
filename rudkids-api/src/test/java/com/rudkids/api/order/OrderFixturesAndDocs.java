@@ -29,8 +29,8 @@ public class OrderFixturesAndDocs {
 
     private static final String receiverName = "이규진";
     private static final String receiverPhone = "010-5476-5574";
-    private static final String receiverAddress1 = "부산시 사하구 윤공단로123";
-    private static final String receiverAddress2 = "나는 몰라용~";
+    private static final String receiverAddress = "부산시 사하구 윤공단로123";
+    private static final String receiverextraAddress = "나는 몰라용~";
     private static final String receiverZipcode = "494999";
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
@@ -56,8 +56,8 @@ public class OrderFixturesAndDocs {
             .receiverName(receiverName)
             .receiverPhone(receiverPhone)
             .zipCode(receiverZipcode)
-            .address1(receiverAddress1)
-            .address2(receiverAddress2)
+            .address(receiverAddress)
+            .extraAddress(receiverextraAddress)
             .message(etcMessage)
             .build();
 
@@ -130,11 +130,11 @@ public class OrderFixturesAndDocs {
                 .type(JsonFieldType.STRING)
                 .description("우편번호"),
 
-            fieldWithPath("deliveryFragment.address1")
+            fieldWithPath("deliveryFragment.address")
                 .type(JsonFieldType.STRING)
                 .description("주소1"),
 
-            fieldWithPath("deliveryFragment.address2")
+            fieldWithPath("deliveryFragment.extraAddress")
                 .type(JsonFieldType.STRING)
                 .description("주소2"),
 
