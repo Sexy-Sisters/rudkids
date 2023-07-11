@@ -41,7 +41,7 @@ public class DeliveryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> changeStatus(
+    public ResponseEntity<Void> changeBasicStatus(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @PathVariable("id")UUID deliveryId
     ) {

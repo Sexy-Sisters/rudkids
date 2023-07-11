@@ -1,0 +1,129 @@
+== Delivery API
+:hardbreaks:
+
+=== 배송지 등록
+
+HTTP Request
+include::{snippets}/delivery/create/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/create/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/delivery/create/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/create/http-response.adoc[]
+
+=== 배송지 리스트 조회
+
+HTTP Request
+include::{snippets}/delivery/getAll/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/getAll/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/getAll/http-response.adoc[]
+
+Response Fields
+include::{snippets}/delivery/getAll/response-fields.adoc[]
+
+=== 배송지 상세조회
+
+HTTP Request
+include::{snippets}/delivery/get/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/get/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/delivery/get/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/delivery/get/response-fields.adoc[]
+
+=== 존재하지 않는 배송지 상세조회
+
+HTTP Response
+include::{snippets}/delivery/get/fail/notFound/http-response.adoc[]
+
+=== 배송지 상태를 기본배송지로 변경
+
+HTTP Request
+include::{snippets}/delivery/changeBasicStatus/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/changeBasicStatus/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/delivery/changeBasicStatus/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/changeBasicStatus/http-response.adoc[]
+
+=== 다른유저의 배송지 상태를 기본배송지로 변경
+
+HTTP Response
+include::{snippets}/delivery/changeBasicStatus/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 배송지 상태를 기본배송지로 변경
+
+HTTP Response
+include::{snippets}/delivery/changeBasicStatus/fail/notFound/http-response.adoc[]
+
+=== 배송지 수정
+
+HTTP Request
+include::{snippets}/delivery/update/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/update/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/delivery/update/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/delivery/update/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/update/http-response.adoc[]
+
+=== 다른 유저의 배송지 수정
+
+HTTP Response
+include::{snippets}/delivery/update/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 배송지 수정
+
+HTTP Response
+include::{snippets}/delivery/update/fail/notFound/http-response.adoc[]
+
+=== 배송지 삭제
+
+HTTP Request
+include::{snippets}/delivery/delete/http-request.adoc[]
+
+Request Header
+include::{snippets}/delivery/delete/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/delivery/delete/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/delivery/delete/http-response.adoc[]
+
+=== 다른 유저의 배송지 삭제
+
+HTTP Response
+include::{snippets}/delivery/delete/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 배송지 삭제
+
+HTTP Response
+include::{snippets}/delivery/delete/fail/notFound/http-response.adoc[]
+
+

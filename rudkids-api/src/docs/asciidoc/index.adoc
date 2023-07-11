@@ -1,4 +1,4 @@
-= Rudkids REST Docs
+= Rudkids API 문서
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs // 문서에 표기되는 코드들의 하이라이팅을 highlightjs를 사용
@@ -18,6 +18,8 @@ include::item.adoc[]
 include::cart.adoc[]
 
 include::order.adoc[]
+
+include::delivery.adoc[]
 
 include::community.adoc[]
 
