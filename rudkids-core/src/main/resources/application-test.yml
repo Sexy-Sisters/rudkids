@@ -28,7 +28,7 @@ spring:
 security:
   jwt:
     token:
-      secret-key: c3ByaW5nLWJvb3QtdGVzdC1zZWNyZXQta2V5
+      secret-key: c3ByaW5nLWJvb3QtdGVzdC1zZWNyZXQta2V5 #test key
       access:
         expire-length: 3600000 #1시간
       refresh:
@@ -44,20 +44,11 @@ oauth:
       - https://www.googleapis.com/auth/userinfo.profile
       - https://www.googleapis.com/auth/userinfo.email
     access-type: offline
-    person-fields:
-      - names
-      - photos
-      - genders
-      - birthdays
-      - emailAddresses
-      - phoneNumbers
-    key: apiKey
 
   kakao:
     client-id: kakaoClientId
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
-    account-uri: https://kapi.kakao.com/v2/user/me
     token-uri: https://kauth.kakao.com/oauth/token
 
 sms:
