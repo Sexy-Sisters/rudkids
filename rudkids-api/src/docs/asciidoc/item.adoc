@@ -1,36 +1,150 @@
 [[Item-API]]
 == Item API
+:hardbreaks:
 
-[[아이템-생성]]
 === 아이템 생성
-operation::item/create[snippets='http-request,http-response,request-body,request-fields,request-headers,response-body']
 
-[[아이템-생성-존재하지-않는-프로덕트-에러]]
-=== 아이템 생성 (존재하지 않는 프로덕트 에러)
-operation::item/create/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body,response-fields']
+HTTP Request
+include::{snippets}/item/create/http-request.adoc[]
 
-[[아이템-생성-관리자나-파트너-권한이-아닌-유저-에러]]
-=== 아이템 생성 (관리자나 파트너 권한이 아닌 유저 에러)
-operation::item/create/failByForbiddenError[snippets='http-request,http-response,request-body,request-headers,response-body,response-fields']
+Request Header
+include::{snippets}/item/create/request-headers.adoc[]
 
+Request Fields
+include::{snippets}/item/create/request-fields.adoc[]
 
-[[아이템-상세-조회]]
-=== 아이템 상세 조회
-operation::item/find[snippets='http-request,query-parameters,request-body,http-response,response-body,response-fields']
+HTTP Response
+include::{snippets}/item/create/http-response.adoc[]
 
-[[아이템-상세-조회-존재하지-않는-아이템-에러]]
-=== 아이템 상세 조회 (존재하지 않는 아이템 에러)
-operation::item/find/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,response-body,response-fields']
+=== 어드민이나 파트너가 아닌 유저가 아이템 생성
 
+HTTP Response
+include::{snippets}/item/create/fail/forbidden/http-response.adoc[]
 
-[[아이템-상태-변경]]
-=== 아이템 상태 변경
-operation::item/changeStatus[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']
+=== 존재하지 않는 프로덕트에 아이템 생성
 
-[[아이템-상태-변경-존재하지-않는-아이템-에러]]
-=== 아이템 상태 변경 (존재하지 않는 아이템 에러)
-operation::item/changeStatus/failByNotFoundError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']
+HTTP Response
+include::{snippets}/item/create/fail/notFound/http-response.adoc[]
 
-[[아이템-상태-변경-관리자나-파트너-권한이-아닌-유저-에러]]
-=== 아이템 상태 변경 (관리자나 파트너 권한이 아닌 유저 에러)
-operation::item/changeStatus/failByForbiddenError[snippets='http-request,http-response,path-parameters,request-body,request-headers,response-body']
+=== 아이템이름으로 상세조회
+
+HTTP Request
+include::{snippets}/item/get/http-request.adoc[]
+
+Request Parameters
+include::{snippets}/item/get/query-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/item/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/item/get/response-fields.adoc[]
+
+=== 존재하지 않는 아이템이름으로 상세조회
+
+HTTP Response
+include::{snippets}/item/get/fail/notFound/http-response.adoc[]
+
+=== 인기있는 아이템 리스트 조회
+
+HTTP Request
+include::{snippets}/item/getPopularItems/http-request.adoc[]
+
+HTTP Response
+include::{snippets}/item/getPopularItems/http-response.adoc[]
+
+Response Fields
+include::{snippets}/item/getPopularItems/response-fields.adoc[]
+
+=== 아이템 비디오 썸네일 조회
+
+HTTP Request
+include::{snippets}/item/getItemVideoImages/http-request.adoc[]
+
+HTTP Response
+include::{snippets}/item/getItemVideoImages/http-response.adoc[]
+
+Response Fields
+include::{snippets}/item/getItemVideoImages/response-fields.adoc[]
+
+=== 아이템이름으로 비디오 조회
+
+HTTP Request
+include::{snippets}/item/getItemVideo/http-request.adoc[]
+
+Request Parameters
+include::{snippets}/item/getItemVideo/query-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/item/getItemVideo/http-response.adoc[]
+
+Response Fields
+include::{snippets}/item/getItemVideo/response-fields.adoc[]
+
+=== 아이템 수정
+
+HTTP Request
+include::{snippets}/item/update/http-request.adoc[]
+
+Request Header
+include::{snippets}/item/update/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/item/update/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/item/update/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/item/update/http-response.adoc[]
+
+=== 존재하지 않는 아이템 수정
+
+HTTP Response
+include::{snippets}/item/update/fail/notFound/http-response.adoc[]
+
+=== 아이템 상태변경
+
+HTTP Request
+include::{snippets}/item/changeStatus/http-request.adoc[]
+
+Request Header
+include::{snippets}/item/changeStatus/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/item/changeStatus/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/item/changeStatus/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/item/changeStatus/http-response.adoc[]
+
+=== 어드민이나 파트너가 아닌 유저가 아이템 상태변경
+
+HTTP Response
+include::{snippets}/item/changeStatus/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 아이템 상태변경
+
+HTTP Response
+include::{snippets}/item/changeStatus/fail/notFound/http-response.adoc[]
+
+=== 아이템 삭제
+
+HTTP Request
+include::{snippets}/item/delete/http-request.adoc[]
+
+Request Header
+include::{snippets}/item/delete/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/item/delete/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/item/delete/http-response.adoc[]
+
+=== 존재하지 않는 아이템 삭제
+
+HTTP Response
+include::{snippets}/item/delete/fail/notFound/http-response.adoc[]

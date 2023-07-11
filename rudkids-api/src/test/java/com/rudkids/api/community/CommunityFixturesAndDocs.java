@@ -1,4 +1,4 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.community;
 
 import com.rudkids.core.community.dto.CommunityRequest;
 import com.rudkids.core.community.dto.CommunityResponse;
@@ -8,7 +8,7 @@ import com.rudkids.core.image.dto.ImageResponse;
 import java.util.List;
 import java.util.UUID;
 
-public class CommunityControllerFixtures {
+public class CommunityFixturesAndDocs {
 
     public static final String COMMUNITY_DEFAULT_URL = "/api/v1/community";
     public static final UUID COMMUNITY_ID = UUID.randomUUID();

@@ -1,4 +1,4 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.item;
 
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;
@@ -17,7 +17,7 @@ import java.util.UUID;
 import static com.rudkids.api.common.ControllerTest.pageResponseFieldsWith;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
-public class ItemControllerFixtures {
+public class ItemFixturesAndDocs {
 
     public static final String ITEM_DEFAULT_URL = "/api/v1/item";
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
@@ -109,8 +109,40 @@ public class ItemControllerFixtures {
         );
     }
 
+    public static Page<ItemResponse.Main> ITEM_아이템_응답() {
+        return new PageImpl<>(List.of(
+            new ItemResponse.Main(UUID.randomUUID(), "name", 1000, 아이템_여러_이미지, ItemStatus.SELLING))
+        );
+    }
+
     public static ItemResponse.Video ITEM_영상_응답() {
         return new ItemResponse.Video(아이템_영어_이름, "url");
+    }
+
+    public static List<FieldDescriptor> ITEM_리스트_응답_필드() {
+        return pageResponseFieldsWith(
+            List.of(
+                fieldWithPath("content[]itemId")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 id"),
+
+                fieldWithPath("content[]name")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 이름"),
+
+                fieldWithPath("content[]price")
+                    .type(JsonFieldType.NUMBER)
+                    .description("상품 가격"),
+
+                fieldWithPath("content[]imageUrls")
+                    .type(JsonFieldType.ARRAY)
+                    .description("상품 이미지들"),
+
+                fieldWithPath("content[]itemStatus")
+                    .type(JsonFieldType.STRING)
+                    .description("상품 상태")
+            )
+        );
     }
 
     public static List<FieldDescriptor> ITEM_영상_이미지_응답_필드() {

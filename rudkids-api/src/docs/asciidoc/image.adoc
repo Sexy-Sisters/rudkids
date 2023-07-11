@@ -1,10 +1,31 @@
-[[Image-API]]
 == Image API
+:hardbreaks:
 
-[[Image-이미지-업로드]]
-=== Image 이미지 업로드
-operation::image/upload/one[snippets='http-request,request-headers,http-response,response-fields']
+=== 파일 업로드
 
-[[Cart-여러-이미지-업로드]]
-=== Image 여러이미지 업로드
-operation::image/upload/list[snippets='http-request,request-headers,http-response,response-fields']
+HTTP Request
+include::{snippets}/image/upload/http-request.adoc[]
+
+Request Header
+include::{snippets}/image/upload/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/image/upload/http-response.adoc[]
+
+Response Fields
+include::{snippets}/image/upload/response-fields.adoc[]
+
+=== 비어있는 파일이름으로 파일 업로드
+
+HTTP Response
+include::{snippets}/image/upload/fail/badRequest/empty/http-response.adoc[]
+
+=== 지원하지 않는 확장자로 파일 업로드
+
+HTTP Response
+include::{snippets}/image/upload/fail/badRequest/extension/http-response.adoc[]
+
+=== 파일 업로드 도중 Resource Server 에러
+
+HTTP Response
+include::{snippets}/image/upload/fail/internal/http-response.adoc[]

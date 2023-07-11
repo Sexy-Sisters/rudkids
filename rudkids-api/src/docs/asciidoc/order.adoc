@@ -1,0 +1,143 @@
+== Order API
+:hardbreaks:
+
+=== 주문 및 결제 요청
+
+HTTP Request
+include::{snippets}/order/order/http-request.adoc[]
+
+Request Header
+include::{snippets}/order/order/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/order/order/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/order/order/http-response.adoc[]
+
+=== 존재하지 않는 배송 id로 주문 및 결제 요청
+
+HTTP Response
+include::{snippets}/order/order/fail/notFound/deliveryId/http-response.adoc[]
+
+=== 존재하지 않는 결제방법으로 주문 및 결제 요청
+
+HTTP Response
+include::{snippets}/order/order/fail/notFound/payMethod/http-response.adoc[]
+
+=== 잘못된 결제금액으로 주문 및 결제 요청
+
+HTTP Response
+include::{snippets}/order/order/fail/badRequest/http-response.adoc[]
+
+=== 주문 및 결제 요청 도중 Resource Server 에러
+
+HTTP Response
+include::{snippets}/order/order/fail/internal/http-response.adoc[]
+
+=== 주문내역 상세조회
+
+HTTP Request
+include::{snippets}/order/get/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/order/get/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/order/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/order/get/response-fields.adoc[]
+
+=== 존재하지 않는 주문내역 상세조회
+
+HTTP Response
+include::{snippets}/order/get/fail/notFound/http-response.adoc[]
+
+=== 주문내역 리스트 조회
+
+HTTP Request
+include::{snippets}/order/getAll/http-request.adoc[]
+
+Request Header
+include::{snippets}/order/getAll/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/order/getAll/http-response.adoc[]
+
+Response Fields
+include::{snippets}/order/getAll/response-fields.adoc[]
+
+=== 주문 취소
+
+HTTP Request
+include::{snippets}/order/cancel/http-request.adoc[]
+
+Request Header
+include::{snippets}/order/cancel/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/order/cancel/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/order/cancel/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/order/cancel/http-response.adoc[]
+
+=== 존재하지 않는 주문내역으로 주문 취소
+
+HTTP Response
+include::{snippets}/order/cancel/fail/notFound/http-response.adoc[]
+
+=== 다른유저의 주문내역으로 주문 취소
+
+HTTP Response
+include::{snippets}/order/cancel/fail/forbidden/http-response.adoc[]
+
+=== 이미 배송 완료된 주문내역으로 주문 취소
+
+HTTP Response
+include::{snippets}/order/cancel/fail/conflict/http-response.adoc[]
+
+=== 주문 취소 도중 Resource Server 에러
+HTTP Response
+include::{snippets}/order/cancel/fail/internal/http-response.adoc[]
+
+=== 취소된 주문내역 리스트 조회
+
+HTTP Request
+include::{snippets}/order/getCancelOrders/http-request.adoc[]
+
+Request Header
+include::{snippets}/order/getCancelOrders/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/order/getCancelOrders/http-response.adoc[]
+
+Response Fields
+include::{snippets}/order/getCancelOrders/response-fields.adoc[]
+
+=== 주문내역 삭제
+
+HTTP Request
+include::{snippets}/order/delete/http-request.adoc[]
+
+Request Header
+include::{snippets}/order/delete/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/order/delete/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/order/delete/http-response.adoc[]
+
+=== 존재하지 않는 주문내역 삭제
+
+HTTP Response
+include::{snippets}/order/delete/fail/notFound/http-response.adoc[]
+
+=== 다른유저의 주문내역 삭제
+
+HTTP Response
+include::{snippets}/order/delete/fail/forbidden/http-response.adoc[]

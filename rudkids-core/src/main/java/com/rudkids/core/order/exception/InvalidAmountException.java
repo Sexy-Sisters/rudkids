@@ -1,4 +1,4 @@
-package com.rudkids.core.payment.exception;
+package com.rudkids.core.order.exception;
 
 import com.rudkids.core.common.exception.BadRequestException;
 

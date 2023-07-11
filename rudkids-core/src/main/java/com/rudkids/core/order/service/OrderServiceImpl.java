@@ -23,15 +23,20 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderFactory orderFactory;
     private final CartItemRepository cartItemRepository;
+    private final PaymentClientManager paymentClientManager;
 
     @Override
-    public UUID create(UUID userId, OrderRequest.Create request) {
+    public UUID order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
         var order = orderFactory.save(user, request);
-        orderRepository.save(order);
-
-        cartItemRepository.deleteSelected();
         order.removeQuantity();
+
+        order.validateAmount(request.amount());
+        paymentClientManager.confirm(request.paymentKey(), order.getPaymentOrderId(),  request.amount());
+
+        order.order();
+        cartItemRepository.deleteSelected();
+        orderRepository.save(order);
         return order.getId();
     }
 
@@ -44,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponse.Main> getAll(UUID userId, Pageable pageable) {
+    public List<OrderResponse.Main> getAll(UUID userId) {
         var user = userRepository.getUser(userId);
         return user.getOrders().stream()
             .map(OrderResponse.Main::new)
@@ -52,10 +57,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancel(UUID userId, UUID orderId) {
+    public void cancel(UUID userId, UUID orderId, OrderRequest.Cancel request) {
         var user = userRepository.getUser(userId);
         var order = orderRepository.get(orderId);
         order.validateHasSameUser(user);
+
+        paymentClientManager.cancel(request);
         order.cancel();
     }
 
@@ -76,8 +83,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(UUID orderId) {
+    public void delete(UUID userId, UUID orderId) {
+        var user = userRepository.getUser(userId);
         var order = orderRepository.get(orderId);
+        order.validateHasSameUser(user);
         orderRepository.delete(order);
     }
 }

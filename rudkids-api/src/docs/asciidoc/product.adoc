@@ -1,14 +1,33 @@
 [[Product-API]]
 == Product API
+:hardbreaks:
 
-[[Product-전체조회]]
-=== Product 전체조회
-operation::product/findAll[snippets='http-request,http-response,response-fields']
+=== 프로덕트 리스트 조회
 
-[[Product-상세조회]]
-=== Product 상세조회
-operation::product/find[snippets='http-request,path-parameters,http-response,response-fields']
+HTTP Request
+include::{snippets}/product/getAll/http-request.adoc[]
 
-[[Product-상세조회-존재하지-않는-매거진-에러]]
-=== Product 상세조회 (존재하지 않는 매거진 에러)
-operation::product/find/failByNotFoundError[snippets='http-request,path-parameters,http-response']or[snippets='http-request,request-headers,path-parameters,http-response']
+HTTP Response
+include::{snippets}/product/getAll/http-response.adoc[]
+
+Response Fields
+include::{snippets}/product/getAll/response-fields.adoc[]
+
+=== 프로덕트 상세조회
+
+HTTP Request
+include::{snippets}/product/get/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/product/get/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/product/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/product/get/response-fields.adoc[]
+
+=== 존재하지 않는 프로덕트 상세조회
+
+HTTP Response
+include::{snippets}/product/get/fail/notFound/http-response.adoc[]

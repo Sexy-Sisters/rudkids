@@ -1,10 +1,10 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.auth;
 
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.dto.AuthUser;
 
-public class AuthControllerFixtures {
+public class AuthFixturesAndDocs {
 
     public static final String GOOGLE_PROVIDER = "google";
     public static final String KAKAO_PROVIDER = "kakao";

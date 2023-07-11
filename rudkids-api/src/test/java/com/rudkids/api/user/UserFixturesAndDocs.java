@@ -1,35 +1,37 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.user;
 
+import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
 
 import java.util.List;
 
-public class UserControllerFixtures {
+public class UserFixturesAndDocs {
     public static final String USER_DEFAULT_URL = "/api/v1/user";
-    private static final String USER_이름 = "남세";
-    private static final String USER_폰번호 = "01029401509";
-    private static final String USER_프로필_이미지 = "http://";
 
     public static UserRequest.Update USER_수정_요청() {
-        return new UserRequest.Update(USER_이름, "path", USER_프로필_이미지);
+        return new UserRequest.Update("남세", "path", "http://");
     }
 
     public static UserResponse.Info USER_정보_조회() {
         return UserResponse.Info.builder()
             .email("namse@gmail.com")
-            .name(USER_이름)
-            .phoneNumber(USER_폰번호)
-            .profileImage(new ImageResponse.Info(USER_프로필_이미지, USER_프로필_이미지))
+            .name("남세")
+            .phoneNumber("01029401509")
+            .profileImage(new ImageResponse.Info("http://", "http://"))
             .build();
+    }
+
+    public static List<CommunityResponse.Main> USER_커뮤니티글_응답() {
+        return List.of(new CommunityResponse.Main("title", "writer", "image"));
     }
 
     public static List<UserResponse.Address> USER_주소_정보들_조회() {
         return List.of(
             UserResponse.Address.builder()
-                .receiverName(USER_이름)
-                .receiverPhone(USER_폰번호)
+                .receiverName("남세")
+                .receiverPhone("01029401509")
                 .receiverAddress1("부산시")
                 .receiverAddress2("강서구 가락대로")
                 .receiverZipCode("12324")

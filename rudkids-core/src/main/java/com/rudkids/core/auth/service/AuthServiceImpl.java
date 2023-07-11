@@ -35,10 +35,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public void registerInformation(UUID userId, String phoneNumber) {
+    public void saveAuthenticatedPhoneNumber(String accessToken, String authenticatedPhoneNumber) {
+        UUID userId = tokenCreator.extractPayload(accessToken);
         var user = userRepository.getUser(userId);
-        var generatedPhoneNumber = PhoneNumber.create(phoneNumber);
-        user.registerInformation(generatedPhoneNumber);
+        var phoneNumber = PhoneNumber.create(authenticatedPhoneNumber);
+        user.updatePhoneNumber(phoneNumber);
     }
 
     @Override

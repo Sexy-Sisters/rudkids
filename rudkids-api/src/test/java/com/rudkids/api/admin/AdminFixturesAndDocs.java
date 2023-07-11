@@ -1,4 +1,4 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.admin;
 
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
@@ -6,7 +6,7 @@ import com.rudkids.core.admin.dto.AdminResponse;
 import java.util.List;
 import java.util.UUID;
 
-public class AdminControllerFixtures {
+public class AdminFixturesAndDocs {
 
     public static final String ADMIN_PRODUCT_DEFAULT_URL = "/api/v1/admin/product";
     public static final String ADMIN_USER_DEFAULT_URL = "/api/v1/admin/user";
@@ -21,7 +21,7 @@ public class AdminControllerFixtures {
         return new AdminRequest.ChangeUserRole("PARTNER");
     }
 
-    public static List<AdminResponse.UserInfo> 유저_정보_INFO_응답() {
+    public static List<AdminResponse.UserInfo> 유저_검색_응답() {
         return List.of(new AdminResponse.UserInfo(
             "email@gmail.com",
                 "name",

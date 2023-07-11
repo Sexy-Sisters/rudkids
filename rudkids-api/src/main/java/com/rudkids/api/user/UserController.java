@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/community")
-    public ResponseEntity getMyCommunities(@AuthenticationPrincipal AuthUser.Login loginUser) {
+    public ResponseEntity getCommunities(@AuthenticationPrincipal AuthUser.Login loginUser) {
         var response = userService.getMyCommunities(loginUser.id());
         return ResponseEntity.ok(response);
     }

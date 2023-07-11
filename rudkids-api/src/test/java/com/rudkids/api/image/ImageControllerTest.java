@@ -1,13 +1,19 @@
 package com.rudkids.api.image;
 
 import com.rudkids.api.common.ControllerTest;
+import com.rudkids.core.image.exception.FileNameEmptyException;
+import com.rudkids.core.image.exception.FileUploadFailException;
+import com.rudkids.core.image.exception.UnsupportedFileExtensionException;
+import com.rudkids.core.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.common.fixtures.ImageControllerFixtures.*;
+import static com.rudkids.api.image.ImageFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -21,64 +27,104 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ImageControllerTest extends ControllerTest {
 
-    @DisplayName("[이미지-업로드]")
-    @Test
-    void 하나의_파일을_업로드_한다() throws Exception {
-        given(imageService.upload(any()))
-            .willReturn(IMAGE_응답());
+    @Nested
+    @DisplayName("파일을 업로드한다")
+    class upload {
 
-        mockMvc.perform(multipart(IMAGE_DEFAULT_URL)
-                .file(IMAGE_FILE())
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("image/upload/one",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                responseFields(
-                    fieldWithPath("path")
-                        .type(JsonFieldType.STRING)
-                        .description("이미지 경로"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(imageService.upload(any()))
+                .willReturn(IMAGE_응답());
 
-                    fieldWithPath("url")
-                        .type(JsonFieldType.STRING)
-                        .description("이미지 url")
-                )
-            ))
-            .andExpect(status().isOk());
-    }
+            mockMvc.perform(multipart(IMAGE_DEFAULT_URL)
+                    .file(IMAGE_FILE())
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("image/upload",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("path")
+                            .type(JsonFieldType.STRING)
+                            .description("이미지 경로"),
 
-    @DisplayName("[여러-이미지-업로드]")
-    @Test
-    void 여러개의_파일을_업로드_한다() throws Exception {
-        given(imageService.uploads(any()))
-            .willReturn(IMAGE_여러개_응답());
+                        fieldWithPath("url")
+                            .type(JsonFieldType.STRING)
+                            .description("이미지 url")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
 
-        mockMvc.perform(multipart(IMAGE_DEFAULT_URL + "/list")
-                .file(IMAGE_FILES().get(0))
-                .file(IMAGE_FILES().get(1))
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("image/upload/list",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                responseFields(
-                    fieldWithPath("[].path")
-                        .type(JsonFieldType.STRING)
-                        .description("이미지 경로"),
+        @Test
+        @DisplayName("실패: 비어있는 파일이름")
+        void fail() throws Exception {
+            doThrow(new FileNameEmptyException())
+                .when(imageService)
+                .upload(any());
 
-                    fieldWithPath("[].url")
-                        .type(JsonFieldType.STRING)
-                        .description("이미지 url")
-                )
-            ))
-            .andExpect(status().isOk());
+            mockMvc.perform(multipart(IMAGE_DEFAULT_URL)
+                    .file(IMAGE_FILE())
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("image/upload/fail/badRequest/empty",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    )
+                ))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("실패: 지원하지 않는 확장자")
+        void fail2() throws Exception {
+            doThrow(new UnsupportedFileExtensionException())
+                .when(imageService)
+                .upload(any());
+
+            mockMvc.perform(multipart(IMAGE_DEFAULT_URL)
+                    .file(IMAGE_FILE())
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("image/upload/fail/badRequest/extension",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    )
+                ))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("실패: 외부 API 통신")
+        void fail3() throws Exception {
+            doThrow(new FileUploadFailException())
+                .when(imageService)
+                .upload(any());
+
+            mockMvc.perform(multipart(IMAGE_DEFAULT_URL)
+                    .file(IMAGE_FILE())
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("image/upload/fail/internal",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    )
+                ))
+                .andExpect(status().isInternalServerError());
+        }
     }
 }

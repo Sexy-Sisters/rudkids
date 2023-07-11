@@ -19,11 +19,11 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Void> create(
+    public ResponseEntity<Void> order(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody OrderRequest.Create request
     ) {
-        orderService.create(loginUser.id(), request);
+        orderService.order(loginUser.id(), request);
         return ResponseEntity.ok().build();
     }
 
@@ -34,20 +34,18 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PageableDefault Pageable pageable
-    ) {
-        var response = orderService.getAll(loginUser.id(), pageable);
+    public ResponseEntity getAll(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = orderService.getAll(loginUser.id());
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Void> cancel(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID orderId
+        @PathVariable(name = "id") UUID orderId,
+        @RequestBody OrderRequest.Cancel request
     ) {
-        orderService.cancel(loginUser.id(), orderId);
+        orderService.cancel(loginUser.id(), orderId, request);
         return ResponseEntity.ok().build();
     }
 
@@ -58,7 +56,10 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable(name = "id") UUID orderId) {
-        orderService.delete(orderId);
+    public void delete(
+        @AuthenticationPrincipal AuthUser.Login loginUser,
+        @PathVariable(name = "id") UUID orderId
+    ) {
+        orderService.delete(loginUser.id(), orderId);
     }
 }

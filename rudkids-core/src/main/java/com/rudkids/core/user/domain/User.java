@@ -5,7 +5,6 @@ import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.user.exception.NotAdminOrPartnerRoleException;
 import com.rudkids.core.user.exception.NotAdminRoleException;
-import com.rudkids.core.user.exception.PhoneNumberEmptyException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -73,10 +72,6 @@ public class User {
         return profileImage.isEmptyPath();
     }
 
-    public void updatePhoneNumber(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public void changeAuthorityAdmin() {
         this.roleType = RoleType.ADMIN;
     }
@@ -103,7 +98,7 @@ public class User {
         this.roleType = RoleType.toEnum(role);
     }
 
-    public void registerInformation(PhoneNumber phoneNumber) {
+    public void updatePhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

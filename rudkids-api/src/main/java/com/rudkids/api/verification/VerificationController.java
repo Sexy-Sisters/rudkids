@@ -30,10 +30,9 @@ public class VerificationController {
         HttpServletRequest httpRequest,
         @RequestBody VerifyRequest.Check request
     ) {
-        var accessToken = AuthorizationExtractor.extract(httpRequest);
-        var userId = authService.extractUserId(accessToken);
         var phoneNumber = verificationService.check(request);
-        authService.registerInformation(userId, phoneNumber);
+        var accessToken = AuthorizationExtractor.extract(httpRequest);
+        authService.saveAuthenticatedPhoneNumber(accessToken, phoneNumber);
         return ResponseEntity.ok().build();
     }
 }

@@ -54,7 +54,6 @@ payment:
   toss:
     client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
     secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
-    confirm-uri: https://api.tosspayments.com/v1/payments/confirm
 
 application:
   bucket:

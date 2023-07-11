@@ -1,42 +1,98 @@
 [[Community-API]]
 == Community API
+:hardbreaks:
 
-[[Community-생성]]
-=== Community 생성
-operation::community/create[snippets='http-request,request-headers,request-fields,http-response']
+=== 커뮤니티글 작성
 
-[[Community-전체조회]]
-=== Community 전체조회
-operation::community/findAll[snippets='http-request,query-parameters,http-response,response-fields']
+HTTP Request
+include::{snippets}/community/create/http-request.adoc[]
 
-[[Community-상세조회]]
-=== Community 상세조회
-operation::community/find[snippets='http-request,path-parameters,http-response,response-fields']
+Request Header
+include::{snippets}/community/create/request-headers.adoc[]
 
-[[Community-상세조회-존재하지-않는-커뮤니티-에러]]
-=== Community 상세조회 (존재하지 않는 커뮤니티 에러)
-operation::community/find/failByNotFoundError[snippets='http-request,path-parameters,http-response']
+Request Fields
+include::{snippets}/community/create/request-fields.adoc[]
 
-[[Community-수정]]
-=== Community 수정
-operation::community/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+HTTP Response
+include::{snippets}/community/create/http-response.adoc[]
 
-[[Community-수정-권한-에러]]
-=== Community 수정 (권한 에러)
-operation::community/update/failForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+=== 커뮤니티글 리스트 조회
 
-[[Community-수정-존재하지-않는-커뮤니티-에러]]
-=== Community 수정 (존재하지 않는 커뮤니티 에러)
-operation::community/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+HTTP Request
+include::{snippets}/community/getAll/http-request.adoc[]
 
-[[Community-삭제]]
-=== Community 삭제
-operation::community/delete[snippets='http-request,request-headers,path-parameters,http-response']
+Request Parameters
+include::{snippets}/community/getAll/query-parameters.adoc[]
 
-[[Community-삭제-권한-에러]]
-=== Community 삭제 (권한 에러)
-operation::community/delete/failByForbiddenError[snippets='http-request,request-headers,path-parameters,http-response']
+HTTP Response
+include::{snippets}/community/getAll/http-response.adoc[]
 
-[[Community-삭제-존재하지-않는-커뮤니티-에러]]
-=== Community 삭제 (존재하지 않는 커뮤니티 에러)
-operation::community/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']
+Response Fields
+include::{snippets}/community/getAll/response-fields.adoc[]
+
+=== 커뮤니티글 상세조회
+
+HTTP Request
+include::{snippets}/community/get/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/community/get/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/community/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/community/get/response-fields.adoc[]
+
+=== 존재하지 않는 커뮤니티글 조회
+
+HTTP Response
+include::{snippets}/community/get/fail/notFound/http-response.adoc[]
+
+=== 커뮤니티글 수정
+
+HTTP Request
+include::{snippets}/community/update/http-request.adoc[]
+
+Request Header
+include::{snippets}/community/update/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/community/update/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/community/update/http-response.adoc[]
+
+=== 다른 유저의 커뮤니티글 수정
+
+HTTP Response
+include::{snippets}/community/update/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 커뮤니티글 수정
+
+HTTP Response
+include::{snippets}/community/update/fail/notFound/http-response.adoc[]
+
+=== 커뮤니티글 삭제
+
+HTTP Request
+include::{snippets}/community/delete/http-request.adoc[]
+
+Request Header
+include::{snippets}/community/delete/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/community/delete/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/community/delete/http-response.adoc[]
+
+=== 다른 유저의 커뮤니티글 삭제
+
+HTTP Response
+include::{snippets}/community/delete/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 커뮤니티글 삭제
+
+HTTP Response
+include::{snippets}/community/delete/fail/notFound/http-response.adoc[]
