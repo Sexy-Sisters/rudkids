@@ -62,11 +62,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("address1")
+                        fieldWithPath("address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("address2")
+                        fieldWithPath("extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 
@@ -109,11 +109,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("[]address1")
+                        fieldWithPath("[]address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("[]address2")
+                        fieldWithPath("[]extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 
@@ -164,11 +164,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("address1")
+                        fieldWithPath("address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("address2")
+                        fieldWithPath("extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 
@@ -316,11 +316,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("address1")
+                        fieldWithPath("address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("address2")
+                        fieldWithPath("extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 
@@ -366,11 +366,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("address1")
+                        fieldWithPath("address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("address2")
+                        fieldWithPath("extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 
@@ -416,11 +416,11 @@ public class DeliveryControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("우편번호"),
 
-                        fieldWithPath("address1")
+                        fieldWithPath("address")
                             .type(JsonFieldType.STRING)
                             .description("주소"),
 
-                        fieldWithPath("address2")
+                        fieldWithPath("extraAddress")
                             .type(JsonFieldType.STRING)
                             .description("상세주소"),
 

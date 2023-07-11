@@ -9,16 +9,16 @@ public class DeliveryRequest {
         String receiverName,
         String receiverPhone,
         String zipCode,
-        String address1,
-        String address2,
+        String address,
+        String extraAddress,
         String message
     ) {
         public Delivery toEntity() {
-            var address = Address.create(address1, address2, zipCode);
+            var generatedAddress = Address.create(address, extraAddress, zipCode);
             return Delivery.builder()
                 .receiverName(receiverName)
                 .receiverPhone(receiverPhone)
-                .address(address)
+                .address(generatedAddress)
                 .message(message)
                 .build();
         }
@@ -28,8 +28,8 @@ public class DeliveryRequest {
         String receiverName,
         String receiverPhone,
         String zipCode,
-        String address1,
-        String address2,
+        String address,
+        String extraAddress,
         String message
     ) {}
 }

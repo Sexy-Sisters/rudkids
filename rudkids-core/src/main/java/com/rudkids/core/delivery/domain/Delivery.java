@@ -63,11 +63,11 @@ public class Delivery {
     }
 
     public String getAddress1() {
-        return address.getAddress1();
+        return address.getAddress();
     }
 
     public String getAddress2() {
-        return address.getAddress2();
+        return address.getExtraAddress();
     }
 
     public void validateHasSameUser(User user) {
