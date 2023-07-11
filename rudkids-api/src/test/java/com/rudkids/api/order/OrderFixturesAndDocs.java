@@ -142,6 +142,10 @@ public class OrderFixturesAndDocs {
                 .type(JsonFieldType.STRING)
                 .description("배송시 요청사항"),
 
+            fieldWithPath("deliveryFragment.isBasic")
+                .type(JsonFieldType.BOOLEAN)
+                .description("기본배송지 여부"),
+
             fieldWithPath("payMethod")
                 .type(JsonFieldType.STRING)
                 .description("결제수단")

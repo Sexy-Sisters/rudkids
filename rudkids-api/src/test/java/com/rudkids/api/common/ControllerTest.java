@@ -5,6 +5,7 @@ import com.rudkids.api.admin.AdminController;
 import com.rudkids.api.auth.AuthController;
 import com.rudkids.api.cart.CartController;
 import com.rudkids.api.community.CommunityController;
+import com.rudkids.api.delivery.DeliveryController;
 import com.rudkids.api.image.ImageController;
 import com.rudkids.api.item.ItemController;
 import com.rudkids.api.order.OrderController;
@@ -16,6 +17,7 @@ import com.rudkids.core.auth.service.OAuthClient;
 import com.rudkids.core.auth.service.OAuthUri;
 import com.rudkids.core.cart.service.CartService;
 import com.rudkids.core.community.service.CommunityService;
+import com.rudkids.core.delivery.service.DeliveryService;
 import com.rudkids.core.image.service.ImageService;
 import com.rudkids.core.image.service.S3ImageClient;
 import com.rudkids.core.item.service.ItemService;
@@ -49,7 +51,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
     OrderController.class,
     AdminController.class,
     ImageController.class,
-    UserController.class
+    UserController.class,
+    DeliveryController.class
 })
 @ActiveProfiles("test")
 public abstract class ControllerTest {
@@ -84,6 +87,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected UserService userService;
+
+    @MockBean
+    protected DeliveryService deliveryService;
 
     // etc
     @MockBean

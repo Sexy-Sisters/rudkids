@@ -12,7 +12,8 @@ public class DeliveryResponse {
         String zipCode,
         String address1,
         String address2,
-        String message
+        String message,
+        boolean isBasic
     ) {
         public Info(Delivery delivery) {
             this(
@@ -21,7 +22,8 @@ public class DeliveryResponse {
                 delivery.getZipCode(),
                 delivery.getAddress1(),
                 delivery.getAddress2(),
-                delivery.getMessage()
+                delivery.getMessage(),
+                delivery.isBasic()
             );
         }
     }
