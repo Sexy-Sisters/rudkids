@@ -1,4 +1,4 @@
-package com.rudkids.core.order.exception;
+package com.rudkids.core.delivery.exception;
 
 import com.rudkids.core.common.exception.ConflictException;
 

@@ -1,10 +1,9 @@
 package com.rudkids.core.order.domain;
 
-import com.rudkids.core.cart.domain.CartItem;
 import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.delivery.domain.Delivery;
-import com.rudkids.core.order.exception.DeliveryAlreadyCompletedException;
-import com.rudkids.core.payment.exception.InvalidAmountException;
+import com.rudkids.core.delivery.exception.DeliveryAlreadyCompletedException;
+import com.rudkids.core.order.exception.InvalidAmountException;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.exception.DifferentUserException;
 import jakarta.persistence.*;
@@ -41,22 +40,25 @@ public class Order extends AbstractEntity {
     private PayMethod payMethod;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus = OrderStatus.INIT;
+    private OrderStatus orderStatus;
 
     private int totalPrice;
+    private String paymentOrderId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private final List<OrderItem> orderItems = new ArrayList<>();
 
-    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
+    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice, String paymentOrderId) {
         this.user = user;
+        user.registerOrder(this);
         this.delivery = delivery;
         this.payMethod = payMethod;
         this.totalPrice = totalPrice;
+        this.paymentOrderId = paymentOrderId;
     }
 
-    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
-        return new Order(user, delivery, payMethod, totalPrice);
+    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice, String paymentOrderId) {
+        return new Order(user, delivery, payMethod, totalPrice, paymentOrderId);
     }
 
     public void validateHasSameUser(User user) {
@@ -66,7 +68,7 @@ public class Order extends AbstractEntity {
     }
 
     public void cancel() {
-        if(orderStatus == OrderStatus.DELIVERY_COMPLETE) {
+        if(delivery.isStatusCompleted()) {
             throw new DeliveryAlreadyCompletedException();
         }
 
@@ -90,8 +92,8 @@ public class Order extends AbstractEntity {
         this.orderStatus = status;
     }
 
-    public void changeOrderComplete() {
-        this.orderStatus = OrderStatus.ORDER_COMPLETE;
+    public void order() {
+        this.orderStatus = OrderStatus.ORDER;
     }
 
     public void validateAmount(int amount) {

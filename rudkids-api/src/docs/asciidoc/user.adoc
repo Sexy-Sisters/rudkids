@@ -1,6 +1,63 @@
 [[User-API]]
 == User API
 
-[[User-수정]]
-=== User 수정
-operation::user/update[snippets='http-request,request-headers,request-fields,http-response']
+=== 정보 수정
+
+HTTP Request
+include::{snippets}/user/update/http-request.adoc[]
+
+Request Header
+include::{snippets}/user/update/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/user/update/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/user/update/http-response.adoc[]
+
+=== 잘못된 형식의 정보 수정
+
+HTTP Response
+include::{snippets}/user/update/fail/badRequest/http-response.adoc[]
+
+=== 정보 조회
+
+HTTP Request
+include::{snippets}/user/get/http-request.adoc[]
+
+Request Header
+include::{snippets}/user/get/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/user/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/user/get/response-fields.adoc[]
+
+=== 자신이 작성한 커뮤니티글 리스트 조회
+
+HTTP Request
+include::{snippets}/user/getMyCommunities/http-request.adoc[]
+
+Request Header
+include::{snippets}/user/getMyCommunities/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/user/getMyCommunities/http-response.adoc[]
+
+Response Fields
+include::{snippets}/user/getMyCommunities/response-fields.adoc[]
+
+=== 자신의 주소정보 리스트 조회
+
+HTTP Request
+include::{snippets}/user/getAddresses/http-request.adoc[]
+
+Request Header
+include::{snippets}/user/getAddresses/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/user/getAddresses/http-response.adoc[]
+
+Response Fields
+include::{snippets}/user/getAddresses/response-fields.adoc[]

@@ -1,4 +1,4 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.product;
 
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;
@@ -9,22 +9,22 @@ import com.rudkids.core.product.dto.ProductRequest;
 import com.rudkids.core.product.dto.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.List;
 import java.util.UUID;
 
-public class ProductControllerFixtures {
+import static com.rudkids.api.common.ControllerTest.pageResponseFieldsWith;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+
+public class ProductFixturesAndDocs {
 
     public static final String PRODUCT_DEFAULT_URL = "/api/v1/product";
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
-    public static final String 프로덕트_제목 = "Strange Drugstore";
-    public static final String 프로덕트_소개글 = "약쟁이가 약팝니다~~~~";
-    public static final String 프로덕트_이미지 = "https://~";
-    public static final ProductStatus 프로덕트_상태 = ProductStatus.OPEN;
-    public static final String 프로덕트_카테고리 = "TOY";
 
     public static ProductRequest.Create PRODUCT_등록_요청() {
-        return new ProductRequest.Create(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지(), 배너이미지(), 프로덕트_카테고리);
+        return new ProductRequest.Create("프로덕트 제목", "설명", 이미지(), 이미지(), 배너이미지(), "TOY");
     }
 
     private static ImageRequest.Create 이미지() {
@@ -40,10 +40,10 @@ public class ProductControllerFixtures {
     public static ProductResponse.Main PRODUCT_MAIN_INFO() {
         return new ProductResponse.Main(
             프로덕트_아이디,
-            프로덕트_제목,
-            프로덕트_이미지,
-            프로덕트_이미지,
-            프로덕트_상태
+            "프로덕트 제목",
+            "https://~",
+            "https://~",
+            ProductStatus.OPEN
         );
     }
 
@@ -51,13 +51,39 @@ public class ProductControllerFixtures {
         return new PageImpl<>(List.of(PRODUCT_MAIN_INFO()));
     }
 
+    public static List<FieldDescriptor> PRODUCT_리스트_응답_필드() {
+        return pageResponseFieldsWith(
+            List.of(
+                fieldWithPath("content[].productId")
+                    .type(JsonFieldType.STRING)
+                    .description("프로덕트 아이디"),
+
+                fieldWithPath("content[].title")
+                    .type(JsonFieldType.STRING)
+                    .description("매거진 제목"),
+
+                fieldWithPath("content[].frontImageUrl")
+                    .type(JsonFieldType.STRING)
+                    .description("프로덕트 앞 이미지"),
+
+                fieldWithPath("content[].backImageUrl")
+                    .type(JsonFieldType.STRING)
+                    .description("프로덕트 뒤 이미지"),
+
+                fieldWithPath("content[].status")
+                    .type(JsonFieldType.STRING)
+                    .description("프로덕트 상태")
+            )
+        );
+    }
+
     public static ProductResponse.Detail PRODUCT_상세조회_INFO() {
         return ProductResponse.Detail.builder()
-            .title(프로덕트_제목)
-            .bio(프로덕트_소개글)
-            .frontImage(new ImageResponse.Info(프로덕트_이미지, 프로덕트_이미지))
-            .backImage(new ImageResponse.Info(프로덕트_이미지, 프로덕트_이미지))
-            .bannerImages(List.of(new ImageResponse.Info(프로덕트_이미지, 프로덕트_이미지)))
+            .title("프로덕트 제목")
+            .bio("설명")
+            .frontImage(new ImageResponse.Info("https://~", "https://~"))
+            .backImage(new ImageResponse.Info("https://~", "https://~"))
+            .bannerImages(List.of(new ImageResponse.Info("https://~", "https://~")))
             .items(
                 new PageImpl<>(List.of(
                     ITEM_리스트_조회_INFO()
@@ -77,7 +103,7 @@ public class ProductControllerFixtures {
     }
 
     public static ProductRequest.Update PRODUCT_수정_요청() {
-        return new ProductRequest.Update(프로덕트_제목, 프로덕트_소개글, 이미지(), 이미지(), 프로덕트_카테고리);
+        return new ProductRequest.Update("프로덕트 제목", "설명", 이미지(), 이미지(), "TOY");
     }
 
     public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {

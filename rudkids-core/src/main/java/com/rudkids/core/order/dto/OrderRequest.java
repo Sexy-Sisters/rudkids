@@ -7,9 +7,19 @@ import java.util.UUID;
 public class OrderRequest {
 
     public record Create(
+        UUID deliveryId,
         PayMethod payMethod,
-        UUID deliveryId
+        String paymentKey,
+        int amount
     ) {}
 
     public record ChangeStatus(String status) {}
+
+    public record Cancel(
+        String paymentKey,
+        String cancelReason,
+        String bankCode,
+        String refundAccountNumber,
+        String refundAccountHolderName
+    ) {}
 }

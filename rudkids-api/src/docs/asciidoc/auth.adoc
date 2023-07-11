@@ -1,34 +1,71 @@
 [[Auth-API]]
 == Auth API
+:hardbreaks:
 
-[[Auth-로그인창-링크-생성-구글]]
-=== Auth 로그인창 링크 생성 (구글)
-operation::auth/generateLink/google[snippets='http-request,path-parameters,query-parameters,http-response,response-fields']
+=== 로그인 링크 생성
 
-[[Auth-로그인창-링크-생성-카카오]]
-=== Auth 로그인창 링크 생성 (카카오)
-operation::auth/generateLink/kakao[snippets='http-request,path-parameters,query-parameters,http-response,response-fields']
+HTTP Request
+include::{snippets}/auth/generateLink/http-request.adoc[]
 
-[[Auth-로그인-요청-구글]]
-=== Auth 로그인 요청 (구글)
-operation::auth/generateAccessAndRefreshToken/google[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
+Path Parameters
+include::{snippets}/auth/generateLink/path-parameters.adoc[]
 
-[[Auth-로그인-요청-카카오]]
-=== Auth 로그인 요청 (카카오)
-operation::auth/generateAccessAndRefreshToken/kakao[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
+Request Parameters
+include::{snippets}/auth/generateLink/query-parameters.adoc[]
 
-[[Auth-로그인-요청-OAuth-통신-에러]]
-=== Auth 로그인 요청 (OAuth 통신 에러)
-operation::auth/generateAccessAndRefreshToken/failByResourceServerError[snippets='http-request,path-parameters,request-fields,http-response']
+HTTP Response
+include::{snippets}/auth/generateLink/http-response.adoc[]
 
-[[Auth-엑세스토큰-재발급]]
-=== Auth 엑세스토큰 재발급
-operation::auth/generateRenewalAccessToken[snippets='http-request,request-fields,http-response,response-fields']
+Response Fields
+include::{snippets}/auth/generateLink/response-fields.adoc[]
 
-[[Auth-엑세스토큰-재발급-잘못된-리프래쉬토큰-에러]]
-=== Auth 엑세스토큰 재발급 (잘못된 리프래쉬토큰 에러)
-operation::auth/generateRenewalAccessToken/failByinvalidTokenError[snippets='http-request,request-fields,http-response']
+=== 존재하지 않는 OAuth 제공자로 로그인 링크 생성
 
-[[Auth-엑세스토큰-재발급-만료된-리프래쉬토큰-에러]]
-=== Auth 엑세스토큰 재발급 (만료된 리프래쉬토큰 에러)
-operation::auth/generateRenewalAccessToken/failByExpireTokenError[snippets='http-request,request-fields,http-response']
+HTTP Response
+include::{snippets}/auth/generateLink/fail/notFound/http-response.adoc[]
+
+=== 로그인 요청
+
+HTTP Request
+include::{snippets}/auth/generateAccessAndRefreshToken/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/auth/generateAccessAndRefreshToken/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/auth/generateAccessAndRefreshToken/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/auth/generateAccessAndRefreshToken/http-request.adoc[]
+
+Response Fields
+include::{snippets}/auth/generateAccessAndRefreshToken/http-request.adoc[]
+
+=== 로그인 요청 도중 Resource Server 에러
+
+HTTP Response
+include::{snippets}/auth/generateAccessAndRefreshToken/fail/internal/http-request.adoc[]
+
+=== 엑세스토큰 재발급
+
+HTTP Request
+include::{snippets}/auth/generateRenewalAccessToken/http-request.adoc[]
+
+Request Fields
+include::{snippets}/auth/generateRenewalAccessToken/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/auth/generateRenewalAccessToken/http-response.adoc[]
+
+Response Fields
+include::{snippets}/auth/generateRenewalAccessToken/response-fields.adoc[]
+
+=== 잘못된 리프래쉬 토큰으로 엑세스토큰 재발급
+
+HTTP Response
+include::{snippets}/auth/generateRenewalAccessToken/fail/invalidToken/http-response.adoc[]
+
+=== 만료된 리프래쉬 토큰으로 엑세스토큰 재발급
+
+HTTP Response
+include::{snippets}/auth/generateRenewalAccessToken/fail/expireToken/http-response.adoc[]

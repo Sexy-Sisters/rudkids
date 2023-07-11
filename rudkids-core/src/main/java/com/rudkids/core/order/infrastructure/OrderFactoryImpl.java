@@ -6,6 +6,7 @@ import com.rudkids.core.cart.domain.CartRepository;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderItem;
+import com.rudkids.core.order.domain.PayMethod;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderFactory;
 import com.rudkids.core.user.domain.User;
@@ -13,20 +14,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class OrderFactoryImpl implements OrderFactory {
-    private final DeliveryRepository deliveryRepository;
     private final CartRepository cartRepository;
+    private final DeliveryRepository deliveryRepository;
 
     @Override
     public Order save(User user, OrderRequest.Create request) {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
-        var order = Order.create(user, delivery, request.payMethod(), cart.calculateTotalPrice());
-        user.registerOrder(order);
-
+        var method = PayMethod.validate(request.payMethod());
+        var orderId = generateTossPaymentOrderId();
+        var order = Order.create(user, delivery, method, cart.calculateTotalPrice(), orderId);
         var selectedCartItems = getSelectedCartItems(cart);
 
         for (CartItem cartItem : selectedCartItems) {
@@ -34,6 +36,11 @@ public class OrderFactoryImpl implements OrderFactory {
             order.addOrderItem(orderItem);
         }
         return order;
+    }
+
+    private String generateTossPaymentOrderId() {
+        UUID orderId = UUID.randomUUID();
+        return orderId.toString();
     }
 
     private List<CartItem> getSelectedCartItems(Cart cart) {

@@ -1,8 +1,6 @@
-package com.rudkids.api.common.fixtures;
+package com.rudkids.api.order;
 
 import com.rudkids.core.delivery.dto.DeliveryResponse;
-import com.rudkids.core.item.domain.ItemStatus;
-import com.rudkids.core.order.domain.OrderItem;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.domain.PayMethod;
 import com.rudkids.core.order.dto.OrderItemResponse;
@@ -20,11 +18,11 @@ import java.util.UUID;
 import static com.rudkids.api.common.ControllerTest.pageResponseFieldsWith;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
-public class OrderControllerFixtures {
+public class OrderFixturesAndDocs {
 
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
     public static final UUID orderId = UUID.randomUUID();
-    public static final OrderStatus orderStatus = OrderStatus.INIT;
+    public static final OrderStatus orderStatus = OrderStatus.ORDER;
     private static final PayMethod payMethod = PayMethod.TOSS;
     private static final ZonedDateTime createdAt = ZonedDateTime.now();
     private static final UUID deliveryId = UUID.randomUUID();
@@ -37,7 +35,16 @@ public class OrderControllerFixtures {
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
     public static OrderRequest.Create ORDER_주문_요청() {
-        return new OrderRequest.Create(payMethod, deliveryId);
+        return new OrderRequest.Create(deliveryId, payMethod,"paymentKey", 4000);
+    }
+
+    public static OrderRequest.Cancel ORDER_취소_요청() {
+        return new OrderRequest.Cancel(
+            "paymentKey",
+            "cancelReason",
+            "bankCode",
+            "number",
+            "name");
     }
 
     public static OrderRequest.ChangeStatus ORDER_상태변경_요청() {
@@ -174,18 +181,6 @@ public class OrderControllerFixtures {
             fieldWithPath("[].orderItems[]price")
                 .type(JsonFieldType.NUMBER)
                 .description("주문한 상품 가격")
-        );
-    }
-
-    public static List<FieldDescriptor> ORDER_주문_요청_필드() {
-        return List.of(
-            fieldWithPath("payMethod")
-                .type(JsonFieldType.STRING)
-                .description("결제수단"),
-
-            fieldWithPath("deliveryId")
-                .type(JsonFieldType.STRING)
-                .description("배송 id")
         );
     }
 

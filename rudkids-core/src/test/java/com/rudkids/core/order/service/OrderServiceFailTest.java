@@ -43,7 +43,7 @@ public class OrderServiceFailTest extends OrderServiceFixtures {
         var orderId = UUID.randomUUID();
 
         // When & Then
-        assertThatThrownBy(() -> orderService.delete(orderId))
+        assertThatThrownBy(() -> orderService.delete(user.getId(), orderId))
             .isInstanceOf(OrderNotFoundException.class);
     }
 }

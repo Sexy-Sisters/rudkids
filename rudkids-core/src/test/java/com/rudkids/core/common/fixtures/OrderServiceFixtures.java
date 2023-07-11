@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 @ServiceTest
 public class OrderServiceFixtures {
@@ -34,9 +35,6 @@ public class OrderServiceFixtures {
 
     @Autowired
     protected CartService cartService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     protected JpaUserRepository jpaUserRepository;
@@ -106,9 +104,9 @@ public class OrderServiceFixtures {
 
         cart = cartRepository.get(user);
 
-        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice());
+        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice(), UUID.randomUUID().toString());
         orderRepository.save(order);
 
-        ORDER_주문_요청 = new OrderRequest.Create(PayMethod.TOSS, delivery.getId());
+        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), PayMethod.TOSS, "paymentKey", 3000);
     }
 }

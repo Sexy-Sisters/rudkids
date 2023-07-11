@@ -1,34 +1,98 @@
 [[Cart-API]]
 == Cart API
+:hardbreaks:
 
-[[Cart-아이템-추가]]
-=== Cart 아이템 추가
-operation::cart/addCartItem[snippets='http-request,request-headers,request-fields,http-response']
+=== 아이템 추가
 
-[[Cart-아이템-추가-존재하지-않는-아이템-에러]]
-=== Cart 아이템 추가 (존재하지 않는 아이템 에러)
-operation::cart/addCartItem/failByNotFoundError[snippets='http-request,request-headers,request-fields,http-response']
+HTTP Request
+include::{snippets}/cart/addCartItem/http-request.adoc[]
 
-[[Cart-아이템-리스트-조회]]
-=== Cart 아이템 리스트 조회
-operation::cart/findCartItems[snippets='http-request,request-headers,http-response,response-fields']
+Request Header
+include::{snippets}/cart/addCartItem/request-headers.adoc[]
 
-[[Cart-아이템-수량-변경]]
-=== Cart 아이템 수량 변경
-operation::cart/updateCartItemAmount[snippets='http-request,request-headers,request-fields,http-response']
+Request Fields
+include::{snippets}/cart/addCartItem/request-fields.adoc[]
 
-[[Cart-아이템-수량-변경-권한-에러]]
-=== Cart 아이템 수량 변경 (권한 에러)
-operation::cart/updateCartItemAmount/failByDifferentUserError[snippets='http-request,request-headers,request-fields,http-response']
+HTTP Response
+include::{snippets}/cart/addCartItem/http-response.adoc[]
 
-[[Cart-아이템-수량-변경-존재하지-않는-아이템-에러]]
-=== Cart 아이템 수량 변경 (존재하지 않는 아이템 에러)
-operation::cart/updateCartItemAmount/failByNotFoundError[snippets='http-request,request-headers,request-fields,http-response']
+=== 존재하지 않는 아이템 추가
 
-[[Cart-아이템-선택-삭제]]
-=== Cart 아이템 선택 삭제
-operation::cart/deleteCartItems[snippets='http-request,request-headers,request-fields,http-response']
+HTTP Response
+include::{snippets}/cart/addCartItem/fail/notFound/http-response.adoc[]
 
-[[Cart-아이템-선택-삭제-권한-에러]]
-=== Cart 아이템 선택 삭제 (권한 에러)
-operation::cart/deleteCartItems/failByDifferentUserError[snippets='http-request,request-headers,request-fields,http-response']
+=== 장바구니에 담겨있는 아이템 리스트 조회
+
+HTTP Request
+include::{snippets}/cart/getCartItems/http-request.adoc[]
+
+Request Header
+include::{snippets}/cart/getCartItems/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/cart/getCartItems/http-response.adoc[]
+
+Response Fields
+include::{snippets}/cart/getCartItems/response-fields.adoc[]
+
+=== 장바구니에 담겨있는 아이템 중 선택된 아이템 리스트 조회
+
+HTTP Request
+include::{snippets}/cart/getSelected/http-request.adoc[]
+
+Request Header
+include::{snippets}/cart/getSelected/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/cart/getSelected/http-response.adoc[]
+
+Response Fields
+include::{snippets}/cart/getSelected/response-fields.adoc[]
+
+=== 장바구니아이템 수량 변경
+
+HTTP Request
+include::{snippets}/cart/updateCartItemAmount/http-request.adoc[]
+
+Request Header
+include::{snippets}/cart/updateCartItemAmount/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/cart/updateCartItemAmount/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/cart/updateCartItemAmount/http-response.adoc[]
+
+=== 다른 유저의 장바구니아이템 수량 변경
+
+HTTP Response
+include::{snippets}/cart/updateCartItemAmount/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 장바구니아이템 수량 변경
+
+HTTP Response
+include::{snippets}/cart/updateCartItemAmount/fail/notFound/http-response.adoc[]
+
+=== 장바구니아이템 삭제
+
+HTTP Request
+include::{snippets}/cart/deleteCartItem/http-request.adoc[]
+
+Request Header
+include::{snippets}/cart/deleteCartItem/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/cart/deleteCartItem/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/cart/deleteCartItem/http-response.adoc[]
+
+=== 다른 유저의 장바구니아이템 삭제
+
+HTTP Response
+include::{snippets}/cart/deleteCartItem/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 장바구니아이템 삭제
+
+HTTP Response
+include::{snippets}/cart/deleteCartItem/fail/notFound/http-response.adoc[]

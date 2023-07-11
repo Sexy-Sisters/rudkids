@@ -1,78 +1,112 @@
 [[Admin-API]]
 == Admin API
+:hardbreaks:
 
-[[Admin-유저-검색]]
-=== Admin 유저 검색
-operation::admin/searchUser[snippets='http-request,query-parameters,http-response']
+=== 유저 검색
 
-[[Admin-유저-검색-권한-에러]]
-=== Admin 유저 검색 (권한 에러)
-operation::admin/searchUser/failByForbiddenError[snippets='http-request,request-headers,query-parameters,http-response']
+HTTP Request
+include::{snippets}/admin/searchUser/http-request.adoc[]
 
-[[Admin-유저-검색-존재하지-않는-유저-에러]]
-=== Admin 유저 검색 (존재하지 않는 유저 에러)
-operation::admin/searchUser/failByNotFoundError[snippets='http-request,request-headers,query-parameters,http-response']
+Request Header
+include::{snippets}/admin/searchUser/request-headers.adoc[]
 
-[[Admin-유저-권한변경]]
-=== Admin 유저 권한변경
-operation::admin/changeUserRole[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+Request Parameters
+include::{snippets}/admin/searchUser/query-parameters.adoc[]
 
-[[Admin-유저-권한변경-권한-에러]]
-=== Admin 유저 권한변경 (권한 에러)
-operation::admin/changeUserRole/failByForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+HTTP Response
+include::{snippets}/admin/searchUser/http-response.adoc[]
 
-[[Admin-유저-권한변경-존재하지-않는-유저-에러]]
-=== Admin 유저 권한변경 (존재하지 않는 유저 에러)
-operation::admin/changeUserRole/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+Response Fields
+include::{snippets}/admin/searchUser/response-fields.adoc[]
 
-[[Admin-프로덕트-생성]]
-=== Admin 프로덕트 생성
-operation::product/create[snippets='http-request,request-headers,request-fields,http-response']
+=== 유저 권한변경
 
-[[Admin-프로덕트-생성-권한-에러]]
-=== Admin 프로덕트 생성 (권한 에러)
-operation::product/create/failByForbiddenError[snippets='http-request,request-headers,request-fields,http-response']
+HTTP Request
+include::{snippets}/admin/changeUserRole/http-request.adoc[]
 
-[[Admin-프로덕트-상태변경]]
-=== Admin 프로덕트 상태변경
-operation::product/changeStatus[snippets='http-request,path-parameters,request-fields,http-response']
+Request Header
+include::{snippets}/admin/changeUserRole/request-headers.adoc[]
 
-[[Admin-프로덕트-상태변경-권한-에러]]
-=== Admin 프로덕트 상태변경 (권한 에러)
-operation::product/changeStatus/failByForbiddenError[snippets='http-request,path-parameters,request-fields,http-response']
+Path Parameters
+include::{snippets}/admin/changeUserRole/path-parameters.adoc[]
 
-[[Admin-프로덕트-상태변경-존재하지-않는-프로덕트-에러]]
-=== Admin 프로덕트 상태변경 (존재하지 않는 프로덕트 에러)
-operation::product/changeStatus/failByNotFoundError[snippets='http-request,path-parameters,request-fields,http-response']
+Request Fields
+include::{snippets}/admin/changeUserRole/request-fields.adoc[]
 
-[[Admin-매거진-생성]]
-=== Admin 매거진 생성
-operation::community/create[snippets='http-request,request-headers,request-fields,http-response']
+=== 프로덕트 생성
 
-[[Admin-매거진-생성-권한-에러]]
-=== Admin 매거진 생성 (권한 에러)
-operation::community/create/failForbiddenError[snippets='http-request,request-headers,request-fields,http-response']
+HTTP Request
+include::{snippets}/product/create/http-request.adoc[]
 
-[[Admin-매거진-수정]]
-=== Admin 매거진 수정
-operation::community/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+Request Header
+include::{snippets}/product/create/request-headers.adoc[]
 
-[[Admin-매거진-수정-권한-에러]]
-=== Admin 매거진 수정 (권한 에러)
-operation::community/update/failForbiddenError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+Request Fields
+include::{snippets}/product/create/request-fields.adoc[]
 
-[[Admin-매거진-수정-존재하지-않는-매거진-에러]]
-=== Admin 매거진 수정 (존재하지 않는 매거진 에러)
-operation::community/update/failByNotFoundError[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+=== 프로덕트 상태변경
 
-[[Admin-매거진-삭제]]
-=== Admin 매거진-삭제
-operation::community/delete[snippets='http-request,request-headers,path-parameters,http-response']
+HTTP Request
+include::{snippets}/product/changeStatus/http-request.adoc[]
 
-[[Admin-매거진-삭제-권한-에러]]
-=== Admin 매거진 삭제 (권한 에러)
-operation::community/delete/failByForbiddenError[snippets='http-request,request-headers,path-parameters,http-response']
+Request Header
+include::{snippets}/product/changeStatus/request-headers.adoc[]
 
-[[Admin-매거진-삭제-존재하지-않는-매거진-에러]]
-=== Admin 매거진 삭제 (존재하지 않는 매거진 에러)
-operation::community/delete/failByNotFoundError[snippets='http-request,request-headers,path-parameters,http-response']
+Path Parameters
+include::{snippets}/product/changeStatus/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/product/changeStatus/request-fields.adoc[]
+
+=== 프로덕트 수정
+
+HTTP Request
+include::{snippets}/product/update/http-request.adoc[]
+
+Request Header
+include::{snippets}/product/update/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/product/update/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/product/update/request-fields.adoc[]
+
+=== 프로덕트 삭제
+
+HTTP Request
+include::{snippets}/product/delete/http-request.adoc[]
+
+Request Header
+include::{snippets}/product/delete/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/product/delete/path-parameters.adoc[]
+
+=== 모든 유저의 주문내역 리스트 조회
+
+HTTP Request
+include::{snippets}/admin/getAllOrders/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/getAllOrders/request-headers.adoc[]
+
+HTTP Response
+include::{snippets}/admin/getAllOrders/http-response.adoc[]
+
+Response Fields
+include::{snippets}/admin/getAllOrders/response-fields.adoc[]
+
+=== 주문상태 변경
+
+HTTP Request
+include::{snippets}/admin/changeOrderStatus/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/changeOrderStatus/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/changeOrderStatus/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/admin/changeOrderStatus/request-fields.adoc[]

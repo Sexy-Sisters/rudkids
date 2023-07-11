@@ -1,15 +1,20 @@
 package com.rudkids.api.cart;
 
 import com.rudkids.api.common.ControllerTest;
+import com.rudkids.core.cart.exception.CartItemNotFoundException;
+import com.rudkids.core.item.exception.ItemNotFoundException;
+import com.rudkids.core.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.common.fixtures.CartControllerFixtures.*;
+import static com.rudkids.api.cart.CartFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -22,162 +27,385 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CartControllerTest extends ControllerTest {
 
-    @DisplayName("[장바구니-아이템추가]")
-    @Test
-    void 장바구니에_아이템을_추가한다() throws Exception {
-        given(cartService.addCartItem(any(), any()))
-            .willReturn(CART_아이템_ID);
+    @Nested
+    @DisplayName("장바구니에 아이템을 추가한다")
+    class addCartItem {
 
-        mockMvc.perform(post(CART_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(CART_아이템_추가_요청())))
-            .andDo(print())
-            .andDo(document("cart/addCartItem",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("itemName")
-                        .type(JsonFieldType.STRING)
-                        .description("아이템 이름"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(cartService.addCartItem(any(), any()))
+                .willReturn(CART_아이템_ID);
 
-                    fieldWithPath("optionGroups")
-                        .type(JsonFieldType.ARRAY)
-                        .description("아이템 옵션 그룹"),
+            mockMvc.perform(post(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(CART_아이템_추가_요청())))
+                .andDo(print())
+                .andDo(document("cart/addCartItem",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("itemName")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이름"),
 
-                    fieldWithPath("optionGroups.[].name")
-                        .type(JsonFieldType.STRING)
-                        .description("아이템 옵션 그룹 이름"),
+                        fieldWithPath("optionGroups")
+                            .type(JsonFieldType.ARRAY)
+                            .description("아이템 옵션 그룹"),
 
-                    fieldWithPath("optionGroups.[].option")
-                        .type(JsonFieldType.OBJECT)
-                        .description("아이템 옵션"),
+                        fieldWithPath("optionGroups.[].name")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 옵션 그룹 이름"),
 
-                    fieldWithPath("optionGroups.[].option.name")
-                        .type(JsonFieldType.STRING)
-                        .description("아이템 옵션 이름"),
+                        fieldWithPath("optionGroups.[].option")
+                            .type(JsonFieldType.OBJECT)
+                            .description("아이템 옵션"),
 
-                    fieldWithPath("optionGroups.[].option.price")
-                        .type(JsonFieldType.NUMBER)
-                        .description("아이템 옵션 가격"),
+                        fieldWithPath("optionGroups.[].option.name")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 옵션 이름"),
 
-                    fieldWithPath("amount")
-                        .type(JsonFieldType.NUMBER)
-                        .description("아이템 수량")
-                )
-            ))
-            .andExpect(status().isOk());
+                        fieldWithPath("optionGroups.[].option.price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 옵션 가격"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 수량")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 아이템")
+        void fail() throws Exception {
+            doThrow(new ItemNotFoundException())
+                .when(cartService)
+                .addCartItem(any(), any());
+
+            mockMvc.perform(post(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(CART_아이템_추가_요청())))
+                .andDo(print())
+                .andDo(document("cart/addCartItem/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("itemName")
+                            .type(JsonFieldType.STRING)
+                            .description("존재하지 않는 아이템 이름"),
+
+                        fieldWithPath("optionGroups")
+                            .type(JsonFieldType.ARRAY)
+                            .description("아이템 옵션 그룹"),
+
+                        fieldWithPath("optionGroups.[].name")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 옵션 그룹 이름"),
+
+                        fieldWithPath("optionGroups.[].option")
+                            .type(JsonFieldType.OBJECT)
+                            .description("아이템 옵션"),
+
+                        fieldWithPath("optionGroups.[].option.name")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 옵션 이름"),
+
+                        fieldWithPath("optionGroups.[].option.price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 옵션 가격"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 수량")
+                    )
+                ))
+                .andExpect(status().isNotFound());
+        }
     }
 
-    @DisplayName("[장바구니-아이템전체조회]")
-    @Test
-    void 장바구니에_담겨있는_아이템_리스트를_조회한다() throws Exception {
-        given(cartService.getCartItems(any()))
-            .willReturn(CART_아이템_리스트());
+    @Nested
+    @DisplayName("장바구니에 담겨있는 아이템들을 조회한다")
+    class getCartItems {
 
-        mockMvc.perform(get(CART_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("cart/findCartItems",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                responseFields(
-                    fieldWithPath("totalCartItemPrice")
-                        .type(JsonFieldType.NUMBER)
-                        .description("장바구니아이템 총 가격"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(cartService.getCartItems(any()))
+                .willReturn(CART_아이템_리스트());
 
-                    fieldWithPath("cartItems.[].id")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 id"),
+            mockMvc.perform(get(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("cart/getCartItems",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("totalCartItemPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 총 가격"),
 
-                    fieldWithPath("cartItems.[].imageUrl")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 이미지 url"),
+                        fieldWithPath("cartItems.[].id")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 id"),
 
-                    fieldWithPath("cartItems.[].name")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 이름"),
+                        fieldWithPath("cartItems.[].imageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 이미지 url"),
 
-                    fieldWithPath("cartItems.[].price")
-                        .type(JsonFieldType.NUMBER)
-                        .description("장바구니아이템 가격"),
+                        fieldWithPath("cartItems.[].name")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 이름"),
 
-                    fieldWithPath("cartItems.[].amount")
-                        .type(JsonFieldType.NUMBER)
-                        .description("장바구니아이템 수량"),
+                        fieldWithPath("cartItems.[].price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 가격"),
 
-                    fieldWithPath("cartItems.[].itemStatus")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 상태")
-                )
-            ))
-            .andExpect(status().isOk());
+                        fieldWithPath("cartItems.[].amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 수량"),
+
+                        fieldWithPath("cartItems.[].itemStatus")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 상태")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
     }
 
-    @DisplayName("[장바구니-아이템수량변경]")
-    @Test
-    void 장바구니에_아이템_수량을_변경한다() throws Exception {
-        willDoNothing()
-            .given(cartService)
-            .updateCartItemAmount(any(), any());
+    @Nested
+    @DisplayName("장바구니에 담겨있는 아이템들 중 선택된 아이템들만 조회한다")
+    class getSelected {
 
-        mockMvc.perform(patch(CART_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
-            .andDo(print())
-            .andDo(document("cart/updateCartItemAmount",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("cartItemId")
-                        .type(JsonFieldType.STRING)
-                        .description("장바구니아이템 ID"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(cartService.getSelected(any()))
+                .willReturn(CART_선택된_아이템_응답());
 
-                    fieldWithPath("amount")
-                        .type(JsonFieldType.NUMBER)
-                        .description("장바구니아이템 수량")
-                )
-            ))
-            .andExpect(status().isOk());
+            mockMvc.perform(get(CART_DEFAULT_URL + "/select")
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("cart/getSelected",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("[]name")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 이름"),
+
+                        fieldWithPath("[]amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 수량")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
     }
 
-    @DisplayName("[장바구니-아이템선택삭제]")
-    @Test
-    void 장바구니_아이템들을_선택하여_삭제한다() throws Exception {
-        willDoNothing()
-            .given(cartService)
-            .deleteCartItem(any(), any());
+    @Nested
+    @DisplayName("장바구니아이템의 수량을 변경한다")
+    class updateCartItemAmount {
 
-        mockMvc.perform(delete(CART_DEFAULT_URL + "/{id}", CART_아이템_ID)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("cart/deleteCartItem",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                pathParameters(
-                    parameterWithName("id")
-                        .description("장바구니 아이템 id")
-                )
-            ))
-            .andExpect(status().isOk());
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(cartService)
+                .updateCartItemAmount(any(), any());
+
+            mockMvc.perform(patch(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/updateCartItemAmount",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("cartItemId")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 ID"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 수량")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 다른유저의 장바구니아이템")
+        void fail() throws Exception {
+            doThrow(new DifferentUserException())
+                .when(cartService)
+                .updateCartItemAmount(any(), any());
+
+            mockMvc.perform(patch(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/updateCartItemAmount/fail/forbidden",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("다른 사용자의 JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("cartItemId")
+                            .type(JsonFieldType.STRING)
+                            .description("장바구니아이템 ID"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 수량")
+                    )
+                ))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 장바구니아이템")
+        void fail2() throws Exception {
+            doThrow(new CartItemNotFoundException())
+                .when(cartService)
+                .updateCartItemAmount(any(), any());
+
+            mockMvc.perform(patch(CART_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(CART_아이템_수량_변경_요청())))
+                .andDo(print())
+                .andDo(document("cart/updateCartItemAmount/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("다른 사용자의 JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("cartItemId")
+                            .type(JsonFieldType.STRING)
+                            .description("존재하지 않는 장바구니아이템 ID"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 수량")
+                    )
+                ))
+                .andExpect(status().isNotFound());
+        }
+    }
+
+    @Nested
+    @DisplayName("장바구니 아이템을 삭제한다")
+    class deleteCartItem {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(cartService)
+                .deleteCartItem(any(), any());
+
+            mockMvc.perform(delete(CART_DEFAULT_URL + "/{id}", CART_아이템_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("cart/deleteCartItem",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("장바구니 아이템 id")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 다른유저의 장바구니아이템")
+        void fail() throws Exception {
+            doThrow(new DifferentUserException())
+                .when(cartService)
+                .deleteCartItem(any(), any());
+
+            mockMvc.perform(delete(CART_DEFAULT_URL + "/{id}", CART_아이템_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("cart/deleteCartItem/fail/forbidden",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("다른 사용자의 JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("장바구니 아이템 id")
+                    )
+                ))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 장바구니아이템")
+        void fail2() throws Exception {
+            doThrow(new CartItemNotFoundException())
+                .when(cartService)
+                .deleteCartItem(any(), any());
+
+            mockMvc.perform(delete(CART_DEFAULT_URL + "/{id}", CART_아이템_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("cart/deleteCartItem/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("장바구니 아이템 id")
+                    )
+                ))
+                .andExpect(status().isNotFound());
+        }
     }
 }

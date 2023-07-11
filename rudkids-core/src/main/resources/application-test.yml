@@ -69,6 +69,11 @@ sms:
     sender:
       phone-number: 01012345678
 
+payment:
+  toss:
+    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
+    secret-key: test_sk_Z0RnYX2w532Ld79ZObNrNeyqApQE
+
 application:
   bucket:
     name: bucketName

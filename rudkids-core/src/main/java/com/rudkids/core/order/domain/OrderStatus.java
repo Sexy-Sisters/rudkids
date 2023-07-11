@@ -10,12 +10,8 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum OrderStatus {
 
-    INIT("주문시작"),
-    ORDER_COMPLETE("주문완료"),
-    DELIVERY_PREPARE("배송준비"),
-    IN_DELIVERY("배송중"),
-    DELIVERY_COMPLETE("배송완료"),
-    CANCEL("주문취소");
+    ORDER("주문완료"),
+    CANCEL("취소완료");
 
     private final String description;
 

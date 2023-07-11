@@ -1,15 +1,18 @@
 package com.rudkids.api.user;
 
 import com.rudkids.api.common.ControllerTest;
+import com.rudkids.core.user.exception.InvalidNameException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.common.fixtures.UserControllerFixtures.*;
+import static com.rudkids.api.user.UserFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -23,130 +26,220 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest extends ControllerTest {
 
-    @DisplayName("[유저-수정]")
-    @Test
-    void 유저_정보를_수정한다() throws Exception {
-        willDoNothing()
-            .given(userService)
-            .update(any(), any());
+    @Nested
+    @DisplayName("유저정보를 수정한다")
+    class update {
 
-        mockMvc.perform(put(USER_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(USER_수정_요청())))
-            .andDo(print())
-            .andDo(document("user/update",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                requestFields(
-                    fieldWithPath("name")
-                        .type(JsonFieldType.STRING)
-                        .description("유저 이름"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(userService)
+                .update(any(), any());
 
-                    fieldWithPath("profileImagePath")
-                        .type(JsonFieldType.STRING)
-                        .description("유저 이미지 주소"),
+            mockMvc.perform(put(USER_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(USER_수정_요청())))
+                .andDo(print())
+                .andDo(document("user/update",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("name")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 이름"),
 
-                    fieldWithPath("profileImageUrl")
-                        .type(JsonFieldType.STRING)
-                        .description("유저 이미지 url")
-                )
-            ))
-            .andExpect(status().isOk());
+                        fieldWithPath("profileImagePath")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 이미지 주소"),
+
+                        fieldWithPath("profileImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 이미지 url")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 잘못된 이름")
+        void fail() throws Exception {
+            doThrow(new InvalidNameException())
+                .when(userService)
+                .update(any(), any());
+
+            mockMvc.perform(put(USER_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(USER_수정_요청())))
+                .andDo(print())
+                .andDo(document("user/update/fail/badRequest",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("name")
+                            .type(JsonFieldType.STRING)
+                            .description("잘못된 유저 이름"),
+
+                        fieldWithPath("profileImagePath")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 이미지 주소"),
+
+                        fieldWithPath("profileImageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 이미지 url")
+                    )
+                ))
+                .andExpect(status().isBadRequest());
+        }
     }
 
-    @DisplayName("[유저-조회]")
-    @Test
-    void 유저_정보를_조회한다() throws Exception {
-        given(userService.get(any()))
-            .willReturn(USER_정보_조회());
+    @Nested
+    @DisplayName("유저정보를 조회한다")
+    class get {
 
-        mockMvc.perform(get(USER_DEFAULT_URL)
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("user/find",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                responseFields(
-                    fieldWithPath("email")
-                        .type(JsonFieldType.STRING)
-                        .description("이메일"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(userService.get(any()))
+                .willReturn(USER_정보_조회());
 
-                    fieldWithPath("name")
-                        .type(JsonFieldType.STRING)
-                        .description("이름"),
+            mockMvc.perform(get(USER_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("user/get",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("email")
+                            .type(JsonFieldType.STRING)
+                            .description("이메일"),
 
-                    fieldWithPath("phoneNumber")
-                        .type(JsonFieldType.STRING)
-                        .description("폰번호"),
+                        fieldWithPath("name")
+                            .type(JsonFieldType.STRING)
+                            .description("이름"),
 
-                    fieldWithPath("profileImage")
-                        .type(JsonFieldType.OBJECT)
-                        .description("프로필 이미지"),
+                        fieldWithPath("phoneNumber")
+                            .type(JsonFieldType.STRING)
+                            .description("폰번호"),
 
-                    fieldWithPath("profileImage.path")
-                        .type(JsonFieldType.STRING)
-                        .description("프로필 이미지 path"),
+                        fieldWithPath("profileImage")
+                            .type(JsonFieldType.OBJECT)
+                            .description("프로필 이미지"),
 
-                    fieldWithPath("profileImage.url")
-                        .type(JsonFieldType.STRING)
-                        .description("프로필 이미지 url")
-                )
-            ))
-            .andExpect(status().isOk());
+                        fieldWithPath("profileImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("프로필 이미지 path"),
+
+                        fieldWithPath("profileImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("프로필 이미지 url")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
     }
 
-    @DisplayName("[유저-주소-조회]")
-    @Test
-    void 유저_주소_정보들을_조회한다() throws Exception {
-        given(userService.getAddresses(any()))
-            .willReturn(USER_주소_정보들_조회());
+    @Nested
+    @DisplayName("유저가 작성한 커뮤니티 글들을 조회한다")
+    class getMyCommunities {
 
-        mockMvc.perform(get(USER_DEFAULT_URL + "/address")
-                .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-            .andDo(print())
-            .andDo(document("user/findAddress",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-                requestHeaders(
-                    headerWithName("Authorization")
-                        .description("JWT Access Token")
-                ),
-                responseFields(
-                    fieldWithPath("[]receiverName")
-                        .type(JsonFieldType.STRING)
-                        .description("받는사람 이름"),
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(userService.getMyCommunities(any()))
+                .willReturn(USER_커뮤니티글_응답());
 
-                    fieldWithPath("[]receiverPhone")
-                        .type(JsonFieldType.STRING)
-                        .description("받는사람 폰번호"),
+            mockMvc.perform(get(USER_DEFAULT_URL + "/community")
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("user/getMyCommunities",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("[]title")
+                            .type(JsonFieldType.STRING)
+                            .description("제목"),
 
-                    fieldWithPath("[]receiverAddress1")
-                        .type(JsonFieldType.STRING)
-                        .description("받는사람 주소"),
+                        fieldWithPath("[]writer")
+                            .type(JsonFieldType.STRING)
+                            .description("작성자"),
 
-                    fieldWithPath("[]receiverAddress2")
-                        .type(JsonFieldType.STRING)
-                        .description("받는사람 상세주소"),
+                        fieldWithPath("[]image")
+                            .type(JsonFieldType.STRING)
+                            .description("커뮤니티 썸네일")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
 
-                    fieldWithPath("[]receiverZipCode")
-                        .type(JsonFieldType.STRING)
-                        .description("받는사람 zipcode"),
+    @Nested
+    @DisplayName("유저 주소정보들을 조회한다")
+    class getAddresses {
 
-                    fieldWithPath("[]message")
-                        .type(JsonFieldType.STRING)
-                        .description("etc 메세지")
-                )
-            ))
-            .andExpect(status().isOk());
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(userService.getAddresses(any()))
+                .willReturn(USER_주소_정보들_조회());
+
+            mockMvc.perform(get(USER_DEFAULT_URL + "/address")
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("user/getAddresses",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    responseFields(
+                        fieldWithPath("[]receiverName")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람 이름"),
+
+                        fieldWithPath("[]receiverPhone")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람 폰번호"),
+
+                        fieldWithPath("[]receiverAddress1")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람 주소"),
+
+                        fieldWithPath("[]receiverAddress2")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람 상세주소"),
+
+                        fieldWithPath("[]receiverZipCode")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람 zipcode"),
+
+                        fieldWithPath("[]message")
+                            .type(JsonFieldType.STRING)
+                            .description("etc 메세지")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
     }
 }
