@@ -72,7 +72,11 @@ public class DeliveryControllerTest extends ControllerTest {
 
                         fieldWithPath("message")
                             .type(JsonFieldType.STRING)
-                            .description("메세지")
+                            .description("메세지"),
+
+                        fieldWithPath("isBasic")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("기본배송지 여부")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -97,6 +101,10 @@ public class DeliveryControllerTest extends ControllerTest {
                     preprocessResponse(prettyPrint()),
                     requestHeaders(JWT_ACCESS_TOKEN()),
                     responseFields(
+                        fieldWithPath("[]deliveryId")
+                            .type(JsonFieldType.STRING)
+                            .description("배송지 id"),
+
                         fieldWithPath("[]receiverName")
                             .type(JsonFieldType.STRING)
                             .description("받는사람 이름"),
@@ -152,6 +160,10 @@ public class DeliveryControllerTest extends ControllerTest {
                             .description("배송지 id")
                     ),
                     responseFields(
+                        fieldWithPath("deliveryId")
+                            .type(JsonFieldType.STRING)
+                            .description("배송지 id"),
+
                         fieldWithPath("receiverName")
                             .type(JsonFieldType.STRING)
                             .description("받는사람 이름"),

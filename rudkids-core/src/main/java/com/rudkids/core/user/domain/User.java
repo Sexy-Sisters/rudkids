@@ -64,6 +64,12 @@ public class User {
         }
     }
 
+    public void changeDeliveryBasic(Delivery target) {
+        deliveries.stream()
+            .filter(delivery -> !delivery.equals(target))
+            .forEach(Delivery::changeBasicFalse);
+    }
+
     public boolean hasPhoneNumber() {
         return !phoneNumber.isEmpty();
     }

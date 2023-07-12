@@ -11,7 +11,8 @@ public class DeliveryRequest {
         String zipCode,
         String address,
         String extraAddress,
-        String message
+        String message,
+        boolean isBasic
     ) {
         public Delivery toEntity() {
             var generatedAddress = Address.create(address, extraAddress, zipCode);
@@ -20,6 +21,7 @@ public class DeliveryRequest {
                 .receiverPhone(receiverPhone)
                 .address(generatedAddress)
                 .message(message)
+                .isBasic(isBasic)
                 .build();
         }
     }
