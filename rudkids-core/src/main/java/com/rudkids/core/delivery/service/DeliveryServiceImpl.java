@@ -24,6 +24,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         var user = userRepository.getUser(userId);
         var delivery = request.toEntity();
         delivery.registerUser(user);
+
+        delivery.checkChangeBasicDelivery();
         deliveryRepository.save(delivery);
     }
 

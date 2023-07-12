@@ -18,7 +18,8 @@ public class DeliveryFixturesAndDocs {
             "45387",
             "부산광역시 강서구 가락대로",
             "행정실 문 앞",
-            "도착하면 연락해주세요"
+            "도착하면 연락해주세요",
+            true
         );
     }
 
@@ -36,6 +37,7 @@ public class DeliveryFixturesAndDocs {
     public static List<DeliveryResponse.Info> DELIVERY_리스트_응답() {
         return List.of(
             new DeliveryResponse.Info(
+                DELIVERY_ID,
                 "남세원",
                 "01012345678",
                 "45387",
@@ -49,6 +51,7 @@ public class DeliveryFixturesAndDocs {
 
     public static DeliveryResponse.Info DELIVERY_상세조회_응답() {
         return new DeliveryResponse.Info(
+            DELIVERY_ID,
             "남세원",
             "01012345678",
             "45387",

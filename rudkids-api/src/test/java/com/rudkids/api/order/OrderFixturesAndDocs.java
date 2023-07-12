@@ -53,6 +53,7 @@ public class OrderFixturesAndDocs {
 
     public static OrderResponse.Detail ORDER_상세조회_응답() {
         var delivery = DeliveryResponse.Info.builder()
+            .deliveryId(deliveryId)
             .receiverName(receiverName)
             .receiverPhone(receiverPhone)
             .zipCode(receiverZipcode)
@@ -117,6 +118,10 @@ public class OrderFixturesAndDocs {
             fieldWithPath("orderItems[].price")
                 .type(JsonFieldType.NUMBER)
                 .description("주문한 상품 가격"),
+
+            fieldWithPath("deliveryFragment.deliveryId")
+                .type(JsonFieldType.STRING)
+                .description("배송지 id"),
 
             fieldWithPath("deliveryFragment.receiverName")
                 .type(JsonFieldType.STRING)

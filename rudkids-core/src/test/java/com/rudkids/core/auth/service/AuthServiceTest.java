@@ -33,7 +33,7 @@ class AuthServiceTest extends AuthServiceFixtures {
         });
     }
 
-    @DisplayName("이미 가입된 회원이라면 추가로 회원이 생성되지 않는다")
+    @DisplayName("이미 가입된 회원이 한번 더 로그인을 하면 추가로 회원이 생성되지 않는다")
     @Test
     void success2() {
         //given

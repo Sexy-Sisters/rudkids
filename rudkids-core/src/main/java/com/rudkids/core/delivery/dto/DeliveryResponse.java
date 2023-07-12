@@ -3,10 +3,13 @@ package com.rudkids.core.delivery.dto;
 import com.rudkids.core.delivery.domain.Delivery;
 import lombok.Builder;
 
+import java.util.UUID;
+
 public class DeliveryResponse {
 
     @Builder
     public record Info(
+        UUID deliveryId,
         String receiverName,
         String receiverPhone,
         String zipCode,
@@ -17,6 +20,7 @@ public class DeliveryResponse {
     ) {
         public Info(Delivery delivery) {
             this(
+                delivery.getId(),
                 delivery.getReceiverName(),
                 delivery.getReceiverPhone(),
                 delivery.getZipCode(),
