@@ -35,9 +35,8 @@ public class DeliveryControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            willDoNothing()
-                .given(deliveryService)
-                .create(any(), any());
+            given(deliveryService.create(any(), any()))
+                .willReturn(DELIVERY_ID);
 
             mockMvc.perform(post(DELIVERY_DEFAULT_URL)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

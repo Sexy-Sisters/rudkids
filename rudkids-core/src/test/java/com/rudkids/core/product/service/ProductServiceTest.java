@@ -1,6 +1,6 @@
 package com.rudkids.core.product.service;
 
-import com.rudkids.core.common.fixtures.ProductServiceFixtures;
+import com.rudkids.core.common.fixtures.product.ProductServiceFixtures;
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.product.domain.Product;
 import com.rudkids.core.product.domain.ProductStatus;

@@ -67,7 +67,9 @@ public class User {
     public void changeDeliveryBasic(Delivery target) {
         deliveries.stream()
             .filter(delivery -> !delivery.equals(target))
-            .forEach(Delivery::changeBasicFalse);
+            .filter(Delivery::isBasic)
+            .findFirst()
+            .ifPresent(Delivery::changeBasicFalse);
     }
 
     public boolean hasPhoneNumber() {

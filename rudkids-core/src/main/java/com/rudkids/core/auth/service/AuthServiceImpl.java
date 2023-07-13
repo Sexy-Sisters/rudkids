@@ -35,8 +35,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public void saveAuthenticatedPhoneNumber(String accessToken, String authenticatedPhoneNumber) {
-        UUID userId = tokenCreator.extractPayload(accessToken);
+    public void saveAuthenticatedPhoneNumber(UUID userId, String authenticatedPhoneNumber) {
         var user = userRepository.getUser(userId);
         var phoneNumber = PhoneNumber.create(authenticatedPhoneNumber);
         user.updatePhoneNumber(phoneNumber);

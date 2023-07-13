@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface DeliveryService {
 
-    void create(UUID userId, DeliveryRequest.Create request);
+    UUID create(UUID userId, DeliveryRequest.Create request);
     List<DeliveryResponse.Info> getAll(UUID userId);
     DeliveryResponse.Info get(UUID userId, UUID deliveryId);
     void changeStatus(UUID userId, UUID deliveryId);

@@ -32,7 +32,8 @@ public class VerificationController {
     ) {
         var phoneNumber = verificationService.check(request);
         var accessToken = AuthorizationExtractor.extract(httpRequest);
-        authService.saveAuthenticatedPhoneNumber(accessToken, phoneNumber);
+        var userId = authService.extractUserId(accessToken);
+        authService.saveAuthenticatedPhoneNumber(userId, phoneNumber);
         return ResponseEntity.ok().build();
     }
 }

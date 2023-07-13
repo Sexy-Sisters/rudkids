@@ -1,4 +1,4 @@
-package com.rudkids.core.common.fixtures;
+package com.rudkids.core.common.fixtures.cart;
 
 import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.cart.domain.CartRepository;
@@ -67,7 +67,6 @@ public class CartServiceFixtures {
         item.addImage(image);
         itemRepository.save(item);
 
-        //저장된 itemId 넣음
         CART_아이템_요청 = CartRequest.AddCartItem.builder()
             .itemName(item.getEnName())
             .optionGroups(List.of(

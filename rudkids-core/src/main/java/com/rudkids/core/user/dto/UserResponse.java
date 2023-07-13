@@ -37,8 +37,8 @@ public class UserResponse {
             this(
                 delivery.getReceiverName(),
                 delivery.getReceiverPhone(),
-                delivery.getAddress1(),
-                delivery.getAddress2(),
+                delivery.getAddress(),
+                delivery.getExtraAddress(),
                 delivery.getZipCode(),
                 delivery.getMessage()
             );

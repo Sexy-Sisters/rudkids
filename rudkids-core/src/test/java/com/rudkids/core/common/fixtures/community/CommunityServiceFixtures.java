@@ -1,4 +1,4 @@
-package com.rudkids.core.common.fixtures;
+package com.rudkids.core.common.fixtures.community;
 
 import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.community.domain.CommunityRepository;
@@ -46,7 +46,6 @@ public class CommunityServiceFixtures {
 
     @BeforeEach
     void setUp() {
-        var profileImage = ProfileImage.create("path", "url");
         user = User.builder()
             .email("namse@gmail.com")
             .name(UserName.create("남세"))

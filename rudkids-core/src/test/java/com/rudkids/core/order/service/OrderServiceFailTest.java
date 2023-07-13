@@ -1,7 +1,6 @@
 package com.rudkids.core.order.service;
 
-import com.rudkids.core.cart.exception.CartNotFoundException;
-import com.rudkids.core.common.fixtures.OrderServiceFixtures;
+import com.rudkids.core.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.DisplayName;
