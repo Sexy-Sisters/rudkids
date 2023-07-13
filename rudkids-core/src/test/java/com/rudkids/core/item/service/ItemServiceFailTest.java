@@ -1,6 +1,6 @@
 package com.rudkids.core.item.service;
 
-import com.rudkids.core.common.fixtures.ItemServiceFixtures;
+import com.rudkids.core.common.fixtures.item.ItemServiceFixtures;
 import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.exception.ItemNotFoundException;
 import com.rudkids.core.product.exception.ProductNotFoundException;

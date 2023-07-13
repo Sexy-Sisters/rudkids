@@ -63,11 +63,11 @@ public class Delivery {
         return address.getZipCode();
     }
 
-    public String getAddress1() {
+    public String getAddress() {
         return address.getAddress();
     }
 
-    public String getAddress2() {
+    public String getExtraAddress() {
         return address.getExtraAddress();
     }
 

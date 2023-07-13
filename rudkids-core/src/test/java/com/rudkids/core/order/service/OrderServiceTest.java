@@ -1,14 +1,11 @@
 package com.rudkids.core.order.service;
 
-import com.rudkids.core.common.fixtures.OrderServiceFixtures;
+import com.rudkids.core.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.domain.PayMethod;
-import com.rudkids.core.order.dto.OrderRequest;
-import com.rudkids.core.order.exception.OrderNotFoundException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

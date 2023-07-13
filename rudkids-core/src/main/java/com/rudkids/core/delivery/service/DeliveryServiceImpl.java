@@ -20,13 +20,14 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final DeliveryRepository deliveryRepository;
 
     @Override
-    public void create(UUID userId, DeliveryRequest.Create request) {
+    public UUID create(UUID userId, DeliveryRequest.Create request) {
         var user = userRepository.getUser(userId);
         var delivery = request.toEntity();
         delivery.registerUser(user);
-
         delivery.checkChangeBasicDelivery();
+
         deliveryRepository.save(delivery);
+        return delivery.getId();
     }
 
     @Override

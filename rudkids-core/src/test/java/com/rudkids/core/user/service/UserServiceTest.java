@@ -1,6 +1,6 @@
 package com.rudkids.core.user.service;
 
-import com.rudkids.core.common.fixtures.UserServiceFixtures;
+import com.rudkids.core.common.fixtures.user.UserServiceFixtures;
 import com.rudkids.core.delivery.domain.Address;
 import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.user.domain.PhoneNumber;

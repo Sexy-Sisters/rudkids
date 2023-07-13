@@ -1,6 +1,6 @@
 package com.rudkids.core.item.service;
 
-import com.rudkids.core.common.fixtures.ItemServiceFixtures;
+import com.rudkids.core.common.fixtures.item.ItemServiceFixtures;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
@@ -11,8 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

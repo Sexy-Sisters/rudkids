@@ -24,8 +24,8 @@ public class DeliveryResponse {
                 delivery.getReceiverName(),
                 delivery.getReceiverPhone(),
                 delivery.getZipCode(),
-                delivery.getAddress1(),
-                delivery.getAddress2(),
+                delivery.getAddress(),
+                delivery.getExtraAddress(),
                 delivery.getMessage(),
                 delivery.isBasic()
             );

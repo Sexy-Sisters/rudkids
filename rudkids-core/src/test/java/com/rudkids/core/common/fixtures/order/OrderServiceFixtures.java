@@ -1,4 +1,4 @@
-package com.rudkids.core.common.fixtures;
+package com.rudkids.core.common.fixtures.order;
 
 import com.rudkids.core.cart.domain.Cart;
 import com.rudkids.core.cart.domain.CartRepository;

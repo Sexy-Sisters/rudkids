@@ -1,4 +1,4 @@
-package com.rudkids.core.common.fixtures;
+package com.rudkids.core.common.fixtures.user;
 
 import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.user.domain.*;

@@ -1,4 +1,4 @@
-package com.rudkids.core.common.fixtures;
+package com.rudkids.core.common.fixtures.auth;
 
 import com.rudkids.core.auth.domain.TokenRepository;
 import com.rudkids.core.auth.service.TokenCreator;
