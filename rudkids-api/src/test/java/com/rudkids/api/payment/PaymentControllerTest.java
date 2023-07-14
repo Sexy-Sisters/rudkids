@@ -130,49 +130,6 @@ public class PaymentControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("결제정보를 반환한다")
-    class getInformation {
-
-        @Test
-        @DisplayName("성공")
-        void success() throws Exception {
-            given(paymentService.getInformation(any(), any()))
-                .willReturn(PAYMENT_정보_응답());
-
-            mockMvc.perform(get(PAYMENT_DEFAULT_URL + "/{id}", ORDER_ID)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-                .andDo(print())
-                .andDo(document("payment/getInformation",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(JWT_ACCESS_TOKEN()),
-                    pathParameters(
-                        parameterWithName("id")
-                            .description("주문 id")
-                    ),
-                    responseFields(
-                        fieldWithPath("orderId")
-                            .type(JsonFieldType.STRING)
-                            .description("주문 id"),
-
-                        fieldWithPath("orderName")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 주문이름"),
-
-                        fieldWithPath("customerId")
-                            .type(JsonFieldType.STRING)
-                            .description("유저 id"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 총 가격")
-                    )
-                ))
-                .andExpect(status().isOk());
-        }
-    }
-
-    @Nested
     @DisplayName("결제를 취소한다")
     class cancel {
 
