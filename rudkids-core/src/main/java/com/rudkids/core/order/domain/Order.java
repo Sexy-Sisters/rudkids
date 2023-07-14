@@ -91,14 +91,6 @@ public class Order extends AbstractEntity {
         orderStatus = OrderStatus.CANCELLING;
     }
 
-    public int getOrderItemSize() {
-        return orderItems.size();
-    }
-
-    public String getFirstOrderItemName() {
-        return orderItems.get(0).getName();
-    }
-
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
     }

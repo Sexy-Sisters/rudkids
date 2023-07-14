@@ -8,4 +8,10 @@ public class CartResponse {
         int totalCartItemPrice,
         List<CartItemResponse.Main> cartItems
     ) {}
+
+    public record Select(
+        int totalPrice,
+        String orderName,
+        List<CartItemResponse.Select> selectedCartItems
+    ) {}
 }

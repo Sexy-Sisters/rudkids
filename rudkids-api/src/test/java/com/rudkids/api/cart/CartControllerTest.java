@@ -212,11 +212,19 @@ class CartControllerTest extends ControllerTest {
                             .description("JWT Access Token")
                     ),
                     responseFields(
-                        fieldWithPath("[]name")
+                        fieldWithPath("totalPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("장바구니아이템 총 가격"),
+
+                        fieldWithPath("orderName")
+                            .type(JsonFieldType.STRING)
+                            .description("결제주문 이름"),
+
+                        fieldWithPath("selectedCartItems[]name")
                             .type(JsonFieldType.STRING)
                             .description("장바구니아이템 이름"),
 
-                        fieldWithPath("[]amount")
+                        fieldWithPath("selectedCartItems[]amount")
                             .type(JsonFieldType.NUMBER)
                             .description("장바구니아이템 수량")
                     )

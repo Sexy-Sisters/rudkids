@@ -43,7 +43,11 @@ public class CartFixturesAndDocs {
         return new CartResponse.Main(장바구니_아이템_총_가격, 장바구니_아이템);
     }
 
-    public static List<CartItemResponse.Select> CART_선택된_아이템_응답() {
+    public static CartResponse.Select CART_선택된_아이템_응답() {
+        return new CartResponse.Select(장바구니_아이템_총_가격, "OrderName", CART_ITEM_선택된_아이템_응답());
+    }
+
+    private static List<CartItemResponse.Select> CART_ITEM_선택된_아이템_응답() {
         return List.of(new CartItemResponse.Select(아이템_이름, CART_아이템_수량));
     }
 }
