@@ -57,6 +57,7 @@ public class Delivery {
 
     public void changeBasic() {
         isBasic = true;
+        user.changeDeliveryBasic(this);
     }
 
     public String getZipCode() {
