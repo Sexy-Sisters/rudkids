@@ -78,4 +78,8 @@ public class CartItem {
     public void select() {
         selected = true;
     }
+
+    public boolean isSelectTrue() {
+        return selected;
+    }
 }

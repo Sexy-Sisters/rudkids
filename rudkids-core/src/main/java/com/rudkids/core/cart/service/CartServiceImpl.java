@@ -56,7 +56,7 @@ public class CartServiceImpl implements CartService {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.get(user);
         return cart.getCartItems().stream()
-            .filter(CartItem::isSelected)
+            .filter(CartItem::isSelectTrue)
             .map(CartItemResponse.Select::new)
             .toList();
     }

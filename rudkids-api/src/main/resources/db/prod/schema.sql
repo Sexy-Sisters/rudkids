@@ -99,16 +99,17 @@ create table if not exists tbl_item_image
 
 create table if not exists tbl_delivery
 (
-    delivery_id    binary(16)   not null
+    delivery_id     binary(16)   not null
         primary key,
-    address        varchar(255) null,
-    extraAddress   varchar(255) null,
-    zip_code       varchar(255) null,
-    is_basic       bit          not null,
-    message        varchar(255) null,
-    receiver_name  varchar(255) null,
-    receiver_phone varchar(255) null,
-    user_id        binary(16)   null,
+    address         varchar(255) null,
+    extra_address   varchar(255) null,
+    zip_code        varchar(255) null,
+    delivery_status varchar(255) null,
+    is_basic        bit          not null,
+    message         varchar(255) null,
+    receiver_name   varchar(255) null,
+    receiver_phone  varchar(255) null,
+    user_id         binary(16)   null,
     constraint FKns1imq6p94y1k30ea3ic1fhg
         foreign key (user_id) references tbl_user (user_id)
 );
