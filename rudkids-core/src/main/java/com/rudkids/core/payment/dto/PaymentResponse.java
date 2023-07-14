@@ -4,10 +4,15 @@ import java.util.UUID;
 
 public class PaymentResponse {
 
+    public record WidgetInfo(
+        UUID customerId,
+        int amount
+    ) {}
+
     public record Info(
         UUID orderId,
         String orderName,
-        UUID customerId,
-        int amount
+        String customerName,
+        String customerEmail
     ) {}
 }

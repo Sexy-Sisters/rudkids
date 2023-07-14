@@ -130,7 +130,38 @@ public class PaymentControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("결제정보를 반환한다")
+    @DisplayName("결제위젯 생성 정보를 반환한다")
+    class getWidgetInformation {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(paymentService.getWidgetInformation(any()))
+                .willReturn(PAYMENT_위젯_정보_응답());
+
+            mockMvc.perform(get(PAYMENT_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("payment/getWidgetInformation",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(JWT_ACCESS_TOKEN()),
+                    responseFields(
+                        fieldWithPath("customerId")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 id"),
+
+                        fieldWithPath("amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("결제 총 가격")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
+    @DisplayName("결제요청 정보를 반환한다")
     class getInformation {
 
         @Test
@@ -159,13 +190,13 @@ public class PaymentControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("결제 주문이름"),
 
-                        fieldWithPath("customerId")
+                        fieldWithPath("customerName")
                             .type(JsonFieldType.STRING)
-                            .description("유저 id"),
+                            .description("이름"),
 
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 총 가격")
+                        fieldWithPath("customerEmail")
+                            .type(JsonFieldType.STRING)
+                            .description("이메일")
                     )
                 ))
                 .andExpect(status().isOk());

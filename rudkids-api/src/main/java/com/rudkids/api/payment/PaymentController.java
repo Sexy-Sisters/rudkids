@@ -16,6 +16,12 @@ import java.util.UUID;
 public class PaymentController {
     private final PaymentService paymentService;
 
+    @GetMapping
+    public ResponseEntity getWidgetInformation(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = paymentService.getWidgetInformation(loginUser.id());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getInformation(
         @AuthenticationPrincipal AuthUser.Login loginUser,

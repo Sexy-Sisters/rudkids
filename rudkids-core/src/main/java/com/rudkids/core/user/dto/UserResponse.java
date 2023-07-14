@@ -5,13 +5,10 @@ import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.user.domain.User;
 import lombok.Builder;
 
-import java.util.UUID;
-
 public class UserResponse {
 
     @Builder
     public record Info(
-        UUID userId,
         String email,
         String name,
         String phoneNumber,
@@ -19,7 +16,6 @@ public class UserResponse {
     ) {
         public Info(User user) {
             this(
-                user.getId(),
                 user.getEmail(),
                 user.getName(),
                 user.getPhoneNumber(),

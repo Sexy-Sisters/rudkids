@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface PaymentService {
 
+    PaymentResponse.WidgetInfo getWidgetInformation(UUID userId);
+
     PaymentResponse.Info getInformation(UUID userId, UUID orderId);
 
     void confirm(PaymentRequest.Confirm request);

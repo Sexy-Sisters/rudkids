@@ -26,9 +26,11 @@ public class PaymentFixturesAndDocs {
         );
     }
 
-    public static PaymentResponse.Info PAYMENT_정보_응답() {
-        return new PaymentResponse.Info(ORDER_ID, "orderName", USER_ID, AMOUNT);
+    public static PaymentResponse.WidgetInfo PAYMENT_위젯_정보_응답() {
+        return new PaymentResponse.WidgetInfo(USER_ID, AMOUNT);
     }
 
-
+    public static PaymentResponse.Info PAYMENT_정보_응답() {
+        return new PaymentResponse.Info(ORDER_ID, "orderName", "name", "email");
+    }
 }
