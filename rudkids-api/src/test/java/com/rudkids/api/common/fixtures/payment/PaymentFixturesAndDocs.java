@@ -1,7 +1,6 @@
 package com.rudkids.api.common.fixtures.payment;
 
 import com.rudkids.core.payment.dto.PaymentRequest;
-import com.rudkids.core.payment.dto.PaymentResponse;
 
 import java.util.UUID;
 
@@ -9,7 +8,6 @@ public class PaymentFixturesAndDocs {
 
     public static final String PAYMENT_DEFAULT_URL = "/api/v1/payment";
     public static final UUID ORDER_ID = UUID.randomUUID();
-    private static final UUID USER_ID = UUID.randomUUID();
     private static final int AMOUNT = 5000;
 
     public static PaymentRequest.Confirm PAYMENT_결제_승인_요청() {
@@ -24,13 +22,5 @@ public class PaymentFixturesAndDocs {
             "refundAccountNumber",
             "refundAccountHolderName"
         );
-    }
-
-    public static PaymentResponse.WidgetInfo PAYMENT_위젯_정보_응답() {
-        return new PaymentResponse.WidgetInfo(USER_ID, AMOUNT);
-    }
-
-    public static PaymentResponse.Info PAYMENT_정보_응답() {
-        return new PaymentResponse.Info(ORDER_ID, "orderName", "name", "email");
     }
 }

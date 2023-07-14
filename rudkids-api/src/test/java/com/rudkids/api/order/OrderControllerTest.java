@@ -236,6 +236,27 @@ class OrderControllerTest extends ControllerTest {
                         parameterWithName("id")
                             .description("주문 id")
                     )
+//                    requestFields(
+//                        fieldWithPath("paymentKey")
+//                            .type(JsonFieldType.STRING)
+//                            .description("결제 key"),
+//
+//                        fieldWithPath("cancelReason")
+//                            .type(JsonFieldType.STRING)
+//                            .description("취소하는 이유"),
+//
+//                        fieldWithPath("bankCode")
+//                            .type(JsonFieldType.STRING)
+//                            .description("은행 코드"),
+//
+//                        fieldWithPath("refundAccountNumber")
+//                            .type(JsonFieldType.STRING)
+//                            .description("환불할 계좌번호"),
+//
+//                        fieldWithPath("refundAccountHolderName")
+//                            .type(JsonFieldType.STRING)
+//                            .description("환불할 계좌 예금주 이름")
+//                    )
                 ))
                 .andExpect(status().isOk());
         }
