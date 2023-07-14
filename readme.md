@@ -2,5 +2,5 @@
 
 This repository is the hobbies of the rich
 
-[![Rudkids](https://img.shields.io/badge/%F0%9F%91%ba-rudkids-red.svg)](https://rudkids.com/docs/index.html) &nbsp;
-[![Restdocs](https://img.shields.io/badge/%F0%9F%91%bb-restdocs-red.svg)](https://rudkids.com/docs/index.html)
+[![Rudkids](https://img.shields.io/badge/website-rudkids-0366d6.svg)](https://www.rudkids.com) &nbsp;
+[![Restdocs](https://img.shields.io/badge/documentation-restdocs-0366d6.svg)](https://rudkids.com/docs/index.html)
