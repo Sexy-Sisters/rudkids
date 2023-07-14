@@ -126,6 +126,10 @@ class UserControllerTest extends ControllerTest {
                             .description("JWT Access Token")
                     ),
                     responseFields(
+                        fieldWithPath("userId")
+                            .type(JsonFieldType.STRING)
+                            .description("유저 id"),
+
                         fieldWithPath("email")
                             .type(JsonFieldType.STRING)
                             .description("이메일"),

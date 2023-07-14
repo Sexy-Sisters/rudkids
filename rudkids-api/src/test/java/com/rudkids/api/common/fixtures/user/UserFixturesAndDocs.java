@@ -6,6 +6,7 @@ import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public class UserFixturesAndDocs {
     public static final String USER_DEFAULT_URL = "/api/v1/user";
@@ -16,6 +17,7 @@ public class UserFixturesAndDocs {
 
     public static UserResponse.Info USER_정보_조회() {
         return UserResponse.Info.builder()
+            .userId(UUID.randomUUID())
             .email("namse@gmail.com")
             .name("남세")
             .phoneNumber("01029401509")

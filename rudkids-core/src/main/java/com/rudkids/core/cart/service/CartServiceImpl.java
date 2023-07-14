@@ -52,13 +52,14 @@ public class CartServiceImpl implements CartService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<CartItemResponse.Select> getSelected(UUID userId) {
+    public CartResponse.Select getSelected(UUID userId) {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.get(user);
         return cart.getCartItems().stream()
             .filter(CartItem::isSelectTrue)
             .map(CartItemResponse.Select::new)
-            .toList();
+            .collect(collectingAndThen(toList(), cartItems ->
+                new CartResponse.Select(cart.calculateTotalPrice(), cartItems)));
     }
 
     @Override
