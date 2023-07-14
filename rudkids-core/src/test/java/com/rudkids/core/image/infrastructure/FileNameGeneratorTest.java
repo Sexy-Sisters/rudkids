@@ -20,10 +20,10 @@ public class FileNameGeneratorTest extends FileNameGeneratorFixtures {
         @DisplayName("성공")
         void success() {
             //given
-            MultipartFile file = file();
+            String file = "test.jpeg";
 
             //when
-            String filaName = fileNameGenerator.generate(file.getOriginalFilename());
+            String filaName = fileNameGenerator.generate(file);
 
             //then
             assertThat(filaName).isNotEmpty();
