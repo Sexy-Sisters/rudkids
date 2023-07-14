@@ -6,7 +6,6 @@ import com.rudkids.core.cart.domain.CartRepository;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderItem;
-import com.rudkids.core.order.domain.PayMethod;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderFactory;
 import com.rudkids.core.user.domain.User;
@@ -25,8 +24,7 @@ public class OrderFactoryImpl implements OrderFactory {
     public Order save(User user, OrderRequest.Create request) {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
-        var method = PayMethod.validate(request.payMethod());
-        var order = Order.create(user, delivery, method, cart.calculateTotalPrice());
+        var order = Order.create(user, delivery, request.paymentMethod(), cart.calculateTotalPrice());
         var selectedCartItems = getSelectedCartItems(cart);
 
         for (CartItem cartItem : selectedCartItems) {

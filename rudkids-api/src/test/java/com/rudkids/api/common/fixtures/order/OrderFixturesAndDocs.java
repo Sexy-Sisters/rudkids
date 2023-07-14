@@ -2,7 +2,6 @@ package com.rudkids.api.common.fixtures.order;
 
 import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.order.domain.OrderStatus;
-import com.rudkids.core.order.domain.PayMethod;
 import com.rudkids.core.order.dto.OrderItemResponse;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
@@ -23,7 +22,7 @@ public class OrderFixturesAndDocs {
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
     public static final UUID orderId = UUID.randomUUID();
     public static final OrderStatus orderStatus = OrderStatus.ORDER;
-    private static final PayMethod payMethod = PayMethod.TOSS;
+    private static final String paymentMethod = "TOSS";
     private static final ZonedDateTime createdAt = ZonedDateTime.now();
     private static final UUID deliveryId = UUID.randomUUID();
 
@@ -35,7 +34,7 @@ public class OrderFixturesAndDocs {
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
     public static OrderRequest.Create ORDER_주문_요청() {
-        return new OrderRequest.Create(deliveryId, payMethod);
+        return new OrderRequest.Create(deliveryId, paymentMethod);
     }
 
     public static OrderRequest.ChangeStatus ORDER_상태변경_요청() {
@@ -59,7 +58,7 @@ public class OrderFixturesAndDocs {
             .orderStatus(orderStatus)
             .orderItems(ORDER_ITEM_응답())
             .deliveryFragment(delivery)
-            .payMethod(payMethod)
+            .paymentMethod(paymentMethod)
             .build();
     }
 
@@ -142,7 +141,7 @@ public class OrderFixturesAndDocs {
                 .type(JsonFieldType.BOOLEAN)
                 .description("기본배송지 여부"),
 
-            fieldWithPath("payMethod")
+            fieldWithPath("paymentMethod")
                 .type(JsonFieldType.STRING)
                 .description("결제수단")
         );

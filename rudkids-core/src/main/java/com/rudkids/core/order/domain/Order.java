@@ -36,8 +36,7 @@ public class Order extends AbstractEntity {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    @Enumerated(EnumType.STRING)
-    private PayMethod payMethod;
+    private String paymentMethod;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.ORDERING;
@@ -47,16 +46,16 @@ public class Order extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private final List<OrderItem> orderItems = new ArrayList<>();
 
-    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
+    private Order(User user, Delivery delivery, String paymentMethod, int totalPrice) {
         this.user = user;
         user.registerOrder(this);
         this.delivery = delivery;
-        this.payMethod = payMethod;
+        this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
     }
 
-    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
-        return new Order(user, delivery, payMethod, totalPrice);
+    public static Order create(User user, Delivery delivery, String paymentMethod, int totalPrice) {
+        return new Order(user, delivery, paymentMethod, totalPrice);
     }
 
     public void validateHasSameUser(User user) {

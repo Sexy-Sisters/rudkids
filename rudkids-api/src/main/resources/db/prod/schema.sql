@@ -178,7 +178,7 @@ create table if not exists tbl_order
     created_at   datetime(6)  null,
     updated_at   datetime(6)  null,
     order_status varchar(255) null,
-    pay_method   varchar(255) null,
+    payment_method   varchar(255) null,
     total_price  int          not null,
     delivery_id  binary(16)   null,
     user_id      binary(16)   null,

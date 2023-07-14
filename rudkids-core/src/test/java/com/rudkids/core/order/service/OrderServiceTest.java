@@ -2,7 +2,6 @@ package com.rudkids.core.order.service;
 
 import com.rudkids.core.common.fixtures.order.OrderServiceFixtures;
 import com.rudkids.core.order.domain.OrderStatus;
-import com.rudkids.core.order.domain.PayMethod;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ class OrderServiceTest extends OrderServiceFixtures {
         var findOrder = orderRepository.get(orderId);
 
         assertAll(
-            () -> assertThat(findOrder.getPayMethod()).isEqualTo(PayMethod.TOSS),
+            () -> assertThat(findOrder.getPaymentMethod()).isEqualTo("TOSS"),
             () -> assertThat(findOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDER)
         );
     }
@@ -42,7 +41,7 @@ class OrderServiceTest extends OrderServiceFixtures {
         // Then
         assertAll(() -> {
             assertThat(info.orderId()).isEqualTo(orderId);
-            assertThat(info.payMethod()).isEqualTo(PayMethod.TOSS);
+            assertThat(info.paymentMethod()).isEqualTo("TOSS");
             assertThat(info.orderStatus()).isEqualTo(OrderStatus.ORDER);
             assertThat(info.deliveryFragment().receiverName()).isEqualTo("이규진");
             assertThat(info.deliveryFragment().receiverPhone()).isEqualTo("01029401509");
