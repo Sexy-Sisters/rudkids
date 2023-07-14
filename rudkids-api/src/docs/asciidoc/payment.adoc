@@ -22,37 +22,6 @@ include::{snippets}/payment/confirm/fail/badRequest/http-response.adoc[]
 HTTP Response
 include::{snippets}/payment/confirm/fail/internal/http-response.adoc[]
 
-=== 결제위젯 생성 정보 조회
-
-HTTP Request
-include::{snippets}/payment/getWidgetInformation/http-request.adoc[]
-
-Request Header
-include::{snippets}/payment/getWidgetInformation/http-request.adoc[]
-
-HTTP Response
-include::{snippets}/payment/getWidgetInformation/http-response.adoc[]
-
-Response Fields
-include::{snippets}/payment/getWidgetInformation/response-fields.adoc[]
-
-=== 결제요청 정보 조회
-
-HTTP Request
-include::{snippets}/payment/getInformation/http-request.adoc[]
-
-Request Header
-include::{snippets}/payment/getInformation/http-request.adoc[]
-
-Path Parameters
-include::{snippets}/payment/getInformation/path-parameters.adoc[]
-
-HTTP Response
-include::{snippets}/payment/getInformation/http-response.adoc[]
-
-Response Fields
-include::{snippets}/payment/getInformation/response-fields.adoc[]
-
 === 결제 취소
 
 HTTP Request

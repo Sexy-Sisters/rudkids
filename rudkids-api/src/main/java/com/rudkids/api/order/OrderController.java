@@ -17,12 +17,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Void> order(
+    public ResponseEntity order(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @RequestBody OrderRequest.Create request
     ) {
-        orderService.order(loginUser.id(), request);
-        return ResponseEntity.ok().build();
+        var response = orderService.order(loginUser.id(), request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")

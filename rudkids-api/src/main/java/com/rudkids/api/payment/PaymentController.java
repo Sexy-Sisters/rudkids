@@ -1,7 +1,5 @@
 package com.rudkids.api.payment;
 
-import com.rudkids.api.auth.AuthenticationPrincipal;
-import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.payment.dto.PaymentRequest;
 import com.rudkids.core.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -15,21 +13,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/payment")
 public class PaymentController {
     private final PaymentService paymentService;
-
-    @GetMapping
-    public ResponseEntity getWidgetInformation(@AuthenticationPrincipal AuthUser.Login loginUser) {
-        var response = paymentService.getWidgetInformation(loginUser.id());
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity getInformation(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable("id") UUID orderId
-    ) {
-        var response = paymentService.getInformation(loginUser.id(), orderId);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<Void> confirm(@RequestBody PaymentRequest.Confirm request) {
