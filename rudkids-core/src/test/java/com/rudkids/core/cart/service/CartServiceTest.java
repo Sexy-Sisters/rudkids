@@ -289,8 +289,9 @@ class CartServiceTest extends CartServiceFixtures {
 
             //then
             assertAll(() -> {
-                assertThat(actual.get(0).name()).isEqualTo("No.1, 사이즈, M, 색깔, 파랑");
-                assertThat(actual.get(0).amount()).isEqualTo(2);
+                assertThat(actual.totalPrice()).isEqualTo(9000);
+                assertThat(actual.selectedCartItems().get(0).name()).isEqualTo("No.1, 사이즈, M, 색깔, 파랑");
+                assertThat(actual.selectedCartItems().get(0).amount()).isEqualTo(2);
             });
         }
     }
@@ -351,7 +352,7 @@ class CartServiceTest extends CartServiceFixtures {
 
             //then
             var actual = cartService.getSelected(user.getId());
-            assertThat(actual).hasSize(1);
+            assertThat(actual.selectedCartItems()).hasSize(1);
         }
     }
 
