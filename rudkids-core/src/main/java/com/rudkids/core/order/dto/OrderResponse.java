@@ -3,7 +3,6 @@ package com.rudkids.core.order.dto;
 import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderStatus;
-import com.rudkids.core.order.domain.PayMethod;
 import lombok.Builder;
 
 import java.time.ZonedDateTime;
@@ -43,7 +42,7 @@ public class OrderResponse {
         OrderStatus orderStatus,
         List<OrderItemResponse> orderItems,
         DeliveryResponse.Info deliveryFragment,
-        PayMethod payMethod
+        String paymentMethod
     ) {
         public Detail(Order order) {
             this(
@@ -54,7 +53,7 @@ public class OrderResponse {
                     .map(OrderItemResponse::new)
                     .toList(),
                 new DeliveryResponse.Info(order.getDelivery()),
-                order.getPayMethod()
+                order.getPaymentMethod()
             );
         }
     }

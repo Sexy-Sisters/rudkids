@@ -62,7 +62,7 @@ class OrderControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("배송 id"),
 
-                        fieldWithPath("payMethod")
+                        fieldWithPath("paymentMethod")
                             .type(JsonFieldType.STRING)
                             .description("결제수단")
                     )
@@ -95,7 +95,7 @@ class OrderControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("존재하지 않는 배송 id"),
 
-                        fieldWithPath("payMethod")
+                        fieldWithPath("paymentMethod")
                             .type(JsonFieldType.STRING)
                             .description("결제수단")
                     )
@@ -128,7 +128,7 @@ class OrderControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("배송 id"),
 
-                        fieldWithPath("payMethod")
+                        fieldWithPath("paymentMethod")
                             .type(JsonFieldType.STRING)
                             .description("존재하지 않는 결제수단")
                     )

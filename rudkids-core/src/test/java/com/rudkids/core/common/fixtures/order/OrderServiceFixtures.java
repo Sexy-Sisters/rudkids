@@ -11,7 +11,6 @@ import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderRepository;
-import com.rudkids.core.order.domain.PayMethod;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import com.rudkids.core.user.domain.*;
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.UUID;
 
 @ServiceTest
 public class OrderServiceFixtures {
@@ -104,9 +102,9 @@ public class OrderServiceFixtures {
 
         cart = cartRepository.get(user);
 
-        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice());
+        order = Order.create(user, delivery, "TOSS", cart.calculateTotalPrice());
         orderRepository.save(order);
 
-        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), PayMethod.TOSS);
+        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), "TOSS");
     }
 }
