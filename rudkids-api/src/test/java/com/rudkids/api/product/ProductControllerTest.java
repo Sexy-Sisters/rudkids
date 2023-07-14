@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.product.ProductFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.product.ProductFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;

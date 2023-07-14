@@ -1,4 +1,4 @@
-package com.rudkids.core.order.exception;
+package com.rudkids.core.payment.exception;
 
 import com.rudkids.core.common.exception.InternalException;
 

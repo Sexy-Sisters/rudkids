@@ -35,4 +35,9 @@ public class OrderRepositoryImpl implements OrderRepository {
     public void delete(Order order) {
         orderRepository.delete(order);
     }
+
+    @Override
+    public void deleteNotOrderCompleted() {
+        orderRepository.deleteOrdering();
+    }
 }

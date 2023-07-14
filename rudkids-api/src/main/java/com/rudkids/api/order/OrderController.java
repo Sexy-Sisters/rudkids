@@ -5,8 +5,6 @@ import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,10 +40,9 @@ public class OrderController {
     @PostMapping("/{id}")
     public ResponseEntity<Void> cancel(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID orderId,
-        @RequestBody OrderRequest.Cancel request
+        @PathVariable(name = "id") UUID orderId
     ) {
-        orderService.cancel(loginUser.id(), orderId, request);
+        orderService.cancel(loginUser.id(), orderId);
         return ResponseEntity.ok().build();
     }
 

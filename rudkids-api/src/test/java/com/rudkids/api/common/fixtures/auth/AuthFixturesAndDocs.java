@@ -1,4 +1,4 @@
-package com.rudkids.api.auth;
+package com.rudkids.api.common.fixtures.auth;
 
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;

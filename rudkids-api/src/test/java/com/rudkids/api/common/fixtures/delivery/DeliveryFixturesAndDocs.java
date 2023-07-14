@@ -1,4 +1,4 @@
-package com.rudkids.api.delivery;
+package com.rudkids.api.common.fixtures.delivery;
 
 import com.rudkids.core.delivery.dto.DeliveryRequest;
 import com.rudkids.core.delivery.dto.DeliveryResponse;

@@ -1,4 +1,4 @@
-package com.rudkids.api.cart;
+package com.rudkids.api.common.fixtures.cart;
 
 import com.rudkids.core.cart.dto.CartItemResponse;
 import com.rudkids.core.cart.dto.CartRequest;

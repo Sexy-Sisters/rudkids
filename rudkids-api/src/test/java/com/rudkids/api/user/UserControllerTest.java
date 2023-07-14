@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.user.UserFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.user.UserFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;

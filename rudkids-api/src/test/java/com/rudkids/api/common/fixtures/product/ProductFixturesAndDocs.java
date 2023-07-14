@@ -1,4 +1,4 @@
-package com.rudkids.api.product;
+package com.rudkids.api.common.fixtures.product;
 
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;

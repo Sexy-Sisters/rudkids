@@ -1,4 +1,4 @@
-package com.rudkids.api.admin;
+package com.rudkids.api.common.fixtures.admin;
 
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;

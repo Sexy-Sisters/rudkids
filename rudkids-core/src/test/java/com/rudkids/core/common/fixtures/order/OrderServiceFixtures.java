@@ -104,9 +104,9 @@ public class OrderServiceFixtures {
 
         cart = cartRepository.get(user);
 
-        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice(), UUID.randomUUID().toString());
+        order = Order.create(user, delivery, PayMethod.TOSS, cart.calculateTotalPrice());
         orderRepository.save(order);
 
-        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), PayMethod.TOSS, "paymentKey", 3000);
+        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), PayMethod.TOSS);
     }
 }

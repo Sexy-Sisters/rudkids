@@ -4,13 +4,12 @@ import com.rudkids.api.common.ControllerTest;
 import com.rudkids.core.image.exception.FileNameEmptyException;
 import com.rudkids.core.image.exception.FileUploadFailException;
 import com.rudkids.core.image.exception.UnsupportedFileExtensionException;
-import com.rudkids.core.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.image.ImageFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.image.ImageFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;

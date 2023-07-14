@@ -10,4 +10,5 @@ public interface OrderRepository {
     Order get(UUID id);
     Page<Order> getOrders(Pageable pageable);
     void delete(Order order);
+    void deleteNotOrderCompleted();
 }

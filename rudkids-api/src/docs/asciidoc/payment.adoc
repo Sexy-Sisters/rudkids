@@ -1,0 +1,54 @@
+== Payment API
+:hardbreaks:
+
+=== 결제 승인
+
+HTTP Request
+include::{snippets}/payment/confirm/http-request.adoc[]
+
+Request Fields
+include::{snippets}/payment/confirm/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/payment/confirm/http-response.adoc[]
+
+=== 잘못된 결제금액으로 주문 및 결제 요청
+
+HTTP Response
+include::{snippets}/payment/confirm/fail/badRequest/http-response.adoc[]
+
+=== 주문 및 결제 요청 도중 Resource Server 에러
+
+HTTP Response
+include::{snippets}/payment/confirm/fail/internal/http-response.adoc[]
+
+=== 결제정보 조회
+
+HTTP Request
+include::{snippets}/payment/getInformation/http-request.adoc[]
+
+Request Header
+include::{snippets}/payment/getInformation/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/payment/getInformation/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/payment/getInformation/http-response.adoc[]
+
+Response Fields
+include::{snippets}/payment/getInformation/response-fields.adoc[]
+
+=== 결제 취소
+
+HTTP Request
+include::{snippets}/payment/cancel/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/payment/cancel/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/payment/cancel/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/payment/cancel/http-response.adoc[]

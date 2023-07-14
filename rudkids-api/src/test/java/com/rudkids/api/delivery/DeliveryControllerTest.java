@@ -1,7 +1,6 @@
 package com.rudkids.api.delivery;
 
 import com.rudkids.api.common.ControllerTest;
-import com.rudkids.core.community.exception.CommunityNotFoundException;
 import com.rudkids.core.delivery.exception.DeliveryNotFoundException;
 import com.rudkids.core.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
@@ -10,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static com.rudkids.api.community.CommunityFixturesAndDocs.*;
-import static com.rudkids.api.delivery.DeliveryFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.delivery.DeliveryFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
