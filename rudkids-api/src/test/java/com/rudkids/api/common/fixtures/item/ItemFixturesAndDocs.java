@@ -1,4 +1,4 @@
-package com.rudkids.api.item;
+package com.rudkids.api.common.fixtures.item;
 
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;

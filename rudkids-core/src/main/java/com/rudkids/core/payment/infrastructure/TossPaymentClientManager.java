@@ -1,11 +1,11 @@
-package com.rudkids.core.order.infrastructure.payment;
+package com.rudkids.core.payment.infrastructure;
 
 import com.rudkids.core.config.properties.TossPaymentProperties;
-import com.rudkids.core.order.dto.OrderRequest;
-import com.rudkids.core.order.dto.TossPaymentRequest;
-import com.rudkids.core.order.exception.PaymentCancelFailException;
-import com.rudkids.core.order.exception.PaymentConfirmFailException;
-import com.rudkids.core.order.service.PaymentClientManager;
+import com.rudkids.core.payment.exception.PaymentCancelFailException;
+import com.rudkids.core.payment.exception.PaymentConfirmFailException;
+import com.rudkids.core.payment.dto.PaymentRequest;
+import com.rudkids.core.payment.dto.TossPaymentRequest;
+import com.rudkids.core.payment.service.PaymentClientManager;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +22,11 @@ public class TossPaymentClientManager implements PaymentClientManager {
     private final TossPaymentCancelClient tossPaymentCancelClient;
 
     @Override
-    public void confirm(String paymentKey, String orderId, int amount) {
+    public void confirm(PaymentRequest.Confirm request) {
         var confirmRequest = TossPaymentRequest.Confirm.builder()
-            .paymentKey(paymentKey)
-            .orderId(orderId)
-            .amount(amount)
+            .paymentKey(request.paymentKey())
+            .orderId(request.orderId().toString())
+            .amount(request.amount())
             .build();
 
         try {
@@ -37,7 +37,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
     }
 
     @Override
-    public void cancel(OrderRequest.Cancel request) {
+    public void cancel(PaymentRequest.Cancel request) {
         var cancelRequest = TossPaymentRequest.Cancel.builder()
             .cancelReason(request.cancelReason())
             .refundReceiveAccount(generateRefundAccount(request))
@@ -50,7 +50,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
         }
     }
 
-    private TossPaymentRequest.RefundReceiveAccount generateRefundAccount(OrderRequest.Cancel request) {
+    private TossPaymentRequest.RefundReceiveAccount generateRefundAccount(PaymentRequest.Cancel request) {
         return TossPaymentRequest.RefundReceiveAccount.builder()
             .bank(request.bankCode())
             .accountNumber(request.refundAccountNumber())

@@ -1,4 +1,4 @@
-package com.rudkids.api.image;
+package com.rudkids.api.common.fixtures.image;
 
 import com.rudkids.core.image.dto.ImageResponse;
 import org.springframework.core.io.ClassPathResource;

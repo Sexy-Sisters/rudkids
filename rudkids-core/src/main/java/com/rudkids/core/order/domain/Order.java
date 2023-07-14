@@ -40,25 +40,23 @@ public class Order extends AbstractEntity {
     private PayMethod payMethod;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.ORDERING;
 
     private int totalPrice;
-    private String paymentOrderId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private final List<OrderItem> orderItems = new ArrayList<>();
 
-    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice, String paymentOrderId) {
+    private Order(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
         this.user = user;
         user.registerOrder(this);
         this.delivery = delivery;
         this.payMethod = payMethod;
         this.totalPrice = totalPrice;
-        this.paymentOrderId = paymentOrderId;
     }
 
-    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice, String paymentOrderId) {
-        return new Order(user, delivery, payMethod, totalPrice, paymentOrderId);
+    public static Order create(User user, Delivery delivery, PayMethod payMethod, int totalPrice) {
+        return new Order(user, delivery, payMethod, totalPrice);
     }
 
     public void validateHasSameUser(User user) {
@@ -68,11 +66,8 @@ public class Order extends AbstractEntity {
     }
 
     public void cancel() {
-        if(delivery.isStatusCompleted()) {
-            throw new DeliveryAlreadyCompletedException();
-        }
-
         orderStatus = OrderStatus.CANCEL;
+
         for(OrderItem orderItem: orderItems) {
             orderItem.cancel();
         }
@@ -82,6 +77,26 @@ public class Order extends AbstractEntity {
         for(OrderItem orderItem: orderItems) {
             orderItem.removeQuantity();
         }
+    }
+
+    public boolean isOrdering() {
+        return orderStatus == OrderStatus.ORDERING;
+    }
+
+    public void changeCancelling() {
+        if(delivery.isStatusCompleted()) {
+            throw new DeliveryAlreadyCompletedException();
+        }
+
+        orderStatus = OrderStatus.CANCELLING;
+    }
+
+    public int getOrderItemSize() {
+        return orderItems.size();
+    }
+
+    public String getFirstOrderItemName() {
+        return orderItems.get(0).getName();
     }
 
     public void addOrderItem(OrderItem orderItem) {

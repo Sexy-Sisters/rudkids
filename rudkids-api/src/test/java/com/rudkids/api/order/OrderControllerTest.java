@@ -4,6 +4,8 @@ import com.rudkids.api.common.ControllerTest;
 import com.rudkids.core.delivery.exception.DeliveryAlreadyCompletedException;
 import com.rudkids.core.delivery.exception.DeliveryNotFoundException;
 import com.rudkids.core.order.exception.*;
+import com.rudkids.core.payment.exception.PaymentCancelFailException;
+import com.rudkids.core.payment.exception.PaymentNotFoundException;
 import com.rudkids.core.user.exception.DifferentUserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,7 +15,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 import java.util.UUID;
 
-import static com.rudkids.api.order.OrderFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.order.OrderFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -62,15 +64,7 @@ class OrderControllerTest extends ControllerTest {
 
                         fieldWithPath("payMethod")
                             .type(JsonFieldType.STRING)
-                            .description("결제수단"),
-
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 금액")
+                            .description("결제수단")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -103,15 +97,7 @@ class OrderControllerTest extends ControllerTest {
 
                         fieldWithPath("payMethod")
                             .type(JsonFieldType.STRING)
-                            .description("결제수단"),
-
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 금액")
+                            .description("결제수단")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -144,100 +130,10 @@ class OrderControllerTest extends ControllerTest {
 
                         fieldWithPath("payMethod")
                             .type(JsonFieldType.STRING)
-                            .description("존재하지 않는 결제수단"),
-
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 금액")
+                            .description("존재하지 않는 결제수단")
                     )
                 ))
                 .andExpect(status().isNotFound());
-        }
-
-        @Test
-        @DisplayName("실패: 잘못된 결제금액")
-        void fail3() throws Exception {
-            doThrow(new InvalidAmountException())
-                .when(orderService)
-                .order(any(), any());
-
-            mockMvc.perform(post(ORDER_DEFAULT_URL)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_주문_요청())))
-                .andDo(print())
-                .andDo(document("order/order/fail/badRequest",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(
-                        headerWithName("Authorization")
-                            .description("JWT Access Token")
-                    ),
-                    requestFields(
-                        fieldWithPath("deliveryId")
-                            .type(JsonFieldType.STRING)
-                            .description("배송 id"),
-
-                        fieldWithPath("payMethod")
-                            .type(JsonFieldType.STRING)
-                            .description("결제수단"),
-
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("잘못된 결제 금액")
-                    )
-                ))
-                .andExpect(status().isBadRequest());
-        }
-
-        @Test
-        @DisplayName("실패: 외부 API 통신")
-        void fail4() throws Exception {
-            doThrow(new PaymentConfirmFailException())
-                .when(orderService)
-                .order(any(), any());
-
-            mockMvc.perform(post(ORDER_DEFAULT_URL)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_주문_요청())))
-                .andDo(print())
-                .andDo(document("order/order/fail/internal",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(
-                        headerWithName("Authorization")
-                            .description("JWT Access Token")
-                    ),
-                    requestFields(
-                        fieldWithPath("deliveryId")
-                            .type(JsonFieldType.STRING)
-                            .description("배송 id"),
-
-                        fieldWithPath("payMethod")
-                            .type(JsonFieldType.STRING)
-                            .description("결제수단"),
-
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("amount")
-                            .type(JsonFieldType.NUMBER)
-                            .description("결제 금액")
-                    )
-                ))
-                .andExpect(status().isInternalServerError());
         }
     }
 
@@ -281,8 +177,7 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("존재하지 않는 주문 id")
-                    ),
-                    responseFields(Error_응답_필드())
+                    )
                 ))
                 .andExpect(status().isNotFound());
         }
@@ -325,13 +220,10 @@ class OrderControllerTest extends ControllerTest {
         void success() throws Exception {
             willDoNothing()
                 .given(orderService)
-                .cancel(any(), any(), any());
+                .cancel(any(), any());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL + "/{id}", orderId)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_취소_요청())))
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("order/cancel",
                     preprocessRequest(prettyPrint()),
@@ -343,27 +235,6 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("주문 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("cancelReason")
-                            .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("bankCode")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 코드"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌번호"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌 예금주 이름")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -374,13 +245,10 @@ class OrderControllerTest extends ControllerTest {
         void fail() throws Exception {
             doThrow(new OrderNotFoundException())
                 .when(orderService)
-                .cancel(any(), any(), any());
+                .cancel(any(), any());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL + "/{id}", orderId)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_취소_요청())))
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("order/cancel/fail/notFound",
                     preprocessRequest(prettyPrint()),
@@ -392,27 +260,6 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("존재하지 않는 주문 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("cancelReason")
-                            .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("bankCode")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 코드"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌번호"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌 예금주 이름")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -423,13 +270,10 @@ class OrderControllerTest extends ControllerTest {
         void fail2() throws Exception {
             doThrow(new DifferentUserException())
                 .when(orderService)
-                .cancel(any(), any(), any());
+                .cancel(any(), any());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL + "/{id}", orderId)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_취소_요청())))
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("order/cancel/fail/forbidden",
                     preprocessRequest(prettyPrint()),
@@ -441,27 +285,6 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("주문 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("cancelReason")
-                            .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("bankCode")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 코드"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌번호"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌 예금주 이름")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -472,13 +295,10 @@ class OrderControllerTest extends ControllerTest {
         void fail3() throws Exception {
             doThrow(new DeliveryAlreadyCompletedException())
                 .when(orderService)
-                .cancel(any(), any(), any());
+                .cancel(any(), any());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL + "/{id}", orderId)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_취소_요청())))
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("order/cancel/fail/conflict",
                     preprocessRequest(prettyPrint()),
@@ -490,44 +310,21 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("주문 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("cancelReason")
-                            .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("bankCode")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 코드"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌번호"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌 예금주 이름")
                     )
                 ))
                 .andExpect(status().isConflict());
         }
 
+        //payment
         @Test
         @DisplayName("실패: 외부 API 통신")
         void fail4() throws Exception {
             doThrow(new PaymentCancelFailException())
                 .when(orderService)
-                .cancel(any(), any(), any());
+                .cancel(any(), any());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL + "/{id}", orderId)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_취소_요청())))
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("order/cancel/fail/internal",
                     preprocessRequest(prettyPrint()),
@@ -539,27 +336,6 @@ class OrderControllerTest extends ControllerTest {
                     pathParameters(
                         parameterWithName("id")
                             .description("주문 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("paymentKey")
-                            .type(JsonFieldType.STRING)
-                            .description("결제 key"),
-
-                        fieldWithPath("cancelReason")
-                            .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("bankCode")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 코드"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌번호"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불할 계좌 예금주 이름")
                     )
                 ))
                 .andExpect(status().isInternalServerError());

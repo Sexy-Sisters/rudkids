@@ -1,4 +1,4 @@
-package com.rudkids.core.order.dto;
+package com.rudkids.core.payment.dto;
 
 import lombok.Builder;
 

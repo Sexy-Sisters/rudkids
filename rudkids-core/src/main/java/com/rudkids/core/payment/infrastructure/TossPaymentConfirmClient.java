@@ -1,6 +1,6 @@
-package com.rudkids.core.order.infrastructure.payment;
+package com.rudkids.core.payment.infrastructure;
 
-import com.rudkids.core.order.dto.TossPaymentRequest;
+import com.rudkids.core.payment.dto.TossPaymentRequest;
 import feign.FeignException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;

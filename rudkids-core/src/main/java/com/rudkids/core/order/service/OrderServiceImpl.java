@@ -1,6 +1,5 @@
 package com.rudkids.core.order.service;
 
-import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
@@ -8,7 +7,6 @@ import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,20 +20,13 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderFactory orderFactory;
-    private final CartItemRepository cartItemRepository;
-    private final PaymentClientManager paymentClientManager;
 
     @Override
     public UUID order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
+        orderRepository.deleteNotOrderCompleted();
+
         var order = orderFactory.save(user, request);
-        order.removeQuantity();
-
-        order.validateAmount(request.amount());
-        paymentClientManager.confirm(request.paymentKey(), order.getPaymentOrderId(),  request.amount());
-
-        order.order();
-        cartItemRepository.deleteSelected();
         orderRepository.save(order);
         return order.getId();
     }
@@ -52,18 +43,17 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponse.Main> getAll(UUID userId) {
         var user = userRepository.getUser(userId);
         return user.getOrders().stream()
+            .filter(order -> !order.isOrdering())
             .map(OrderResponse.Main::new)
             .toList();
     }
 
     @Override
-    public void cancel(UUID userId, UUID orderId, OrderRequest.Cancel request) {
+    public void cancel(UUID userId, UUID orderId) {
         var user = userRepository.getUser(userId);
         var order = orderRepository.get(orderId);
         order.validateHasSameUser(user);
-
-        paymentClientManager.cancel(request);
-        order.cancel();
+        order.changeCancelling();
     }
 
     @Override

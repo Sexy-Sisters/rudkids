@@ -1,4 +1,4 @@
-package com.rudkids.api.order;
+package com.rudkids.api.common.fixtures.order;
 
 import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.order.domain.OrderStatus;
@@ -35,16 +35,7 @@ public class OrderFixturesAndDocs {
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
     public static OrderRequest.Create ORDER_주문_요청() {
-        return new OrderRequest.Create(deliveryId, payMethod,"paymentKey", 4000);
-    }
-
-    public static OrderRequest.Cancel ORDER_취소_요청() {
-        return new OrderRequest.Cancel(
-            "paymentKey",
-            "cancelReason",
-            "bankCode",
-            "number",
-            "name");
+        return new OrderRequest.Create(deliveryId, payMethod);
     }
 
     public static OrderRequest.ChangeStatus ORDER_상태변경_요청() {

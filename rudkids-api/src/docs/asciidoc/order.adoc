@@ -1,7 +1,7 @@
 == Order API
 :hardbreaks:
 
-=== 주문 및 결제 요청
+=== 주문 생성
 
 HTTP Request
 include::{snippets}/order/order/http-request.adoc[]
@@ -24,16 +24,6 @@ include::{snippets}/order/order/fail/notFound/deliveryId/http-response.adoc[]
 
 HTTP Response
 include::{snippets}/order/order/fail/notFound/payMethod/http-response.adoc[]
-
-=== 잘못된 결제금액으로 주문 및 결제 요청
-
-HTTP Response
-include::{snippets}/order/order/fail/badRequest/http-response.adoc[]
-
-=== 주문 및 결제 요청 도중 Resource Server 에러
-
-HTTP Response
-include::{snippets}/order/order/fail/internal/http-response.adoc[]
 
 === 주문내역 상세조회
 
@@ -79,9 +69,6 @@ include::{snippets}/order/cancel/request-headers.adoc[]
 Path Parameters
 include::{snippets}/order/cancel/path-parameters.adoc[]
 
-Request Fields
-include::{snippets}/order/cancel/request-fields.adoc[]
-
 HTTP Response
 include::{snippets}/order/cancel/http-response.adoc[]
 
@@ -99,10 +86,6 @@ include::{snippets}/order/cancel/fail/forbidden/http-response.adoc[]
 
 HTTP Response
 include::{snippets}/order/cancel/fail/conflict/http-response.adoc[]
-
-=== 주문 취소 도중 Resource Server 에러
-HTTP Response
-include::{snippets}/order/cancel/fail/internal/http-response.adoc[]
 
 === 취소된 주문내역 리스트 조회
 

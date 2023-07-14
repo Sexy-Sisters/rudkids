@@ -1,4 +1,4 @@
-package com.rudkids.api.community;
+package com.rudkids.api.common.fixtures.community;
 
 import com.rudkids.core.community.dto.CommunityRequest;
 import com.rudkids.core.community.dto.CommunityResponse;

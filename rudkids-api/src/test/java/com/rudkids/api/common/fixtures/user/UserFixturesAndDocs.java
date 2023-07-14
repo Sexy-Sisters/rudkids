@@ -1,4 +1,4 @@
-package com.rudkids.api.user;
+package com.rudkids.api.common.fixtures.user;
 
 import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.dto.ImageResponse;

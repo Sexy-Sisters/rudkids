@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -27,8 +26,7 @@ public class OrderFactoryImpl implements OrderFactory {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
         var method = PayMethod.validate(request.payMethod());
-        var orderId = generateTossPaymentOrderId();
-        var order = Order.create(user, delivery, method, cart.calculateTotalPrice(), orderId);
+        var order = Order.create(user, delivery, method, cart.calculateTotalPrice());
         var selectedCartItems = getSelectedCartItems(cart);
 
         for (CartItem cartItem : selectedCartItems) {
@@ -36,11 +34,6 @@ public class OrderFactoryImpl implements OrderFactory {
             order.addOrderItem(orderItem);
         }
         return order;
-    }
-
-    private String generateTossPaymentOrderId() {
-        UUID orderId = UUID.randomUUID();
-        return orderId.toString();
     }
 
     private List<CartItem> getSelectedCartItems(Cart cart) {

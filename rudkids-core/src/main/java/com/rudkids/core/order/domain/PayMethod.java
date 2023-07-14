@@ -1,7 +1,7 @@
 package com.rudkids.core.order.domain;
 
 
-import com.rudkids.core.order.exception.PaymentNotFoundException;
+import com.rudkids.core.payment.exception.PaymentNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
