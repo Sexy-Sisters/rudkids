@@ -227,7 +227,7 @@ public class DeliveryControllerTest extends ControllerTest {
         void success() throws Exception {
             willDoNothing()
                 .given(deliveryService)
-                .changeStatus(any(), any());
+                .changeBasic(any(), any());
 
             mockMvc.perform(patch(DELIVERY_DEFAULT_URL + "/{id}", DELIVERY_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -249,7 +249,7 @@ public class DeliveryControllerTest extends ControllerTest {
         void fail() throws Exception {
             doThrow(new DifferentUserException())
                 .when(deliveryService)
-                .changeStatus(any(), any());
+                .changeBasic(any(), any());
 
             mockMvc.perform(patch(DELIVERY_DEFAULT_URL + "/{id}", DELIVERY_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -271,7 +271,7 @@ public class DeliveryControllerTest extends ControllerTest {
         void fail2() throws Exception {
             doThrow(new DeliveryNotFoundException())
                 .when(deliveryService)
-                .changeStatus(any(), any());
+                .changeBasic(any(), any());
 
             mockMvc.perform(patch(DELIVERY_DEFAULT_URL + "/{id}", DELIVERY_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))

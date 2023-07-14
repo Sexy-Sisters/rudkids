@@ -134,7 +134,7 @@ public class DeliveryServiceTest extends DeliveryServiceFixtures {
 
     @Nested
     @DisplayName("배송지를 기본배송지로 변경한다")
-    class changeBasicStatus {
+    class changeBasic {
 
         @Test
         @DisplayName("성공")
@@ -143,7 +143,7 @@ public class DeliveryServiceTest extends DeliveryServiceFixtures {
             UUID deliveryId = deliveryService.create(user.getId(), DELIVERY_등록_요청);
 
             //when
-            deliveryService.changeStatus(user.getId(), deliveryId);
+            deliveryService.changeBasic(user.getId(), deliveryId);
 
             //then
             var actual = deliveryRepository.get(deliveryId);
@@ -157,7 +157,7 @@ public class DeliveryServiceTest extends DeliveryServiceFixtures {
             final UUID invalidDeliveryId = UUID.randomUUID();
 
             //when, then
-            assertThatThrownBy(() -> deliveryService.changeStatus(user.getId(), invalidDeliveryId))
+            assertThatThrownBy(() -> deliveryService.changeBasic(user.getId(), invalidDeliveryId))
                 .isInstanceOf(DeliveryNotFoundException.class);
         }
 
@@ -177,7 +177,7 @@ public class DeliveryServiceTest extends DeliveryServiceFixtures {
             userRepository.save(anotherUser);
 
 
-            assertThatThrownBy(() -> deliveryService.changeStatus(anotherUser.getId(), deliveryId))
+            assertThatThrownBy(() -> deliveryService.changeBasic(anotherUser.getId(), deliveryId))
                 .isInstanceOf(DifferentUserException.class);
         }
     }

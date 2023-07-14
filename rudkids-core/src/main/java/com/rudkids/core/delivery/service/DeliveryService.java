@@ -11,7 +11,7 @@ public interface DeliveryService {
     UUID create(UUID userId, DeliveryRequest.Create request);
     List<DeliveryResponse.Info> getAll(UUID userId);
     DeliveryResponse.Info get(UUID userId, UUID deliveryId);
-    void changeStatus(UUID userId, UUID deliveryId);
+    void changeBasic(UUID userId, UUID deliveryId);
     void update(UUID userId, UUID deliveryId, DeliveryRequest.Update request);
     void delete(UUID userId, UUID deliveryId);
 }
