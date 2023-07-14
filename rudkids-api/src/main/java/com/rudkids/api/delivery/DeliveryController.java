@@ -41,11 +41,11 @@ public class DeliveryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> changeBasicStatus(
+    public ResponseEntity<Void> changeBasic(
         @AuthenticationPrincipal AuthUser.Login loginUser,
         @PathVariable("id")UUID deliveryId
     ) {
-        deliveryService.changeStatus(loginUser.id(), deliveryId);
+        deliveryService.changeBasic(loginUser.id(), deliveryId);
         return ResponseEntity.ok().build();
     }
 

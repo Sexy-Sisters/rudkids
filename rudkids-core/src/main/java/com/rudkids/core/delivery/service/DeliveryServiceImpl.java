@@ -48,7 +48,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public void changeStatus(UUID userId, UUID deliveryId) {
+    public void changeBasic(UUID userId, UUID deliveryId) {
         var user = userRepository.getUser(userId);
         var delivery = deliveryRepository.get(deliveryId);
         delivery.validateHasSameUser(user);

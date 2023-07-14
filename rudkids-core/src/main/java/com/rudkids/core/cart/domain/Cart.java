@@ -61,4 +61,10 @@ public class Cart extends AbstractEntity {
             .mapToInt(CartItem::calculateTotalItemPrice)
             .sum();
     }
+
+    public void initSelect() {
+        for(CartItem cartItem: cartItems) {
+            cartItem.unSelect();
+        }
+    }
 }

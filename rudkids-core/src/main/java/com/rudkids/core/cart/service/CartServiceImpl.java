@@ -76,6 +76,7 @@ public class CartServiceImpl implements CartService {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.get(user);
         cart.validateHasSameUser(user);
+        cart.initSelect();
 
         cartItemRepository.selects(request.ids());
     }

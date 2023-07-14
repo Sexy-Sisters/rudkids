@@ -28,6 +28,15 @@ public class DeliveryTest {
                 .isBasic(false)
                 .build();
 
+            ProfileImage profileImage = ProfileImage.create("path", "url");
+            var user = User.builder()
+                .email("namse@gmail.com")
+                .name(UserName.create("남세"))
+                .profileImage(profileImage)
+                .build();
+
+            delivery.registerUser(user);
+
             //when
             delivery.changeBasic();
 
