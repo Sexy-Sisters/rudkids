@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,9 @@ import static java.util.stream.Collectors.toList;
 @Transactional
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
+    private static final String ORDER_ITEM_NAME_DELIMITER = ",";
+    private static final String ORDER_NAME_FORMAT = " 외 {0}건";
+
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
@@ -59,7 +63,17 @@ public class CartServiceImpl implements CartService {
             .filter(CartItem::isSelectTrue)
             .map(CartItemResponse.Select::new)
             .collect(collectingAndThen(toList(), cartItems ->
-                new CartResponse.Select(cart.calculateTotalPrice(), cartItems)));
+                new CartResponse.Select(cart.calculateTotalPrice(), getOrderName(cartItems), cartItems)));
+    }
+
+    private String getOrderName(List<CartItemResponse.Select> cartItems) {
+        String name = splitOrderName(cartItems.get(0).name());
+        String format = MessageFormat.format(ORDER_NAME_FORMAT, cartItems.size());
+        return name + format;
+    }
+
+    private String splitOrderName(String name) {
+        return name.split(ORDER_ITEM_NAME_DELIMITER)[0];
     }
 
     @Override

@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
