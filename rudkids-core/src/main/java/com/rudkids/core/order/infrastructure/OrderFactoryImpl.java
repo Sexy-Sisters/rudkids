@@ -25,6 +25,7 @@ public class OrderFactoryImpl implements OrderFactory {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
         var order = Order.create(user, delivery, request.paymentMethod(), cart.calculateTotalPrice());
+
         var selectedCartItems = getSelectedCartItems(cart);
 
         for (CartItem cartItem : selectedCartItems) {

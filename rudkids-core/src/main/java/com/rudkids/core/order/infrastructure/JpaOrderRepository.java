@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface JpaOrderRepository extends JpaRepository<Order, UUID> {
 
     @Modifying(clearAutomatically = true)
-    @Query("DELETE FROM Order o WHERE o.orderStatus = 'ORDER_ING'")
-    void deleteOrdering();
+    @Query("DELETE FROM Order o WHERE o.orderStatus = 'ORDERING'")
+    void deleteNotOrderCompleted();
 }
