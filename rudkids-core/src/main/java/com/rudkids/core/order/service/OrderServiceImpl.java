@@ -22,13 +22,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderFactory orderFactory;
 
     @Override
-    public UUID order(UUID userId, OrderRequest.Create request) {
+    public OrderResponse.Create order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
 
         var order = orderFactory.save(user, request);
         orderRepository.save(order);
         orderRepository.deleteNotOrderCompleted();
-        return order.getId();
+        return new OrderResponse.Create(order.getId());
     }
 
     @Override

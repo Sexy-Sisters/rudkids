@@ -5,7 +5,6 @@ plugins {
 dependencies {
     implementation project(':rudkids-core')
 
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     implementation 'org.springframework.boot:spring-boot-starter-web'

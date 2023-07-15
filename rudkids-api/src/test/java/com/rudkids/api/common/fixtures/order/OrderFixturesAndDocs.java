@@ -41,6 +41,10 @@ public class OrderFixturesAndDocs {
         return new OrderRequest.ChangeStatus("DELIVERY_COMPLETE");
     }
 
+    public static OrderResponse.Create ORDER_생성_응답() {
+        return new OrderResponse.Create(orderId);
+    }
+
     public static OrderResponse.Detail ORDER_상세조회_응답() {
         var delivery = DeliveryResponse.Info.builder()
             .deliveryId(deliveryId)
