@@ -19,7 +19,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name = "cart_order_id", columnDefinition = "BINARY(16)")
+    @Column(name = "order_item_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
