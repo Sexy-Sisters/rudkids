@@ -30,8 +30,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
             .build();
 
         try {
-            System.out.println("secret key = " + properties.getSecretKey());
-            tossPaymentConfirmClient.post(properties.getSecretKey(), confirmRequest);
+            tossPaymentConfirmClient.post(generateHeader(), confirmRequest);
         } catch (FeignException e) {
             log.error(e.getMessage());
             throw new PaymentConfirmFailException();
@@ -63,6 +62,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
     private HttpHeaders generateHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        System.out.println("secret key : " + properties.getSecretKey());
         headers.add("Authorization", "Basic " + properties.getSecretKey());
         return headers;
     }
