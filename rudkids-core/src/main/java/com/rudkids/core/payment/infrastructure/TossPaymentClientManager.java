@@ -31,7 +31,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
 
         try {
             System.out.println("secret key = " + properties.getSecretKey());
-            tossPaymentConfirmClient.post("Basic " + properties.getSecretKey(), confirmRequest);
+            tossPaymentConfirmClient.post(properties.getSecretKey(), confirmRequest);
         } catch (FeignException e) {
             log.error(e.getMessage());
             throw new PaymentConfirmFailException();
