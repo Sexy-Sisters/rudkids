@@ -43,7 +43,7 @@ public class Order extends AbstractEntity {
 
     private int totalPrice;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderItem> orderItems = new ArrayList<>();
 
     private Order(User user, Delivery delivery, String paymentMethod, int totalPrice) {
