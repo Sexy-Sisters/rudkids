@@ -13,7 +13,7 @@ public interface TossPaymentConfirmClient {
 
     @PostMapping
     void post(
-        @RequestHeader HttpHeaders headers,
+        @RequestHeader("Authorization") HttpHeaders headers,
         @RequestBody TossPaymentRequest.Confirm request
     ) throws FeignException;
 }
