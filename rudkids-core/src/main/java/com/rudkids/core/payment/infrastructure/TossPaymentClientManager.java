@@ -13,6 +13,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -62,7 +65,11 @@ public class TossPaymentClientManager implements PaymentClientManager {
     private HttpHeaders generateHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "Basic dGVzdF9za19xTGxESmFZbmdybzBKeTB5d2xHOGV6R2RScFh4Og==");
+        headers.add("Authorization", "Basic " + encodeSecretKey());
         return headers;
+    }
+
+    private String encodeSecretKey() {
+        return URLEncoder.encode(properties.getSecretKey(), StandardCharsets.UTF_8);
     }
 }
