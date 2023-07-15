@@ -24,7 +24,7 @@ class OrderServiceTest extends OrderServiceFixtures {
 
         assertAll(
             () -> assertThat(findOrder.getPaymentMethod()).isEqualTo("TOSS"),
-            () -> assertThat(findOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDER)
+            () -> assertThat(findOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDERING)
         );
     }
 
