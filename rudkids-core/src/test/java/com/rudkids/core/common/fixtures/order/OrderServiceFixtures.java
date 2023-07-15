@@ -102,7 +102,12 @@ public class OrderServiceFixtures {
 
         cart = cartRepository.get(user);
 
-        order = Order.create(user, delivery, "TOSS", cart.calculateTotalPrice());
+        order = Order.builder()
+            .user(user)
+            .delivery(delivery)
+            .paymentMethod("TOSS")
+            .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
+            .build();
         orderRepository.save(order);
 
         ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), "TOSS");

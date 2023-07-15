@@ -145,7 +145,7 @@ class CartControllerTest extends ControllerTest {
         @DisplayName("성공")
         void success() throws Exception {
             given(cartService.getCartItems(any()))
-                .willReturn(CART_아이템_리스트());
+                .willReturn(CART_아이템_리스트);
 
             mockMvc.perform(get(CART_DEFAULT_URL)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
@@ -158,31 +158,27 @@ class CartControllerTest extends ControllerTest {
                             .description("JWT Access Token")
                     ),
                     responseFields(
-                        fieldWithPath("totalCartItemPrice")
-                            .type(JsonFieldType.NUMBER)
-                            .description("장바구니아이템 총 가격"),
-
-                        fieldWithPath("cartItems.[].id")
+                        fieldWithPath("[]id")
                             .type(JsonFieldType.STRING)
                             .description("장바구니아이템 id"),
 
-                        fieldWithPath("cartItems.[].imageUrl")
+                        fieldWithPath("[]imageUrl")
                             .type(JsonFieldType.STRING)
                             .description("장바구니아이템 이미지 url"),
 
-                        fieldWithPath("cartItems.[].name")
+                        fieldWithPath("[]name")
                             .type(JsonFieldType.STRING)
                             .description("장바구니아이템 이름"),
 
-                        fieldWithPath("cartItems.[].price")
+                        fieldWithPath("[]price")
                             .type(JsonFieldType.NUMBER)
                             .description("장바구니아이템 가격"),
 
-                        fieldWithPath("cartItems.[].amount")
+                        fieldWithPath("[]amount")
                             .type(JsonFieldType.NUMBER)
                             .description("장바구니아이템 수량"),
 
-                        fieldWithPath("cartItems.[].itemStatus")
+                        fieldWithPath("[]itemStatus")
                             .type(JsonFieldType.STRING)
                             .description("장바구니아이템 상태")
                     )

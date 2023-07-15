@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,8 +56,15 @@ public class Cart extends AbstractEntity {
         }
     }
 
-    public int calculateTotalPrice() {
+    public List<CartItem> getSelectedCartItems() {
         return cartItems.stream()
+            .filter(CartItem::isSelected)
+            .toList();
+    }
+
+    public int calculateSelectedCartItemsTotalPrice() {
+        return cartItems.stream()
+            .filter(CartItem::isSelected)
             .mapToInt(CartItem::calculateTotalItemPrice)
             .sum();
     }
