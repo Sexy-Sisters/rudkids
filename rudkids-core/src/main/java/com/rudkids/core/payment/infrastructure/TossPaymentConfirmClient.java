@@ -15,7 +15,8 @@ public interface TossPaymentConfirmClient {
 
     @PostMapping
     @Headers({
-        "Authorization: {authorization}"
+        "Authorization: Basic {authorization}",
+        "Content-Type: application/json"
     })
     void post(
         @Param("authorization") String authorization,
