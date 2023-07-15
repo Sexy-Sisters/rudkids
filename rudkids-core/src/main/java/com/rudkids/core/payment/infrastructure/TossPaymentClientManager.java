@@ -62,7 +62,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
     private HttpHeaders generateHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.setBasicAuth(properties.getSecretKey());
+        System.out.println("secret key : " + properties.getClientKey());
         headers.set("Authorization", "Basic " + properties.getSecretKey());
         return headers;
     }
