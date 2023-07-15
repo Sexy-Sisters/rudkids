@@ -38,6 +38,6 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void deleteNotOrderCompleted() {
-        orderRepository.deleteOrdering();
+        orderRepository.deleteNotOrderCompleted();
     }
 }

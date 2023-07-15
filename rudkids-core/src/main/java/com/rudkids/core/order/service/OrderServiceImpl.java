@@ -24,10 +24,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public UUID order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
-        orderRepository.deleteNotOrderCompleted();
 
         var order = orderFactory.save(user, request);
         orderRepository.save(order);
+        orderRepository.deleteNotOrderCompleted();
         return order.getId();
     }
 
