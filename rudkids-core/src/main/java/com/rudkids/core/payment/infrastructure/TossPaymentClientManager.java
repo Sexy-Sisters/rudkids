@@ -32,6 +32,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
         try {
             tossPaymentConfirmClient.post(generateHeader(), confirmRequest);
         } catch (FeignException e) {
+            log.error(e.getMessage());
             throw new PaymentConfirmFailException();
         }
     }
