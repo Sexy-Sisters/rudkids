@@ -33,7 +33,7 @@
 
     <appender name="DELETE" class="ch.qos.logback.core.rolling.DeleteOlderFiles">
         <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/${LOG_FILE_NAME}_%i.log</fileNamePattern>
-        <maxAge>7d</maxAge>
+        <maxAge>4d</maxAge>
     </appender>
 
     <root level="INFO">
