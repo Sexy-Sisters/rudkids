@@ -53,7 +53,7 @@ sms:
 payment:
   toss:
     client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
-    secret-key: dGVzdF9za19aMFJuWVgydzUzMkxkNzlaT2JOck5leXFBcFFFOg==
+    secret-key: ${TOSS_PAYMENT_SECRET_KEY}
 
 application:
   bucket:
