@@ -71,7 +71,8 @@ public class TossPaymentClientManager implements PaymentClientManager {
     }
 
     private String encodeSecretKey() {
-        byte[] encoded = Base64.getEncoder().encode(properties.getSecretKey().getBytes(StandardCharsets.UTF_8));
+        String key = properties.getSecretKey() + ":";
+        byte[] encoded = Base64.getEncoder().encode(key.getBytes(StandardCharsets.UTF_8));
         return new String(encoded, StandardCharsets.UTF_8);
     }
 }
