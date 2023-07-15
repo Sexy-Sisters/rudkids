@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Slf4j
 @Component
@@ -70,6 +71,7 @@ public class TossPaymentClientManager implements PaymentClientManager {
     }
 
     private String encodeSecretKey() {
-        return URLEncoder.encode(properties.getSecretKey(), StandardCharsets.UTF_8);
+        byte[] encoded = Base64.getEncoder().encode(properties.getSecretKey().getBytes(StandardCharsets.UTF_8));
+        return new String(encoded, StandardCharsets.UTF_8);
     }
 }
