@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    UUID order(UUID userId, OrderRequest.Create request);
+    OrderResponse.Create order(UUID userId, OrderRequest.Create request);
     OrderResponse.Detail get(UUID orderId);
     List<OrderResponse.Main> getAll(UUID userId);
     void cancel(UUID userId, UUID orderId);

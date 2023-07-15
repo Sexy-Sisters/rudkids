@@ -42,7 +42,7 @@ class OrderControllerTest extends ControllerTest {
         @DisplayName("성공")
         void success() throws Exception {
             given(orderService.order(any(), any()))
-                .willReturn(UUID.randomUUID());
+                .willReturn(ORDER_생성_응답());
 
             mockMvc.perform(post(ORDER_DEFAULT_URL)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)

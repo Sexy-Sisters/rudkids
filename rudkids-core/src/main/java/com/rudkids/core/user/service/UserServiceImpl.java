@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
     public void update(UUID userId, UserRequest.Update request) {
         var user = userRepository.getUser(userId);
         var name = UserName.create(request.name());
+        deleteImage(user);
         var profileImage = ProfileImage.create(request.profileImagePath(), request.profileImageUrl());
         user.update(name, profileImage);
-        deleteImage(user);
     }
 
     private void deleteImage(User user) {

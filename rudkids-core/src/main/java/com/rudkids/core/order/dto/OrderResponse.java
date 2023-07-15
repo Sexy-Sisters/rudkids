@@ -11,11 +11,7 @@ import java.util.UUID;
 
 public class OrderResponse {
 
-    public record PaymentInformation(
-        String orderName,
-        UUID orderId,
-        UUID customerId
-    ) {}
+    public record Create(UUID orderId) {}
 
     public record Main(
         UUID orderId,
