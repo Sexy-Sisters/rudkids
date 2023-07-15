@@ -2,8 +2,6 @@ package com.rudkids.core.payment.infrastructure;
 
 import com.rudkids.core.payment.dto.TossPaymentRequest;
 import feign.FeignException;
-import feign.Headers;
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface TossPaymentConfirmClient {
 
     @PostMapping
-    @Headers({
-        "Authorization: Basic {authorization}",
-        "Content-Type: application/json"
-    })
     void post(
-        @Param("authorization") String authorization,
+        @RequestHeader HttpHeaders headers,
         @RequestBody TossPaymentRequest.Confirm request
     ) throws FeignException;
 }
