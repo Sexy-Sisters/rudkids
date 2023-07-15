@@ -16,7 +16,7 @@ public class FeignHeaderConfig {
 
     @Bean
     public RequestInterceptor requestInterceptor() {
-        return requestTemplate -> requestTemplate.header("Authorization", "Basic " + encodeSecretKey());
+        return requestTemplate -> requestTemplate.header("Authorization", "Basic dGVzdF9za19xTGxESmFZbmdybzBKeTB5d2xHOGV6R2RScFh4Og==");
     }
 
     private String encodeSecretKey() {
