@@ -24,10 +24,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponse.Create order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
-
         var order = orderFactory.save(user, request);
-        orderRepository.save(order);
+
         orderRepository.deleteNotOrderCompleted();
+        orderRepository.save(order);
         return new OrderResponse.Create(order.getId());
     }
 
