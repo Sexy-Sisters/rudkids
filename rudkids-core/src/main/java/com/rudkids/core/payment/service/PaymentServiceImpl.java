@@ -23,9 +23,9 @@ public class PaymentServiceImpl implements PaymentService {
         order.validateAmount(request.amount());
         paymentClientManager.confirm(request);
 
+        cartItemRepository.deleteSelected();
         order.order();
         order.removeQuantity();
-        cartItemRepository.deleteSelected();
     }
 
     @Override
