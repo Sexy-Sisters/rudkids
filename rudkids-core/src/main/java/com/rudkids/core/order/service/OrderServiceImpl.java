@@ -5,6 +5,7 @@ import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
+import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,17 @@ public class OrderServiceImpl implements OrderService {
         var user = userRepository.getUser(userId);
         var order = orderFactory.save(user, request);
 
-        orderRepository.deleteNotOrderCompleted();
+        deleteNotOrderCompleted(user);
         orderRepository.save(order);
         return new OrderResponse.Create(order.getId());
+    }
+
+    private void deleteNotOrderCompleted(User user) {
+        for(Order order: user.getOrders()) {
+            if(order.isOrdering()) {
+                orderRepository.delete(order);
+            }
+        }
     }
 
     @Override
