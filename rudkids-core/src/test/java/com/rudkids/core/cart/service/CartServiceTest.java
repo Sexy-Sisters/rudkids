@@ -248,13 +248,10 @@ class CartServiceTest extends CartServiceFixtures {
             cartService.addCartItem(user.getId(), CART_아이템_요청);
 
             //when
-            CartResponse.Main actual = cartService.getCartItems(user.getId());
+            var actual = cartService.getCartItems(user.getId());
 
             //then
-            assertAll(() -> {
-                assertThat(actual.totalCartItemPrice()).isEqualTo(9_000);
-                assertThat(actual.cartItems()).hasSize(1);
-            });
+            assertThat(actual).hasSize(1);
         }
 
         @Test
@@ -263,12 +260,9 @@ class CartServiceTest extends CartServiceFixtures {
             //given
 
             //when
-            CartResponse.Main actual = cartService.getCartItems(user.getId());
+            var actual = cartService.getCartItems(user.getId());
 
-            assertAll(() -> {
-                assertThat(actual.totalCartItemPrice()).isEqualTo(0);
-                assertThat(actual.cartItems()).hasSize(0);
-            });
+            assertThat(actual).hasSize(0);
         }
     }
 

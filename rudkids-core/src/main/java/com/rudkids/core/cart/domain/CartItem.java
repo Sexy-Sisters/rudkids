@@ -79,10 +79,6 @@ public class CartItem {
         selected = true;
     }
 
-    public boolean isSelectTrue() {
-        return selected;
-    }
-
     public void unSelect() {
         selected = false;
     }

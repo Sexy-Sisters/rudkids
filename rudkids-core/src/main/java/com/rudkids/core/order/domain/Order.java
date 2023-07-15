@@ -8,6 +8,7 @@ import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.exception.DifferentUserException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -46,16 +47,13 @@ public class Order extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderItem> orderItems = new ArrayList<>();
 
-    private Order(User user, Delivery delivery, String paymentMethod, int totalPrice) {
+    @Builder
+    public Order(User user, Delivery delivery, String paymentMethod, int totalPrice) {
         this.user = user;
         user.registerOrder(this);
         this.delivery = delivery;
         this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
-    }
-
-    public static Order create(User user, Delivery delivery, String paymentMethod, int totalPrice) {
-        return new Order(user, delivery, paymentMethod, totalPrice);
     }
 
     public void validateHasSameUser(User user) {

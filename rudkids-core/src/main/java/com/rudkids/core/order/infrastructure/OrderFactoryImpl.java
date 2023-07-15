@@ -1,6 +1,5 @@
 package com.rudkids.core.order.infrastructure;
 
-import com.rudkids.core.cart.domain.Cart;
 import com.rudkids.core.cart.domain.CartItem;
 import com.rudkids.core.cart.domain.CartRepository;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
@@ -12,8 +11,6 @@ import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 public class OrderFactoryImpl implements OrderFactory {
@@ -24,21 +21,19 @@ public class OrderFactoryImpl implements OrderFactory {
     public Order save(User user, OrderRequest.Create request) {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
-        var order = Order.create(user, delivery, request.paymentMethod(), cart.calculateTotalPrice());
 
-        var selectedCartItems = getSelectedCartItems(cart);
+        var order = Order.builder()
+            .user(user)
+            .delivery(delivery)
+            .paymentMethod(request.paymentMethod())
+            .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
+            .build();
 
-        for (CartItem cartItem : selectedCartItems) {
+        for (CartItem cartItem : cart.getSelectedCartItems()) {
             var orderItem = generateOrderItem(order, cartItem);
             order.addOrderItem(orderItem);
         }
         return order;
-    }
-
-    private List<CartItem> getSelectedCartItems(Cart cart) {
-        return cart.getCartItems().stream()
-            .filter(CartItem::isSelected)
-            .toList();
     }
 
     private OrderItem generateOrderItem(Order order, CartItem cartItem) {
