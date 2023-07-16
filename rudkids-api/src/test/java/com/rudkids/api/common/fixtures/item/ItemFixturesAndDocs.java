@@ -46,8 +46,7 @@ public class ItemFixturesAndDocs {
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
             .images(List.of(
-                new ImageRequest.Create("path", "url"),
-                new ImageRequest.Create("path", "url")
+                new ItemRequest.CreateImage(new ImageRequest.Create("path", "url"), 1)
             ))
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
             .videoImage(new ImageRequest.Create("path", "url"))
@@ -61,16 +60,21 @@ public class ItemFixturesAndDocs {
             ItemRequest.CreateItemOption.builder()
                 .itemOptionName("S")
                 .itemOptionPrice(0)
+                .ordering(1)
                 .build(),
             ItemRequest.CreateItemOption.builder()
                 .itemOptionName("M")
                 .itemOptionPrice(0)
+                .ordering(2)
                 .build(),
             ItemRequest.CreateItemOption.builder()
                 .itemOptionName("L")
                 .itemOptionPrice(1000)
+                .ordering(3)
                 .build()
-        )).build();
+        ))
+        .ordering(1)
+        .build();
 
     public static ItemResponse.Detail ITEM_상세정보_조회_응답() {
         return ItemResponse.Detail.builder()

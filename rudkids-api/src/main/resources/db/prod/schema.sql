@@ -29,10 +29,11 @@ create table if not exists tbl_product_banner_image
 (
     tbl_product_banner_image_id binary(16)   not null
         primary key,
+    ordering                    int          not null,
     path                        varchar(255) null,
     url                         varchar(255) null,
     product_id                  binary(16)   null,
-    constraint FKgcyypgr7cmo7v6i0jb5spph1s
+    constraint FKtnklxk23ndsqqpbsbx7b0cky6
         foreign key (product_id) references tbl_product (product_id)
 );
 
@@ -68,6 +69,7 @@ create table if not exists tbl_item_option_group
     created_at           datetime(6)  null,
     updated_at           datetime(6)  null,
     name                 varchar(255) null,
+    ordering             int          not null,
     item_id              binary(16)   null,
     constraint FKhlupffolfs7ctdeikvriveu0f
         foreign key (item_id) references tbl_item (item_id)
@@ -81,6 +83,7 @@ create table if not exists tbl_item_option
     updated_at           datetime(6)  null,
     name                 varchar(255) null,
     price                int          null,
+    ordering             int          not null,
     item_option_group_id binary(16)   null,
     constraint FK36xwufr7uhgrox1sv6o9k2kt4
         foreign key (item_option_group_id) references tbl_item_option_group (item_option_group_id)
@@ -90,6 +93,7 @@ create table if not exists tbl_item_image
 (
     item_image binary(16)   not null
         primary key,
+    ordering   int          not null,
     path       varchar(255) null,
     url        varchar(255) null,
     item_id    binary(16)   null,
@@ -173,15 +177,15 @@ create table if not exists tbl_cart_item
 
 create table if not exists tbl_order
 (
-    order_id     binary(16)   not null
+    order_id       binary(16)   not null
         primary key,
-    created_at   datetime(6)  null,
-    updated_at   datetime(6)  null,
-    order_status varchar(255) null,
-    payment_method   varchar(255) null,
-    total_price  int          not null,
-    delivery_id  binary(16)   null,
-    user_id      binary(16)   null,
+    created_at     datetime(6)  null,
+    updated_at     datetime(6)  null,
+    order_status   varchar(255) null,
+    payment_method varchar(255) null,
+    total_price    int          not null,
+    delivery_id    binary(16)   null,
+    user_id        binary(16)   null,
     constraint FKhyolniflkctr0p6bp4t8me9vj
         foreign key (user_id) references tbl_user (user_id),
     constraint FKmp5i1fhaoti1qnsbbd0whh3ir
@@ -190,7 +194,7 @@ create table if not exists tbl_order
 
 create table if not exists tbl_order_item
 (
-    cart_order_id binary(16)   not null
+    order_item_id binary(16)   not null
         primary key,
     amount        int          not null,
     image_url     varchar(255) null,

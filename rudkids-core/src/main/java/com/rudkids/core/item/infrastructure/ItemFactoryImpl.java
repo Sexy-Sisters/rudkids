@@ -40,8 +40,13 @@ public class ItemFactoryImpl implements ItemFactory {
     }
 
     private void generateChildEntities(Item item, ItemRequest.Create request) {
-        for (ImageRequest.Create imageRequest : request.images()) {
-            var image = ItemImage.create(item, imageRequest.path(), imageRequest.url());
+        for (ItemRequest.CreateImage imageRequest : request.images()) {
+            var image = ItemImage.create(
+                item,
+                imageRequest.image().path(),
+                imageRequest.image().url(),
+                imageRequest.ordering()
+            );
             item.addImage(image);
         }
 
@@ -63,6 +68,7 @@ public class ItemFactoryImpl implements ItemFactory {
         return ItemOptionGroup.builder()
             .item(item)
             .itemOptionGroupName(groupName)
+            .ordering(group.ordering())
             .build();
     }
 
@@ -74,6 +80,7 @@ public class ItemFactoryImpl implements ItemFactory {
             .itemOptionGroup(optionGroup)
             .itemOptionName(itemOptionName)
             .itemOptionPrice(itemOptionPrice)
+            .ordering(option.ordering())
             .build();
     }
 
@@ -86,8 +93,10 @@ public class ItemFactoryImpl implements ItemFactory {
         var limitType = request.limitType();
 
         for (ImageRequest.Create imageRequest : request.images()) {
-            var image = ItemImage.create(item, imageRequest.path(), imageRequest.url());
-            item.addImage(image);
+
+            for(ItemImage image: item.getImages()) {
+                image.update(imageRequest.path(), imageRequest.url());
+            }
         }
 
         item.update(name, itemBio, price, quantity, limitType);

@@ -108,7 +108,7 @@ class CartServiceTest extends CartServiceFixtures {
                 .limitType(LimitType.LIMITED)
                 .build();
 
-            ItemImage image = ItemImage.create(newItem, "path", "url");
+            ItemImage image = ItemImage.create(newItem, "path", "url", 1);
             newItem.addImage(image);
             itemRepository.save(newItem);
 

@@ -94,7 +94,7 @@ public class OrderServiceFixtures {
             .limitType(LimitType.LIMITED)
             .build();
 
-        ItemImage image = ItemImage.create(item, "path", "url");
+        ItemImage image = ItemImage.create(item, "path", "url", 1);
         item.addImage(image);
         itemRepository.save(item);
 

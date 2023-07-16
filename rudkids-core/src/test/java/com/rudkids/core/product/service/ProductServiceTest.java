@@ -28,9 +28,8 @@ class ProductServiceTest extends ProductServiceFixtures {
             new ImageRequest.Create("image", "image.jpg"),
             new ImageRequest.Create("image", "image.jpg"),
             List.of(
-                new ImageRequest.Create("image", "image.jpg")
-            ),
-            "TOY"
+                new ProductRequest.CreateBannerImage(new ImageRequest.Create("image", "image.jpg"), 1)
+            )
         );
 
         // When

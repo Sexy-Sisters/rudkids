@@ -1,6 +1,5 @@
 package com.rudkids.core.product.infrastructure;
 
-import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.product.domain.*;
 import com.rudkids.core.product.dto.ProductRequest;
 import com.rudkids.core.product.service.ProductFactory;
@@ -31,8 +30,12 @@ public class ProductFactoryImpl implements ProductFactory {
     }
 
     private void generateProductBannerImages(Product product, ProductRequest.Create request) {
-        for(ImageRequest.Create image: request.bannerImages()) {
-            var bannerImage = ProductBannerImage.create(product, image.path(), image.url());
+        for(ProductRequest.CreateBannerImage image: request.bannerImages()) {
+            var bannerImage = ProductBannerImage.create(
+                product,
+                image.image().path(),
+                image.image().url(),
+                image.ordering());
             product.addBannerImage(bannerImage);
         }
     }

@@ -31,11 +31,19 @@ public class ItemOption extends AbstractEntity {
     @Embedded
     private ItemOptionPrice itemOptionPrice;
 
+    private int ordering;
+
     @Builder
-    public ItemOption(ItemOptionGroup itemOptionGroup, ItemOptionName itemOptionName, ItemOptionPrice itemOptionPrice) {
+    public ItemOption(
+        ItemOptionGroup itemOptionGroup,
+        ItemOptionName itemOptionName,
+        ItemOptionPrice itemOptionPrice,
+        int ordering
+    ) {
         this.itemOptionGroup = itemOptionGroup;
         this.itemOptionName = itemOptionName;
         this.itemOptionPrice = itemOptionPrice;
+        this.ordering = ordering;
     }
 
     public String getItemOptionName() {
@@ -44,5 +52,9 @@ public class ItemOption extends AbstractEntity {
 
     public int getItemOptionPrice() {
         return itemOptionPrice.getValue();
+    }
+
+    public int getOrdering() {
+        return ordering;
     }
 }

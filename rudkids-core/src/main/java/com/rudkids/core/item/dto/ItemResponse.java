@@ -2,11 +2,14 @@ package com.rudkids.core.item.dto;
 
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.domain.itemOption.ItemOption;
+import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
 import lombok.Builder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +54,7 @@ public class ItemResponse {
                 item.getQuantity(),
                 item.getLimitType(),
                 item.getImages().stream()
+                    .sorted(Comparator.comparing(ItemImage::getOrdering))
                     .map(ImageResponse.Info::new)
                     .toList(),
                 item.getItemStatus(),
@@ -62,7 +66,9 @@ public class ItemResponse {
 
         private static List<DetailOptionGroup> getOptionGroup(Item item) {
             return item.getItemOptionGroups().stream()
+                .sorted(Comparator.comparing(ItemOptionGroup::getOrdering))
                 .map(group -> group.getItemOptions().stream()
+                    .sorted(Comparator.comparing(ItemOption::getOrdering))
                     .map(DetailOption::new)
                     .collect(collectingAndThen(toList(), options
                         -> new DetailOptionGroup(group.getItemOptionGroupName(), options))))
