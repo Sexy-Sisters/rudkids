@@ -79,17 +79,25 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("여러 아이템 이미지"),
 
-                        fieldWithPath("images[].path")
+                        fieldWithPath("images[]image.path")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 주소"),
 
-                        fieldWithPath("images[].url")
+                        fieldWithPath("images[]image.url")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
                             .type(JsonFieldType.STRING)
@@ -99,9 +107,9 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 가격"),
+                            .description("옵션 순서"),
 
                         fieldWithPath("videoImage")
                             .type(JsonFieldType.OBJECT)
@@ -176,17 +184,25 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("여러 아이템 이미지"),
 
-                        fieldWithPath("images[].path")
+                        fieldWithPath("images[]image.path")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 주소"),
 
-                        fieldWithPath("images[].url")
+                        fieldWithPath("images[]image.url")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
                             .type(JsonFieldType.STRING)
@@ -195,6 +211,10 @@ class ItemControllerTest extends ControllerTest {
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서"),
 
                         fieldWithPath("videoImage")
                             .type(JsonFieldType.OBJECT)
@@ -274,17 +294,25 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("여러 아이템 이미지"),
 
-                        fieldWithPath("images[].path")
+                        fieldWithPath("images[]image.path")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 주소"),
 
-                        fieldWithPath("images[].url")
+                        fieldWithPath("images[]image.url")
                             .type(JsonFieldType.STRING)
                             .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
                             .type(JsonFieldType.STRING)
@@ -293,6 +321,10 @@ class ItemControllerTest extends ControllerTest {
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서"),
 
                         fieldWithPath("videoImage")
                             .type(JsonFieldType.OBJECT)

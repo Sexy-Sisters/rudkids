@@ -167,17 +167,17 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("배너 이미지들"),
 
-                        fieldWithPath("bannerImages[]path")
+                        fieldWithPath("bannerImages[]image.path")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 주소"),
 
-                        fieldWithPath("bannerImages[]url")
+                        fieldWithPath("bannerImages[]image.url")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 url"),
 
-                        fieldWithPath("category")
-                            .type(JsonFieldType.STRING)
-                            .description("카테고리")
+                        fieldWithPath("bannerImages[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("배너 이미지 순서")
                     )
                 ))
                 .andExpect(status().isOk());

@@ -16,23 +16,30 @@ public class ItemRequest {
         int price,
         int quantity,
         LimitType limitType,
-        List<ImageRequest.Create> images,
+        List<CreateImage> images,
         List<CreateItemOptionGroup> itemOptionGroupList,
         ImageRequest.Create videoImage,
         String videoUrl
     ) {}
 
+    public record CreateImage(
+        ImageRequest.Create image,
+        int ordering
+    ) {}
+
     @Builder
     public record CreateItemOptionGroup(
         String itemOptionGroupName,
-        List<CreateItemOption> itemOptionList
+        List<CreateItemOption> itemOptionList,
+        int ordering
     ) {
     }
 
     @Builder
     public record CreateItemOption(
         String itemOptionName,
-        int itemOptionPrice
+        int itemOptionPrice,
+        int ordering
     ) {}
 
     @Builder

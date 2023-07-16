@@ -26,17 +26,20 @@ public class ProductBannerImage {
     @Column(name = "url")
     private String url;
 
+    private int ordering;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private ProductBannerImage(Product product, String path, String url) {
+    private ProductBannerImage(Product product, String path, String url, int ordering) {
         this.product = product;
         this.path = path;
         this.url = url;
+        this.ordering = ordering;
     }
 
-    public static ProductBannerImage create(Product product, String path, String url) {
-        return new ProductBannerImage(product, path, url);
+    public static ProductBannerImage create(Product product, String path, String url, int ordering) {
+        return new ProductBannerImage(product, path, url, ordering);
     }
 }

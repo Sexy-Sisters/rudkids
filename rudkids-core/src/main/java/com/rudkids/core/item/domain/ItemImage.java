@@ -2,11 +2,13 @@ package com.rudkids.core.item.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
+@Getter
 @Entity
 @Table(name = "tbl_item_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,21 +30,21 @@ public class ItemImage {
     @Column(name = "url")
     private String url;
 
-    private ItemImage(Item item, String path, String url) {
+    private int ordering;
+
+    private ItemImage(Item item, String path, String url, int ordering) {
         this.item = item;
         this.path = path;
         this.url = url;
+        this.ordering = ordering;
     }
 
-    public static ItemImage create(Item item, String path, String url) {
-        return new ItemImage(item, path, url);
+    public static ItemImage create(Item item, String path, String url, int ordering) {
+        return new ItemImage(item, path, url, ordering);
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public String getPath() {
-        return path;
+    public void update(String path, String url) {
+        this.path = path;
+        this.url = url;
     }
 }

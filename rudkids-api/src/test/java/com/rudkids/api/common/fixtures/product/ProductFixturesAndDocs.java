@@ -24,16 +24,16 @@ public class ProductFixturesAndDocs {
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
 
     public static ProductRequest.Create PRODUCT_등록_요청() {
-        return new ProductRequest.Create("프로덕트 제목", "설명", 이미지(), 이미지(), 배너이미지(), "TOY");
+        return new ProductRequest.Create("프로덕트 제목", "설명", 이미지(), 이미지(), 배너이미지());
     }
 
     private static ImageRequest.Create 이미지() {
         return new ImageRequest.Create("image", "image.jpg");
     }
 
-    private static List<ImageRequest.Create> 배너이미지() {
+    private static List<ProductRequest.CreateBannerImage> 배너이미지() {
         return List.of(
-            new ImageRequest.Create("image", "image.jpg")
+            new ProductRequest.CreateBannerImage(new ImageRequest.Create("image", "image.jpg"), 1)
         );
     }
 

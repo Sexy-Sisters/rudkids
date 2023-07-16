@@ -91,8 +91,8 @@ public class ItemServiceFixtures {
             .limitType(LimitType.LIMITED)
             .video(ItemVideo.create("path", "url", "videoUrl"))
             .build();
-        ItemImage image = ItemImage.create(item, "path", "url");
-        ItemImage image2 = ItemImage.create(item, "path", "url");
+        ItemImage image = ItemImage.create(item, "path", "url", 1);
+        ItemImage image2 = ItemImage.create(item, "path", "url", 2);
         item.addImage(image);
         item.addImage(image2);
         itemRepository.save(item);
@@ -104,7 +104,14 @@ public class ItemServiceFixtures {
             .quantity(1)
             .itemBio("소개글입니다~")
             .limitType(LimitType.LIMITED)
-            .images(List.of(new ImageRequest.Create("path", "url"), new ImageRequest.Create("path", "url")))
+            .images(List.of(
+                    new ItemRequest.CreateImage(
+                        new ImageRequest.Create("path", "url"), 1),
+
+                    new ItemRequest.CreateImage(
+                        new ImageRequest.Create("path", "url"), 1)
+                )
+            )
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
             .videoImage(new ImageRequest.Create("path", "url"))
             .videoUrl("videoUrl")
