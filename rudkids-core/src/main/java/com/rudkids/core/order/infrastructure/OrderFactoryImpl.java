@@ -2,8 +2,10 @@ package com.rudkids.core.order.infrastructure;
 
 import com.rudkids.core.cart.domain.CartItem;
 import com.rudkids.core.cart.domain.CartRepository;
+import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.domain.OrderItem;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderFactory;
@@ -21,10 +23,11 @@ public class OrderFactoryImpl implements OrderFactory {
     public Order save(User user, OrderRequest.Create request) {
         var delivery = deliveryRepository.get(request.deliveryId());
         var cart = cartRepository.get(user);
+        var orderDelivery = generateOrderDelivery(delivery);
 
         var order = Order.builder()
             .user(user)
-            .delivery(delivery)
+            .delivery(orderDelivery)
             .paymentMethod(request.paymentMethod())
             .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
             .build();
@@ -34,6 +37,15 @@ public class OrderFactoryImpl implements OrderFactory {
             order.addOrderItem(orderItem);
         }
         return order;
+    }
+
+    private OrderDelivery generateOrderDelivery(Delivery delivery) {
+        return OrderDelivery.builder()
+            .receiverName(delivery.getReceiverName())
+            .receiverPhone(delivery.getReceiverPhone())
+            .receivedAddress(delivery.getFullAddress())
+            .message(delivery.getMessage())
+            .build();
     }
 
     private OrderItem generateOrderItem(Order order, CartItem cartItem) {

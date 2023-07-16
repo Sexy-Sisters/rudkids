@@ -46,22 +46,14 @@ public class OrderFixturesAndDocs {
     }
 
     public static OrderResponse.Detail ORDER_상세조회_응답() {
-        var delivery = DeliveryResponse.Info.builder()
-            .deliveryId(deliveryId)
-            .receiverName(receiverName)
-            .receiverPhone(receiverPhone)
-            .zipCode(receiverZipcode)
-            .address(receiverAddress)
-            .extraAddress(receiverextraAddress)
-            .message(etcMessage)
-            .build();
+        var delivery = new OrderResponse.DetailDelivery(receiverName, receiverPhone, receiverAddress, etcMessage);
 
         return OrderResponse.Detail.builder()
             .orderId(orderId)
             .createdAt(createdAt)
             .orderStatus(orderStatus)
             .orderItems(ORDER_ITEM_응답())
-            .deliveryFragment(delivery)
+            .delivery(delivery)
             .paymentMethod(paymentMethod)
             .build();
     }
@@ -113,37 +105,21 @@ public class OrderFixturesAndDocs {
                 .type(JsonFieldType.NUMBER)
                 .description("주문한 상품 가격"),
 
-            fieldWithPath("deliveryFragment.deliveryId")
-                .type(JsonFieldType.STRING)
-                .description("배송지 id"),
-
-            fieldWithPath("deliveryFragment.receiverName")
+            fieldWithPath("delivery.receiverName")
                 .type(JsonFieldType.STRING)
                 .description("수신자"),
 
-            fieldWithPath("deliveryFragment.receiverPhone")
+            fieldWithPath("delivery.receiverPhone")
                 .type(JsonFieldType.STRING)
                 .description("전화번호"),
 
-            fieldWithPath("deliveryFragment.zipCode")
+            fieldWithPath("delivery.receivedAddress")
                 .type(JsonFieldType.STRING)
-                .description("우편번호"),
+                .description("주소"),
 
-            fieldWithPath("deliveryFragment.address")
-                .type(JsonFieldType.STRING)
-                .description("주소1"),
-
-            fieldWithPath("deliveryFragment.extraAddress")
-                .type(JsonFieldType.STRING)
-                .description("주소2"),
-
-            fieldWithPath("deliveryFragment.message")
+            fieldWithPath("delivery.message")
                 .type(JsonFieldType.STRING)
                 .description("배송시 요청사항"),
-
-            fieldWithPath("deliveryFragment.isBasic")
-                .type(JsonFieldType.BOOLEAN)
-                .description("기본배송지 여부"),
 
             fieldWithPath("paymentMethod")
                 .type(JsonFieldType.STRING)

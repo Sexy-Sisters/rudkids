@@ -38,9 +38,6 @@ public class Delivery {
 
     private boolean isBasic;
 
-    @Enumerated(EnumType.STRING)
-    private DeliveryStatus deliveryStatus = DeliveryStatus.READY;
-
     @Builder
     public Delivery(String receiverName, String receiverPhone, Address address, String message, boolean isBasic) {
         this.receiverName = receiverName;
@@ -72,14 +69,14 @@ public class Delivery {
         return address.getExtraAddress();
     }
 
+    public String getFullAddress() {
+        return address.toString();
+    }
+
     public void validateHasSameUser(User user) {
         if(!this.user.equals(user)) {
             throw new DifferentUserException();
         }
-    }
-
-    public boolean isStatusCompleted() {
-        return deliveryStatus == DeliveryStatus.COMP;
     }
 
     public void checkChangeBasicDelivery() {

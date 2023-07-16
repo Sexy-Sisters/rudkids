@@ -13,4 +13,5 @@ public interface AdminService {
     List<AdminResponse.UserInfo> searchUser(String email);
     void changeUserRole(UUID userId, AdminRequest.ChangeUserRole request);
     Page<OrderResponse.Main> getAllOrders(Pageable pageable);
+    void registerTrackingNumber(UUID orderId, AdminRequest.RegisterDeliveryTrackingNumber request);
 }

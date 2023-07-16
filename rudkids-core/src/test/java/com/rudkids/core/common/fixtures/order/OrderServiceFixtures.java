@@ -10,6 +10,7 @@ import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
@@ -102,9 +103,16 @@ public class OrderServiceFixtures {
 
         cart = cartRepository.get(user);
 
+        OrderDelivery orderDelivery = OrderDelivery.builder()
+            .receiverName("이규진")
+            .receiverPhone("01029401509")
+            .receivedAddress("(494999) 부산시 사하구 윤공단로123 나는 몰라용~")
+            .message("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.")
+            .build();
+
         order = Order.builder()
             .user(user)
-            .delivery(delivery)
+            .delivery(orderDelivery)
             .paymentMethod("TOSS")
             .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
             .build();

@@ -7,10 +7,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.text.MessageFormat;
+
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
+    private static final String FULL_ADDRESS_ZIPCODE_FORMAT = "({0}) ";
 
     @Column(name = "address")
     private String address;
@@ -38,5 +41,13 @@ public class Address {
             zipCode == null || zipCode.isBlank()) {
             throw new InvalidNameException();
         }
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format(FULL_ADDRESS_ZIPCODE_FORMAT, zipCode) +
+            address +
+            " " +
+            extraAddress;
     }
 }

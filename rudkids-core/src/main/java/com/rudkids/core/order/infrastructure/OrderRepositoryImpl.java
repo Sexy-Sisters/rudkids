@@ -1,6 +1,7 @@
 package com.rudkids.core.order.infrastructure;
 
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -27,6 +29,11 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
+    public List<OrderDelivery> getStatusIngOrderDeliveries() {
+        return orderRepository.findOrdersWithDeliveryStatusING();
+    }
+
+    @Override
     public Page<Order> getOrders(Pageable pageable) {
         return orderRepository.findAll(pageable);
     }
@@ -34,10 +41,5 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public void delete(Order order) {
         orderRepository.delete(order);
-    }
-
-    @Override
-    public void deleteNotOrderCompleted() {
-        orderRepository.deleteNotOrderCompleted();
     }
 }
