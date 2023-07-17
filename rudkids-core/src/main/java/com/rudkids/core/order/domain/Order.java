@@ -1,7 +1,6 @@
 package com.rudkids.core.order.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
-import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.delivery.exception.DeliveryAlreadyCompletedException;
 import com.rudkids.core.order.exception.InvalidAmountException;
 import com.rudkids.core.user.domain.User;
@@ -33,9 +32,8 @@ public class Order extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+    @Embedded
+    private OrderDelivery delivery;
 
     private String paymentMethod;
 
@@ -48,7 +46,7 @@ public class Order extends AbstractEntity {
     private final List<OrderItem> orderItems = new ArrayList<>();
 
     @Builder
-    public Order(User user, Delivery delivery, String paymentMethod, int totalPrice) {
+    public Order(User user, OrderDelivery delivery, String paymentMethod, int totalPrice) {
         this.user = user;
         user.registerOrder(this);
         this.delivery = delivery;
@@ -81,11 +79,15 @@ public class Order extends AbstractEntity {
     }
 
     public void changeCancelling() {
-        if(delivery.isStatusCompleted()) {
+        if(delivery.isCompleted()) {
             throw new DeliveryAlreadyCompletedException();
         }
 
         orderStatus = OrderStatus.CANCELLING;
+    }
+
+    public void registerTrackingNumber(String deliveryTrackingNumber) {
+        delivery.registerTrackingNumber(deliveryTrackingNumber);
     }
 
     public void addOrderItem(OrderItem orderItem) {

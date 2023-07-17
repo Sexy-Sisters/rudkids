@@ -41,4 +41,10 @@ public class AdminServiceImpl implements AdminService {
         return orderRepository.getOrders(pageable)
             .map(OrderResponse.Main::new);
     }
+
+    @Override
+    public void registerTrackingNumber(UUID orderId, AdminRequest.RegisterDeliveryTrackingNumber request) {
+        var order = orderRepository.get(orderId);
+        order.registerTrackingNumber(request.deliveryTrackingNumber());
+    }
 }

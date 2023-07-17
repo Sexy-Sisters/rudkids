@@ -1,9 +1,9 @@
-package com.rudkids.core.delivery.domain;
+package com.rudkids.core.order.domain;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum DeliveryStatus {
+public enum OrderDeliveryStatus {
     READY("배송준비"),
     ING("배송중"),
     COMP("배송완료");

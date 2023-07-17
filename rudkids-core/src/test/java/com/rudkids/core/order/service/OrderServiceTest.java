@@ -43,12 +43,10 @@ class OrderServiceTest extends OrderServiceFixtures {
             assertThat(info.orderId()).isEqualTo(orderId);
             assertThat(info.paymentMethod()).isEqualTo("TOSS");
             assertThat(info.orderStatus()).isEqualTo(OrderStatus.ORDER);
-            assertThat(info.deliveryFragment().receiverName()).isEqualTo("이규진");
-            assertThat(info.deliveryFragment().receiverPhone()).isEqualTo("01029401509");
-            assertThat(info.deliveryFragment().address()).isEqualTo("부산시 사하구 윤공단로123");
-            assertThat(info.deliveryFragment().extraAddress()).isEqualTo("나는 몰라용~");
-            assertThat(info.deliveryFragment().zipCode()).isEqualTo("494999");
-            assertThat(info.deliveryFragment().message()).isEqualTo("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.");
+            assertThat(info.delivery().receiverName()).isEqualTo("이규진");
+            assertThat(info.delivery().receiverPhone()).isEqualTo("01029401509");
+            assertThat(info.delivery().receivedAddress()).isEqualTo("(494999) 부산시 사하구 윤공단로123 나는 몰라용~");
+            assertThat(info.delivery().message()).isEqualTo("나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.");
         });
     }
 

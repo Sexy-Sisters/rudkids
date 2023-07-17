@@ -1,7 +1,7 @@
 package com.rudkids.core.order.dto;
 
-import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.domain.OrderStatus;
 import lombok.Builder;
 
@@ -37,7 +37,7 @@ public class OrderResponse {
         ZonedDateTime createdAt,
         OrderStatus orderStatus,
         List<OrderItemResponse> orderItems,
-        DeliveryResponse.Info deliveryFragment,
+        DetailDelivery delivery,
         String paymentMethod
     ) {
         public Detail(Order order) {
@@ -48,8 +48,24 @@ public class OrderResponse {
                 order.getOrderItems().stream()
                     .map(OrderItemResponse::new)
                     .toList(),
-                new DeliveryResponse.Info(order.getDelivery()),
+                new DetailDelivery(order.getDelivery()),
                 order.getPaymentMethod()
+            );
+        }
+    }
+
+    public record DetailDelivery(
+        String receiverName,
+        String receiverPhone,
+        String receivedAddress,
+        String message
+    ) {
+        public DetailDelivery(OrderDelivery delivery) {
+            this(
+                delivery.getReceiverName(),
+                delivery.getReceiverPhone(),
+                delivery.getReceivedAddress(),
+                delivery.getMessage()
             );
         }
     }

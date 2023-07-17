@@ -98,4 +98,14 @@ public class AdminController {
         orderService.changeStatus(orderId, request);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/order/{id}")
+    public ResponseEntity<Void> registerDeliveryTrackingNumber(
+        @AuthenticationAdminAuthority AuthUser.Login loginUser,
+        @PathVariable(name = "id") UUID orderId,
+        @RequestBody AdminRequest.RegisterDeliveryTrackingNumber request
+    ) {
+        adminService.registerTrackingNumber(orderId, request);
+        return ResponseEntity.ok().build();
+    }
 }
