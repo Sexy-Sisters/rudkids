@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface UserRepository {
     User getUser(UUID id);
     User getUser(AuthUser.OAuth oauthUser);
-    List<User> getUsers(String email);
+    List<User> getUsersByEmail(String email);
 }

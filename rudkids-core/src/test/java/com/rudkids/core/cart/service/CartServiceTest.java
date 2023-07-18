@@ -284,7 +284,7 @@ class CartServiceTest extends CartServiceFixtures {
             //then
             assertAll(() -> {
                 assertThat(actual.totalPrice()).isEqualTo(9000);
-                assertThat(actual.selectedCartItems().get(0).name()).isEqualTo("No.1, 사이즈, M, 색깔, 파랑");
+                assertThat(actual.selectedCartItems().get(0).name()).isEqualTo("No.1, 사이즈-M, 색깔-파랑");
                 assertThat(actual.selectedCartItems().get(0).amount()).isEqualTo(2);
             });
         }

@@ -41,9 +41,7 @@ public class ItemResponse {
         LimitType limitType,
         List<ImageResponse.Info> images,
         ItemStatus itemStatus,
-        List<DetailOptionGroup> itemOptionGroupInfoList,
-        ImageResponse.Info videoImage,
-        String videoUrl
+        List<DetailOptionGroup> itemOptionGroupInfoList
     ) {
         public Detail(Item item) {
             this(
@@ -58,9 +56,7 @@ public class ItemResponse {
                     .map(ImageResponse.Info::new)
                     .toList(),
                 item.getItemStatus(),
-                getOptionGroup(item),
-                new ImageResponse.Info(item.getVideoImagPath(), item.getVideoImageUrl()),
-                item.getVideoUrl()
+                getOptionGroup(item)
             );
         }
 
@@ -88,18 +84,6 @@ public class ItemResponse {
     ) {
         public DetailOption(ItemOption option) {
             this(option.getItemOptionName(), option.getItemOptionPrice());
-        }
-    }
-
-    public record VideoImage(String name, String imageUrl) {
-        public VideoImage(Item item) {
-            this(item.getEnName(), item.getVideoImageUrl());
-        }
-    }
-
-    public record Video(String name, String videoUrl) {
-        public Video(Item item) {
-            this(item.getEnName(), item.getVideoUrl());
         }
     }
 }

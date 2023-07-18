@@ -29,16 +29,10 @@ public class OrderFixturesAndDocs {
     private static final String receiverName = "이규진";
     private static final String receiverPhone = "010-5476-5574";
     private static final String receiverAddress = "부산시 사하구 윤공단로123";
-    private static final String receiverextraAddress = "나는 몰라용~";
-    private static final String receiverZipcode = "494999";
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
     public static OrderRequest.Create ORDER_주문_요청() {
         return new OrderRequest.Create(deliveryId, paymentMethod);
-    }
-
-    public static OrderRequest.ChangeStatus ORDER_상태변경_요청() {
-        return new OrderRequest.ChangeStatus("DELIVERY_COMPLETE");
     }
 
     public static OrderResponse.Create ORDER_생성_응답() {
@@ -50,7 +44,7 @@ public class OrderFixturesAndDocs {
 
         return OrderResponse.Detail.builder()
             .orderId(orderId)
-            .createdAt(createdAt)
+            .createdAt("2023.07.31")
             .orderStatus(orderStatus)
             .orderItems(ORDER_ITEM_응답())
             .delivery(delivery)
@@ -58,18 +52,12 @@ public class OrderFixturesAndDocs {
             .build();
     }
 
-    public static Page<OrderResponse.Main> ORDER_전체_조회_INFO() {
-        return new PageImpl<>(List.of(
-            new OrderResponse.Main(orderId, createdAt, orderStatus, ORDER_ITEM_응답())
-        ));
-    }
-
     public static List<OrderItemResponse> ORDER_ITEM_응답() {
         return List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000));
     }
 
     public static List<OrderResponse.Main> ORDER_주문내역_조회_INFO() {
-        return List.of(new OrderResponse.Main(orderId, createdAt, orderStatus, ORDER_ITEM_응답()));
+        return List.of(new OrderResponse.Main(orderId, "2023.07.31", orderStatus, ORDER_ITEM_응답()));
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {

@@ -18,7 +18,7 @@ create table if not exists tbl_product
     back_url       varchar(255) null,
     front_path     varchar(255) null,
     front_url      varchar(255) null,
-    item_bio       varchar(255) null,
+    bio            varchar(255) null,
     product_status varchar(255) null,
     title          varchar(255) null,
     constraint UK_cou7p71iu1bfkbxq7adatkhm7
@@ -50,9 +50,6 @@ create table if not exists tbl_item
     ko_name     varchar(255) null,
     price       int          null,
     quantity    int          null,
-    image_path  varchar(255) null,
-    image_url   varchar(255) null,
-    video_url   varchar(255) null,
     product_id  binary(16)   null,
     constraint UK_fwtb92bsdey9v6l7f21kpd4we
         unique (ko_name),
@@ -206,4 +203,14 @@ create table if not exists tbl_order_item
         foreign key (order_id) references tbl_order (order_id),
     constraint FKqrkrc5o23ar4cx1hiont8myy
         foreign key (item_id) references tbl_item (item_id)
+);
+
+create table if not exists tbl_video
+(
+    video_id  binary(16)   not null
+        primary key,
+    path      varchar(255) null,
+    url       varchar(255) null,
+    item_name varchar(255) null,
+    video_url varchar(255) null
 );

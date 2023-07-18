@@ -39,8 +39,8 @@ public class OrderDelivery {
         deliveryStatus = OrderDeliveryStatus.ING;
     }
 
-    public boolean isCompleted() {
-        return deliveryStatus == OrderDeliveryStatus.COMP;
+    public boolean isReady() {
+        return deliveryStatus == OrderDeliveryStatus.READY;
     }
 
     public void changeStatusToComp() {

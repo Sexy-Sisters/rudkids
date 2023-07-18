@@ -1,21 +1,17 @@
 package com.rudkids.core.item.infrastructure;
 
 import com.rudkids.core.item.domain.Item;
-import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.product.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface JpaItemRepository extends JpaRepository<Item, UUID> {
-    boolean existsByNameEnNameOrNameKoName(String enName, String koName);
-
-    Optional<Item> findByNameEnNameOrderByCreatedAtAsc(String enName);
+    Optional<Item> findByNameEnName(String enName);
 
     Page<Item> findByProduct(Product product, Pageable pageable);
 

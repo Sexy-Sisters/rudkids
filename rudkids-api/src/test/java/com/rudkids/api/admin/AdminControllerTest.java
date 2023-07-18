@@ -1,6 +1,9 @@
 package com.rudkids.api.admin;
 
 import com.rudkids.api.common.ControllerTest;
+import com.rudkids.core.item.exception.ItemNotFoundException;
+import com.rudkids.core.product.exception.ProductNotFoundException;
+import com.rudkids.core.user.exception.NotAdminRoleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,11 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 import static com.rudkids.api.common.fixtures.admin.AdminFixturesAndDocs.*;
+import static com.rudkids.api.common.fixtures.item.ItemFixturesAndDocs.*;
 import static com.rudkids.api.common.fixtures.order.OrderFixturesAndDocs.*;
-import static com.rudkids.api.common.fixtures.product.ProductFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -33,7 +37,7 @@ public class AdminControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(adminService.searchUser(any()))
+            given(adminService.searchUsers(any()))
                 .willReturn(유저_검색_응답());
 
             mockMvc.perform(get(ADMIN_USER_DEFAULT_URL + "?email={email}", USER_EMAIL)
@@ -121,17 +125,17 @@ public class AdminControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(productService.create(any()))
+            given(adminService.createProduct(any()))
                 .willReturn(PRODUCT_ID);
 
             mockMvc.perform(post(ADMIN_PRODUCT_DEFAULT_URL)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(PRODUCT_등록_요청()))
+                    .content(objectMapper.writeValueAsString(프로덕트_생성_요청()))
                 )
                 .andDo(print())
-                .andDo(document("product/create",
+                .andDo(document("admin/createProduct",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(
@@ -167,11 +171,11 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("배너 이미지들"),
 
-                        fieldWithPath("bannerImages[]image.path")
+                        fieldWithPath("bannerImages[]path")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 주소"),
 
-                        fieldWithPath("bannerImages[]image.url")
+                        fieldWithPath("bannerImages[]url")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 url"),
 
@@ -192,17 +196,17 @@ public class AdminControllerTest extends ControllerTest {
         @DisplayName("성공")
         void success() throws Exception {
             willDoNothing()
-                .given(productService)
-                .changeStatus(any(), any());
+                .given(adminService)
+                .changeProductStatus(any(), any());
 
-            mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+            mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", PRODUCT_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
                 )
                 .andDo(print())
-                .andDo(document("product/changeStatus",
+                .andDo(document("admin/changeProductStatus",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(
@@ -231,17 +235,17 @@ public class AdminControllerTest extends ControllerTest {
         @DisplayName("성공")
         void success() throws Exception {
             willDoNothing()
-                .given(productService)
-                .update(any(), any());
+                .given(adminService)
+                .updateProduct(any(), any());
 
-            mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+            mockMvc.perform(put(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", PRODUCT_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
                 )
                 .andDo(print())
-                .andDo(document("product/update",
+                .andDo(document("admin/updateProduct",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -275,11 +279,7 @@ public class AdminControllerTest extends ControllerTest {
 
                             fieldWithPath("backImage.url")
                                 .type(JsonFieldType.STRING)
-                                .description("뒤 이미지 url"),
-
-                            fieldWithPath("category")
-                                .type(JsonFieldType.STRING)
-                                .description("카테고리")
+                                .description("뒤 이미지 url")
                         )
                     )
                 )
@@ -295,14 +295,14 @@ public class AdminControllerTest extends ControllerTest {
         @DisplayName("성공")
         void success() throws Exception {
             willDoNothing()
-                .given(productService)
-                .delete(any());
+                .given(adminService)
+                .deleteProduct(any());
 
-            mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+            mockMvc.perform(delete(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", PRODUCT_ID)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                 )
                 .andDo(print())
-                .andDo(document("product/delete",
+                .andDo(document("admin/deleteProduct",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(
@@ -319,47 +319,291 @@ public class AdminControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("모든 유저의 주문들을 조회한다")
-    class getAllOrders {
+    @DisplayName("아이템을 생성한다")
+    class create {
 
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(adminService.getAllOrders(any()))
-                .willReturn(ORDER_전체_조회_INFO());
+            given(adminService.createItem(any(), any()))
+                .willReturn(아이템_영어_이름);
 
-            mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
-                .andDo(print())
-                .andDo(document("admin/getAllOrders",
+            mockMvc.perform(post(ADMIN_ITEM_DEFAULT_URL + "/{productId}", PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
+                ).andDo(print())
+                .andDo(document("admin/createItem",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
-                    requestHeaders(JWT_ACCESS_TOKEN()),
-                    responseFields(ORDER_전체_주문_조회_응답_필드())
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[]path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[]url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서")
+                    )
                 ))
                 .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 어드민이 아닌 유저")
+        void fail() throws Exception {
+            doThrow(new NotAdminRoleException())
+                .when(adminService)
+                .createItem(any(), any());
+
+            mockMvc.perform(post(ADMIN_ITEM_DEFAULT_URL + "/{productId}", PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
+                ).andDo(print())
+                .andDo(document("admin/createItem/fail/forbidden",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("productId")
+                            .description("프로덕트 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[]path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[]url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서")
+                    )
+                ))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 프로덕트")
+        void fail2() throws Exception {
+            doThrow(new ProductNotFoundException())
+                .when(adminService)
+                .createItem(any(), any());
+
+            mockMvc.perform(post(ADMIN_ITEM_DEFAULT_URL + "/{productId}", PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
+                ).andDo(print())
+                .andDo(document("admin/createItem/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("productId")
+                            .description("존재하지 않는 프로덕트 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[]path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[]url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서")
+                    )
+                ))
+                .andExpect(status().isNotFound());
         }
     }
 
     @Nested
-    @DisplayName("주문의 상태를 변경한다")
-    class changeOrderStatus {
+    @DisplayName("아이템정보를 수정한다")
+    class update {
 
         @Test
         @DisplayName("성공")
         void success() throws Exception {
             willDoNothing()
-                .given(orderService)
-                .changeStatus(any(), any());
+                .given(adminService)
+                .updateItem(any(), any());
 
-            mockMvc.perform(patch(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(ORDER_상태변경_요청()))
+                    .content(objectMapper.writeValueAsString(ITEM_수정_요청()))
                 )
                 .andDo(print())
-                .andDo(document("admin/changeOrderStatus",
+                .andDo(document("admin/updateItem",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(
@@ -368,12 +612,298 @@ public class AdminControllerTest extends ControllerTest {
                     ),
                     pathParameters(
                         parameterWithName("id")
-                            .description("주문 id")
+                            .description("아이템 ID")
                     ),
                     requestFields(
-                        fieldWithPath("status")
-                            .description("주문 상태")
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[].path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[].url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url")
                     )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 아이템")
+        void fail() throws Exception {
+            doThrow(new ItemNotFoundException())
+                .when(adminService)
+                .updateItem(any(), any());
+
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_수정_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/updateItem/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("존재하지 않는 아이템 ID")
+                    ),
+                    requestFields(
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[].path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[].url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
+    @DisplayName("아이템 상태를 변경한다")
+    class changeStatus {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(adminService)
+                .changeItemStatus(any(), any());
+
+            mockMvc.perform(put(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/changeItemStatus",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("아이템 ID")
+                    ),
+                    requestFields(
+                        fieldWithPath("itemStatus")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 상태")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 어드민이 아닌 유저")
+        void fail() throws Exception {
+            doThrow(new NotAdminRoleException())
+                .when(adminService)
+                .changeItemStatus(any(), any());
+
+            mockMvc.perform(put(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/changeItemStatus/fail/forbidden",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                            headerWithName("Authorization")
+                                .description("JWT Access Token")
+                        ),
+                        pathParameters(
+                            parameterWithName("id")
+                                .description("아이템 id")
+                        ),
+                        responseFields(
+                            fieldWithPath("message")
+                                .type(JsonFieldType.STRING)
+                                .description("에러 메세지")
+                        )
+                    )
+                )
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 아이템")
+        void fail2() throws Exception {
+            doThrow(new ItemNotFoundException())
+                .when(adminService)
+                .changeItemStatus(any(), any());
+
+            mockMvc.perform(put(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_상태_변경_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/changeItemStatus/fail/notFound",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                            headerWithName("Authorization")
+                                .description("JWT Access Token")
+                        ),
+                        pathParameters(
+                            parameterWithName("id")
+                                .description("존재하지 않는 아이템 id")
+                        ),
+                        responseFields(
+                            fieldWithPath("message")
+                                .type(JsonFieldType.STRING)
+                                .description("에러 메세지")
+                        )
+                    )
+                )
+                .andExpect(status().isNotFound());
+        }
+    }
+
+    @Nested
+    @DisplayName("아이템을 삭제한다")
+    class delete {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(adminService)
+                .deleteItem(any());
+
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("admin/deleteItem",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("아이템 ID")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("실패: 존재하지 않는 아이템")
+        void fail() throws Exception {
+            doThrow(new ItemNotFoundException())
+                .when(adminService)
+                .deleteItem(any());
+
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("admin/deleteItem/fail/notFound",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("존재하지 않는 아이템 ID")
+                    )
+                ))
+                .andExpect(status().isNotFound());
+        }
+    }
+
+    @Nested
+    @DisplayName("모든 유저의 주문들을 조회한다")
+    class getAllOrders {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(adminService.getAllOrder(any()))
+                .willReturn(ORDER_전체_조회_응답());
+
+            mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("admin/getAllOrder",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(JWT_ACCESS_TOKEN()),
+                    responseFields(ORDER_전체_주문_조회_응답_필드())
                 ))
                 .andExpect(status().isOk());
         }

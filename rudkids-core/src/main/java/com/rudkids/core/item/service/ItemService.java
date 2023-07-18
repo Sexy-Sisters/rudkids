@@ -1,19 +1,27 @@
 package com.rudkids.core.item.service;
 
-import com.rudkids.core.item.dto.ItemRequest;
+import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.dto.ItemResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class ItemService {
+    private final ItemRepository itemRepository;
 
-public interface ItemService {
-    String create(UUID userId, UUID productId, ItemRequest.Create request);
-    ItemResponse.Detail get(String name);
-    Page<ItemResponse.Main> getPopularItems(Pageable pageable);
-    Page<ItemResponse.VideoImage> getItemVideoImages(Pageable pageable);
-    ItemResponse.Video getItemVideo(String name);
-    String changeStatus(UUID userId, String itemName, ItemRequest.ChangeStatus request);
-    void update(UUID userId, String itemName, ItemRequest.Update request);
-    void delete(UUID userId, String itemName);
+    @Transactional(readOnly = true)
+    public ItemResponse.Detail get(String name) {
+        var item = itemRepository.getByEnNme(name);
+        return new ItemResponse.Detail(item);
+    }
+
+    public Page<ItemResponse.Main> getPopularItems(Pageable pageable) {
+        return itemRepository.getPopularItems(pageable)
+            .map(ItemResponse.Main::new);
+    }
 }

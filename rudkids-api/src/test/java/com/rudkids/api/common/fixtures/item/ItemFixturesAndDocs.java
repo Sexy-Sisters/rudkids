@@ -1,10 +1,8 @@
 package com.rudkids.api.common.fixtures.item;
 
-import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
-import com.rudkids.core.item.dto.ItemRequest;
 import com.rudkids.core.item.dto.ItemResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,7 +18,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 public class ItemFixturesAndDocs {
 
     public static final String ITEM_DEFAULT_URL = "/api/v1/item";
-    public static final UUID 프로덕트_아이디 = UUID.randomUUID();
     public static final UUID 아이템_아이디 = UUID.randomUUID();
     public static final String 아이템_영어_이름 = "No.1";
     public static final String 아이템_한국_이름 = "남바완";
@@ -28,53 +25,7 @@ public class ItemFixturesAndDocs {
     public static final int 아이템_가격 = 10_000;
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
-    public static final String 아이템_상태 = "SELLING";
     public static final List<String> 아이템_여러_이미지 = List.of("url1", "url2");
-
-    private static List<ImageRequest.Create> 아이템_여러_이미지_수정_요청() {
-        return List.of(
-            new ImageRequest.Create("image", "image.jpg")
-        );
-    }
-
-    public static ItemRequest.Create ITEM_등록_요청() {
-        return ItemRequest.Create.builder()
-            .enName(아이템_영어_이름)
-            .koName(아이템_한국_이름)
-            .itemBio(아이템_소개글)
-            .price(아이템_가격)
-            .quantity(아이템_수량)
-            .limitType(아이템_수량_한정_여부)
-            .images(List.of(
-                new ItemRequest.CreateImage(new ImageRequest.Create("path", "url"), 1)
-            ))
-            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
-            .videoImage(new ImageRequest.Create("path", "url"))
-            .videoUrl("비디오 url")
-            .build();
-    }
-
-    private static final ItemRequest.CreateItemOptionGroup itemOptionGroup_사이즈 = ItemRequest.CreateItemOptionGroup.builder()
-        .itemOptionGroupName("사이즈")
-        .itemOptionList(List.of(
-            ItemRequest.CreateItemOption.builder()
-                .itemOptionName("S")
-                .itemOptionPrice(0)
-                .ordering(1)
-                .build(),
-            ItemRequest.CreateItemOption.builder()
-                .itemOptionName("M")
-                .itemOptionPrice(0)
-                .ordering(2)
-                .build(),
-            ItemRequest.CreateItemOption.builder()
-                .itemOptionName("L")
-                .itemOptionPrice(1000)
-                .ordering(3)
-                .build()
-        ))
-        .ordering(1)
-        .build();
 
     public static ItemResponse.Detail ITEM_상세정보_조회_응답() {
         return ItemResponse.Detail.builder()
@@ -86,30 +37,16 @@ public class ItemFixturesAndDocs {
             .limitType(아이템_수량_한정_여부)
             .images(List.of(new ImageResponse.Info("path", "url")))
             .itemStatus(ItemStatus.SELLING)
-            .videoImage(new ImageResponse.Info("path", "url"))
-            .videoUrl("영상 url")
+            .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
             .build();
     }
 
-    public static ItemRequest.ChangeStatus ITEM_상태_변경_요청() {
-        return new ItemRequest.ChangeStatus("SOLD_OUT");
-    }
-
-    public static ItemRequest.Update ITEM_수정_요청() {
-        return ItemRequest.Update.builder()
-            .enName(아이템_영어_이름)
-            .koName(아이템_한국_이름)
-            .itemBio(아이템_소개글)
-            .price(아이템_가격)
-            .quantity(아이템_수량)
-            .limitType(아이템_수량_한정_여부)
-            .images(아이템_여러_이미지_수정_요청())
-            .build();
-    }
-
-    public static Page<ItemResponse.VideoImage> ITEM_영상_이미지_응답() {
-        return new PageImpl<>(List.of(
-            new ItemResponse.VideoImage(아이템_영어_이름,"url"))
+    public static List<ItemResponse.DetailOptionGroup> ITEM_OPTION_GROUP() {
+        return List.of(
+            new ItemResponse.DetailOptionGroup(
+                "지속시간",
+                List.of(new ItemResponse.DetailOption("name", 3000))
+            )
         );
     }
 
@@ -117,10 +54,6 @@ public class ItemFixturesAndDocs {
         return new PageImpl<>(List.of(
             new ItemResponse.Main(UUID.randomUUID(), "name", 1000, 아이템_여러_이미지, ItemStatus.SELLING))
         );
-    }
-
-    public static ItemResponse.Video ITEM_영상_응답() {
-        return new ItemResponse.Video(아이템_영어_이름, "url");
     }
 
     public static List<FieldDescriptor> ITEM_리스트_응답_필드() {

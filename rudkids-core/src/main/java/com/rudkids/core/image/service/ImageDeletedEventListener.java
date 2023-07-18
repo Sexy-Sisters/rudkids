@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ImageDeletedEventListener {
-
     private final ImageService imageService;
 
     @Async(value = "deleteImageExecutor")

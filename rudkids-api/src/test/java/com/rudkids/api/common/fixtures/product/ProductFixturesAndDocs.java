@@ -23,20 +23,6 @@ public class ProductFixturesAndDocs {
     public static final String PRODUCT_DEFAULT_URL = "/api/v1/product";
     public static final UUID 프로덕트_아이디 = UUID.randomUUID();
 
-    public static ProductRequest.Create PRODUCT_등록_요청() {
-        return new ProductRequest.Create("프로덕트 제목", "설명", 이미지(), 이미지(), 배너이미지());
-    }
-
-    private static ImageRequest.Create 이미지() {
-        return new ImageRequest.Create("image", "image.jpg");
-    }
-
-    private static List<ProductRequest.CreateBannerImage> 배너이미지() {
-        return List.of(
-            new ProductRequest.CreateBannerImage(new ImageRequest.Create("image", "image.jpg"), 1)
-        );
-    }
-
     public static ProductResponse.Main PRODUCT_MAIN_INFO() {
         return new ProductResponse.Main(
             프로덕트_아이디,
@@ -100,13 +86,5 @@ public class ProductFixturesAndDocs {
             .imageUrls(List.of("url1", "url2", "url3"))
             .itemStatus(ItemStatus.SELLING)
             .build();
-    }
-
-    public static ProductRequest.Update PRODUCT_수정_요청() {
-        return new ProductRequest.Update("프로덕트 제목", "설명", 이미지(), 이미지(), "TOY");
-    }
-
-    public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {
-        return new ProductRequest.ChangeStatus("CLOSED");
     }
 }
