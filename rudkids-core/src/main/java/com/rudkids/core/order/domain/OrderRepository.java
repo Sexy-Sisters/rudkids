@@ -9,6 +9,6 @@ import java.util.UUID;
 public interface OrderRepository {
     void save(Order order);
     Order get(UUID id);
-    Page<Order> getOrders(Pageable pageable);
+    List<Order> getOrders();
     void delete(Order order);
 }

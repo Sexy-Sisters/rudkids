@@ -21,7 +21,7 @@ public class OrderFixturesAndDocs {
 
     public static final String ORDER_DEFAULT_URL = "/api/v1/order";
     public static final UUID orderId = UUID.randomUUID();
-    public static final OrderStatus orderStatus = OrderStatus.ORDER;
+    public static final String orderStatus = "주문완료";
     private static final String paymentMethod = "TOSS";
     private static final ZonedDateTime createdAt = ZonedDateTime.now();
     private static final UUID deliveryId = UUID.randomUUID();
@@ -158,13 +158,13 @@ public class OrderFixturesAndDocs {
                     .type(JsonFieldType.STRING)
                     .description("주문 ID"),
 
-                fieldWithPath("content.[].createdAt")
+                fieldWithPath("content.[].customerName")
                     .type(JsonFieldType.STRING)
-                    .description("주문한 시간"),
+                    .description("주문자 이름"),
 
-                fieldWithPath("content.[].orderStatus")
-                    .type(JsonFieldType.STRING)
-                    .description("주문 상태"),
+                fieldWithPath("content.[].amount")
+                    .type(JsonFieldType.NUMBER)
+                    .description("주문 총 가격"),
 
                 fieldWithPath("content.[].orderItems")
                     .type(JsonFieldType.ARRAY)
@@ -184,7 +184,35 @@ public class OrderFixturesAndDocs {
 
                 fieldWithPath("content.[].orderItems[]price")
                     .type(JsonFieldType.NUMBER)
-                    .description("주문한 상품 가격")
+                    .description("주문한 상품 가격"),
+
+                fieldWithPath("content.[].orderStatus")
+                    .type(JsonFieldType.STRING)
+                    .description("주문 상태"),
+
+                fieldWithPath("content.[].createdAt")
+                    .type(JsonFieldType.STRING)
+                    .description("주문한 시간"),
+
+                fieldWithPath("content.[].delivery")
+                    .type(JsonFieldType.OBJECT)
+                    .description("주문 배송 정보"),
+
+                fieldWithPath("content.[].delivery.receiverName")
+                    .type(JsonFieldType.STRING)
+                    .description("받는사람 이름"),
+
+                fieldWithPath("content.[].delivery.receivedAddress")
+                    .type(JsonFieldType.STRING)
+                    .description("받는주소"),
+
+                fieldWithPath("content.[].delivery.deliveryStatus")
+                    .type(JsonFieldType.STRING)
+                    .description("배송상태"),
+
+                fieldWithPath("content.[].delivery.deliveryTrackingNumber")
+                    .type(JsonFieldType.STRING)
+                    .description("송장 번호")
             )
         );
     }

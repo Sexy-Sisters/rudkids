@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -28,8 +29,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Page<Order> getOrders(Pageable pageable) {
-        return orderRepository.findAll(pageable);
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
     }
 
     @Override

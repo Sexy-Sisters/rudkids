@@ -39,11 +39,19 @@ public class OrderDelivery {
         deliveryStatus = OrderDeliveryStatus.ING;
     }
 
+    public String getStatus() {
+        return deliveryStatus.getDescription();
+    }
+
     public boolean isReady() {
         return deliveryStatus == OrderDeliveryStatus.READY;
     }
 
     public void changeStatusToComp() {
         deliveryStatus = OrderDeliveryStatus.COMP;
+    }
+
+    public boolean isDelivering() {
+        return deliveryStatus == OrderDeliveryStatus.ING;
     }
 }

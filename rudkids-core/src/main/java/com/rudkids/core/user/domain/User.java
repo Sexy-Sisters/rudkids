@@ -83,10 +83,6 @@ public class User {
         this.roleType = RoleType.ADMIN;
     }
 
-    public void changeAuthorityUser() {
-        this.roleType = RoleType.USER;
-    }
-
     public void registerOrder(Order order) {
         orders.add(order);
     }

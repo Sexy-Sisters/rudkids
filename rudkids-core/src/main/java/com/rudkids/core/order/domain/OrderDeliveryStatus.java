@@ -1,7 +1,9 @@
 package com.rudkids.core.order.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public enum OrderDeliveryStatus {
     READY("배송준비"),

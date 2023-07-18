@@ -156,8 +156,24 @@ public class AdminController {
     모든 주문을 조회한다
      */
     @GetMapping("/order")
-    public ResponseEntity getAllOrder(@PageableDefault Pageable pageable) {
-        var response = adminService.getAllOrder(pageable);
+    public ResponseEntity getAllOrder(
+        @RequestParam("deliveryStatus") String deliveryStatus,
+        @RequestParam("orderStatus") String orderStatus,
+        @RequestParam("deliveryTrackingNumber") String deliveryTrackingNumber,
+        @RequestParam("customerName") String customerName,
+        @PageableDefault Pageable pageable
+    ) {
+        var response = adminService.getAllOrder(deliveryStatus, orderStatus, deliveryTrackingNumber, customerName, pageable);
         return ResponseEntity.ok(response);
     }
+
+    /*
+    택배 송장을 입력한다
+     */
+
+    /*
+    환불을 실행한다
+     */
+
+
 }

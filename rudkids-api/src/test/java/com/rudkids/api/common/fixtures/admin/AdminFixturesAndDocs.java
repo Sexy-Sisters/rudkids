@@ -109,9 +109,17 @@ public class AdminFixturesAndDocs {
         return new PageImpl<>(List.of(
             new AdminResponse.OrderInfo(
                 UUID.randomUUID(),
+                "주문자",
+                9000,
+                List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000)),
+                "주문완료",
                 "2023.07.31",
-                OrderStatus.ORDER,
-                List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000))
+                new AdminResponse.OrderDeliveryInfo(
+                    "받는사람 이름",
+                    "받는 주소",
+                    "배송중",
+                    "123456-1234567"
+                )
         )));
     }
 

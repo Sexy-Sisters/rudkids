@@ -893,16 +893,33 @@ public class AdminControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(adminService.getAllOrder(any()))
+            given(adminService.getAllOrder(any(), any(), any(), any(), any()))
                 .willReturn(ORDER_전체_조회_응답());
 
             mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
+                        .queryParam("deliveryStatus", "READY")
+                        .queryParam("orderStatus", "ORDER")
+                        .queryParam("deliveryTrackingNumber", "12345-6789")
+                        .queryParam("customerName", "남세원")
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("admin/getAllOrder",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestHeaders(JWT_ACCESS_TOKEN()),
+                    queryParameters(
+                        parameterWithName("deliveryStatus")
+                            .description("배송 상태"),
+
+                        parameterWithName("orderStatus")
+                            .description("주문 상태"),
+
+                        parameterWithName("deliveryTrackingNumber")
+                            .description("송장 번호"),
+
+                        parameterWithName("customerName")
+                            .description("주문자 이름")
+                    ),
                     responseFields(ORDER_전체_주문_조회_응답_필드())
                 ))
                 .andExpect(status().isOk());

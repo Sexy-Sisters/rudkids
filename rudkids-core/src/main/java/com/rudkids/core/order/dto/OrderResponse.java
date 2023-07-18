@@ -16,7 +16,7 @@ public class OrderResponse {
     public record Main(
         UUID orderId,
         String createdAt,
-        OrderStatus orderStatus,
+        String orderStatus,
         List<OrderItemResponse> orderItems
     ) {
         public Main(Order order) {
@@ -35,7 +35,7 @@ public class OrderResponse {
     public record Detail(
         UUID orderId,
         String createdAt,
-        OrderStatus orderStatus,
+        String orderStatus,
         List<OrderItemResponse> orderItems,
         DetailDelivery delivery,
         String paymentMethod

@@ -22,9 +22,9 @@ public class PaymentService {
         order.validateAmount(request.amount());
         paymentClientManager.confirm(request);
 
+        cartItemRepository.deleteSelected();
         order.order();
         order.removeQuantity();
-        cartItemRepository.deleteSelected();
     }
 
     public void cancel(UUID orderId, PaymentRequest.Cancel request) {

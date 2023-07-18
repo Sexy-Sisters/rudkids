@@ -183,6 +183,9 @@ include::{snippets}/admin/getAllOrder/http-request.adoc[]
 Request Header
 include::{snippets}/admin/getAllOrder/request-headers.adoc[]
 
+Request Parameters
+include::{snippets}/admin/getAllOrder/query-parameters.adoc[]
+
 HTTP Response
 include::{snippets}/admin/getAllOrder/http-response.adoc[]
 
