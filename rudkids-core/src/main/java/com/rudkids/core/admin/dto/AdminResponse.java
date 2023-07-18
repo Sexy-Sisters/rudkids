@@ -1,11 +1,10 @@
 package com.rudkids.core.admin.dto;
 
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderStatus;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.dto.OrderItemResponse;
 import com.rudkids.core.user.domain.User;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,18 +30,40 @@ public class AdminResponse {
 
     public record OrderInfo(
         UUID orderId,
+        String customerName,
+        int amount,
+        List<OrderItemResponse> orderItems,
+        String orderStatus,
         String createdAt,
-        OrderStatus orderStatus,
-        List<OrderItemResponse> orderItems
+        OrderDeliveryInfo delivery
     ) {
         public OrderInfo(Order order) {
             this(
                 order.getId(),
-                order.getCreatedAt(),
-                order.getOrderStatus(),
+                order.getCustomerName(),
+                order.getTotalPrice(),
                 order.getOrderItems().stream()
                     .map(OrderItemResponse::new)
-                    .toList()
+                    .toList(),
+                order.getOrderStatus(),
+                order.getCreatedAt(),
+                new OrderDeliveryInfo(order.getDelivery())
+            );
+        }
+    }
+
+    public record OrderDeliveryInfo(
+        String receiverName,
+        String receivedAddress,
+        String deliveryStatus,
+        String deliveryTrackingNumber
+    ) {
+        public OrderDeliveryInfo(OrderDelivery delivery) {
+            this(
+                delivery.getReceiverName(),
+                delivery.getReceivedAddress(),
+                delivery.getStatus(),
+                delivery.getTrackingNumber()
             );
         }
     }

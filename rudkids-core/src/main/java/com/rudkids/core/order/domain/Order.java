@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -77,6 +76,14 @@ public class Order extends AbstractEntity {
 
     public boolean isOrdering() {
         return orderStatus == OrderStatus.ORDERING;
+    }
+
+    public String getCustomerName() {
+        return user.getName();
+    }
+
+    public String getOrderStatus() {
+        return orderStatus.getDescription();
     }
 
     public void changeCancelling() {

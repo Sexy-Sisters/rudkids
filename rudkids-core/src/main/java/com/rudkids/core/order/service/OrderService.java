@@ -21,6 +21,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderFactory orderFactory;
+    private final DeliveryTracker deliveryTracker;
 
     public OrderResponse.Create order(UUID userId, OrderRequest.Create request) {
         var user = userRepository.getUser(userId);
@@ -45,9 +46,10 @@ public class OrderService {
         return new OrderResponse.Detail(order);
     }
 
-    @Transactional(readOnly = true)
     public List<OrderResponse.Main> getAll(UUID userId) {
         var user = userRepository.getUser(userId);
+        deliveryTracker.changeCompletedState(user.getOrders());
+
         return user.getOrders().stream()
             .filter(order -> !order.isOrdering())
             .map(OrderResponse.Main::new)

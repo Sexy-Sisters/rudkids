@@ -1,5 +1,6 @@
 package com.rudkids.core.admin.service;
 
+import com.rudkids.core.admin.domain.OrderQuerydslRepository;
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
@@ -7,6 +8,7 @@ import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.order.domain.OrderRepository;
+import com.rudkids.core.order.service.DeliveryTracker;
 import com.rudkids.core.product.domain.Product;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.product.domain.ProductStatus;
@@ -34,6 +36,8 @@ public class AdminService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final VideoRepository videoRepository;
+    private final DeliveryTracker deliveryTracker;
+    private final OrderQuerydslRepository orderQuerydslRepository;
     private final ProductFactory productFactory;
     private final ItemFactory itemFactory;
     private final ApplicationEventPublisher eventPublisher;
@@ -132,9 +136,10 @@ public class AdminService {
         videoRepository.delete(video);
     }
 
-    @Transactional(readOnly = true)
-    public Page<AdminResponse.OrderInfo> getAllOrder(Pageable pageable) {
-        return orderRepository.getOrders(pageable)
+    public Page<AdminResponse.OrderInfo> getAllOrder(String deliveryStatus, String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
+        var orders = orderRepository.getOrders();
+        deliveryTracker.changeCompletedState(orders);
+        return orderQuerydslRepository.getOrders(deliveryStatus, orderStatus, deliveryTrackingNumber, customerName, pageable)
             .map(AdminResponse.OrderInfo::new);
     }
 }

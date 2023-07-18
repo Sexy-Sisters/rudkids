@@ -65,7 +65,11 @@ public class CartItemRepositoryImpl implements CartItemRepository {
 
     @Override
     public void deleteSelected() {
-        cartItemRepository.deleteSelected();
+        var cartItems = cartItemRepository.findAll().stream()
+            .filter(CartItem::isSelected)
+            .toList();
+
+        cartItemRepository.deleteAll(cartItems);
     }
 
     @Override
