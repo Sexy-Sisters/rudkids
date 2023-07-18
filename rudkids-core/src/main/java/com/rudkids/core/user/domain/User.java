@@ -3,7 +3,6 @@ package com.rudkids.core.user.domain;
 import com.rudkids.core.community.domain.Community;
 import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.user.exception.NotAdminOrPartnerRoleException;
 import com.rudkids.core.user.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -96,14 +95,8 @@ public class User {
         return roleType == RoleType.ADMIN;
     }
 
-    public void validateAdminOrPartnerRole() {
-        if (!roleType.equals(RoleType.PARTNER) && !roleType.equals(RoleType.ADMIN)) {
-            throw new NotAdminOrPartnerRoleException();
-        }
-    }
-
-    public void changeRole(String role) {
-        this.roleType = RoleType.toEnum(role);
+    public void changeRole(RoleType role) {
+        this.roleType = role;
     }
 
     public void updatePhoneNumber(PhoneNumber phoneNumber) {

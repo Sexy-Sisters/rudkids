@@ -2,11 +2,6 @@ package com.rudkids.api.admin;
 
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.service.AdminService;
-import com.rudkids.core.auth.dto.AuthUser;
-import com.rudkids.core.order.dto.OrderRequest;
-import com.rudkids.core.order.service.OrderService;
-import com.rudkids.core.product.dto.ProductRequest;
-import com.rudkids.core.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -17,24 +12,25 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@AuthenticationAdminAuthority
 @RequestMapping("/api/v1/admin")
 public class AdminController {
     private final AdminService adminService;
-    private final ProductService productService;
-    private final OrderService orderService;
 
+    /*
+    이메일로 유저들의 정보를 검색한다
+     */
     @GetMapping("/user")
-    public ResponseEntity searchUser(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @RequestParam String email
-    ) {
-        var response = adminService.searchUser(email);
+    public ResponseEntity searchUsers(@RequestParam String email) {
+        var response = adminService.searchUsers(email);
         return ResponseEntity.ok(response);
     }
 
+    /*
+    유저의 권한을 변경한다
+     */
     @PatchMapping("/user/{id}")
     public ResponseEntity<Void> changeUserRole(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PathVariable("id") UUID userId,
         @RequestBody AdminRequest.ChangeUserRole request
     ) {
@@ -42,70 +38,126 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
+    /*
+    프로덕트를 생성한다
+     */
     @PostMapping("/product")
-    public ResponseEntity<Void> createProduct(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @RequestBody ProductRequest.Create request
-    ) {
-        productService.create(request);
+    public ResponseEntity<Void> create(@RequestBody AdminRequest.CreateProduct request) {
+        adminService.createProduct(request);
         return ResponseEntity.ok().build();
     }
 
+    /*
+    프로덕트의 상태를 변경한다
+     */
     @PatchMapping("/product/{id}")
-    public ResponseEntity<Void> changeProductStatus(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
+    public ResponseEntity<Void> changeStatus(
         @PathVariable(name = "id") UUID productId,
-        @RequestBody ProductRequest.ChangeStatus request
+        @RequestBody AdminRequest.ChangeProductStatus request
     ) {
-        productService.changeStatus(productId, request.productStatus());
+        adminService.changeProductStatus(productId, request);
         return ResponseEntity.ok().build();
     }
 
+    /*
+    프로덕트의 정보를 수정한다
+     */
     @PutMapping("/product/{id}")
     public ResponseEntity<Void> updateProduct(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
         @PathVariable(name = "id") UUID productId,
-        @RequestBody ProductRequest.Update request
+        @RequestBody AdminRequest.UpdateProduct request
     ) {
-        productService.update(productId, request);
+        adminService.updateProduct(productId, request);
         return ResponseEntity.ok().build();
     }
 
+    /*
+    프로덕트를 삭제한다
+     */
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<Void> deleteProduct(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID productId
-    ) {
-        productService.delete(productId);
+    public ResponseEntity<Void> deleteProduct(@PathVariable(name = "id") UUID productId) {
+        adminService.deleteProduct(productId);
         return ResponseEntity.ok().build();
     }
 
+    /*
+    아이템을 생성한다
+     */
+    @PostMapping("/item/{id}")
+    public ResponseEntity<Void> createItem(
+        @PathVariable(name = "id") UUID productId,
+        @RequestBody AdminRequest.CreateItem request
+    ) {
+        adminService.createItem(productId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    아이템 정보를 수정한다
+     */
+    @PutMapping("/item/update/{name}")
+    public ResponseEntity<Void> updateItem(
+        @PathVariable(name = "name") String name,
+        @RequestBody AdminRequest.UpdateItem request
+    ) {
+        adminService.updateItem(name, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    아이템 상태를 변경한다
+     */
+    @PutMapping("/item/{name}")
+    public ResponseEntity<Void> changeItemStatus(
+        @PathVariable(name = "name") String itemId,
+        @RequestBody AdminRequest.ChangeItemStatus request
+    ) {
+        adminService.changeItemStatus(itemId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    아이템을 삭제한다
+     */
+    @DeleteMapping("/item/{name}")
+    public ResponseEntity<Void> deleteItem(@PathVariable(name = "name") String name) {
+        adminService.deleteItem(name);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    비디오를 생성한다
+     */
+    @PostMapping("/video")
+    public ResponseEntity<Void> createVideo(@RequestBody AdminRequest.CreateVideo request) {
+        adminService.createVideo(request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    비디오를 수정한다
+     */
+    @PutMapping("/video/{id}")
+    public ResponseEntity<Void> updateVideo(@PathVariable("id") UUID videoId, AdminRequest.UpdateVideo request) {
+        adminService.updateVideo(videoId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    비디오를 삭제한다
+     */
+    @DeleteMapping("/video/{id}")
+    public ResponseEntity<Void> deleteVideo(@PathVariable("id") UUID videoId) {
+        adminService.deleteVideo(videoId);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    모든 주문을 조회한다
+     */
     @GetMapping("/order")
-    public ResponseEntity getAllOrders(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @PageableDefault Pageable pageable
-    ) {
-        var info = adminService.getAllOrders(pageable);
-        return ResponseEntity.ok(info);
-    }
-
-    @PatchMapping("/order/{id}")
-    public ResponseEntity<Void> changeOrderStatus(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID orderId,
-        @RequestBody OrderRequest.ChangeStatus request
-    ) {
-        orderService.changeStatus(orderId, request);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/order/{id}")
-    public ResponseEntity<Void> registerDeliveryTrackingNumber(
-        @AuthenticationAdminAuthority AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID orderId,
-        @RequestBody AdminRequest.RegisterDeliveryTrackingNumber request
-    ) {
-        adminService.registerTrackingNumber(orderId, request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity getAllOrder(@PageableDefault Pageable pageable) {
+        var response = adminService.getAllOrder(pageable);
+        return ResponseEntity.ok(response);
     }
 }

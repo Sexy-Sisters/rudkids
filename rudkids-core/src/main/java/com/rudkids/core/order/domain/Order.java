@@ -1,7 +1,7 @@
 package com.rudkids.core.order.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
-import com.rudkids.core.delivery.exception.DeliveryAlreadyCompletedException;
+import com.rudkids.core.order.exception.OrderDeliverNotReadyException;
 import com.rudkids.core.order.exception.InvalidAmountException;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.exception.DifferentUserException;
@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -79,15 +80,11 @@ public class Order extends AbstractEntity {
     }
 
     public void changeCancelling() {
-        if(delivery.isCompleted()) {
-            throw new DeliveryAlreadyCompletedException();
+        if(!delivery.isReady()) {
+            throw new OrderDeliverNotReadyException();
         }
 
         orderStatus = OrderStatus.CANCELLING;
-    }
-
-    public void registerTrackingNumber(String deliveryTrackingNumber) {
-        delivery.registerTrackingNumber(deliveryTrackingNumber);
     }
 
     public void addOrderItem(OrderItem orderItem) {

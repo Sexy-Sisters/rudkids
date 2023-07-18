@@ -1,7 +1,7 @@
 package com.rudkids.api.order;
 
 import com.rudkids.api.common.ControllerTest;
-import com.rudkids.core.delivery.exception.DeliveryAlreadyCompletedException;
+import com.rudkids.core.order.exception.OrderDeliverNotReadyException;
 import com.rudkids.core.delivery.exception.DeliveryNotFoundException;
 import com.rudkids.core.order.exception.*;
 import com.rudkids.core.payment.exception.PaymentCancelFailException;
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-
-import java.util.UUID;
 
 import static com.rudkids.api.common.fixtures.order.OrderFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -314,7 +312,7 @@ class OrderControllerTest extends ControllerTest {
         @Test
         @DisplayName("실패: 이미 배송완료된 주문내역")
         void fail3() throws Exception {
-            doThrow(new DeliveryAlreadyCompletedException())
+            doThrow(new OrderDeliverNotReadyException())
                 .when(orderService)
                 .cancel(any(), any());
 

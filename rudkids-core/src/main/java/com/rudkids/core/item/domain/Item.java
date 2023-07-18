@@ -47,9 +47,6 @@ public class Item extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
-    @Embedded
-    private ItemVideo video;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
@@ -58,7 +55,7 @@ public class Item extends AbstractEntity {
 
     @Builder
     public Item(Product product, Name name, ItemBio itemBio, Price price,
-                Quantity quantity, LimitType limitType, ItemVideo video) {
+                Quantity quantity, LimitType limitType) {
         this.product = product;
         this.name = name;
         this.itemBio = itemBio;
@@ -66,7 +63,6 @@ public class Item extends AbstractEntity {
         this.quantity = quantity;
         this.limitType = limitType;
         this.itemStatus = ItemStatus.SELLING;
-        this.video = video;
     }
 
     public void update(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
@@ -152,18 +148,6 @@ public class Item extends AbstractEntity {
 
     public String getCartItemImageUrl() {
         return images.get(0).getUrl();
-    }
-
-    public String getVideoImageUrl() {
-        return video.getImageUrl();
-    }
-
-    public String getVideoImagPath() {
-        return video.getImagePath();
-    }
-
-    public String getVideoUrl() {
-        return video.getVideoUrl();
     }
 
     public void removeQuantity(int quantity) {

@@ -38,5 +38,16 @@ public class ProductResponse {
         ImageResponse.Info backImage,
         List<ImageResponse.Info> bannerImages,
         Page<ItemResponse.Main> items
-    ) {}
+    ) {
+        public Detail(Product product, Page<ItemResponse.Main> items, List<ImageResponse.Info> bannerImages) {
+            this(
+                product.getTitle(),
+                product.getProductBio(),
+                new ImageResponse.Info(product.getFrontImagePath(), product.getFrontImageUrl()),
+                new ImageResponse.Info(product.getBackImagePath(), product.getBackImageUrl()),
+                bannerImages,
+                items
+            );
+        }
+    }
 }

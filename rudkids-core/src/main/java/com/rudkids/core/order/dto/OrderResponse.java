@@ -15,7 +15,7 @@ public class OrderResponse {
 
     public record Main(
         UUID orderId,
-        ZonedDateTime createdAt,
+        String createdAt,
         OrderStatus orderStatus,
         List<OrderItemResponse> orderItems
     ) {
@@ -34,7 +34,7 @@ public class OrderResponse {
     @Builder
     public record Detail(
         UUID orderId,
-        ZonedDateTime createdAt,
+        String createdAt,
         OrderStatus orderStatus,
         List<OrderItemResponse> orderItems,
         DetailDelivery delivery,

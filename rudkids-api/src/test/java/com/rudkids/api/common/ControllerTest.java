@@ -20,7 +20,7 @@ import com.rudkids.core.cart.service.CartService;
 import com.rudkids.core.community.service.CommunityService;
 import com.rudkids.core.delivery.service.DeliveryService;
 import com.rudkids.core.image.service.ImageService;
-import com.rudkids.core.image.service.S3ImageClient;
+import com.rudkids.core.image.service.ImageClient;
 import com.rudkids.core.item.service.ItemService;
 import com.rudkids.core.order.service.OrderService;
 import com.rudkids.core.payment.service.PaymentService;
@@ -113,7 +113,7 @@ public abstract class ControllerTest {
 
     // image
     @MockBean
-    private S3ImageClient s3ImageClient;
+    private ImageClient imageClient;
 
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";

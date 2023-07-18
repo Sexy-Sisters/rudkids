@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getUsers(String email) {
+    public List<User> getUsersByEmail(String email) {
         return userRepository.findByEmailContaining(email);
     }
 }

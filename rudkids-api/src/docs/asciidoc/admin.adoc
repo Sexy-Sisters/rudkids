@@ -36,77 +36,155 @@ include::{snippets}/admin/changeUserRole/request-fields.adoc[]
 === 프로덕트 생성
 
 HTTP Request
-include::{snippets}/product/create/http-request.adoc[]
+include::{snippets}/admin/createProduct/http-request.adoc[]
 
 Request Header
-include::{snippets}/product/create/request-headers.adoc[]
+include::{snippets}/admin/createProduct/request-headers.adoc[]
 
 Request Fields
-include::{snippets}/product/create/request-fields.adoc[]
+include::{snippets}/admin/createProduct/request-fields.adoc[]
 
 === 프로덕트 상태변경
 
 HTTP Request
-include::{snippets}/product/changeStatus/http-request.adoc[]
+include::{snippets}/admin/changeProductStatus/http-request.adoc[]
 
 Request Header
-include::{snippets}/product/changeStatus/request-headers.adoc[]
+include::{snippets}/admin/changeProductStatus/request-headers.adoc[]
 
 Path Parameters
-include::{snippets}/product/changeStatus/path-parameters.adoc[]
+include::{snippets}/admin/changeProductStatus/path-parameters.adoc[]
 
 Request Fields
-include::{snippets}/product/changeStatus/request-fields.adoc[]
+include::{snippets}/admin/changeProductStatus/request-fields.adoc[]
 
 === 프로덕트 수정
 
 HTTP Request
-include::{snippets}/product/update/http-request.adoc[]
+include::{snippets}/admin/updateProduct/http-request.adoc[]
 
 Request Header
-include::{snippets}/product/update/request-headers.adoc[]
+include::{snippets}/admin/updateProduct/request-headers.adoc[]
 
 Path Parameters
-include::{snippets}/product/update/path-parameters.adoc[]
+include::{snippets}/admin/updateProduct/path-parameters.adoc[]
 
 Request Fields
-include::{snippets}/product/update/request-fields.adoc[]
+include::{snippets}/admin/updateProduct/request-fields.adoc[]
 
 === 프로덕트 삭제
 
 HTTP Request
-include::{snippets}/product/delete/http-request.adoc[]
+include::{snippets}/admin/deleteProduct/http-request.adoc[]
 
 Request Header
-include::{snippets}/product/delete/request-headers.adoc[]
+include::{snippets}/admin/deleteProduct/request-headers.adoc[]
 
 Path Parameters
-include::{snippets}/product/delete/path-parameters.adoc[]
+include::{snippets}/admin/deleteProduct/path-parameters.adoc[]
+
+=== 아이템 생성
+
+HTTP Request
+include::{snippets}/admin/createItem/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/createItem/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/admin/createItem/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/admin/createItem/http-response.adoc[]
+
+=== 어드민이나 파트너가 아닌 유저가 아이템 생성
+
+HTTP Response
+include::{snippets}/admin/createItem/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 프로덕트에 아이템 생성
+
+HTTP Response
+include::{snippets}/admin/createItem/fail/notFound/http-response.adoc[]
+
+=== 아이템 수정
+
+HTTP Request
+include::{snippets}/admin/updateItem/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/updateItem/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/updateItem/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/admin/updateItem/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/admin/updateItem/http-response.adoc[]
+
+=== 존재하지 않는 아이템 수정
+
+HTTP Response
+include::{snippets}/admin/updateItem/fail/notFound/http-response.adoc[]
+
+=== 아이템 상태변경
+
+HTTP Request
+include::{snippets}/admin/changeItemStatus/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/changeItemStatus/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/changeItemStatus/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/admin/changeItemStatus/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/admin/changeItemStatus/http-response.adoc[]
+
+=== 어드민이나 파트너가 아닌 유저가 아이템 상태변경
+
+HTTP Response
+include::{snippets}/admin/changeItemStatus/fail/forbidden/http-response.adoc[]
+
+=== 존재하지 않는 아이템 상태변경
+
+HTTP Response
+include::{snippets}/admin/changeItemStatus/fail/notFound/http-response.adoc[]
+
+=== 아이템 삭제
+
+HTTP Request
+include::{snippets}/admin/deleteItem/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/deleteItem/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/deleteItem/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/admin/deleteItem/http-response.adoc[]
+
+=== 존재하지 않는 아이템 삭제
+
+HTTP Response
+include::{snippets}/admin/deleteItem/fail/notFound/http-response.adoc[]
 
 === 모든 유저의 주문내역 리스트 조회
 
 HTTP Request
-include::{snippets}/admin/getAllOrders/http-request.adoc[]
+include::{snippets}/admin/getAllOrder/http-request.adoc[]
 
 Request Header
-include::{snippets}/admin/getAllOrders/request-headers.adoc[]
+include::{snippets}/admin/getAllOrder/request-headers.adoc[]
 
 HTTP Response
-include::{snippets}/admin/getAllOrders/http-response.adoc[]
+include::{snippets}/admin/getAllOrder/http-response.adoc[]
 
 Response Fields
-include::{snippets}/admin/getAllOrders/response-fields.adoc[]
-
-=== 주문상태 변경
-
-HTTP Request
-include::{snippets}/admin/changeOrderStatus/http-request.adoc[]
-
-Request Header
-include::{snippets}/admin/changeOrderStatus/request-headers.adoc[]
-
-Path Parameters
-include::{snippets}/admin/changeOrderStatus/path-parameters.adoc[]
-
-Request Fields
-include::{snippets}/admin/changeOrderStatus/request-fields.adoc[]
+include::{snippets}/admin/getAllOrder/response-fields.adoc[]

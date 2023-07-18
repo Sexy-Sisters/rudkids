@@ -15,6 +15,8 @@ include::product.adoc[]
 
 include::item.adoc[]
 
+include::admin.adoc[]
+
 include::cart.adoc[]
 
 include::order.adoc[]
@@ -24,7 +26,5 @@ include::payment.adoc[]
 include::delivery.adoc[]
 
 include::community.adoc[]
-
-include::admin.adoc[]
 
 include::image.adoc[]
