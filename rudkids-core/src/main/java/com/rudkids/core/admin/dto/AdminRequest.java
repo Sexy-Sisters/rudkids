@@ -104,4 +104,6 @@ public class AdminRequest {
         String videoUrl,
         String itemName
     ) {}
+
+    public record DeliveryTrackingNumber(String trackingNumber) {}
 }

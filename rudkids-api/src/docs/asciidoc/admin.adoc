@@ -191,3 +191,22 @@ include::{snippets}/admin/getAllOrder/http-response.adoc[]
 
 Response Fields
 include::{snippets}/admin/getAllOrder/response-fields.adoc[]
+
+=== 배송 송장번호 등록
+
+HTTP Request
+include::{snippets}/admin/registerDeliveryTrackingNumber/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/registerDeliveryTrackingNumber/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/registerDeliveryTrackingNumber/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/admin/registerDeliveryTrackingNumber/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/admin/registerDeliveryTrackingNumber/http-response.adoc[]
+
+

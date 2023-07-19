@@ -3,7 +3,8 @@ package com.rudkids.core.admin.dto;
 public class DeliveryTrackResponse {
 
     public record Info(
-        State state
+        State state,
+        String message
     ) {
         public String getState() {
             return state.text;

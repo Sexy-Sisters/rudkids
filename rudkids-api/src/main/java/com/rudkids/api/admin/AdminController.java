@@ -170,12 +170,16 @@ public class AdminController {
     /*
     택배 송장을 입력한다
      */
+    @PostMapping("/order/{id}")
+    public ResponseEntity<Void> registerDeliveryTrackingNumber(
+        @PathVariable("id") UUID orderId,
+        @RequestBody AdminRequest.DeliveryTrackingNumber request
+    ) {
+        adminService.registerDeliveryTrackingNumber(orderId, request);
+        return ResponseEntity.ok().build();
+    }
 
     /*
     환불을 실행한다
-     */
-
-    /*
-    check
      */
 }
