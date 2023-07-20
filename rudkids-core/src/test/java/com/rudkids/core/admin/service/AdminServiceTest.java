@@ -16,9 +16,10 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -128,7 +129,35 @@ public class AdminServiceTest extends AdminServiceFixtures {
         @Test
         @DisplayName("성공")
         void success() {
+            //given
+            AdminRequest.UpdateProduct request = new AdminRequest.UpdateProduct(
+                "new title",
+                "새로운 productBio",
+                new ImageRequest.Create("new path", "new url"),
+                new ImageRequest.Create("new path", "new url"),
+                List.of(
+                    new AdminRequest.BannerImage("new path", "new url", 1),
+                    new AdminRequest.BannerImage("new path", "new url", 2)
+                )
+            );
 
+            //when
+            UUID productId = product.getId();
+            adminService.updateProduct(productId, request);
+
+            //given
+            int page = 0;
+            int size = 4;
+            Pageable pageable = PageRequest.of(page, size);
+            var foundProduct = productService.get(productId, pageable);
+            assertAll(() -> {
+                assertThat(foundProduct.title()).isEqualTo("new title");
+                assertThat(foundProduct.bio()).isEqualTo("새로운 productBio");
+                assertThat(foundProduct.frontImage().path()).isEqualTo("new path");
+                assertThat(foundProduct.frontImage().url()).isEqualTo("new url");
+                assertThat(foundProduct.backImage().path()).isEqualTo("new path");
+                assertThat(foundProduct.backImage().url()).isEqualTo("new url");
+            });
         }
     }
 

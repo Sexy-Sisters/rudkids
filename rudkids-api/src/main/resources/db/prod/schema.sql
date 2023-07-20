@@ -100,17 +100,16 @@ create table if not exists tbl_item_image
 
 create table if not exists tbl_delivery
 (
-    delivery_id     binary(16)   not null
+    delivery_id    binary(16)   not null
         primary key,
-    address         varchar(255) null,
-    extra_address   varchar(255) null,
-    zip_code        varchar(255) null,
-    delivery_status varchar(255) null,
-    is_basic        bit          not null,
-    message         varchar(255) null,
-    receiver_name   varchar(255) null,
-    receiver_phone  varchar(255) null,
-    user_id         binary(16)   null,
+    address        varchar(255) null,
+    extra_address  varchar(255) null,
+    zip_code       varchar(255) null,
+    is_basic       bit          not null,
+    message        varchar(255) null,
+    receiver_name  varchar(255) null,
+    receiver_phone varchar(255) null,
+    user_id        binary(16)   null,
     constraint FKns1imq6p94y1k30ea3ic1fhg
         foreign key (user_id) references tbl_user (user_id)
 );
@@ -174,19 +173,22 @@ create table if not exists tbl_cart_item
 
 create table if not exists tbl_order
 (
-    order_id       binary(16)   not null
+    order_id         binary(16)   not null
         primary key,
-    created_at     datetime(6)  null,
-    updated_at     datetime(6)  null,
-    order_status   varchar(255) null,
-    payment_method varchar(255) null,
-    total_price    int          not null,
-    delivery_id    binary(16)   null,
-    user_id        binary(16)   null,
+    created_at       datetime(6)  null,
+    updated_at       datetime(6)  null,
+    delivery_status  varchar(255) null,
+    message          varchar(255) null,
+    received_address varchar(255) null,
+    receiver_name    varchar(255) null,
+    receiver_phone   varchar(255) null,
+    tracking_number  varchar(255) null,
+    order_status     varchar(255) null,
+    payment_method   varchar(255) null,
+    total_price      int          not null,
+    user_id          binary(16)   null,
     constraint FKhyolniflkctr0p6bp4t8me9vj
-        foreign key (user_id) references tbl_user (user_id),
-    constraint FKmp5i1fhaoti1qnsbbd0whh3ir
-        foreign key (delivery_id) references tbl_delivery (delivery_id)
+        foreign key (user_id) references tbl_user (user_id)
 );
 
 create table if not exists tbl_order_item
@@ -212,5 +214,6 @@ create table if not exists tbl_video
     path      varchar(255) null,
     url       varchar(255) null,
     item_name varchar(255) null,
+    bio       varchar(255) null,
     video_url varchar(255) null
 );

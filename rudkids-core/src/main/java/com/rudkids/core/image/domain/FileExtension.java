@@ -10,7 +10,8 @@ public enum FileExtension {
     JPG("jpg"),
     JPEG("jpeg"),
     PNG("png"),
-    BMP("bmp");
+    BMP("bmp"),
+    SVG("svg");
 
     private final String value;
 

@@ -6,6 +6,7 @@ import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.product.domain.*;
+import com.rudkids.core.product.service.ProductService;
 import com.rudkids.core.user.domain.ProfileImage;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.domain.UserName;
@@ -23,6 +24,9 @@ public class AdminServiceFixtures {
 
     @Autowired
     protected ProductRepository productRepository;
+
+    @Autowired
+    protected ProductService productService;
 
     @Autowired
     protected ItemRepository itemRepository;
@@ -80,6 +84,8 @@ public class AdminServiceFixtures {
             .frontImage(ProductFrontImage.create("path", "url"))
             .backImage(ProductBackImage.create("path", "url"))
             .build();
+        var productBannerImage = ProductBannerImage.create(product, "path", "url", 1);
+        product.addBannerImage(productBannerImage);
         productRepository.save(product);
 
         item = Item.builder()
