@@ -1,12 +1,9 @@
 package com.rudkids.core.order.infrastructure;
 
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

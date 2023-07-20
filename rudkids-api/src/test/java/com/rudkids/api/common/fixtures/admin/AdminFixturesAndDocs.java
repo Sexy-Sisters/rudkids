@@ -24,9 +24,14 @@ public class AdminFixturesAndDocs {
     public static final String USER_EMAIL = "test@gmail.com";
     public static final UUID USER_ID = UUID.randomUUID();
     public static final UUID PRODUCT_ID = UUID.randomUUID();
+    public static final UUID ORDER_ID = UUID.randomUUID();
 
     public static AdminRequest.ChangeUserRole 유저_권한_변경_요청() {
         return new AdminRequest.ChangeUserRole("PARTNER");
+    }
+
+    public static AdminRequest.DeliveryTrackingNumber 송장번호_등록_요청() {
+        return new AdminRequest.DeliveryTrackingNumber("deliveryTrackingNumber");
     }
 
     public static AdminRequest.CreateProduct 프로덕트_생성_요청() {

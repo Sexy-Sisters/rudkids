@@ -86,6 +86,10 @@ public class Order extends AbstractEntity {
         return orderStatus.getDescription();
     }
 
+    public void registerDeliveryTrackingNumber(String deliveryTrackingNumber) {
+        delivery.registerTrackingNumber(deliveryTrackingNumber);
+    }
+
     public void changeCancelling() {
         if(!delivery.isReady()) {
             throw new OrderDeliverNotReadyException();

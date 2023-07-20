@@ -142,4 +142,10 @@ public class AdminService {
         return orderQuerydslRepository.getOrders(deliveryStatus, orderStatus, deliveryTrackingNumber, customerName, pageable)
             .map(AdminResponse.OrderInfo::new);
     }
+
+    public void registerDeliveryTrackingNumber(UUID orderId, AdminRequest.DeliveryTrackingNumber request) {
+        var order = orderRepository.get(orderId);
+        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());;
+        order.registerDeliveryTrackingNumber(request.trackingNumber());
+    }
 }

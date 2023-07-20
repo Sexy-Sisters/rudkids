@@ -13,13 +13,13 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DeliveryStateTracker implements DeliveryTracker {
-    private final DeliveryStateTrackerClient deliveryStateTrackerClient;
+public class DeliveryTrackerManager implements DeliveryTracker {
+    private final DeliveryTrackerClient deliveryTrackerClient;
 
     @Override
     public void changeCompletedState(List<Order> orders) {
         for(OrderDelivery delivery: toOrderDeliveries(orders)) {
-            var response = deliveryStateTrackerClient.get(delivery.getTrackingNumber());
+            var response = deliveryTrackerClient.get(delivery.getTrackingNumber());
             var courierCompany = CourierCompany.create(response.getState());
 
             if(courierCompany.isCompletedState()) {
@@ -33,5 +33,12 @@ public class DeliveryStateTracker implements DeliveryTracker {
             .map(Order::getDelivery)
             .filter(OrderDelivery::isDelivering)
             .toList();
+    }
+
+    @Override
+    public void validateHasDeliveryTrackingNumber(String deliveryTrackingNumber) {
+        var response = deliveryTrackerClient.get(deliveryTrackingNumber);
+        var courierCompany = CourierCompany.create(response.message());
+        courierCompany.validateDeliveryTrackingNumber();
     }
 }

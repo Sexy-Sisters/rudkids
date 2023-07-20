@@ -38,8 +38,6 @@ oauth:
     client-id: ${KAKAO_CLIENT_ID}
     oauth-end-point: https://kauth.kakao.com/oauth/authorize
     app-admin-key: f9831d648ad4a0b602209f819bb84b55
-    account-uri: https://kapi.kakao.com/v2/user/me
-    token-uri: https://kauth.kakao.com/oauth/token
 
 sms:
   api:

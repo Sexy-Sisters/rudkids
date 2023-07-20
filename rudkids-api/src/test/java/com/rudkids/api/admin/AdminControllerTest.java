@@ -925,4 +925,41 @@ public class AdminControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
         }
     }
+
+    @Nested
+    @DisplayName("배송 송장번호를 등록한다")
+    class registerDeliveryTrackingNumber {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(adminService)
+                .registerDeliveryTrackingNumber(any(), any());
+            mockMvc.perform(post(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(송장번호_등록_요청())))
+                .andDo(print())
+                .andDo(document("admin/registerDeliveryTrackingNumber",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("주문 id")
+                    ),
+                    requestFields(
+                        fieldWithPath("trackingNumber")
+                            .type(JsonFieldType.STRING)
+                            .description("송장 번호")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
 }

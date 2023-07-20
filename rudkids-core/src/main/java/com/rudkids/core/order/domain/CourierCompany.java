@@ -1,5 +1,6 @@
 package com.rudkids.core.order.domain;
 
+import com.rudkids.core.order.exception.DeliveryTrackingNumberNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,17 +9,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CourierCompany {
     private static final String DELIVERY_COMPLETE_STATE = "배송완료";
-    private String state;
+    private static final String TRACKING_NUMBER_NOT_FOUND_MESSAGE = "운송장 정보를 찾을 수 없습니다.";
+    private String value;
 
-    private CourierCompany(String state) {
-        this.state = state;
+    private CourierCompany(String value) {
+        this.value = value;
     }
 
-    public static CourierCompany create(String state) {
-        return new CourierCompany(state);
+    public static CourierCompany create(String value) {
+        return new CourierCompany(value);
     }
 
     public boolean isCompletedState() {
-        return state.equals(DELIVERY_COMPLETE_STATE);
+        return value.equals(DELIVERY_COMPLETE_STATE);
+    }
+
+    public void validateDeliveryTrackingNumber() {
+        if(value.equals(TRACKING_NUMBER_NOT_FOUND_MESSAGE)) {
+            throw new DeliveryTrackingNumberNotFoundException();
+        }
     }
 }
