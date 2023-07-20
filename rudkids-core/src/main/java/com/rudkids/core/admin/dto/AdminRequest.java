@@ -18,13 +18,7 @@ public class AdminRequest {
         String productBio,
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
-        List<CreateBannerImage> bannerImages
-    ) {}
-
-    public record CreateBannerImage(
-        String path,
-        String url,
-        int ordering
+        List<BannerImage> bannerImages
     ) {}
 
     public record ChangeProductStatus(String status) {}
@@ -34,7 +28,13 @@ public class AdminRequest {
         String productBio,
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
-        String category
+        List<BannerImage> bannerImages
+    ) {}
+
+    public record BannerImage(
+        String path,
+        String url,
+        int ordering
     ) {}
 
     @Builder

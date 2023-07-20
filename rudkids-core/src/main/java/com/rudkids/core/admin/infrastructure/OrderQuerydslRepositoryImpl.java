@@ -1,9 +1,12 @@
 package com.rudkids.core.admin.infrastructure;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.util.StringUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.rudkids.core.admin.domain.OrderQuerydslRepository;
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDeliveryStatus;
+import com.rudkids.core.order.domain.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,46 +21,50 @@ public class OrderQuerydslRepositoryImpl implements OrderQuerydslRepository {
     private final JPAQueryFactory factory;
 
     @Override
-    public Page<Order> getOrders(String deliveryStatus, String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
+    public Page<Order> getOrders(OrderDeliveryStatus deliveryStatus, OrderStatus orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
+        BooleanExpression conditions;
+
+        conditions = checkDeliveryStatus(deliveryStatus);
+        conditions = addCondition(conditions, checkOrderStatus(orderStatus));
+        conditions = addCondition(conditions, checkDeliveryTrackingNumber(deliveryTrackingNumber));
+        conditions = addCondition(conditions, checkCustomerName(customerName));
+
         return new PageImpl<>(
             factory
                 .selectFrom(order)
-                .where(
-                    checkDeliveryStatus(deliveryStatus)
-                        .or(checkOrderStatus(orderStatus))
-                        .or(checkDeliveryTrackingNumber(deliveryTrackingNumber))
-                        .or(checkCustomerName(customerName)))
+                .where(conditions)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch()
         );
     }
 
-    private BooleanExpression checkDeliveryStatus(String deliveryStatus) {
-        if (deliveryStatus == null) {
-            return null;
-        }
-        return order.delivery.deliveryStatus.stringValue().eq(deliveryStatus);
+    private BooleanExpression checkDeliveryStatus(OrderDeliveryStatus deliveryStatus) {
+        return order.delivery.deliveryStatus.eq(deliveryStatus);
     }
 
-    private BooleanExpression checkOrderStatus(String orderStatus) {
-        if (orderStatus == null) {
-            return null;
-        }
-        return order.orderStatus.stringValue().eq(orderStatus);
+    private BooleanExpression checkOrderStatus(OrderStatus orderStatus) {
+        return order.orderStatus.eq(orderStatus);
     }
 
     private BooleanExpression checkDeliveryTrackingNumber(String deliveryTrackingNumber) {
-        if (deliveryTrackingNumber == null) {
+        if (StringUtils.isNullOrEmpty(deliveryTrackingNumber)) {
             return null;
         }
         return order.delivery.trackingNumber.eq(deliveryTrackingNumber);
     }
 
     private BooleanExpression checkCustomerName(String customerName) {
-        if (customerName == null) {
+        if (StringUtils.isNullOrEmpty(customerName)) {
             return null;
         }
         return order.user.name.value.eq(customerName);
+    }
+
+    private BooleanExpression addCondition(BooleanExpression accumulatedConditions, BooleanExpression newCondition) {
+        if (newCondition == null) {
+            return accumulatedConditions;
+        }
+        return accumulatedConditions.and(newCondition);
     }
 }

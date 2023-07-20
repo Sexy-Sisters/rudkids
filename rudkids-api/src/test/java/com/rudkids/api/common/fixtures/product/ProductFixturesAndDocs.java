@@ -1,11 +1,9 @@
 package com.rudkids.api.common.fixtures.product;
 
-import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.ProductStatus;
-import com.rudkids.core.product.dto.ProductRequest;
 import com.rudkids.core.product.dto.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

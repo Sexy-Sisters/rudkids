@@ -76,7 +76,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 new ImageRequest.Create("image", "image.jpg"),
                 new ImageRequest.Create("image", "image.jpg"),
                 List.of(
-                    new AdminRequest.CreateBannerImage("image", "image.jpg", 1)
+                    new AdminRequest.BannerImage("image", "image.jpg", 1)
                 )
             );
 

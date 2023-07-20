@@ -4,14 +4,10 @@ import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
 import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.item.domain.LimitType;
-import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.dto.OrderItemResponse;
-import com.rudkids.core.order.dto.OrderResponse;
-import com.rudkids.core.product.dto.ProductRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,21 +37,24 @@ public class AdminFixturesAndDocs {
             new ImageRequest.Create("image", "image.jpg"),
             new ImageRequest.Create("image", "image.jpg"),
             List.of(
-                new AdminRequest.CreateBannerImage("image", "image.jpg", 1)
+                new AdminRequest.BannerImage("image", "image.jpg", 1)
             )
         );
     }
 
-    public static ProductRequest.ChangeStatus PRODUCT_상태_변경_요청() {
-        return new ProductRequest.ChangeStatus("CLOSED");
+    public static AdminRequest.ChangeProductStatus PRODUCT_상태_변경_요청() {
+        return new AdminRequest.ChangeProductStatus("CLOSED");
     }
 
-    public static ProductRequest.Update PRODUCT_수정_요청() {
-        return new ProductRequest.Update(
+    public static AdminRequest.UpdateProduct PRODUCT_수정_요청() {
+        return new AdminRequest.UpdateProduct(
             "프로덕트 제목",
             "설명",
             new ImageRequest.Create("image", "image.jpg"),
-            new ImageRequest.Create("image", "image.jpg")
+            new ImageRequest.Create("image", "image.jpg"),
+            List.of(
+                new AdminRequest.BannerImage("image", "image.jpg", 1)
+            )
         );
     }
 

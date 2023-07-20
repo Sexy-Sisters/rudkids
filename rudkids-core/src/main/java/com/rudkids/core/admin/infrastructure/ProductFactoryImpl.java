@@ -5,13 +5,15 @@ import com.rudkids.core.product.domain.*;
 import com.rudkids.core.admin.service.ProductFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductFactoryImpl implements ProductFactory {
 
     @Override
     public Product create(AdminRequest.CreateProduct request) {
         var product = generateProduct(request);
-        generateProductBannerImages(product, request);
+        saveProductBannerImages(product, request.bannerImages());
         return product;
     }
 
@@ -29,17 +31,6 @@ public class ProductFactoryImpl implements ProductFactory {
             .build();
     }
 
-    private void generateProductBannerImages(Product product, AdminRequest.CreateProduct request) {
-        for(AdminRequest.CreateBannerImage image: request.bannerImages()) {
-            var bannerImage = ProductBannerImage.create(
-                product,
-                image.path(),
-                image.url(),
-                image.ordering());
-            product.addBannerImage(bannerImage);
-        }
-    }
-
     @Override
     public void update(Product product, AdminRequest.UpdateProduct request) {
         var title = Title.create(request.title());
@@ -48,5 +39,17 @@ public class ProductFactoryImpl implements ProductFactory {
         var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
 
         product.update(title, bio, frontImage, backImage);
+        saveProductBannerImages(product, request.bannerImages());
+    }
+
+    private void saveProductBannerImages(Product product, List<AdminRequest.BannerImage> images) {
+        for(AdminRequest.BannerImage image: images) {
+            var bannerImage = ProductBannerImage.create(
+                product,
+                image.path(),
+                image.url(),
+                image.ordering());
+            product.addBannerImage(bannerImage);
+        }
     }
 }
