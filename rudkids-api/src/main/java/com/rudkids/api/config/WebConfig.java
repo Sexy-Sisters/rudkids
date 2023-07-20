@@ -38,7 +38,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://192.168.0.17:3000", "https://www.rudkids.com")
-                .allowedMethods("*");
+            .allowedOrigins(
+                "http://localhost:3000",
+                "http://192.168.0.17:3000",
+                "https://www.rudkids.com",
+                "https://rudkids-admin-v2.vercel.app"
+            )
+            .allowedMethods("*");
     }
 }
