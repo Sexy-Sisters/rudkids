@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ImageDeletedEventListener {
     private final ImageService imageService;
 
-    @Async(value = "deleteImageExecutor")
+    @Async
     @EventListener(ImageDeletedEvent.class)
     public void handle(ImageDeletedEvent event) {
         imageService.delete(event.fileName());

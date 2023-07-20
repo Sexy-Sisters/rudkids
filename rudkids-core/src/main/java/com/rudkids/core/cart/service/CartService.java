@@ -51,10 +51,11 @@ public class CartService {
     public CartResponse.Select getSelected(UUID userId) {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.get(user);
+        String orderName = orderNameGenerator.generate(cart.getSelectedCartItems());
         return cart.getSelectedCartItems().stream()
             .map(CartItemResponse.Select::new)
             .collect(collectingAndThen(toList(), cartItems ->
-                new CartResponse.Select(cart.calculateSelectedCartItemsTotalPrice(), orderNameGenerator.generate(cartItems), cartItems)));
+                new CartResponse.Select(cart.calculateSelectedCartItemsTotalPrice(), orderName, cartItems)));
     }
 
     public void updateCartItemAmount(UUID userId, CartRequest.UpdateCartItemAmount request) {

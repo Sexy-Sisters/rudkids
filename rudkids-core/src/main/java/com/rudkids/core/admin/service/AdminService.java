@@ -5,15 +5,14 @@ import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemImageRepository;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.service.DeliveryTracker;
-import com.rudkids.core.product.domain.Product;
-import com.rudkids.core.product.domain.ProductRepository;
-import com.rudkids.core.product.domain.ProductStatus;
+import com.rudkids.core.product.domain.*;
 import com.rudkids.core.user.domain.RoleType;
 import com.rudkids.core.user.domain.UserRepository;
 import com.rudkids.core.video.domain.VideoBio;
@@ -35,7 +34,9 @@ import java.util.UUID;
 public class AdminService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final ProductBannerImageRepository productBannerImageRepository;
     private final ItemRepository itemRepository;
+    private final ItemImageRepository itemImageRepository;
     private final OrderRepository orderRepository;
     private final VideoRepository videoRepository;
     private final DeliveryTracker deliveryTracker;
@@ -72,6 +73,7 @@ public class AdminService {
     public void updateProduct(UUID productId, AdminRequest.UpdateProduct request) {
         var product = productRepository.get(productId);
         deleteProductImage(product);
+        productBannerImageRepository.deletes(product.getProductBannerImages());
         productFactory.update(product, request);
     }
 
@@ -100,7 +102,9 @@ public class AdminService {
     public void updateItem(String itemName, AdminRequest.UpdateItem request) {
         var item = itemRepository.getByEnNme(itemName);
         deleteItemImage(item);
+        var images = item.getImages();
         itemFactory.update(item, request);
+        itemImageRepository.deletes(images);
     }
 
     public void changeItemStatus(String itemName, AdminRequest.ChangeItemStatus request) {

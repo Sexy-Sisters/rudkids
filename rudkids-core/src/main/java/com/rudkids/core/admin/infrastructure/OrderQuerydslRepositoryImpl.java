@@ -58,7 +58,7 @@ public class OrderQuerydslRepositoryImpl implements OrderQuerydslRepository {
         if (StringUtils.isNullOrEmpty(customerName)) {
             return null;
         }
-        return order.user.name.value.eq(customerName);
+        return order.user.name.value.containsIgnoreCase(customerName);
     }
 
     private BooleanExpression addCondition(BooleanExpression accumulatedConditions, BooleanExpression newCondition) {
