@@ -218,7 +218,7 @@ public class AdminControllerTest extends ControllerTest {
                             .description("프로덕트 id")
                     ),
                     requestFields(
-                        fieldWithPath("productStatus")
+                        fieldWithPath("status")
                             .type(JsonFieldType.STRING)
                             .description("프로덕트 상태")
                     )
@@ -279,7 +279,23 @@ public class AdminControllerTest extends ControllerTest {
 
                             fieldWithPath("backImage.url")
                                 .type(JsonFieldType.STRING)
-                                .description("뒤 이미지 url")
+                                .description("뒤 이미지 url"),
+
+                            fieldWithPath("bannerImages")
+                                .type(JsonFieldType.ARRAY)
+                                .description("배너 이미지"),
+
+                            fieldWithPath("bannerImages[]path")
+                                .type(JsonFieldType.STRING)
+                                .description("배너 이미지 주소"),
+
+                            fieldWithPath("bannerImages[]url")
+                                .type(JsonFieldType.STRING)
+                                .description("배너 이미지 url"),
+
+                            fieldWithPath("bannerImages[]ordering")
+                                .type(JsonFieldType.NUMBER)
+                                .description("배너 이미지 순서")
                         )
                     )
                 )

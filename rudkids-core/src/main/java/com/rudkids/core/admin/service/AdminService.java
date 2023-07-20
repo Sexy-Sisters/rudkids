@@ -7,7 +7,9 @@ import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
+import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderRepository;
+import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.service.DeliveryTracker;
 import com.rudkids.core.product.domain.Product;
 import com.rudkids.core.product.domain.ProductRepository;
@@ -69,8 +71,8 @@ public class AdminService {
 
     public void updateProduct(UUID productId, AdminRequest.UpdateProduct request) {
         var product = productRepository.get(productId);
-        productFactory.update(product, request);
         deleteProductImage(product);
+        productFactory.update(product, request);
     }
 
     public void deleteProduct(UUID productId) {
@@ -83,7 +85,7 @@ public class AdminService {
         eventPublisher.publishEvent(new ImageDeletedEvent(product.getFrontImagePath()));
         eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
 
-        for(String path: product.getBannerPaths()) {
+        for (String path : product.getBannerPaths()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }
     }
@@ -114,7 +116,7 @@ public class AdminService {
     }
 
     private void deleteItemImage(Item item) {
-        for(String path: item.getImagePaths()) {
+        for (String path : item.getImagePaths()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }
     }
@@ -139,13 +141,18 @@ public class AdminService {
     public Page<AdminResponse.OrderInfo> getAllOrder(String deliveryStatus, String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
         var orders = orderRepository.getOrders();
         deliveryTracker.changeCompletedState(orders);
-        return orderQuerydslRepository.getOrders(deliveryStatus, orderStatus, deliveryTrackingNumber, customerName, pageable)
+        return orderQuerydslRepository.getOrders(
+                OrderDeliveryStatus.toEnum(deliveryStatus),
+                OrderStatus.toEnum(orderStatus),
+                deliveryTrackingNumber,
+                customerName, pageable)
             .map(AdminResponse.OrderInfo::new);
     }
 
     public void registerDeliveryTrackingNumber(UUID orderId, AdminRequest.DeliveryTrackingNumber request) {
         var order = orderRepository.get(orderId);
-        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());;
+        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());
+        ;
         order.registerDeliveryTrackingNumber(request.trackingNumber());
     }
 }
