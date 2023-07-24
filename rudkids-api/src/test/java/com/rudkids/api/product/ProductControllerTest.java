@@ -183,7 +183,15 @@ class ProductControllerTest extends ControllerTest {
 
                             fieldWithPath("items.empty")
                                 .type(JsonFieldType.BOOLEAN)
-                                .description("리스트가 비어있는지 여부")
+                                .description("리스트가 비어있는지 여부"),
+
+                            fieldWithPath("mobileImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("프로덕트 모바일 이미지 path"),
+
+                            fieldWithPath("mobileImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("프로덕트 모바일 이미지 url")
                         )
                     )
                 )

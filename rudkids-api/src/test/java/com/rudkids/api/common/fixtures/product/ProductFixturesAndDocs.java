@@ -73,6 +73,7 @@ public class ProductFixturesAndDocs {
                     ITEM_리스트_조회_INFO()
                 ))
             )
+            .mobileImage(new ImageResponse.Info("https://~", "https://~"))
             .build();
     }
 

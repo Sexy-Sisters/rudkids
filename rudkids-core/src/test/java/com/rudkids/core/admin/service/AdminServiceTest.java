@@ -78,7 +78,8 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 new ImageRequest.Create("image", "image.jpg"),
                 List.of(
                     new AdminRequest.BannerImage("image", "image.jpg", 1)
-                )
+                ),
+                new ImageRequest.Create("new path", "new url")
             );
 
             //when
@@ -139,7 +140,8 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 List.of(
                     new AdminRequest.BannerImage("new path", "new url", 1),
                     new AdminRequest.BannerImage("new path", "new url", 2)
-                )
+                ),
+                new ImageRequest.Create("new path", "new url")
             );
 
             //when

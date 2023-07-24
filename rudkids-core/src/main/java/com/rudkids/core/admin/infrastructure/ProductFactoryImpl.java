@@ -22,12 +22,14 @@ public class ProductFactoryImpl implements ProductFactory {
         var bio = ProductBio.create(request.productBio());
         var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
         var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
+        var mobileImage = ProductMobileImage.create(request.mobileImage().path(), request.mobileImage().url());
 
         return Product.builder()
             .title(title)
             .productBio(bio)
             .frontImage(frontImage)
             .backImage(backImage)
+            .mobileImage(mobileImage)
             .build();
     }
 
@@ -37,8 +39,9 @@ public class ProductFactoryImpl implements ProductFactory {
         var bio = ProductBio.create(request.productBio());
         var frontImage = ProductFrontImage.create(request.frontImage().path(), request.frontImage().url());
         var backImage = ProductBackImage.create(request.backImage().path(), request.backImage().url());
+        var mobileImage = ProductMobileImage.create(request.mobileImage().path(), request.mobileImage().url());
 
-        product.update(title, bio, frontImage, backImage);
+        product.update(title, bio, frontImage, backImage, mobileImage);
         saveProductBannerImages(product, request.bannerImages());
     }
 
