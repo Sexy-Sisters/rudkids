@@ -39,7 +39,8 @@ public class ProductResponse {
         ImageResponse.Info frontImage,
         ImageResponse.Info backImage,
         List<DetailBannerImage> bannerImages,
-        Page<ItemResponse.Main> items
+        Page<ItemResponse.Main> items,
+        ImageResponse.Info mobileImage
     ) {
         public Detail(Product product, Page<ItemResponse.Main> items) {
             this(
@@ -48,7 +49,8 @@ public class ProductResponse {
                 new ImageResponse.Info(product.getFrontImagePath(), product.getFrontImageUrl()),
                 new ImageResponse.Info(product.getBackImagePath(), product.getBackImageUrl()),
                 to(product),
-                items
+                items,
+                new ImageResponse.Info(product.getMobileImagePath(), product.getMobileImageUrl())
             );
         }
 

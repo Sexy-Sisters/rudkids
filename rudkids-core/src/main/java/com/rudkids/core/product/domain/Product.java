@@ -36,6 +36,9 @@ public class Product {
     @Embedded
     private ProductBackImage backImage;
 
+    @Embedded
+    private ProductMobileImage mobileImage;
+
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus = ProductStatus.OPEN;
 
@@ -49,21 +52,27 @@ public class Product {
     public Product(final Title title,
                    final ProductBio productBio,
                    final ProductFrontImage frontImage,
-                   final ProductBackImage backImage) {
+                   final ProductBackImage backImage,
+                   final ProductMobileImage mobileImage
+                   ) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
+        this.mobileImage = mobileImage;
     }
 
     public void update(final Title title,
                        final ProductBio productBio,
                        final ProductFrontImage frontImage,
-                       final ProductBackImage backImage) {
+                       final ProductBackImage backImage,
+                       final ProductMobileImage mobileImage
+                       ) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
+        this.mobileImage = mobileImage;
     }
 
     public void addBannerImage(ProductBannerImage productBannerImage) {
@@ -106,5 +115,13 @@ public class Product {
 
     public String getBackImageUrl() {
         return backImage.getUrl();
+    }
+
+    public String getMobileImagePath() {
+        return mobileImage.getPath();
+    }
+
+    public String getMobileImageUrl() {
+        return mobileImage.getUrl();
     }
 }

@@ -30,6 +30,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final ListPath<com.rudkids.core.item.domain.Item, com.rudkids.core.item.domain.QItem> items = this.<com.rudkids.core.item.domain.Item, com.rudkids.core.item.domain.QItem>createList("items", com.rudkids.core.item.domain.Item.class, com.rudkids.core.item.domain.QItem.class, PathInits.DIRECT2);
 
+    public final QProductMobileImage mobileImage;
+
     public final ListPath<ProductBannerImage, QProductBannerImage> productBannerImages = this.<ProductBannerImage, QProductBannerImage>createList("productBannerImages", ProductBannerImage.class, QProductBannerImage.class, PathInits.DIRECT2);
 
     public final QProductBio productBio;
@@ -58,6 +60,7 @@ public class QProduct extends EntityPathBase<Product> {
         super(type, metadata, inits);
         this.backImage = inits.isInitialized("backImage") ? new QProductBackImage(forProperty("backImage")) : null;
         this.frontImage = inits.isInitialized("frontImage") ? new QProductFrontImage(forProperty("frontImage")) : null;
+        this.mobileImage = inits.isInitialized("mobileImage") ? new QProductMobileImage(forProperty("mobileImage")) : null;
         this.productBio = inits.isInitialized("productBio") ? new QProductBio(forProperty("productBio")) : null;
         this.title = inits.isInitialized("title") ? new QTitle(forProperty("title")) : null;
     }

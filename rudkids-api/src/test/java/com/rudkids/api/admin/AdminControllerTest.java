@@ -181,7 +181,15 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("bannerImages[]ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("배너 이미지 순서")
+                            .description("배너 이미지 순서"),
+
+                        fieldWithPath("mobileImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("모바일 이미지 path"),
+
+                        fieldWithPath("mobileImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("모바일 이미지 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -295,7 +303,15 @@ public class AdminControllerTest extends ControllerTest {
 
                             fieldWithPath("bannerImages[]ordering")
                                 .type(JsonFieldType.NUMBER)
-                                .description("배너 이미지 순서")
+                                .description("배너 이미지 순서"),
+
+                            fieldWithPath("mobileImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("모바일 이미지 path"),
+
+                            fieldWithPath("mobileImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("모바일 이미지 url")
                         )
                     )
                 )

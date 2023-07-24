@@ -45,24 +45,28 @@ public class ProductServiceFixtures {
                 .productBio(ProductBio.create("소개드립니다~"))
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
+                .mobileImage(ProductMobileImage.create("path", "url"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.2"))
                 .productBio(ProductBio.create("소개드립니다~"))
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
+                .mobileImage(ProductMobileImage.create("path", "url"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.3"))
                 .productBio(ProductBio.create("소개드립니다~"))
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
+                .mobileImage(ProductMobileImage.create("path", "url"))
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.4"))
                 .productBio(ProductBio.create("소개드립니다~"))
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
+                .mobileImage(ProductMobileImage.create("path", "url"))
                 .build()
         );
         products.forEach(productRepository::save);
