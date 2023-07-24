@@ -52,14 +52,14 @@ public class AdminServiceFixtures {
                 new AdminRequest.Image("path", "url", 1),
                 new AdminRequest.Image("path", "url", 1)
             ))
-            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 
     private static final AdminRequest.ItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.ItemOptionGroup.builder()
         .itemOptionGroupName("사이즈")
-        .itemOptionList(List.of(
+        .itemOptionInfoList(List.of(
             AdminRequest.ItemOption.builder()
                 .itemOptionName("S")
                 .itemOptionPrice(0)
@@ -121,7 +121,7 @@ public class AdminServiceFixtures {
                     new AdminRequest.Image("path", "url", 1)
                 )
             )
-            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }

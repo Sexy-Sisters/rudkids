@@ -48,7 +48,7 @@ public class AdminRequest {
         int quantity,
         LimitType limitType,
         List<Image> images,
-        List<ItemOptionGroup> itemOptionGroupList,
+        List<ItemOptionGroup> itemOptionGroupInfoList,
         ImageRequest.Create grayImage
     ) {}
 
@@ -61,14 +61,14 @@ public class AdminRequest {
         int quantity,
         LimitType limitType,
         List<Image> images,
-        List<ItemOptionGroup> itemOptionGroupList,
+        List<ItemOptionGroup> itemOptionGroupInfoList,
         ImageRequest.Create grayImage
     ) {}
 
     @Builder
     public record ItemOptionGroup(
         String itemOptionGroupName,
-        List<ItemOption> itemOptionList,
+        List<ItemOption> itemOptionInfoList,
         int ordering
     ) {
     }

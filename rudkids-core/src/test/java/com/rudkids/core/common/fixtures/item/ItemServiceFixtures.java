@@ -50,12 +50,14 @@ public class ItemServiceFixtures {
             .build();
         productRepository.save(product);
 
+        var grayImage = GrayImage.create("path", "url");
         item = Item.builder()
             .name(Name.create("No.1", "남바완"))
             .price(Price.create(2_990))
             .quantity(Quantity.create(1_000))
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.LIMITED)
+            .grayImage(grayImage)
             .build();
         ItemImage image = ItemImage.create(item, "path", "url", 1);
         ItemImage image2 = ItemImage.create(item, "path", "url", 2);

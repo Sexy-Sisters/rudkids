@@ -43,17 +43,20 @@ public class Collection {
         collectionItems.add(collectionItem);
     }
 
-    public boolean hasSameItemSize(int size) {
-        int privateCollectionItemSize = collectionItems.stream()
-            .filter(CollectionItem::isBought)
-            .toList().size();
-
-        return privateCollectionItemSize == size;
+    public boolean hasSameCollectionItemSize(int size) {
+        return collectionItems.size() == size;
     }
 
     public boolean isAlreadyHasCollectionItem(Item item) {
         return collectionItems.stream()
             .anyMatch(collectionItem -> collectionItem.isSameItem(item));
+    }
+
+    public CollectionItem getCollectionItem(Item item) {
+        return collectionItems.stream()
+            .filter(collectionItem -> collectionItem.isSameItem(item))
+            .findFirst()
+            .orElseGet(() -> CollectionItem.create(this, item));
     }
 
     public int getCollectionItemSize() {

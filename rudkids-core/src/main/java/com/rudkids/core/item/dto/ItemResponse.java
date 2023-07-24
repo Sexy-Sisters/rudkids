@@ -1,5 +1,6 @@
 package com.rudkids.core.item.dto;
 
+import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemStatus;
@@ -40,7 +41,8 @@ public class ItemResponse {
         LimitType limitType,
         List<DetailImage> images,
         ItemStatus itemStatus,
-        List<DetailOptionGroup> itemOptionGroupInfoList
+        List<DetailOptionGroup> itemOptionGroupInfoList,
+        ImageResponse.Info grayImage
     ) {
         public Detail(Item item) {
             this(
@@ -55,7 +57,8 @@ public class ItemResponse {
                     .map(DetailImage::new)
                     .toList(),
                 item.getItemStatus(),
-                getOptionGroup(item)
+                getOptionGroup(item),
+                new ImageResponse.Info(item.getGrayImagePath(), item.getGrayImageUrl())
             );
         }
 

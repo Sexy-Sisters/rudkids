@@ -1,11 +1,8 @@
 package com.rudkids.core.item.service;
 
 import com.rudkids.core.common.fixtures.item.ItemServiceFixtures;
-import com.rudkids.core.item.domain.Item;
-import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.dto.ItemResponse;
-import com.rudkids.core.item.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ItemServiceTest extends ItemServiceFixtures {

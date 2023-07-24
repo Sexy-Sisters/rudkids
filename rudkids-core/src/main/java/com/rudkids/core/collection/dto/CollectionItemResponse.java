@@ -8,10 +8,16 @@ public class CollectionItemResponse {
     public record Info(
         String itemName,
         String imageUrl,
+        String grayImageUrl,
         CollectionItemStatus status
     ) {
         public Info(CollectionItem collectionItem) {
-            this(collectionItem.getName(), collectionItem.getImageUrl(), collectionItem.getStatus());
+            this(
+                collectionItem.getName(),
+                collectionItem.getImageUrl(),
+                collectionItem.getGrayImageUrl(),
+                collectionItem.getStatus()
+            );
         }
     }
 }

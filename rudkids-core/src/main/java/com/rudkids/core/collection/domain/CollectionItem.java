@@ -53,8 +53,8 @@ public class CollectionItem {
         status = CollectionItemStatus.PUBLIC;
     }
 
-    public boolean isBought() {
-        return status == CollectionItemStatus.PUBLIC;
+    public String getGrayImageUrl() {
+        return item.getGrayImageUrl();
     }
 
     public boolean isSameItem(Item item) {
