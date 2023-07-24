@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepository {
@@ -33,6 +35,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Page<Item> getAll(Pageable pageable) {
         return itemRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Item> getAll() {
+        return itemRepository.findAll();
     }
 
     @Override

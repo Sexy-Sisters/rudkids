@@ -7,6 +7,7 @@ import com.rudkids.core.user.domain.PhoneNumber;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class UserServiceTest extends UserServiceFixtures {
 
     @DisplayName("[유저-수정]")
+    @Disabled("update method 안에 s3 삭제로직이 있음")
     @Test
     void 유저_정보를_수정한다() {
         //given

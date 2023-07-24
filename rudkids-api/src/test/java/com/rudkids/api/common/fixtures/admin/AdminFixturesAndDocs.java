@@ -66,25 +66,26 @@ public class AdminFixturesAndDocs {
             .price(9000)
             .quantity(800)
             .limitType(LimitType.NORMAL)
-            .images(List.of(new AdminRequest.CreateImage("path", "url", 1)))
+            .images(List.of(new AdminRequest.Image("path", "url", 1)))
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 
-    private static final AdminRequest.CreateItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.CreateItemOptionGroup.builder()
+    private static final AdminRequest.ItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.ItemOptionGroup.builder()
         .itemOptionGroupName("사이즈")
         .itemOptionList(List.of(
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("S")
                 .itemOptionPrice(0)
                 .ordering(1)
                 .build(),
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("M")
                 .itemOptionPrice(0)
                 .ordering(2)
                 .build(),
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("L")
                 .itemOptionPrice(1000)
                 .ordering(3)
@@ -105,7 +106,9 @@ public class AdminFixturesAndDocs {
             .price(90000)
             .quantity(800)
             .limitType(LimitType.NORMAL)
-            .images(List.of(new ImageRequest.Create("image", "image.jpg")))
+            .images(List.of(new AdminRequest.Image("image", "image.jpg", 1)))
+            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 
@@ -118,13 +121,19 @@ public class AdminFixturesAndDocs {
                 List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000)),
                 "주문완료",
                 "2023.07.31",
-                new AdminResponse.OrderDeliveryInfo(
-                    "받는사람 이름",
-                    "받는 주소",
-                    "배송중",
-                    "123456-1234567"
-                )
+                "배송완료"
         )));
+    }
+
+    public static AdminResponse.OrderDetail ORDER_조회_응답() {
+        return new AdminResponse.OrderDetail(
+            List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000)),
+            "받는사람",
+            "받는 주소",
+            "주문완료",
+            "배송완료",
+            "12345-6789"
+        );
     }
 
     public static List<AdminResponse.UserSearchInfo> 유저_검색_응답() {

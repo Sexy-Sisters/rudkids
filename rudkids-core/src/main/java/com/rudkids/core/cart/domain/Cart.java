@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_cart")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cart extends AbstractEntity {
 
     @Id

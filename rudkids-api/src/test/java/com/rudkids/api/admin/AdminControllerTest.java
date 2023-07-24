@@ -416,7 +416,15 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 순서")
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -505,7 +513,15 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 순서")
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -594,7 +610,15 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 순서")
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -665,7 +689,39 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("images[].url")
                             .type(JsonFieldType.STRING)
-                            .description("아이템 이미지 url")
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -731,7 +787,39 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("images[].url")
                             .type(JsonFieldType.STRING)
-                            .description("아이템 이미지 url")
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -858,7 +946,7 @@ public class AdminControllerTest extends ControllerTest {
                 .given(adminService)
                 .deleteItem(any());
 
-            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{name}", 아이템_영어_이름)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("admin/deleteItem",
@@ -869,8 +957,8 @@ public class AdminControllerTest extends ControllerTest {
                             .description("JWT Access Token")
                     ),
                     pathParameters(
-                        parameterWithName("id")
-                            .description("아이템 ID")
+                        parameterWithName("name")
+                            .description("아이템 영어이름")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -883,7 +971,7 @@ public class AdminControllerTest extends ControllerTest {
                 .when(adminService)
                 .deleteItem(any());
 
-            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{id}", 아이템_아이디)
+            mockMvc.perform(delete(ADMIN_ITEM_DEFAULT_URL + "/{name}", 아이템_영어_이름)
                     .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("admin/deleteItem/fail/notFound",
@@ -894,8 +982,8 @@ public class AdminControllerTest extends ControllerTest {
                             .description("JWT Access Token")
                     ),
                     pathParameters(
-                        parameterWithName("id")
-                            .description("존재하지 않는 아이템 ID")
+                        parameterWithName("name")
+                            .description("존재하지 않는 아이템 영어이름")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -937,6 +1025,73 @@ public class AdminControllerTest extends ControllerTest {
                             .description("주문자 이름")
                     ),
                     responseFields(ORDER_전체_주문_조회_응답_필드())
+                ))
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
+    @DisplayName("주문을 상세조회한다")
+    class getOrder {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(adminService.getOrder(any()))
+                .willReturn(ORDER_조회_응답());
+
+            mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL + "/{id}", ORDER_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+                .andDo(print())
+                .andDo(document("admin/getOrder",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(JWT_ACCESS_TOKEN()),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("주문 id")
+                    ),
+                    responseFields(
+                        fieldWithPath("orderItems")
+                            .type(JsonFieldType.ARRAY)
+                            .description("주문한 상품들"),
+
+                        fieldWithPath("orderItems[]imageUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("주문한 상품 이미지 url"),
+
+                        fieldWithPath("orderItems[]name")
+                            .type(JsonFieldType.STRING)
+                            .description("주문한 상품 이름"),
+
+                        fieldWithPath("orderItems[]amount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("주문한 상품 개수"),
+
+                        fieldWithPath("orderItems[]price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("주문한 상품 가격"),
+
+                        fieldWithPath("receiverName")
+                            .type(JsonFieldType.STRING)
+                            .description("받는사람"),
+
+                        fieldWithPath("receivedAddress")
+                            .type(JsonFieldType.STRING)
+                            .description("받는주소"),
+
+                        fieldWithPath("orderStatus")
+                            .type(JsonFieldType.STRING)
+                            .description("주문상태"),
+
+                        fieldWithPath("deliveryStatus")
+                            .type(JsonFieldType.STRING)
+                            .description("배송상태"),
+
+                        fieldWithPath("deliveryTrackingNumber")
+                            .type(JsonFieldType.STRING)
+                            .description("배송 송장번호")
+                    )
                 ))
                 .andExpect(status().isOk());
         }

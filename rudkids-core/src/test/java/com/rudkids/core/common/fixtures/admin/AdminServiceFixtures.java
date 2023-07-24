@@ -48,22 +48,27 @@ public class AdminServiceFixtures {
             .price(1000)
             .quantity(100)
             .limitType(LimitType.LIMITED)
-            .images(List.of(new ImageRequest.Create("path", "url"), new ImageRequest.Create("path", "url")))
+            .images(List.of(
+                new AdminRequest.Image("path", "url", 1),
+                new AdminRequest.Image("path", "url", 1)
+            ))
+            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 
-    private static final AdminRequest.CreateItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.CreateItemOptionGroup.builder()
+    private static final AdminRequest.ItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.ItemOptionGroup.builder()
         .itemOptionGroupName("사이즈")
         .itemOptionList(List.of(
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("S")
                 .itemOptionPrice(0)
                 .build(),
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("M")
                 .itemOptionPrice(0)
                 .build(),
-            AdminRequest.CreateItemOption.builder()
+            AdminRequest.ItemOption.builder()
                 .itemOptionName("L")
                 .itemOptionPrice(1000)
                 .build()
@@ -88,12 +93,14 @@ public class AdminServiceFixtures {
         product.addBannerImage(productBannerImage);
         productRepository.save(product);
 
+        var grayImage = GrayImage.create("path", "url");
         item = Item.builder()
             .name(Name.create("No.1", "남바완"))
             .price(Price.create(2_990))
             .quantity(Quantity.create(1_000))
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.LIMITED)
+            .grayImage(grayImage)
             .build();
         ItemImage image = ItemImage.create(item, "path", "url", 1);
         ItemImage image2 = ItemImage.create(item, "path", "url", 2);
@@ -110,11 +117,12 @@ public class AdminServiceFixtures {
             .itemBio("소개글입니다~")
             .limitType(LimitType.LIMITED)
             .images(List.of(
-                    new AdminRequest.CreateImage("path", "url", 1),
-                    new AdminRequest.CreateImage("path", "url", 1)
+                    new AdminRequest.Image("path", "url", 1),
+                    new AdminRequest.Image("path", "url", 1)
                 )
             )
             .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 }

@@ -30,6 +30,7 @@ public class ItemTest {
         var updatedPrice = Price.create(10001);
         var updatedQuantity = Quantity.create(1100);
         var updatedLimitType = LimitType.NORMAL;
+        var updatedGrayImage = GrayImage.create("path", "url");
 
         // When
         item.update(
@@ -37,7 +38,8 @@ public class ItemTest {
             updatedItemBio,
             updatedPrice,
             updatedQuantity,
-            updatedLimitType
+            updatedLimitType,
+            updatedGrayImage
         );
 
         // Then

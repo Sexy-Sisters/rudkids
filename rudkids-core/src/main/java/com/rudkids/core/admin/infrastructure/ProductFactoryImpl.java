@@ -48,7 +48,8 @@ public class ProductFactoryImpl implements ProductFactory {
                 product,
                 image.path(),
                 image.url(),
-                image.ordering());
+                image.ordering()
+            );
             product.addBannerImage(bannerImage);
         }
     }

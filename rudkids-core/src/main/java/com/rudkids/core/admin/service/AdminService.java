@@ -8,6 +8,7 @@ import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImageRepository;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
+import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroupRepository;
 import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
@@ -37,6 +38,7 @@ public class AdminService {
     private final ProductBannerImageRepository productBannerImageRepository;
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
+    private final ItemOptionGroupRepository itemOptionGroupRepository;
     private final OrderRepository orderRepository;
     private final VideoRepository videoRepository;
     private final DeliveryTracker deliveryTracker;
@@ -86,6 +88,7 @@ public class AdminService {
     private void deleteProductImage(Product product) {
         eventPublisher.publishEvent(new ImageDeletedEvent(product.getFrontImagePath()));
         eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
+        eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
 
         for (String path : product.getBannerPaths()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(path));
@@ -102,9 +105,9 @@ public class AdminService {
     public void updateItem(String itemName, AdminRequest.UpdateItem request) {
         var item = itemRepository.getByEnNme(itemName);
         deleteItemImage(item);
-        var images = item.getImages();
+        itemImageRepository.deletes(item.getImages());
+        itemOptionGroupRepository.deletes(item.getItemOptionGroups());
         itemFactory.update(item, request);
-        itemImageRepository.deletes(images);
     }
 
     public void changeItemStatus(String itemName, AdminRequest.ChangeItemStatus request) {
@@ -120,6 +123,8 @@ public class AdminService {
     }
 
     private void deleteItemImage(Item item) {
+        eventPublisher.publishEvent(new ImageDeletedEvent(item.getGrayImagePath()));
+
         for (String path : item.getImagePaths()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }
@@ -143,8 +148,6 @@ public class AdminService {
     }
 
     public Page<AdminResponse.OrderInfo> getAllOrder(String deliveryStatus, String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
-        var orders = orderRepository.getOrders();
-        deliveryTracker.changeCompletedState(orders);
         return orderQuerydslRepository.getOrders(
                 OrderDeliveryStatus.toEnum(deliveryStatus),
                 OrderStatus.toEnum(orderStatus),
@@ -153,10 +156,14 @@ public class AdminService {
             .map(AdminResponse.OrderInfo::new);
     }
 
+    public AdminResponse.OrderDetail getOrder(UUID orderId) {
+        var order = orderRepository.get(orderId);
+        return new AdminResponse.OrderDetail(order);
+    }
+
     public void registerDeliveryTrackingNumber(UUID orderId, AdminRequest.DeliveryTrackingNumber request) {
         var order = orderRepository.get(orderId);
-        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());
-        ;
+//        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());
         order.registerDeliveryTrackingNumber(request.trackingNumber());
     }
 }

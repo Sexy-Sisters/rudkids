@@ -35,7 +35,7 @@ public class AdminResponse {
         List<OrderItemResponse> orderItems,
         String orderStatus,
         String createdAt,
-        OrderDeliveryInfo delivery
+        String deliveryStatus
     ) {
         public OrderInfo(Order order) {
             this(
@@ -47,23 +47,29 @@ public class AdminResponse {
                     .toList(),
                 order.getOrderStatus(),
                 order.getCreatedAt(),
-                new OrderDeliveryInfo(order.getDelivery())
+                order.getDeliveryStatus()
             );
         }
     }
 
-    public record OrderDeliveryInfo(
+    public record OrderDetail(
+        List<OrderItemResponse> orderItems,
         String receiverName,
         String receivedAddress,
+        String orderStatus,
         String deliveryStatus,
         String deliveryTrackingNumber
     ) {
-        public OrderDeliveryInfo(OrderDelivery delivery) {
+        public OrderDetail(Order order) {
             this(
-                delivery.getReceiverName(),
-                delivery.getReceivedAddress(),
-                delivery.getStatus(),
-                delivery.getTrackingNumber()
+                order.getOrderItems().stream()
+                    .map(OrderItemResponse::new)
+                    .toList(),
+                order.getDeliveryReceiverName(),
+                order.getDeliveryReceivedAddress(),
+                order.getOrderStatus(),
+                order.getDeliveryStatus(),
+                order.getDeliveryTrackingNumber()
             );
         }
     }

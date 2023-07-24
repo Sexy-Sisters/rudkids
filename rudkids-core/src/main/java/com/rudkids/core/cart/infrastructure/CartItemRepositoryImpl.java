@@ -37,7 +37,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
             .cart(cart)
             .item(item)
             .name(name)
-            .imageUrl(item.getCartItemImageUrl())
+            .imageUrl(item.getFirstImageUrl())
             .amount(request.amount())
             .price(price)
             .build();

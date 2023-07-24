@@ -168,6 +168,15 @@ public class AdminController {
     }
 
     /*
+    주문을 상세조회한다
+     */
+    @GetMapping("/order/{id}")
+    public ResponseEntity getOrder(@PathVariable("id") UUID orderId) {
+        var response = adminService.getOrder(orderId);
+        return ResponseEntity.ok(response);
+    }
+
+    /*
     택배 송장을 입력한다
      */
     @PostMapping("/order/{id}")

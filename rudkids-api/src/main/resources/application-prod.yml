@@ -2,7 +2,7 @@ spring:
   sql:
     init:
       mode: always
-      platform: hibernate.dialect.MySQL8Dialect
+      platform: hibernate.dialect.MySQLDialect
       schema-locations: classpath:db/prod/schema.sql
       data-locations: classpath:db/prod/data.sql
 

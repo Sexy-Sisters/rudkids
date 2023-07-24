@@ -105,6 +105,10 @@ class ProductControllerTest extends ControllerTest {
                                 .type(JsonFieldType.STRING)
                                 .description("프로덕트 배너 이미지 url"),
 
+                            fieldWithPath("bannerImages[]ordering")
+                                .type(JsonFieldType.NUMBER)
+                                .description("프로덕트 배너 이미지 순서"),
+
                             fieldWithPath("items.content")
                                 .type(JsonFieldType.ARRAY)
                                 .description("아이템들"),

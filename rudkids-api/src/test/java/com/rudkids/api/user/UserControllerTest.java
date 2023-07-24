@@ -152,7 +152,15 @@ class UserControllerTest extends ControllerTest {
 
                         fieldWithPath("profileImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("프로필 이미지 url")
+                            .description("프로필 이미지 url"),
+
+                        fieldWithPath("deliveringOrderCount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("배송중인 상품 개수"),
+
+                        fieldWithPath("boughtCollectionItemCount")
+                            .type(JsonFieldType.NUMBER)
+                            .description("자신이 산 상품 개수")
                     )
                 ))
                 .andExpect(status().isOk());

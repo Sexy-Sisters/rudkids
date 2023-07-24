@@ -48,7 +48,7 @@ public class OrderService {
 
     public List<OrderResponse.Main> getAll(UUID userId) {
         var user = userRepository.getUser(userId);
-        deliveryTracker.changeCompletedState(user.getOrders());
+//        deliveryTracker.changeCompletedState(user);
 
         return user.getOrders().stream()
             .filter(order -> !order.isOrdering())

@@ -15,15 +15,19 @@ public class UserResponse {
         String email,
         String name,
         String phoneNumber,
-        ImageResponse.Info profileImage
+        ImageResponse.Info profileImage,
+        int deliveringOrderCount,
+        int boughtCollectionItemCount
     ) {
-        public Info(User user) {
+        public Info(User user, int boughtCollectionItemCount) {
             this(
                 user.getId(),
                 user.getEmail(),
                 user.getName(),
                 user.getPhoneNumber(),
-                new ImageResponse.Info(user.getProfileImagePath(), user.getProfileImageUrl())
+                new ImageResponse.Info(user.getProfileImagePath(), user.getProfileImageUrl()),
+                user.getDeliveringOrderCount(),
+                boughtCollectionItemCount
             );
         }
     }

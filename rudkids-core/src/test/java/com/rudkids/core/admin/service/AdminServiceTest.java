@@ -72,7 +72,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
         void success() {
             //given
             AdminRequest.CreateProduct command = new AdminRequest.CreateProduct(
-                "Strange Drugstore",
+                "Strange Drugstore222",
                 "약쟁이가 약팝니다~~~~",
                 new ImageRequest.Create("image", "image.jpg"),
                 new ImageRequest.Create("image", "image.jpg"),
@@ -87,7 +87,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
             //then
             Product findProduct = productRepository.get(productId);
             assertAll(
-                () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore"),
+                () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore222"),
                 () -> assertThat(findProduct.getProductBio()).isEqualTo("약쟁이가 약팝니다~~~~")
             );
         }
@@ -127,6 +127,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
     class updateProduct {
 
         @Test
+        @Disabled("update method 안에 s3 삭제로직이 있음")
         @DisplayName("성공")
         void success() {
             //given
@@ -166,6 +167,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
     class deleteProduct {
 
         @Test
+        @Disabled("update method 안에 s3 삭제로직이 있음")
         @DisplayName("성공")
         void success() {
             //given
@@ -221,6 +223,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
     class updateItem {
 
         @Test
+        @Disabled("update method 안에 s3 삭제로직이 있음")
         @DisplayName("성공")
         void success() {
             //given
@@ -260,14 +263,14 @@ public class AdminServiceTest extends AdminServiceFixtures {
         void success() {
             //given
             var itemName = item.getEnName();
-            var itemStatus = "SELLING";
+            var itemStatus = "SOLD_OUT";
 
             //when
             AdminRequest.ChangeItemStatus statusRequest = new AdminRequest.ChangeItemStatus(itemStatus);
             adminService.changeItemStatus(itemName, statusRequest);
 
             //then
-            assertThat(item.getItemStatus()).isEqualTo(ItemStatus.SELLING);
+            assertThat(item.getItemStatus()).isEqualTo(ItemStatus.SOLD_OUT);
         }
 
         @Test
@@ -289,7 +292,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
     class deleteItem {
 
         @Test
-        @Disabled("보류")
+        @Disabled("update method 안에 s3 삭제로직이 있음")
         @DisplayName("성공")
         void success() {
             //given

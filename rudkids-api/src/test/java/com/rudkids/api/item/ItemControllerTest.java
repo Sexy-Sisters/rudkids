@@ -77,6 +77,10 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("여러 이미지 url"),
 
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("여러 이미지 순서"),
+
                         fieldWithPath("itemStatus")
                             .type(JsonFieldType.STRING)
                             .description("상태"),
@@ -93,13 +97,21 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("옵션 그룹 리스트"),
 
+                        fieldWithPath("itemOptionGroupInfoList[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
                         fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]itemOptionName")
                             .type(JsonFieldType.STRING)
-                            .description("옵션 그룹 이름"),
+                            .description("옵션 이름"),
 
                         fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 그룹 가격")
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서")
                     )
                 ))
                 .andExpect(status().isOk());

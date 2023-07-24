@@ -3,6 +3,7 @@ package com.rudkids.core.user.domain;
 import com.rudkids.core.community.domain.Community;
 import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.order.domain.Order;
+import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.user.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -69,6 +70,13 @@ public class User {
             .filter(Delivery::isBasic)
             .findFirst()
             .ifPresent(Delivery::changeBasicFalse);
+    }
+
+    public int getDeliveringOrderCount() {
+        return orders.stream()
+            .map(Order::getDelivery)
+            .filter(OrderDelivery::isDelivering)
+            .toList().size();
     }
 
     public boolean hasPhoneNumber() {

@@ -7,6 +7,7 @@ import com.rudkids.core.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
 @Entity
 @Table(name = "tbl_item")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,6 +43,9 @@ public class Item extends AbstractEntity {
     @Embedded
     private Quantity quantity;
 
+    @Embedded
+    private GrayImage grayImage;
+
     @Enumerated(EnumType.STRING)
     private LimitType limitType;
 
@@ -54,8 +59,14 @@ public class Item extends AbstractEntity {
     private final List<ItemImage> images = new ArrayList<>();
 
     @Builder
-    public Item(Product product, Name name, ItemBio itemBio, Price price,
-                Quantity quantity, LimitType limitType) {
+    public Item(Product product,
+                Name name,
+                ItemBio itemBio,
+                Price price,
+                Quantity quantity,
+                LimitType limitType,
+                GrayImage grayImage
+    ) {
         this.product = product;
         this.name = name;
         this.itemBio = itemBio;
@@ -63,14 +74,16 @@ public class Item extends AbstractEntity {
         this.quantity = quantity;
         this.limitType = limitType;
         this.itemStatus = ItemStatus.SELLING;
+        this.grayImage = grayImage;
     }
 
-    public void update(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType) {
+    public void update(Name name, ItemBio itemBio, Price price, Quantity quantity, LimitType limitType, GrayImage grayImage) {
         this.name = name;
         this.itemBio = itemBio;
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
+        this.grayImage = grayImage;
     }
 
     public void changeStatus(ItemStatus status) {
@@ -88,10 +101,6 @@ public class Item extends AbstractEntity {
     public void setProduct(Product product) {
         this.product = product;
         product.addItem(this);
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getEnName() {
@@ -114,24 +123,12 @@ public class Item extends AbstractEntity {
         return itemBio.getValue();
     }
 
-    public LimitType getLimitType() {
-        return limitType;
+    public String getGrayImageUrl() {
+        return grayImage.getUrl();
     }
 
-    public ItemStatus getItemStatus() {
-        return itemStatus;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public List<ItemOptionGroup> getItemOptionGroups() {
-        return itemOptionGroups;
-    }
-
-    public List<ItemImage> getImages() {
-        return images;
+    public String getGrayImagePath() {
+        return grayImage.getPath();
     }
 
     public List<String> getImagePaths() {
@@ -146,7 +143,7 @@ public class Item extends AbstractEntity {
             .toList();
     }
 
-    public String getCartItemImageUrl() {
+    public String getFirstImageUrl() {
         return images.get(0).getUrl();
     }
 
