@@ -1,7 +1,6 @@
 package com.rudkids.core.admin.infrastructure;
 
 import com.rudkids.core.admin.dto.AdminRequest;
-import com.rudkids.core.image.dto.ImageRequest;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.item.domain.itemOption.ItemOption;
 import com.rudkids.core.item.domain.itemOption.ItemOptionName;
@@ -12,13 +11,16 @@ import com.rudkids.core.admin.service.ItemFactory;
 import com.rudkids.core.product.domain.Product;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ItemFactoryImpl implements ItemFactory {
 
     @Override
     public Item create(Product product, AdminRequest.CreateItem request) {
         var item = generateItem(product, request);
-        generateChildEntities(item, request);
+        saveItemImages(item, request.images());
+        saveChildEntities(item, request.itemOptionGroupList());
         return item;
     }
 
@@ -28,6 +30,7 @@ public class ItemFactoryImpl implements ItemFactory {
         var price = Price.create(request.price());
         var quantity = Quantity.create(request.quantity());
         var limitType = request.limitType();
+        var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
         return Item.builder()
             .product(product)
@@ -36,21 +39,38 @@ public class ItemFactoryImpl implements ItemFactory {
             .price(price)
             .quantity(quantity)
             .limitType(limitType)
+            .grayImage(grayImage)
             .build();
     }
 
-    private void generateChildEntities(Item item, AdminRequest.CreateItem request) {
-        for (AdminRequest.CreateImage imageRequest : request.images()) {
-            var image = ItemImage.create(
-                item,
-                imageRequest.path(),
-                imageRequest.url(),
-                imageRequest.ordering()
-            );
-            item.addImage(image);
-        }
+    @Override
+    public void update(Item item, AdminRequest.UpdateItem request) {
+        var name = Name.create(request.enName(), request.koName());
+        var itemBio = ItemBio.create(request.itemBio());
+        var price = Price.create(request.price());
+        var quantity = Quantity.create(request.quantity());
+        var limitType = request.limitType();
+        var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
-        request.itemOptionGroupList().forEach(group -> {
+        item.update(name, itemBio, price, quantity, limitType, grayImage);
+        saveItemImages(item, request.images());
+        saveChildEntities(item, request.itemOptionGroupList());
+    }
+
+    private void saveItemImages(Item item, List<AdminRequest.Image> images) {
+        for(AdminRequest.Image image: images) {
+            var itemImage = ItemImage.create(
+                item,
+                image.path(),
+                image.url(),
+                image.ordering()
+            );
+            item.addImage(itemImage);
+        }
+    }
+
+    private void saveChildEntities(Item item, List<AdminRequest.ItemOptionGroup> itemOptionGroups) {
+        itemOptionGroups.forEach(group -> {
             var optionGroup = generateItemOptionGroup(item, group);
 
             group.itemOptionList().forEach(option -> {
@@ -62,7 +82,7 @@ public class ItemFactoryImpl implements ItemFactory {
         });
     }
 
-    private ItemOptionGroup generateItemOptionGroup(Item item, AdminRequest.CreateItemOptionGroup group) {
+    private ItemOptionGroup generateItemOptionGroup(Item item, AdminRequest.ItemOptionGroup group) {
         var groupName = ItemOptionGroupName.create(group.itemOptionGroupName());
 
         return ItemOptionGroup.builder()
@@ -72,7 +92,7 @@ public class ItemFactoryImpl implements ItemFactory {
             .build();
     }
 
-    private ItemOption generateItemOption(ItemOptionGroup optionGroup, AdminRequest.CreateItemOption option) {
+    private ItemOption generateItemOption(ItemOptionGroup optionGroup, AdminRequest.ItemOption option) {
         var itemOptionName = ItemOptionName.create(option.itemOptionName());
         var itemOptionPrice = ItemOptionPrice.create(option.itemOptionPrice());
 
@@ -82,23 +102,5 @@ public class ItemFactoryImpl implements ItemFactory {
             .itemOptionPrice(itemOptionPrice)
             .ordering(option.ordering())
             .build();
-    }
-
-    @Override
-    public void update(Item item, AdminRequest.UpdateItem request) {
-        var name = Name.create(request.enName(), request.koName());
-        var itemBio = ItemBio.create(request.itemBio());
-        var price = Price.create(request.price());
-        var quantity = Quantity.create(request.quantity());
-        var limitType = request.limitType();
-
-        for (ImageRequest.Create imageRequest : request.images()) {
-
-            for(ItemImage image: item.getImages()) {
-                image.update(imageRequest.path(), imageRequest.url());
-            }
-        }
-
-        item.update(name, itemBio, price, quantity, limitType);
     }
 }

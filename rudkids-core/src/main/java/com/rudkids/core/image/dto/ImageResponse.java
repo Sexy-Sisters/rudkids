@@ -9,9 +9,5 @@ public class ImageResponse {
         public Info(ItemImage image) {
             this(image.getPath(), image.getUrl());
         }
-
-        public Info(ProductBannerImage image) {
-            this(image.getPath(), image.getUrl());
-        }
     }
 }

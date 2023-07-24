@@ -2,6 +2,7 @@ package com.rudkids.core.product.infrastructure;
 
 import com.rudkids.core.product.domain.Product;
 import com.rudkids.core.product.domain.ProductRepository;
+import com.rudkids.core.product.exception.DuplicateProductTitleException;
 import com.rudkids.core.product.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,14 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void save(Product product) {
+        validateDuplicatedTitle(product.getTitle());
         productRepository.save(product);
+    }
+
+    private void validateDuplicatedTitle(String title) {
+        if(productRepository.existsByTitleValue(title)) {
+            throw new DuplicateProductTitleException();
+        }
     }
 
     @Override

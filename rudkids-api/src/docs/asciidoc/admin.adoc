@@ -192,6 +192,23 @@ include::{snippets}/admin/getAllOrder/http-response.adoc[]
 Response Fields
 include::{snippets}/admin/getAllOrder/response-fields.adoc[]
 
+=== 주문내역 조회
+
+HTTP Request
+include::{snippets}/admin/getOrder/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/getOrder/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/getOrder/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/admin/getOrder/http-response.adoc[]
+
+Response Fields
+include::{snippets}/admin/getOrder/response-fields.adoc[]
+
 === 배송 송장번호 등록
 
 HTTP Request

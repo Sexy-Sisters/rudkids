@@ -22,6 +22,8 @@ public class UserFixturesAndDocs {
             .name("남세")
             .phoneNumber("01029401509")
             .profileImage(new ImageResponse.Info("http://", "http://"))
+            .deliveringOrderCount(2)
+            .boughtCollectionItemCount(1)
             .build();
     }
 

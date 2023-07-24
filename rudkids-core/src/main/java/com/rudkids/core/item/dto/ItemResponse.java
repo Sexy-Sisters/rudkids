@@ -1,6 +1,5 @@
 package com.rudkids.core.item.dto;
 
-import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemStatus;
@@ -39,7 +38,7 @@ public class ItemResponse {
         int price,
         int quantity,
         LimitType limitType,
-        List<ImageResponse.Info> images,
+        List<DetailImage> images,
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList
     ) {
@@ -53,7 +52,7 @@ public class ItemResponse {
                 item.getLimitType(),
                 item.getImages().stream()
                     .sorted(Comparator.comparing(ItemImage::getOrdering))
-                    .map(ImageResponse.Info::new)
+                    .map(DetailImage::new)
                     .toList(),
                 item.getItemStatus(),
                 getOptionGroup(item)
@@ -67,23 +66,35 @@ public class ItemResponse {
                     .sorted(Comparator.comparing(ItemOption::getOrdering))
                     .map(DetailOption::new)
                     .collect(collectingAndThen(toList(), options
-                        -> new DetailOptionGroup(group.getItemOptionGroupName(), options))))
+                        -> new DetailOptionGroup(group.getItemOptionGroupName(), options, group.getOrdering()))))
                 .toList();
+        }
+    }
+
+    public record DetailImage(
+        String path,
+        String url,
+        int ordering
+    ) {
+        public DetailImage(ItemImage image) {
+            this(image.getPath(), image.getUrl(), image.getOrdering());
         }
     }
 
     public record DetailOptionGroup(
         String itemOptionGroupName,
-        List<DetailOption> itemOptionInfoList
+        List<DetailOption> itemOptionInfoList,
+        int ordering
     ) {
     }
 
     public record DetailOption(
         String itemOptionName,
-        Integer itemOptionPrice
+        Integer itemOptionPrice,
+        int ordering
     ) {
         public DetailOption(ItemOption option) {
-            this(option.getItemOptionName(), option.getItemOptionPrice());
+            this(option.getItemOptionName(), option.getItemOptionPrice(), option.getOrdering());
         }
     }
 }

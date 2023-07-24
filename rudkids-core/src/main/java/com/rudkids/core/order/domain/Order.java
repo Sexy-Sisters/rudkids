@@ -116,11 +116,23 @@ public class Order extends AbstractEntity {
         }
     }
 
-    public String getDeliveryAddress() {
-        return delivery.getReceivedAddress();
+    public String getDeliveryStatus() {
+        return delivery.getStatus();
     }
 
     public boolean isCanceled() {
         return orderStatus == OrderStatus.CANCEL;
+    }
+
+    public String getDeliveryReceiverName() {
+        return delivery.getReceiverName();
+    }
+
+    public String getDeliveryReceivedAddress() {
+        return delivery.getReceivedAddress();
+    }
+
+    public String getDeliveryTrackingNumber() {
+        return delivery.getTrackingNumber();
     }
 }

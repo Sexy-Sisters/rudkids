@@ -1,5 +1,6 @@
 package com.rudkids.core.user.service;
 
+import com.rudkids.core.collection.domain.CollectionRepository;
 import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.user.domain.ProfileImage;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final CollectionRepository collectionRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     public void update(UUID userId, UserRequest.Update request) {
@@ -40,7 +42,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponse.Info get(UUID userId) {
         var user = userRepository.getUser(userId);
-        return new UserResponse.Info(user);
+        var collection = collectionRepository.getOrCreate(user);
+        return new UserResponse.Info(user, collection.getCollectionItemSize());
     }
 
     public List<CommunityResponse.Main> getMyCommunities(UUID userId) {

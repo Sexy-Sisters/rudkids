@@ -42,9 +42,4 @@ public class ItemImage {
     public static ItemImage create(Item item, String path, String url, int ordering) {
         return new ItemImage(item, path, url, ordering);
     }
-
-    public void update(String path, String url) {
-        this.path = path;
-        this.url = url;
-    }
 }

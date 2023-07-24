@@ -45,29 +45,9 @@ public class AdminRequest {
         int price,
         int quantity,
         LimitType limitType,
-        List<CreateImage> images,
-        List<CreateItemOptionGroup> itemOptionGroupList
-    ) {}
-
-    public record CreateImage(
-        String path,
-        String url,
-        int ordering
-    ) {}
-
-    @Builder
-    public record CreateItemOptionGroup(
-        String itemOptionGroupName,
-        List<CreateItemOption> itemOptionList,
-        int ordering
-    ) {
-    }
-
-    @Builder
-    public record CreateItemOption(
-        String itemOptionName,
-        int itemOptionPrice,
-        int ordering
+        List<Image> images,
+        List<ItemOptionGroup> itemOptionGroupList,
+        ImageRequest.Create grayImage
     ) {}
 
     @Builder
@@ -78,7 +58,30 @@ public class AdminRequest {
         int price,
         int quantity,
         LimitType limitType,
-        List<ImageRequest.Create> images
+        List<Image> images,
+        List<ItemOptionGroup> itemOptionGroupList,
+        ImageRequest.Create grayImage
+    ) {}
+
+    @Builder
+    public record ItemOptionGroup(
+        String itemOptionGroupName,
+        List<ItemOption> itemOptionList,
+        int ordering
+    ) {
+    }
+
+    @Builder
+    public record ItemOption(
+        String itemOptionName,
+        int itemOptionPrice,
+        int ordering
+    ) {}
+
+    public record Image(
+        String path,
+        String url,
+        int ordering
     ) {}
 
     @Builder

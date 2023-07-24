@@ -1,5 +1,6 @@
 package com.rudkids.api.common.fixtures.order;
 
+import com.rudkids.core.admin.dto.AdminResponse;
 import com.rudkids.core.delivery.dto.DeliveryResponse;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.dto.OrderItemResponse;
@@ -194,25 +195,9 @@ public class OrderFixturesAndDocs {
                     .type(JsonFieldType.STRING)
                     .description("주문한 시간"),
 
-                fieldWithPath("content.[].delivery")
-                    .type(JsonFieldType.OBJECT)
-                    .description("주문 배송 정보"),
-
-                fieldWithPath("content.[].delivery.receiverName")
+                fieldWithPath("content.[].deliveryStatus")
                     .type(JsonFieldType.STRING)
-                    .description("받는사람 이름"),
-
-                fieldWithPath("content.[].delivery.receivedAddress")
-                    .type(JsonFieldType.STRING)
-                    .description("받는주소"),
-
-                fieldWithPath("content.[].delivery.deliveryStatus")
-                    .type(JsonFieldType.STRING)
-                    .description("배송상태"),
-
-                fieldWithPath("content.[].delivery.deliveryTrackingNumber")
-                    .type(JsonFieldType.STRING)
-                    .description("송장 번호")
+                    .description("주문 배송 상태")
             )
         );
     }

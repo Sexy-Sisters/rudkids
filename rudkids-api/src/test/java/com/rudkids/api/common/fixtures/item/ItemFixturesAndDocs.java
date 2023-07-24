@@ -35,7 +35,7 @@ public class ItemFixturesAndDocs {
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
-            .images(List.of(new ImageResponse.Info("path", "url")))
+            .images(List.of(new ItemResponse.DetailImage("path", "url", 1)))
             .itemStatus(ItemStatus.SELLING)
             .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
             .build();
@@ -45,7 +45,8 @@ public class ItemFixturesAndDocs {
         return List.of(
             new ItemResponse.DetailOptionGroup(
                 "지속시간",
-                List.of(new ItemResponse.DetailOption("name", 3000))
+                List.of(new ItemResponse.DetailOption("name", 3000, 1)),
+                1
             )
         );
     }
@@ -78,20 +79,6 @@ public class ItemFixturesAndDocs {
                 fieldWithPath("content[]itemStatus")
                     .type(JsonFieldType.STRING)
                     .description("상품 상태")
-            )
-        );
-    }
-
-    public static List<FieldDescriptor> ITEM_영상_이미지_응답_필드() {
-        return pageResponseFieldsWith(
-            List.of(
-                fieldWithPath("content[]name")
-                    .type(JsonFieldType.STRING)
-                    .description("상품 영어 이름"),
-
-                fieldWithPath("content[]imageUrl")
-                    .type(JsonFieldType.STRING)
-                    .description("상품 영상 이미지 url")
             )
         );
     }
