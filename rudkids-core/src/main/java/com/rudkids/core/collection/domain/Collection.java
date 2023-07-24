@@ -60,6 +60,8 @@ public class Collection {
     }
 
     public int getCollectionItemSize() {
-        return collectionItems.size();
+        return collectionItems.stream()
+            .filter(CollectionItem::isBought)
+            .toList().size();
     }
 }
