@@ -8,6 +8,7 @@ import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImageRepository;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
+import com.rudkids.core.item.domain.itemOption.ItemOptionRepository;
 import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroupRepository;
 import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderRepository;
@@ -39,6 +40,7 @@ public class AdminService {
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
     private final ItemOptionGroupRepository itemOptionGroupRepository;
+    private final ItemOptionRepository itemOptionRepository;
     private final OrderRepository orderRepository;
     private final VideoRepository videoRepository;
     private final DeliveryTracker deliveryTracker;
@@ -105,8 +107,11 @@ public class AdminService {
     public void updateItem(String itemName, AdminRequest.UpdateItem request) {
         var item = itemRepository.getByEnNme(itemName);
         deleteItemImage(item);
+
         itemImageRepository.deletes(item.getImages());
+        itemOptionRepository.deletes(item.getItemOptions());
         itemOptionGroupRepository.deletes(item.getItemOptionGroups());
+
         itemFactory.update(item, request);
     }
 

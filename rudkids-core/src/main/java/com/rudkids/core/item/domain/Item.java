@@ -1,6 +1,7 @@
 package com.rudkids.core.item.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
+import com.rudkids.core.item.domain.itemOption.ItemOption;
 import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
 import com.rudkids.core.item.exception.QuantityDepletedException;
 import com.rudkids.core.product.domain.Product;
@@ -88,6 +89,12 @@ public class Item extends AbstractEntity {
 
     public void changeStatus(ItemStatus status) {
         this.itemStatus = status;
+    }
+
+    public List<ItemOption> getItemOptions() {
+        return itemOptionGroups.stream()
+            .flatMap(itemOptionGroup -> itemOptionGroup.getItemOptions().stream())
+            .toList();
     }
 
     public void addOptionGroup(ItemOptionGroup itemOptionGroup) {
