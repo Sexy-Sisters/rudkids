@@ -43,6 +43,8 @@ create table if not exists tbl_item
         primary key,
     created_at  datetime(6)  null,
     updated_at  datetime(6)  null,
+    gray_image_path varchar(255) null,
+    gray_image_url  varchar(255) null,
     item_bio    varchar(255) null,
     item_status varchar(255) null,
     limit_type  varchar(255) null,
@@ -216,4 +218,33 @@ create table if not exists tbl_video
     item_name varchar(255) null,
     bio       varchar(255) null,
     video_url varchar(255) null
+);
+
+create table if not exists tbl_collection
+(
+    collection_id binary(16) not null primary key,
+    user_id binary(16) null,
+    constraint FKroh0s06dnxqg3e1qr49rj9rcw foreign key (user_id) references tbl_user (user_id)
+);
+
+create table if not exists tbl_collection
+(
+    collection_id binary(16) not null
+        primary key,
+    user_id       binary(16) null,
+    constraint FKroh0s06dnxqg3e1qr49rj9rcw
+        foreign key (user_id) references tbl_user (user_id)
+);
+
+create table if not exists tbl_collection_item
+(
+    collection_item_id binary(16)   not null
+        primary key,
+    status             varchar(255) null,
+    collection_id      binary(16)   null,
+    item_id            binary(16)   null,
+    constraint FK6opl70x1s1mus75iugo5x94sk
+        foreign key (collection_id) references tbl_collection (collection_id),
+    constraint FK89rqbuivn2crmiskxb1pas0qn
+        foreign key (item_id) references tbl_item (item_id)
 );
