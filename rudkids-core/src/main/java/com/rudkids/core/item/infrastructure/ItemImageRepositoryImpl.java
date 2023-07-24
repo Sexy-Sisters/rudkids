@@ -14,6 +14,6 @@ public class ItemImageRepositoryImpl implements ItemImageRepository {
 
     @Override
     public void deletes(List<ItemImage> images) {
-        itemImageRepository.deleteAll(images);
+        itemImageRepository.deleteAllInBatch(images);
     }
 }
