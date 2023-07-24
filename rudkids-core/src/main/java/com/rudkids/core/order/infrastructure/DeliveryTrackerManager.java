@@ -39,7 +39,7 @@ public class DeliveryTrackerManager implements DeliveryTracker {
         var orderItems = order.getOrderItems();
 
         for(OrderItem orderItem: orderItems) {
-            var collectionItem = CollectionItem.create(collection, orderItem.getItem());
+            var collectionItem = collection.getCollectionItem(orderItem.getItem());
             collectionItem.bought();
             collection.addCollectionItem(collectionItem);
             collectionItemRepository.save(collectionItem);

@@ -20,7 +20,7 @@ public class ItemFactoryImpl implements ItemFactory {
     public Item create(Product product, AdminRequest.CreateItem request) {
         var item = generateItem(product, request);
         saveItemImages(item, request.images());
-        saveChildEntities(item, request.itemOptionGroupList());
+        saveChildEntities(item, request.itemOptionGroupInfoList());
         return item;
     }
 
@@ -54,7 +54,7 @@ public class ItemFactoryImpl implements ItemFactory {
 
         item.update(name, itemBio, price, quantity, limitType, grayImage);
         saveItemImages(item, request.images());
-        saveChildEntities(item, request.itemOptionGroupList());
+        saveChildEntities(item, request.itemOptionGroupInfoList());
     }
 
     private void saveItemImages(Item item, List<AdminRequest.Image> images) {
@@ -73,7 +73,7 @@ public class ItemFactoryImpl implements ItemFactory {
         itemOptionGroups.forEach(group -> {
             var optionGroup = generateItemOptionGroup(item, group);
 
-            group.itemOptionList().forEach(option -> {
+            group.itemOptionInfoList().forEach(option -> {
                 var itemOption = generateItemOption(optionGroup, option);
                 optionGroup.addItemOption(itemOption);
             });

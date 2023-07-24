@@ -36,7 +36,7 @@ public class CollectionService {
     }
 
     private void checkCollectionItems(Collection collection, List<Item> items) {
-        if(!collection.hasSameItemSize(items.size())) {
+        if(!collection.hasSameCollectionItemSize(items.size())) {
             for(Item item: items) {
                 if(!collection.isAlreadyHasCollectionItem(item)) {
                     var collectionItem = CollectionItem.create(collection, item);

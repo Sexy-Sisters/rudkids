@@ -6,10 +6,17 @@ import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CollectionRepositoryImpl implements CollectionRepository {
     private final JpaCollectionRepository collectionRepository;
+
+    @Override
+    public List<Collection> getAll() {
+        return collectionRepository.findAll();
+    }
 
     @Override
     public Collection getOrCreate(User user) {

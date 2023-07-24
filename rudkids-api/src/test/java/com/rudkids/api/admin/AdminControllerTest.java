@@ -414,23 +414,23 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 이미지 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 
@@ -511,23 +511,23 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 이미지 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 
@@ -608,23 +608,23 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 이미지 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 
@@ -711,23 +711,23 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 이미지 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 
@@ -809,23 +809,23 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("아이템 이미지 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionGroupName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionName")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 이름"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].itemOptionPrice")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 가격"),
 
-                        fieldWithPath("itemOptionGroupList[].itemOptionList[].ordering")
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 

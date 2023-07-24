@@ -69,14 +69,14 @@ public class AdminFixturesAndDocs {
             .quantity(800)
             .limitType(LimitType.NORMAL)
             .images(List.of(new AdminRequest.Image("path", "url", 1)))
-            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }
 
     private static final AdminRequest.ItemOptionGroup itemOptionGroup_사이즈 = AdminRequest.ItemOptionGroup.builder()
         .itemOptionGroupName("사이즈")
-        .itemOptionList(List.of(
+        .itemOptionInfoList(List.of(
             AdminRequest.ItemOption.builder()
                 .itemOptionName("S")
                 .itemOptionPrice(0)
@@ -109,7 +109,7 @@ public class AdminFixturesAndDocs {
             .quantity(800)
             .limitType(LimitType.NORMAL)
             .images(List.of(new AdminRequest.Image("image", "image.jpg", 1)))
-            .itemOptionGroupList(List.of(itemOptionGroup_사이즈))
+            .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
             .build();
     }

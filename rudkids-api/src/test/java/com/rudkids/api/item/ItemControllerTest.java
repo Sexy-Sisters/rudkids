@@ -111,7 +111,15 @@ class ItemControllerTest extends ControllerTest {
 
                         fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]ordering")
                             .type(JsonFieldType.NUMBER)
-                            .description("옵션 순서")
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url")
                     )
                 ))
                 .andExpect(status().isOk());

@@ -38,6 +38,7 @@ public class ItemFixturesAndDocs {
             .images(List.of(new ItemResponse.DetailImage("path", "url", 1)))
             .itemStatus(ItemStatus.SELLING)
             .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
+            .grayImage(new ImageResponse.Info("path", "url"))
             .build();
     }
 
