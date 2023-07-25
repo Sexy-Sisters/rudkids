@@ -1,7 +1,6 @@
 package com.rudkids.core.collection.dto;
 
 import com.rudkids.core.collection.domain.CollectionItem;
-import com.rudkids.core.collection.domain.CollectionItemStatus;
 
 public class CollectionItemResponse {
 
