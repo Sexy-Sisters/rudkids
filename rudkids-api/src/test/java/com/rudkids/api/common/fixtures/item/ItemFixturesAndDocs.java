@@ -35,18 +35,20 @@ public class ItemFixturesAndDocs {
             .itemBio(아이템_소개글)
             .quantity(아이템_수량)
             .limitType(아이템_수량_한정_여부)
-            .images(List.of(new ItemResponse.DetailImage("path", "url", 1)))
+            .images(List.of(new ItemResponse.DetailImage(UUID.randomUUID(), "path", "url", 1)))
             .itemStatus(ItemStatus.SELLING)
             .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
             .grayImage(new ImageResponse.Info("path", "url"))
+            .videoUrl("videoUrl")
             .build();
     }
 
     public static List<ItemResponse.DetailOptionGroup> ITEM_OPTION_GROUP() {
         return List.of(
             new ItemResponse.DetailOptionGroup(
+                UUID.randomUUID(),
                 "지속시간",
-                List.of(new ItemResponse.DetailOption("name", 3000, 1)),
+                List.of(new ItemResponse.DetailOption(UUID.randomUUID(), "name", 3000, 1)),
                 1
             )
         );

@@ -69,6 +69,10 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("여러 이미지들"),
 
+                        fieldWithPath("images[]id")
+                            .type(JsonFieldType.STRING)
+                            .description("여러 이미지 path"),
+
                         fieldWithPath("images[]path")
                             .type(JsonFieldType.STRING)
                             .description("여러 이미지 path"),
@@ -89,6 +93,10 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.ARRAY)
                             .description("옵션 그룹 리스트"),
 
+                        fieldWithPath("itemOptionGroupInfoList[]id")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 id"),
+
                         fieldWithPath("itemOptionGroupInfoList[]itemOptionGroupName")
                             .type(JsonFieldType.STRING)
                             .description("옵션 그룹 이름"),
@@ -100,6 +108,10 @@ class ItemControllerTest extends ControllerTest {
                         fieldWithPath("itemOptionGroupInfoList[]ordering")
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]id")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 id"),
 
                         fieldWithPath("itemOptionGroupInfoList[]itemOptionInfoList[]itemOptionName")
                             .type(JsonFieldType.STRING)
@@ -119,7 +131,11 @@ class ItemControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isOk());

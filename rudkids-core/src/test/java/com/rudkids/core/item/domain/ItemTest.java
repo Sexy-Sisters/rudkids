@@ -39,7 +39,8 @@ public class ItemTest {
             updatedPrice,
             updatedQuantity,
             updatedLimitType,
-            updatedGrayImage
+            updatedGrayImage,
+            "videoUrl"
         );
 
         // Then
