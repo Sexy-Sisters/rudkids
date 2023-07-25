@@ -45,19 +45,22 @@ public class CollectionItem {
         return item.getEnName();
     }
 
-    public String getImageUrl() {
-        return item.getFirstImageUrl();
-    }
-
     public void bought() {
         status = CollectionItemStatus.PUBLIC;
     }
 
-    public String getGrayImageUrl() {
+    public boolean isSameItem(Item item) {
+        return this.item.equals(item);
+    }
+
+    public String getImageUrl() {
+        if(status == CollectionItemStatus.PUBLIC) {
+            return item.getFirstImageUrl();
+        }
         return item.getGrayImageUrl();
     }
 
-    public boolean isSameItem(Item item) {
-        return this.item.equals(item);
+    public boolean isBought() {
+        return status == CollectionItemStatus.PUBLIC;
     }
 }

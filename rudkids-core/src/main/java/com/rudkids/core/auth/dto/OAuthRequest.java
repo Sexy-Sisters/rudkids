@@ -7,18 +7,34 @@ import lombok.NoArgsConstructor;
 
 public class OAuthRequest {
 
-    @Builder
-    public record GoogleToken(
-        String clientId,
-        String clientSecret,
-        String code,
-        String grantType,
-        String redirectUri
-    ) {
-        public GoogleToken {
-            grantType = "authorization_code";
+    @Getter
+    @NoArgsConstructor
+    public static class GoogleToken {
+        @FormProperty("client_id")
+        private String clientId;
+
+        @FormProperty("client_secret")
+        private String clientSecret;
+
+        @FormProperty("code")
+        private String code;
+
+        @FormProperty("grant_type")
+        private String grantType;
+
+        @FormProperty("redirect_uri")
+        private String redirectUri;
+
+        @Builder
+        public GoogleToken(String clientId, String clientSecret, String code, String redirectUri) {
+            this.clientId = clientId;
+            this.clientSecret = clientSecret;
+            this.code = code;
+            this.grantType = "authorization_code";
+            this.redirectUri = redirectUri;
         }
     }
+
 
     @NoArgsConstructor
     @Getter

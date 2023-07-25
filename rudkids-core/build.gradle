@@ -2,18 +2,37 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
+    //expiring map
     implementation 'net.jodah:expiringmap:0.5.9'
+
+    //sms
     implementation 'net.nurigo:sdk:4.3.0'
+
+    //auto configuration
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0'
+
+    //feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.3'
+
+    //aws
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+    //jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    //IO
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //querydsl
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+    //test db
+    runtimeOnly 'com.h2database:h2'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
 }

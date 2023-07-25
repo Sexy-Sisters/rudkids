@@ -35,6 +35,7 @@ public class AdminResponse {
         List<OrderItemResponse> orderItems,
         String orderStatus,
         String createdAt,
+        String deliveryTrackingNumber,
         String deliveryStatus
     ) {
         public OrderInfo(Order order) {
@@ -47,6 +48,7 @@ public class AdminResponse {
                     .toList(),
                 order.getOrderStatus(),
                 order.getCreatedAt(),
+                order.getDeliveryTrackingNumber(),
                 order.getDeliveryStatus()
             );
         }

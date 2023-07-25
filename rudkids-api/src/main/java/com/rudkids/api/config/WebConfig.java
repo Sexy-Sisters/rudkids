@@ -20,11 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
     private final AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver;
     private final AuthenticationAdminAuthorityInterceptor authenticationAdminAuthorityInterceptor;
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
-
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(authenticationPrincipalArgumentResolver);
