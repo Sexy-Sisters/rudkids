@@ -135,4 +135,8 @@ public class Order extends AbstractEntity {
     public String getDeliveryTrackingNumber() {
         return delivery.getTrackingNumber();
     }
+
+    public boolean isAccountOrdered() {
+        return paymentMethod.equals("계좌");
+    }
 }

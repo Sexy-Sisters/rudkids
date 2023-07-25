@@ -52,7 +52,7 @@ public class OrderFixturesAndDocs {
     }
 
     public static List<OrderResponse.Main> ORDER_주문내역_조회_INFO() {
-        return List.of(new OrderResponse.Main(orderId, "2023.07.31", orderStatus, ORDER_ITEM_응답()));
+        return List.of(new OrderResponse.Main(orderId, "2023.07.31", orderStatus, ORDER_ITEM_응답(), true));
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {
@@ -142,7 +142,11 @@ public class OrderFixturesAndDocs {
 
             fieldWithPath("[].orderItems[]price")
                 .type(JsonFieldType.NUMBER)
-                .description("주문한 상품 가격")
+                .description("주문한 상품 가격"),
+
+            fieldWithPath("[]isAccountOrdered")
+                .type(JsonFieldType.BOOLEAN)
+                .description("계좌이체 주문 여부")
         );
     }
 
