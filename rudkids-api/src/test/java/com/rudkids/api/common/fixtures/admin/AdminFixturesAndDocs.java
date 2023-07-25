@@ -71,6 +71,7 @@ public class AdminFixturesAndDocs {
             .images(List.of(new AdminRequest.Image("path", "url", 1)))
             .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
+            .videoUrl("videoUrl")
             .build();
     }
 
@@ -111,6 +112,7 @@ public class AdminFixturesAndDocs {
             .images(List.of(new AdminRequest.Image("image", "image.jpg", 1)))
             .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
+            .videoUrl("videoUrl")
             .build();
     }
 

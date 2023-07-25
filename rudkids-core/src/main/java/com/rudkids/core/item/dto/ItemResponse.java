@@ -42,7 +42,8 @@ public class ItemResponse {
         List<DetailImage> images,
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList,
-        ImageResponse.Info grayImage
+        ImageResponse.Info grayImage,
+        String videoUrl
     ) {
         public Detail(Item item) {
             this(
@@ -58,7 +59,8 @@ public class ItemResponse {
                     .toList(),
                 item.getItemStatus(),
                 getOptionGroup(item),
-                new ImageResponse.Info(item.getGrayImagePath(), item.getGrayImageUrl())
+                new ImageResponse.Info(item.getGrayImagePath(), item.getGrayImageUrl()),
+                item.getVideoUrl()
             );
         }
 
@@ -69,22 +71,28 @@ public class ItemResponse {
                     .sorted(Comparator.comparing(ItemOption::getOrdering))
                     .map(DetailOption::new)
                     .collect(collectingAndThen(toList(), options
-                        -> new DetailOptionGroup(group.getItemOptionGroupName(), options, group.getOrdering()))))
+                        -> new DetailOptionGroup(
+                        group.getId(),
+                        group.getItemOptionGroupName(),
+                        options, group.getOrdering()
+                    ))))
                 .toList();
         }
     }
 
     public record DetailImage(
+        UUID id,
         String path,
         String url,
         int ordering
     ) {
         public DetailImage(ItemImage image) {
-            this(image.getPath(), image.getUrl(), image.getOrdering());
+            this(image.getId(), image.getPath(), image.getUrl(), image.getOrdering());
         }
     }
 
     public record DetailOptionGroup(
+        UUID id,
         String itemOptionGroupName,
         List<DetailOption> itemOptionInfoList,
         int ordering
@@ -92,12 +100,13 @@ public class ItemResponse {
     }
 
     public record DetailOption(
+        UUID id,
         String itemOptionName,
         Integer itemOptionPrice,
         int ordering
     ) {
         public DetailOption(ItemOption option) {
-            this(option.getItemOptionName(), option.getItemOptionPrice(), option.getOrdering());
+            this(option.getId(), option.getItemOptionName(), option.getItemOptionPrice(), option.getOrdering());
         }
     }
 }

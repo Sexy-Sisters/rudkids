@@ -440,7 +440,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -537,7 +541,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -634,7 +642,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -737,7 +749,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -835,7 +851,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("grayImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("흑백사진 url")
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url")
                     )
                 ))
                 .andExpect(status().isOk());

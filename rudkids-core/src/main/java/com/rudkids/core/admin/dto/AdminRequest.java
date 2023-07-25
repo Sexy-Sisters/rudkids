@@ -49,7 +49,8 @@ public class AdminRequest {
         LimitType limitType,
         List<Image> images,
         List<ItemOptionGroup> itemOptionGroupInfoList,
-        ImageRequest.Create grayImage
+        ImageRequest.Create grayImage,
+        String videoUrl
     ) {}
 
     @Builder
@@ -62,7 +63,8 @@ public class AdminRequest {
         LimitType limitType,
         List<Image> images,
         List<ItemOptionGroup> itemOptionGroupInfoList,
-        ImageRequest.Create grayImage
+        ImageRequest.Create grayImage,
+        String videoUrl
     ) {}
 
     @Builder

@@ -57,4 +57,8 @@ public class ItemOption extends AbstractEntity {
     public int getOrdering() {
         return ordering;
     }
+
+    public UUID getId() {
+        return id;
+    }
 }

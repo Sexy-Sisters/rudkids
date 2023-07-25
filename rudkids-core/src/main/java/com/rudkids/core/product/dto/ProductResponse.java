@@ -63,12 +63,13 @@ public class ProductResponse {
     }
 
     public record DetailBannerImage(
+        UUID id,
         String path,
         String url,
         int ordering
     ) {
         public DetailBannerImage(ProductBannerImage image) {
-            this(image.getPath(), image.getUrl(), image.getOrdering());
+            this(image.getId(), image.getPath(), image.getUrl(), image.getOrdering());
         }
     }
 }

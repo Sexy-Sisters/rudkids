@@ -40,6 +40,7 @@ public class ItemFactoryImpl implements ItemFactory {
             .quantity(quantity)
             .limitType(limitType)
             .grayImage(grayImage)
+            .videoUrl(request.videoUrl())
             .build();
     }
 
@@ -52,7 +53,7 @@ public class ItemFactoryImpl implements ItemFactory {
         var limitType = request.limitType();
         var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
-        item.update(name, itemBio, price, quantity, limitType, grayImage);
+        item.update(name, itemBio, price, quantity, limitType, grayImage, request.videoUrl());
         saveItemImages(item, request.images());
         saveChildEntities(item, request.itemOptionGroupInfoList());
     }

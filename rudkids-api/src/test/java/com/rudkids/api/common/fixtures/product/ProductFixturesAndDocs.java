@@ -67,7 +67,7 @@ public class ProductFixturesAndDocs {
             .bio("설명")
             .frontImage(new ImageResponse.Info("https://~", "https://~"))
             .backImage(new ImageResponse.Info("https://~", "https://~"))
-            .bannerImages(List.of(new ProductResponse.DetailBannerImage("https://~", "https://~", 1)))
+            .bannerImages(List.of(new ProductResponse.DetailBannerImage(UUID.randomUUID(), "https://~", "https://~", 1)))
             .items(
                 new PageImpl<>(List.of(
                     ITEM_리스트_조회_INFO()
