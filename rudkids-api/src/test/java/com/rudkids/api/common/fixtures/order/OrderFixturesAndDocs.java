@@ -1,13 +1,8 @@
 package com.rudkids.api.common.fixtures.order;
 
-import com.rudkids.core.admin.dto.AdminResponse;
-import com.rudkids.core.delivery.dto.DeliveryResponse;
-import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.dto.OrderItemResponse;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
@@ -24,7 +19,6 @@ public class OrderFixturesAndDocs {
     public static final UUID orderId = UUID.randomUUID();
     public static final String orderStatus = "주문완료";
     private static final String paymentMethod = "TOSS";
-    private static final ZonedDateTime createdAt = ZonedDateTime.now();
     private static final UUID deliveryId = UUID.randomUUID();
 
     private static final String receiverName = "이규진";
@@ -197,7 +191,11 @@ public class OrderFixturesAndDocs {
 
                 fieldWithPath("content.[].deliveryStatus")
                     .type(JsonFieldType.STRING)
-                    .description("주문 배송 상태")
+                    .description("주문 배송 상태"),
+
+                fieldWithPath("content.[].deliveryTrackingNumber")
+                    .type(JsonFieldType.STRING)
+                    .description("주문 배송 송장번호")
             )
         );
     }

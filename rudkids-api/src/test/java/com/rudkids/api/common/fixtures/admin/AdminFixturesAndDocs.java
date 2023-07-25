@@ -123,6 +123,7 @@ public class AdminFixturesAndDocs {
                 List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000)),
                 "주문완료",
                 "2023.07.31",
+                "124124-4534",
                 "배송완료"
         )));
     }
