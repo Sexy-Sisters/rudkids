@@ -12,6 +12,7 @@ import com.rudkids.core.config.properties.GoogleProperties;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -31,7 +32,7 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
     private final GoogleProperties properties;
     private final GoogleTokenClient googleTokenClient;
     private final TokenParser tokenParser;
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
