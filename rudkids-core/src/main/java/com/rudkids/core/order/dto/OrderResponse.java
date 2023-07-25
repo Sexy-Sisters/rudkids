@@ -2,10 +2,8 @@ package com.rudkids.core.order.dto;
 
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderDelivery;
-import com.rudkids.core.order.domain.OrderStatus;
 import lombok.Builder;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +15,8 @@ public class OrderResponse {
         UUID orderId,
         String createdAt,
         String orderStatus,
-        List<OrderItemResponse> orderItems
+        List<OrderItemResponse> orderItems,
+        boolean isAccountOrdered
     ) {
         public Main(Order order) {
             this(
@@ -26,7 +25,8 @@ public class OrderResponse {
                 order.getOrderStatus(),
                 order.getOrderItems().stream()
                     .map(OrderItemResponse::new)
-                    .toList()
+                    .toList(),
+                order.isAccountOrdered()
             );
         }
     }
