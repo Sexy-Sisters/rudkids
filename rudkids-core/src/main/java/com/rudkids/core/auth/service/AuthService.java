@@ -1,5 +1,6 @@
 package com.rudkids.core.auth.service;
 
+import com.rudkids.core.auth.domain.OAuthTokenRepository;
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.dto.AuthUser;
@@ -15,12 +16,17 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+    private final OAuthTokenRepository oAuthTokenRepository;
     private final UserRepository userRepository;
     private final TokenCreator tokenCreator;
 
     @Transactional
     public AuthResponse.AccessAndRefreshToken generateAccessAndRefreshToken(AuthUser.OAuth oAuthUser) {
         var foundUser = userRepository.getUser(oAuthUser);
+
+        var oAuthToken = oAuthTokenRepository.getOrCreate(foundUser, oAuthUser);
+        oAuthToken.change(oAuthUser.refreshToken());
+
         var authToken = tokenCreator.createAuthToken(foundUser.getId());
         boolean hasPhoneNumber = foundUser.hasPhoneNumber();
         return new AuthResponse.AccessAndRefreshToken(authToken.getAccessToken(), authToken.getRefreshToken(), hasPhoneNumber);

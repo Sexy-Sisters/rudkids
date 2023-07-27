@@ -50,8 +50,10 @@ sms:
 
 payment:
   toss:
-    client-key: test_ck_ZORzdMaqN3wNmedjP7g85AkYXQGw
-    secret-key: test_sk_qLlDJaYngro0Jy0ywlG8ezGdRpXx
+    secret-key: ${TOSS_SECRET_KEY}
+
+delivery:
+  tracking-url: https://apis.tracker.delivery/carriers/kr.cjlogistics/tracks/{id}
 
 application:
   bucket:

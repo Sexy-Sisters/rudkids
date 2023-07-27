@@ -9,14 +9,23 @@ import java.util.UUID;
 
 public class OrderResponse {
 
-    public record Create(UUID orderId) {}
+    public record Id(UUID orderId) {}
+
+    @Builder
+    public record PaymentWidgetInfo(
+        String customerKey,
+        int price,
+        String paymentOrderId,
+        String orderName,
+        String customerName,
+        String customerEmail
+    ) {}
 
     public record Main(
         UUID orderId,
         String createdAt,
         String orderStatus,
-        List<OrderItemResponse> orderItems,
-        boolean isAccountOrdered
+        List<OrderItemResponse> orderItems
     ) {
         public Main(Order order) {
             this(
@@ -25,8 +34,7 @@ public class OrderResponse {
                 order.getOrderStatus(),
                 order.getOrderItems().stream()
                     .map(OrderItemResponse::new)
-                    .toList(),
-                order.isAccountOrdered()
+                    .toList()
             );
         }
     }
@@ -38,7 +46,10 @@ public class OrderResponse {
         String orderStatus,
         List<OrderItemResponse> orderItems,
         DetailDelivery delivery,
-        String paymentMethod
+        String paymentMethod,
+        String bankName,
+        String accountNumber,
+        String customerName
     ) {
         public Detail(Order order) {
             this(
@@ -49,7 +60,10 @@ public class OrderResponse {
                     .map(OrderItemResponse::new)
                     .toList(),
                 new DetailDelivery(order.getDelivery()),
-                order.getPaymentMethod()
+                order.getPaymentMethod(),
+                order.getBankName(),
+                order.getRefundAccountNumber(),
+                order.getRefundAccountHolderName()
             );
         }
     }

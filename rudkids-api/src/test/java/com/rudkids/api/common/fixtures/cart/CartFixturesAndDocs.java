@@ -2,7 +2,6 @@ package com.rudkids.api.common.fixtures.cart;
 
 import com.rudkids.core.cart.dto.CartItemResponse;
 import com.rudkids.core.cart.dto.CartRequest;
-import com.rudkids.core.cart.dto.CartResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 
 import java.util.List;
@@ -40,8 +39,10 @@ public class CartFixturesAndDocs {
         return new CartRequest.UpdateCartItemAmount(CART_아이템_ID, CART_아이템_수량);
     }
 
-    public static CartResponse.Select CART_선택된_아이템_응답() {
-        return new CartResponse.Select(장바구니_아이템_총_가격, "OrderName", CART_ITEM_선택된_아이템_응답());
+    public static List<CartItemResponse.Select> CART_선택된_아이템_응답() {
+        return List.of(
+            new CartItemResponse.Select(아이템_이름, 5000)
+        );
     }
 
     private static List<CartItemResponse.Select> CART_ITEM_선택된_아이템_응답() {

@@ -35,7 +35,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final EnumPath<OrderStatus> orderStatus = createEnum("orderStatus", OrderStatus.class);
 
-    public final StringPath paymentMethod = createString("paymentMethod");
+    public final QOrderPayment payment;
 
     public final NumberPath<Integer> totalPrice = createNumber("totalPrice", Integer.class);
 
@@ -43,6 +43,8 @@ public class QOrder extends EntityPathBase<Order> {
     public final DateTimePath<java.time.ZonedDateTime> updatedAt = _super.updatedAt;
 
     public final com.rudkids.core.user.domain.QUser user;
+
+    public final QVirtualAccount virtualAccount;
 
     public QOrder(String variable) {
         this(Order.class, forVariable(variable), INITS);
@@ -63,7 +65,9 @@ public class QOrder extends EntityPathBase<Order> {
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.delivery = inits.isInitialized("delivery") ? new QOrderDelivery(forProperty("delivery")) : null;
+        this.payment = inits.isInitialized("payment") ? new QOrderPayment(forProperty("payment")) : null;
         this.user = inits.isInitialized("user") ? new com.rudkids.core.user.domain.QUser(forProperty("user"), inits.get("user")) : null;
+        this.virtualAccount = inits.isInitialized("virtualAccount") ? new QVirtualAccount(forProperty("virtualAccount")) : null;
     }
 
 }

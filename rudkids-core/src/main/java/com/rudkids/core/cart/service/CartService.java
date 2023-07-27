@@ -4,9 +4,7 @@ import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.cart.domain.CartRepository;
 import com.rudkids.core.cart.dto.CartItemResponse;
 import com.rudkids.core.cart.dto.CartRequest;
-import com.rudkids.core.cart.dto.CartResponse;
 import com.rudkids.core.item.domain.ItemRepository;
-import com.rudkids.core.order.infrastructure.OrderNameGenerator;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -26,7 +21,6 @@ public class CartService {
     private final ItemRepository itemRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
-    private final OrderNameGenerator orderNameGenerator;
 
     public UUID addCartItem(UUID userId, CartRequest.AddCartItem request) {
         var user = userRepository.getUser(userId);
@@ -48,14 +42,12 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public CartResponse.Select getSelected(UUID userId) {
+    public List<CartItemResponse.Select> getSelected(UUID userId) {
         var user = userRepository.getUser(userId);
         var cart = cartRepository.get(user);
-        String orderName = orderNameGenerator.generate(cart.getSelectedCartItems());
         return cart.getSelectedCartItems().stream()
             .map(CartItemResponse.Select::new)
-            .collect(collectingAndThen(toList(), cartItems ->
-                new CartResponse.Select(cart.calculateSelectedCartItemsTotalPrice(), orderName, cartItems)));
+            .toList();
     }
 
     public void updateCartItemAmount(UUID userId, CartRequest.UpdateCartItemAmount request) {

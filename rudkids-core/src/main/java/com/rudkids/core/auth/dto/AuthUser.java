@@ -12,7 +12,10 @@ public class AuthUser {
     public record OAuth(
         String email,
         String name,
-        String picture
+        String picture,
+        String refreshToken
     ) {
     }
+
+    public record Renewal(String accessToken, String refreshToken) {}
 }

@@ -20,15 +20,14 @@ public class OrderFactoryImpl implements OrderFactory {
     private final DeliveryRepository deliveryRepository;
 
     @Override
-    public Order save(User user, OrderRequest.Create request) {
-        var delivery = deliveryRepository.get(request.deliveryId());
+    public Order save(User user, OrderRequest.OrderAndPayment request) {
+        var delivery = deliveryRepository.getBasic();
         var cart = cartRepository.get(user);
         var orderDelivery = generateOrderDelivery(delivery);
 
         var order = Order.builder()
             .user(user)
             .delivery(orderDelivery)
-            .paymentMethod(request.paymentMethod())
             .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
             .build();
 

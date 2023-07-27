@@ -40,6 +40,7 @@ public class ItemFixturesAndDocs {
             .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
             .grayImage(new ImageResponse.Info("path", "url"))
             .videoUrl("videoUrl")
+            .productId(UUID.randomUUID())
             .build();
     }
 

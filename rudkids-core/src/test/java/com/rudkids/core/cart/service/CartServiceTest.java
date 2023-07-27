@@ -2,7 +2,6 @@ package com.rudkids.core.cart.service;
 
 import com.rudkids.core.cart.domain.Cart;
 import com.rudkids.core.cart.dto.CartRequest;
-import com.rudkids.core.cart.dto.CartResponse;
 import com.rudkids.core.cart.exception.CartItemNotFoundException;
 import com.rudkids.core.common.fixtures.cart.CartServiceFixtures;
 import com.rudkids.core.item.domain.*;
@@ -283,9 +282,8 @@ class CartServiceTest extends CartServiceFixtures {
 
             //then
             assertAll(() -> {
-                assertThat(actual.totalPrice()).isEqualTo(9000);
-                assertThat(actual.selectedCartItems().get(0).name()).isEqualTo("No.1, 사이즈-M, 색깔-파랑");
-                assertThat(actual.selectedCartItems().get(0).amount()).isEqualTo(2);
+                assertThat(actual.get(0).name()).isEqualTo("No.1, 사이즈-M, 색깔-파랑");
+                assertThat(actual.get(0).amount()).isEqualTo(2);
             });
         }
     }
@@ -346,7 +344,7 @@ class CartServiceTest extends CartServiceFixtures {
 
             //then
             var actual = cartService.getSelected(user.getId());
-            assertThat(actual.selectedCartItems()).hasSize(1);
+            assertThat(actual).hasSize(1);
         }
     }
 

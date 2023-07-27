@@ -6,7 +6,6 @@ import com.rudkids.core.order.dto.OrderResponse;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +25,18 @@ public class OrderFixturesAndDocs {
     private static final String receiverAddress = "부산시 사하구 윤공단로123";
     private static final String etcMessage = "나는 2024년 총 매출 35억을 달성했고 다낭으로 여행왔다. 나는 2024년 페라리를 샀다.";
 
-    public static OrderRequest.Create ORDER_주문_요청() {
-        return new OrderRequest.Create(deliveryId, paymentMethod);
+    public static OrderRequest.OrderAndPayment ORDER_주문_요청() {
+        return new OrderRequest.OrderAndPayment("paymentKey", "orderId", 3000);
     }
 
-    public static OrderResponse.Create ORDER_생성_응답() {
-        return new OrderResponse.Create(orderId);
+    public static OrderRequest.PaymentCancel ORDER_취소_요청() {
+        return new OrderRequest.PaymentCancel("취소하는 이유", "12445", "한국은행", "남세원");
     }
+
+    public static OrderResponse.Id ORDER_ID_응답() {
+        return new OrderResponse.Id(orderId);
+    }
+
 
     public static OrderResponse.Detail ORDER_상세조회_응답() {
         var delivery = new OrderResponse.DetailDelivery(receiverName, receiverPhone, receiverAddress, etcMessage);
@@ -44,6 +48,9 @@ public class OrderFixturesAndDocs {
             .orderItems(ORDER_ITEM_응답())
             .delivery(delivery)
             .paymentMethod(paymentMethod)
+            .bankName("bankname")
+            .accountNumber("accountNumber")
+            .customerName("holder name")
             .build();
     }
 
@@ -52,7 +59,7 @@ public class OrderFixturesAndDocs {
     }
 
     public static List<OrderResponse.Main> ORDER_주문내역_조회_INFO() {
-        return List.of(new OrderResponse.Main(orderId, "2023.07.31", orderStatus, ORDER_ITEM_응답(), true));
+        return List.of(new OrderResponse.Main(orderId, "2023.07.31", orderStatus, ORDER_ITEM_응답()));
     }
 
     public static List<FieldDescriptor> ORDER_상세조회_응답_필드() {
@@ -106,7 +113,19 @@ public class OrderFixturesAndDocs {
 
             fieldWithPath("paymentMethod")
                 .type(JsonFieldType.STRING)
-                .description("결제수단")
+                .description("결제수단"),
+
+            fieldWithPath("bankName")
+                .type(JsonFieldType.STRING)
+                .description("은행 이름"),
+
+            fieldWithPath("accountNumber")
+                .type(JsonFieldType.STRING)
+                .description("계좌번호"),
+
+            fieldWithPath("customerName")
+                .type(JsonFieldType.STRING)
+                .description("계좌 발급한 고객이름")
         );
     }
 
@@ -142,11 +161,7 @@ public class OrderFixturesAndDocs {
 
             fieldWithPath("[].orderItems[]price")
                 .type(JsonFieldType.NUMBER)
-                .description("주문한 상품 가격"),
-
-            fieldWithPath("[]isAccountOrdered")
-                .type(JsonFieldType.BOOLEAN)
-                .description("계좌이체 주문 여부")
+                .description("주문한 상품 가격")
         );
     }
 

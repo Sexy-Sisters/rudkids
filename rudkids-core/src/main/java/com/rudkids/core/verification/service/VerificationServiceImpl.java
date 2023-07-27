@@ -1,10 +1,10 @@
 package com.rudkids.core.verification.service;
 
+import com.rudkids.core.common.RandomGeneratable;
 import com.rudkids.core.verification.domain.VerificationCode;
 import com.rudkids.core.verification.domain.VerificationCodeRepository;
 import com.rudkids.core.verification.dto.VerifyRequest;
 import com.rudkids.core.user.exception.PhoneNumberEmptyException;
-import com.rudkids.core.verification.infrastructure.VerifyCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,16 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class VerificationServiceImpl implements VerificationService {
+    private static final int VERIFY_CODE_LENGTH = 6;
+
     private final SmsMessenger smsMessenger;
-    private final VerifyCodeGenerator verifyCodeGenerator;
+    private final RandomGeneratable randomGeneratable;
     private final VerificationCodeRepository verificationCodeRepository;
 
     @Override
     public void send(VerifyRequest.Send request) {
         validate(request);
-        String code = verifyCodeGenerator.generate();
+        String code = randomGeneratable.generate(VERIFY_CODE_LENGTH);
         verificationCodeRepository.save(request.phoneNumber(), code);
         smsMessenger.send(request.phoneNumber(), code);
     }

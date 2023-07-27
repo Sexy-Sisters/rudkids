@@ -10,9 +10,9 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum OrderStatus {
 
-    ORDERING("주문중"),
+    DEPOSIT_READY("입금대기중"),
     ORDER("주문완료"),
-    CANCELLING("취소중"),
+    CANCEL_READY("취소대기중"),
     CANCEL("취소완료");
 
     private final String description;

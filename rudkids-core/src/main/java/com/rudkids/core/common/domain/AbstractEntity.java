@@ -24,4 +24,8 @@ public class AbstractEntity {
     public String getCreatedAt() {
         return createdAt.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
+
+    public ZonedDateTime getCreatedZoneAt() {
+        return createdAt;
+    }
 }

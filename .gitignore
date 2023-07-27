@@ -47,6 +47,3 @@ out/
 /rudkids-api/logs/
 
 /logs/
-
-### Toss ###
-/rudkids-api/src/main/java/com/rudkids/api/toss

@@ -28,6 +28,7 @@ public class OAuthResponse {
     @Getter
     public static class KakaoToken {
         private String idToken;
+        private String refreshToken;
     }
 
     public record KakaoUserInfo(
@@ -35,4 +36,13 @@ public class OAuthResponse {
         String nickname,
         String picture
     ) {}
+
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class RenewaToken {
+        private String accessToken;
+        private String refreshToken;
+    }
 }

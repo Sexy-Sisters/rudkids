@@ -28,22 +28,23 @@ public class CollectionService {
         var user = userRepository.getUser(userId);
         var collection = collectionRepository.getOrCreate(user);
         var items = itemRepository.getAll();
-        checkCollectionItems(collection, items);
+
+        if (!collection.hasSameCollectionItemSize(items.size())) {
+            saveCollectionItems(collection, items);
+        }
 
         return collection.getCollectionItems().stream()
             .map(CollectionItemResponse.Info::new)
             .toList();
     }
 
-    private void checkCollectionItems(Collection collection, List<Item> items) {
-        if(!collection.hasSameCollectionItemSize(items.size())) {
-            for(Item item: items) {
-                if(!collection.isAlreadyHasCollectionItem(item)) {
-                    var collectionItem = CollectionItem.create(collection, item);
-                    collection.addCollectionItem(collectionItem);
-                    collectionItemRepository.save(collectionItem);
-                }
-            }
-        }
+    private void saveCollectionItems(Collection collection, List<Item> items) {
+        items.stream()
+            .filter(item -> !collection.isAlreadyHasCollectionItem(item))
+            .map(item -> CollectionItem.create(collection, item))
+            .forEach(collectionItem -> {
+                collection.addCollectionItem(collectionItem);
+                collectionItemRepository.save(collectionItem);
+            });
     }
 }

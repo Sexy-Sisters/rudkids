@@ -9,6 +9,10 @@ public class DeliveryTrackResponse {
         public String getState() {
             return state.text;
         }
+
+        public static Info getNotFoundResponse() {
+            return new Info(new State(""), "");
+        }
     }
 
     public record State(

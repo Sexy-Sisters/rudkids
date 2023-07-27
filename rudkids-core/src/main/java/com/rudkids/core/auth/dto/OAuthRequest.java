@@ -59,4 +59,23 @@ public class OAuthRequest {
             this.redirectUri = redirectUri;
         }
     }
+
+    @NoArgsConstructor
+    @Getter
+    public static class RenewalToken {
+        @FormProperty("client_id")
+        private String clientId;
+
+        @FormProperty("refresh_token")
+        private String refreshToken;
+
+        @FormProperty("grant_type")
+        private String grantType;
+
+        public RenewalToken(String clientId, String refreshToken) {
+            this.clientId = clientId;
+            this.refreshToken = refreshToken;
+            this.grantType = "authorization_code";
+        }
+    }
 }

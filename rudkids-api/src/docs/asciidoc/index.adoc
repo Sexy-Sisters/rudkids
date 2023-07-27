@@ -21,8 +21,6 @@ include::cart.adoc[]
 
 include::order.adoc[]
 
-include::payment.adoc[]
-
 include::delivery.adoc[]
 
 include::community.adoc[]

@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface JpaDeliveryRepository extends JpaRepository<Delivery, UUID> {
     List<Delivery> findByUserId(UUID userId);
+    Delivery findByBasicTrue();
 }
