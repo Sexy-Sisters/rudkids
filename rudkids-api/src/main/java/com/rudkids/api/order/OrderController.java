@@ -16,10 +16,16 @@ import java.util.UUID;
 public class OrderController {
     private final OrderService orderService;
 
+    @GetMapping("/payment/widget")
+    public ResponseEntity getPaymentWidgetInfo(@AuthenticationPrincipal AuthUser.Login loginUser) {
+        var response = orderService.getPaymentWidgetInfo(loginUser.id());
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity order(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @RequestBody OrderRequest.Create request
+        @RequestBody OrderRequest.OrderAndPayment request
     ) {
         var response = orderService.order(loginUser.id(), request);
         return ResponseEntity.ok(response);
@@ -38,12 +44,13 @@ public class OrderController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Void> cancel(
+    public ResponseEntity cancel(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable(name = "id") UUID orderId
+        @PathVariable(name = "id") UUID orderId,
+        @RequestBody OrderRequest.PaymentCancel request
     ) {
-        orderService.cancel(loginUser.id(), orderId);
-        return ResponseEntity.ok().build();
+        var response = orderService.cancel(loginUser.id(), orderId, request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/cancel")

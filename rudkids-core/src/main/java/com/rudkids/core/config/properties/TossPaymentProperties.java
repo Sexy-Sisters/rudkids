@@ -8,6 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @AllArgsConstructor
 @Getter
 public class TossPaymentProperties {
-    private final String clientKey;
     private final String secretKey;
 }

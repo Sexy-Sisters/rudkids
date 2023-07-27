@@ -25,15 +25,27 @@ public class KakaoOAuthClientManager implements OAuthClientManager {
     public AuthUser.OAuth getOAuthUser(String code, String redirectUri) {
         OAuthResponse.KakaoToken tokenResponse = requestToken(code, redirectUri);
         var userInfo = tokenParser.parse(tokenResponse.getIdToken(), OAuthResponse.KakaoUserInfo.class);
-        return new AuthUser.OAuth(userInfo.email(), userInfo.nickname(), userInfo.picture());
+        var refreshToken = tokenResponse.getRefreshToken();
+        return new AuthUser.OAuth(userInfo.email(), userInfo.nickname(), userInfo.picture(), refreshToken);
     }
 
     private OAuthResponse.KakaoToken requestToken(String code, String redirectUri) {
-        OAuthRequest.KakaoToken tokenRequest = OAuthRequest.KakaoToken.builder()
+        var tokenRequest = OAuthRequest.KakaoToken.builder()
             .clientId(properties.getClientId())
             .code(code)
             .redirectUri(redirectUri)
             .build();
+
+        try {
+            return kakaoTokenClient.get(tokenRequest);
+        } catch (FeignException e) {
+            log.error(e.getMessage());
+            throw new OAuthException();
+        }
+    }
+
+    public OAuthResponse.RenewaToken getRenewalToken(String refreshToken) {
+        var tokenRequest = new OAuthRequest.RenewalToken(properties.getClientId(), refreshToken);
 
         try {
             return kakaoTokenClient.get(tokenRequest);

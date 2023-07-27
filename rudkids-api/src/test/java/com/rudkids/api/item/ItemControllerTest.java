@@ -135,7 +135,11 @@ class ItemControllerTest extends ControllerTest {
 
                         fieldWithPath("videoUrl")
                             .type(JsonFieldType.STRING)
-                            .description("비디오 url")
+                            .description("비디오 url"),
+
+                        fieldWithPath("productId")
+                            .type(JsonFieldType.STRING)
+                            .description("프로덕트 id")
                     )
                 ))
                 .andExpect(status().isOk());

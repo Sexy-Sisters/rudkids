@@ -63,6 +63,7 @@ public class ItemServiceFixtures {
         ItemImage image2 = ItemImage.create(item, "path", "url", 2);
         item.addImage(image);
         item.addImage(image2);
+        item.setProduct(product);
         itemRepository.save(item);
     }
 }

@@ -12,4 +12,7 @@ public interface KakaoTokenClient {
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     OAuthResponse.KakaoToken get(OAuthRequest.KakaoToken request) throws FeignException;
+
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    OAuthResponse.RenewaToken get(OAuthRequest.RenewalToken request) throws FeignException;
 }

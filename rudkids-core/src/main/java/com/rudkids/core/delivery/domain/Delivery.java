@@ -36,7 +36,7 @@ public class Delivery {
 
     private String message;
 
-    private boolean isBasic;
+    private boolean basic;
 
     @Builder
     public Delivery(String receiverName, String receiverPhone, Address address, String message, boolean isBasic) {
@@ -44,7 +44,7 @@ public class Delivery {
         this.receiverPhone = receiverPhone;
         this.address = address;
         this.message = message;
-        this.isBasic = isBasic;
+        this.basic = isBasic;
     }
 
     public void registerUser(User user) {
@@ -53,7 +53,7 @@ public class Delivery {
     }
 
     public void changeBasic() {
-        isBasic = true;
+        basic = true;
         user.changeDeliveryBasic(this);
     }
 
@@ -80,13 +80,13 @@ public class Delivery {
     }
 
     public void checkChangeBasicDelivery() {
-        if(isBasic) {
+        if(basic) {
             user.changeDeliveryBasic(this);
         }
     }
 
     public void changeBasicFalse() {
-        isBasic = false;
+        basic = false;
     }
 
     public void update(String receiverName, String receiverPhone, Address address, String message) {

@@ -5,8 +5,8 @@ import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
-import com.rudkids.core.item.domain.itemOption.ItemOption;
-import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
+import com.rudkids.core.item.domain.option.ItemOption;
+import com.rudkids.core.item.domain.optionGroup.ItemOptionGroup;
 import lombok.Builder;
 
 import java.util.Comparator;
@@ -43,7 +43,8 @@ public class ItemResponse {
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList,
         ImageResponse.Info grayImage,
-        String videoUrl
+        String videoUrl,
+        UUID productId
     ) {
         public Detail(Item item) {
             this(
@@ -60,7 +61,8 @@ public class ItemResponse {
                 item.getItemStatus(),
                 getOptionGroup(item),
                 new ImageResponse.Info(item.getGrayImagePath(), item.getGrayImageUrl()),
-                item.getVideoUrl()
+                item.getVideoUrl(),
+                item.getProductId()
             );
         }
 

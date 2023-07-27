@@ -17,7 +17,6 @@ public class UserFixturesAndDocs {
 
     public static UserResponse.Info USER_정보_조회() {
         return UserResponse.Info.builder()
-            .userId(UUID.randomUUID())
             .email("namse@gmail.com")
             .name("남세")
             .phoneNumber("01029401509")

@@ -1,7 +1,7 @@
 package com.rudkids.core.item.infrastructure;
 
-import com.rudkids.core.item.domain.itemOption.ItemOption;
-import com.rudkids.core.item.domain.itemOption.ItemOptionRepository;
+import com.rudkids.core.item.domain.option.ItemOption;
+import com.rudkids.core.item.domain.option.ItemOptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

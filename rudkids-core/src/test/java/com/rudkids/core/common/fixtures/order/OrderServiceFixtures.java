@@ -9,9 +9,7 @@ import com.rudkids.core.delivery.domain.Address;
 import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.item.domain.*;
-import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderDelivery;
-import com.rudkids.core.order.domain.OrderRepository;
+import com.rudkids.core.order.domain.*;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.service.OrderService;
 import com.rudkids.core.user.domain.*;
@@ -51,7 +49,7 @@ public class OrderServiceFixtures {
 
     protected static Item item;
 
-    protected static OrderRequest.Create ORDER_주문_요청;
+    protected static OrderRequest.OrderAndPayment ORDER_주문_요청;
 
     protected static CartRequest.AddCartItem CART_아이템_요청() {
         return CartRequest.AddCartItem.builder()
@@ -113,11 +111,10 @@ public class OrderServiceFixtures {
         order = Order.builder()
             .user(user)
             .delivery(orderDelivery)
-            .paymentMethod("TOSS")
             .totalPrice(cart.calculateSelectedCartItemsTotalPrice())
             .build();
         orderRepository.save(order);
 
-        ORDER_주문_요청 = new OrderRequest.Create(delivery.getId(), "TOSS");
+        ORDER_주문_요청 = new OrderRequest.OrderAndPayment("paymentKey", "orderId", 4000);
     }
 }

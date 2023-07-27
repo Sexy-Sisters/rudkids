@@ -35,10 +35,14 @@ public class Order extends AbstractEntity {
     @Embedded
     private OrderDelivery delivery;
 
-    private String paymentMethod;
+    @Embedded
+    private OrderPayment payment;
+
+    @Embedded
+    private VirtualAccount virtualAccount;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus = OrderStatus.ORDERING;
+    private OrderStatus orderStatus;
 
     private int totalPrice;
 
@@ -46,12 +50,23 @@ public class Order extends AbstractEntity {
     private final List<OrderItem> orderItems = new ArrayList<>();
 
     @Builder
-    public Order(User user, OrderDelivery delivery, String paymentMethod, int totalPrice) {
+    public Order(User user, OrderDelivery delivery, int totalPrice) {
         this.user = user;
         user.registerOrder(this);
         this.delivery = delivery;
-        this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
+    }
+
+    public void registerPaymentInfo(OrderPayment payment) {
+        this.payment = payment;
+    }
+
+    public void registerVirtualAccount(VirtualAccount virtualAccount) {
+        this.virtualAccount = virtualAccount;
+    }
+
+    public String getPaymentKey() {
+        return payment.getPaymentKey();
     }
 
     public void validateHasSameUser(User user) {
@@ -60,7 +75,15 @@ public class Order extends AbstractEntity {
         }
     }
 
+    public boolean isVirtualAccount() {
+        return payment.isVirtualAccount();
+    }
+
     public void cancel() {
+        if(!delivery.isReady()) {
+            throw new OrderDeliverNotReadyException();
+        }
+
         orderStatus = OrderStatus.CANCEL;
 
         for(OrderItem orderItem: orderItems) {
@@ -74,8 +97,14 @@ public class Order extends AbstractEntity {
         }
     }
 
-    public boolean isOrdering() {
-        return orderStatus == OrderStatus.ORDERING;
+    public void changeDeliveryStatusComp() {
+        delivery.changeStatusToComp();
+    }
+
+    public void checkVirtualAccountDepositDateExpired() {
+        if(payment.isVirtualAccount() && virtualAccount.isExpireDueDate()) {
+            orderStatus = OrderStatus.DEPOSIT_READY;
+        }
     }
 
     public String getCustomerName() {
@@ -90,14 +119,6 @@ public class Order extends AbstractEntity {
         delivery.registerTrackingNumber(deliveryTrackingNumber);
     }
 
-    public void changeCancelling() {
-        if(!delivery.isReady()) {
-            throw new OrderDeliverNotReadyException();
-        }
-
-        orderStatus = OrderStatus.CANCELLING;
-    }
-
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
     }
@@ -108,6 +129,10 @@ public class Order extends AbstractEntity {
 
     public void order() {
         this.orderStatus = OrderStatus.ORDER;
+    }
+
+    public void orderVirtualAccount() {
+        this.orderStatus = OrderStatus.DEPOSIT_READY;
     }
 
     public void validateAmount(int amount) {
@@ -136,7 +161,19 @@ public class Order extends AbstractEntity {
         return delivery.getTrackingNumber();
     }
 
-    public boolean isAccountOrdered() {
-        return paymentMethod.equals("계좌");
+    public String getPaymentMethod() {
+        return payment.getMethod();
+    }
+
+    public String getBankName() {
+        return virtualAccount.getBankName();
+    }
+
+    public String getRefundAccountNumber() {
+        return virtualAccount.getAccountNumber();
+    }
+
+    public String getRefundAccountHolderName() {
+        return virtualAccount.getCustomerName();
     }
 }

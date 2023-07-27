@@ -9,7 +9,6 @@ import com.rudkids.api.delivery.DeliveryController;
 import com.rudkids.api.image.ImageController;
 import com.rudkids.api.item.ItemController;
 import com.rudkids.api.order.OrderController;
-import com.rudkids.api.payment.PaymentController;
 import com.rudkids.api.product.ProductController;
 import com.rudkids.api.user.UserController;
 import com.rudkids.core.admin.service.AdminService;
@@ -23,7 +22,6 @@ import com.rudkids.core.image.service.ImageService;
 import com.rudkids.core.image.service.ImageClient;
 import com.rudkids.core.item.service.ItemService;
 import com.rudkids.core.order.service.OrderService;
-import com.rudkids.core.payment.service.PaymentService;
 import com.rudkids.core.product.service.ProductService;
 import com.rudkids.core.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +53,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
     ImageController.class,
     UserController.class,
     DeliveryController.class,
-    PaymentController.class
 })
 @ActiveProfiles("test")
 public abstract class ControllerTest {
@@ -94,9 +91,6 @@ public abstract class ControllerTest {
     @MockBean
     protected DeliveryService deliveryService;
 
-    @MockBean
-    protected PaymentService paymentService;
-
     // etc
     @MockBean
     protected RestTemplateBuilder restTemplateBuilder;
@@ -114,7 +108,6 @@ public abstract class ControllerTest {
     // image
     @MockBean
     private ImageClient imageClient;
-
 
     protected static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     protected static final String AUTHORIZATION_HEADER_VALUE = "Bearer aaaaaaaa.bbbbbbbb.cccccccc";

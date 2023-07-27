@@ -24,9 +24,9 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public final QAddress address;
 
-    public final ComparablePath<java.util.UUID> id = createComparable("id", java.util.UUID.class);
+    public final BooleanPath basic = createBoolean("basic");
 
-    public final BooleanPath isBasic = createBoolean("isBasic");
+    public final ComparablePath<java.util.UUID> id = createComparable("id", java.util.UUID.class);
 
     public final StringPath message = createString("message");
 

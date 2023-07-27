@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    @Transactional(readOnly = true)
     public ItemResponse.Detail get(String name) {
         var item = itemRepository.getByEnNme(name);
         return new ItemResponse.Detail(item);

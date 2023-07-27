@@ -1,6 +1,6 @@
 package com.rudkids.core.item.domain;
 
-import com.rudkids.core.item.domain.itemOption.ItemOptionName;
+import com.rudkids.core.item.domain.option.ItemOptionName;
 import com.rudkids.core.item.exception.InvalidItemOptionNameException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

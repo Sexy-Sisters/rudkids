@@ -3,6 +3,7 @@ package com.rudkids.core.order.infrastructure;
 import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.exception.OrderNotFoundException;
+import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +27,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getOrders() {
-        return orderRepository.findAll();
+    public List<Order> getOrders(User user) {
+        return orderRepository.findByUserOrderByCreatedAtAsc(user);
     }
 
     @Override

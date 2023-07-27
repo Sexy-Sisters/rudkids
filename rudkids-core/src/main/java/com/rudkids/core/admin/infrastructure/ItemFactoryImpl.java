@@ -2,11 +2,11 @@ package com.rudkids.core.admin.infrastructure;
 
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.item.domain.*;
-import com.rudkids.core.item.domain.itemOption.ItemOption;
-import com.rudkids.core.item.domain.itemOption.ItemOptionName;
-import com.rudkids.core.item.domain.itemOption.ItemOptionPrice;
-import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
-import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroupName;
+import com.rudkids.core.item.domain.option.ItemOption;
+import com.rudkids.core.item.domain.option.ItemOptionName;
+import com.rudkids.core.item.domain.option.ItemOptionPrice;
+import com.rudkids.core.item.domain.optionGroup.ItemOptionGroup;
+import com.rudkids.core.item.domain.optionGroup.ItemOptionGroupName;
 import com.rudkids.core.admin.service.ItemFactory;
 import com.rudkids.core.product.domain.Product;
 import org.springframework.stereotype.Component;

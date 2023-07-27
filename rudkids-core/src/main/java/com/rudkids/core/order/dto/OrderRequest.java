@@ -1,13 +1,22 @@
 package com.rudkids.core.order.dto;
 
-import java.util.UUID;
-
 public class OrderRequest {
 
-    public record Create(
-        UUID deliveryId,
-        String paymentMethod
-    ) {}
+    public record OrderAndPayment(
+        String paymentKey,
+        String orderId,
+        int amount
+    ) {
+    }
 
-    public record ChangeStatus(String status) {}
+    public record ChangeStatus(String status) {
+    }
+
+    public record PaymentCancel(
+        String cancelReason,
+        String refundAccountNumber,
+        String bankName,
+        String refundAccountHolderName
+    ) {
+    }
 }

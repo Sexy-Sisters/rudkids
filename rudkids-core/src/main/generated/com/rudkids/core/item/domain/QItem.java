@@ -35,7 +35,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public final QItemBio itemBio;
 
-    public final ListPath<com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup, com.rudkids.core.item.domain.itemOptionGroup.QItemOptionGroup> itemOptionGroups = this.<com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup, com.rudkids.core.item.domain.itemOptionGroup.QItemOptionGroup>createList("itemOptionGroups", com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup.class, com.rudkids.core.item.domain.itemOptionGroup.QItemOptionGroup.class, PathInits.DIRECT2);
+    public final ListPath<com.rudkids.core.item.domain.optionGroup.ItemOptionGroup, com.rudkids.core.item.domain.optionGroup.QItemOptionGroup> itemOptionGroups = this.<com.rudkids.core.item.domain.optionGroup.ItemOptionGroup, com.rudkids.core.item.domain.optionGroup.QItemOptionGroup>createList("itemOptionGroups", com.rudkids.core.item.domain.optionGroup.ItemOptionGroup.class, com.rudkids.core.item.domain.optionGroup.QItemOptionGroup.class, PathInits.DIRECT2);
 
     public final EnumPath<ItemStatus> itemStatus = createEnum("itemStatus", ItemStatus.class);
 
@@ -51,6 +51,8 @@ public class QItem extends EntityPathBase<Item> {
 
     //inherited
     public final DateTimePath<java.time.ZonedDateTime> updatedAt = _super.updatedAt;
+
+    public final StringPath videoUrl = createString("videoUrl");
 
     public QItem(String variable) {
         this(Item.class, forVariable(variable), INITS);

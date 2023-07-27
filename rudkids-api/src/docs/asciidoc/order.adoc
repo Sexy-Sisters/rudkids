@@ -15,11 +15,6 @@ include::{snippets}/order/order/request-fields.adoc[]
 HTTP Response
 include::{snippets}/order/order/http-response.adoc[]
 
-=== 존재하지 않는 배송 id로 주문 및 결제 요청
-
-HTTP Response
-include::{snippets}/order/order/fail/notFound/deliveryId/http-response.adoc[]
-
 === 존재하지 않는 결제방법으로 주문 및 결제 요청
 
 HTTP Response
@@ -68,6 +63,9 @@ include::{snippets}/order/cancel/request-headers.adoc[]
 
 Path Parameters
 include::{snippets}/order/cancel/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/order/cancel/request-fields.adoc[]
 
 HTTP Response
 include::{snippets}/order/cancel/http-response.adoc[]

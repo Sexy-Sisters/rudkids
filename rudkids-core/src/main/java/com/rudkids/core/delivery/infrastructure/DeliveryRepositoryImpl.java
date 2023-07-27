@@ -31,6 +31,11 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
+    public Delivery getBasic() {
+        return deliveryRepository.findByBasicTrue();
+    }
+
+    @Override
     public void delete(Delivery delivery) {
         deliveryRepository.delete(delivery);
     }

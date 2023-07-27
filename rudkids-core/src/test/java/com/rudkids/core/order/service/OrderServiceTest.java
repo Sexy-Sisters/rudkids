@@ -22,10 +22,7 @@ class OrderServiceTest extends OrderServiceFixtures {
         // then
         var findOrder = orderRepository.get(response.orderId());
 
-        assertAll(
-            () -> assertThat(findOrder.getPaymentMethod()).isEqualTo("TOSS"),
-            () -> assertThat(findOrder.getOrderStatus()).isEqualTo(OrderStatus.ORDERING)
-        );
+        assertThat(findOrder.getPaymentMethod()).isEqualTo("TOSS");
     }
 
     @Disabled("보류")

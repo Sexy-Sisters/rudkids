@@ -39,7 +39,7 @@ public class GoogleOAuthClientManager implements OAuthClientManager {
 //        OAuthResponse.GoogleToken tokenResponse = requestToken(code, redirectUri);
         OAuthResponse.GoogleToken tokenResponse = requestGoogleToken(code, redirectUri);
         var userInfo = tokenParser.parse(tokenResponse.getIdToken(), OAuthResponse.GoogleUserInfo.class);
-        return new AuthUser.OAuth(userInfo.email(), userInfo.name(), userInfo.picture());
+        return new AuthUser.OAuth(userInfo.email(), userInfo.name(), userInfo.picture(), "refreshToken");
     }
 
     private OAuthResponse.GoogleToken requestGoogleToken(final String code, final String redirectUri) {

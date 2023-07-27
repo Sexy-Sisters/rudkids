@@ -1,8 +1,8 @@
 package com.rudkids.core.item.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
-import com.rudkids.core.item.domain.itemOption.ItemOption;
-import com.rudkids.core.item.domain.itemOptionGroup.ItemOptionGroup;
+import com.rudkids.core.item.domain.option.ItemOption;
+import com.rudkids.core.item.domain.optionGroup.ItemOptionGroup;
 import com.rudkids.core.item.exception.QuantityDepletedException;
 import com.rudkids.core.product.domain.Product;
 import jakarta.persistence.*;
@@ -177,5 +177,9 @@ public class Item extends AbstractEntity {
 
     public void addQuantity(int amount) {
         quantity.add(amount);
+    }
+
+    public UUID getProductId() {
+        return product.getId();
     }
 }
