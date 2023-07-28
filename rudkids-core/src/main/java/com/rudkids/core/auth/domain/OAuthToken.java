@@ -26,7 +26,7 @@ public class OAuthToken {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "kakao_refresh_token", nullable = false)
+    @Column(name = "kakao_refresh_token")
     private String kakaoRefreshToken;
 
     private OAuthToken(User user, String kakaoRefreshToken) {

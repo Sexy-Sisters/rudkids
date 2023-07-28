@@ -96,7 +96,7 @@ public class OrderService {
                 if(deliveryTracker.isDeliveryCompleted(user, order)) {
                     order.changeDeliveryStatusComp();
                     collector.collect(user, order);
-//                    notificationMessenger.sendDeliveryCompleted(user);
+                    notificationMessenger.sendDeliveryCompleted(user);
                 }
 
                 order.checkVirtualAccountDepositDateExpired();

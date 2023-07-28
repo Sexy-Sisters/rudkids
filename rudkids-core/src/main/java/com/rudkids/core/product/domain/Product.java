@@ -1,5 +1,6 @@
 package com.rudkids.core.product.domain;
 
+import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Table(name = "tbl_product")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product {
+public class Product extends AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")

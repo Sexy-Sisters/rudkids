@@ -22,7 +22,12 @@ public class QProduct extends EntityPathBase<Product> {
 
     public static final QProduct product = new QProduct("product");
 
+    public final com.rudkids.core.common.domain.QAbstractEntity _super = new com.rudkids.core.common.domain.QAbstractEntity(this);
+
     public final QProductBackImage backImage;
+
+    //inherited
+    public final DateTimePath<java.time.ZonedDateTime> createdAt = _super.createdAt;
 
     public final QProductFrontImage frontImage;
 
@@ -39,6 +44,9 @@ public class QProduct extends EntityPathBase<Product> {
     public final EnumPath<ProductStatus> productStatus = createEnum("productStatus", ProductStatus.class);
 
     public final QTitle title;
+
+    //inherited
+    public final DateTimePath<java.time.ZonedDateTime> updatedAt = _super.updatedAt;
 
     public QProduct(String variable) {
         this(Product.class, forVariable(variable), INITS);

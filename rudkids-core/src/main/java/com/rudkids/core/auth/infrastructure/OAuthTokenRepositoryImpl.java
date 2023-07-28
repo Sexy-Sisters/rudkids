@@ -22,6 +22,11 @@ public class OAuthTokenRepositoryImpl implements OAuthTokenRepository {
     @Override
     public OAuthToken getOrCreate(User user, AuthUser.OAuth oAuthUser) {
         return oAuthTokenRepository.findByUser(user)
-            .orElseGet(() -> OAuthToken.create(user, oAuthUser.refreshToken()));
+            .orElseGet(() -> saveOAuthToken(user, oAuthUser.refreshToken()));
+    }
+
+    private OAuthToken saveOAuthToken(User user, String refreshToken) {
+        var oAuthToken = OAuthToken.create(user, refreshToken);
+        return oAuthTokenRepository.save(oAuthToken);
     }
 }
