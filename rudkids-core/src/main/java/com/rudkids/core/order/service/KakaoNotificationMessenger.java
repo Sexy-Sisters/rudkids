@@ -2,6 +2,7 @@ package com.rudkids.core.order.service;
 
 import com.rudkids.core.auth.domain.OAuthTokenRepository;
 import com.rudkids.core.auth.infrastructure.client.kakao.KakaoOAuthClientManager;
+import com.rudkids.core.order.infrastructure.client.KakaoNotificationTalkMessenger;
 import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class KakaoNotificationMessenger implements NotificationMessenger {
         var renewalToken = kakaoOAuthClientManager.getRenewalToken(oauthToken.getKakaoRefreshToken());
         oauthToken.change(renewalToken.getRefreshToken());
 
-        kakaoNotificationTalkMessenger.sendDeliveryCompleted(renewalToken.getAccessToken());
+        kakaoNotificationTalkMessenger.sendDeliveryCompleted(user.getPhoneNumber(), renewalToken.getAccessToken());
     }
 
     @Override

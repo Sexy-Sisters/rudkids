@@ -1,7 +1,6 @@
 package com.rudkids.core.order.infrastructure.client;
 
 import com.rudkids.core.order.infrastructure.dto.KakaoNotificationTalkRequest;
-import com.rudkids.core.order.service.KakaoNotificationTalkMessenger;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -11,18 +10,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class KakaoNotificationTalkManager implements KakaoNotificationTalkMessenger {
+public class KakaoNotificationTalkMessenger {
     private final WebClient webClient;
 
-    @Override
-    public void sendDeliveryCompleted(String accessToken) {
+    public void sendDeliveryCompleted(String phoneNumber, String accessToken) {
         var request = KakaoNotificationTalkRequest.Send.builder()
             .senderKey("")
-            .cid("")
-            .templateCode("")
-            .phoneNumber("")
+            .cid("234341")
+            .templateCode("안녕?")
+            .phoneNumber(phoneNumber)
             .senderNo("")
-            .message("")
+            .message("주문완료")
             .build();
 
         webClient.post()

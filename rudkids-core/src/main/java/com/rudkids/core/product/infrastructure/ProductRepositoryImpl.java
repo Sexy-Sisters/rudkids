@@ -30,7 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Page<Product> getAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+        return productRepository.findAllOrderByCreatedAtAsc(pageable);
     }
 
     @Override
