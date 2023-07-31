@@ -1,8 +1,11 @@
 spring:
   flyway:
     enabled: true
+    baseline-on-migrate: true
 
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: validate
     properties:
