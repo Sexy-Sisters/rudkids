@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ExpiringMapConfig {
 
+    /*
+    전화번호 인증코드 map
+     */
     @Bean
     public Map<String, String> codeRepository() {
         return ExpiringMap.builder()
@@ -21,6 +24,9 @@ public class ExpiringMapConfig {
             .build();
     }
 
+    /*
+    Auth 토큰 map
+     */
     @Bean
     public Map<UUID, String> tokenRepository() {
         return ExpiringMap.builder()
