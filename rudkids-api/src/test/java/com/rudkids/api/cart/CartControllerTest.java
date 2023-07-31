@@ -176,11 +176,7 @@ class CartControllerTest extends ControllerTest {
 
                         fieldWithPath("[]amount")
                             .type(JsonFieldType.NUMBER)
-                            .description("장바구니아이템 수량"),
-
-                        fieldWithPath("[]itemStatus")
-                            .type(JsonFieldType.STRING)
-                            .description("장바구니아이템 상태")
+                            .description("장바구니아이템 수량")
                     )
                 ))
                 .andExpect(status().isOk());

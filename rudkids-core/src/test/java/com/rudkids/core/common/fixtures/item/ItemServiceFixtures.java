@@ -58,6 +58,7 @@ public class ItemServiceFixtures {
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.LIMITED)
             .grayImage(grayImage)
+            .mysteryItemName("nothing?!")
             .build();
         ItemImage image = ItemImage.create(item, "path", "url", 1);
         ItemImage image2 = ItemImage.create(item, "path", "url", 2);

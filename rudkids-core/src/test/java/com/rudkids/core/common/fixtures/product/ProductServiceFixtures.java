@@ -46,6 +46,7 @@ public class ProductServiceFixtures {
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
                 .mobileImage(ProductMobileImage.create("path", "url"))
+                .mystery(false)
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.2"))
@@ -53,6 +54,7 @@ public class ProductServiceFixtures {
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
                 .mobileImage(ProductMobileImage.create("path", "url"))
+                .mystery(false)
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.3"))
@@ -60,6 +62,7 @@ public class ProductServiceFixtures {
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
                 .mobileImage(ProductMobileImage.create("path", "url"))
+                .mystery(false)
                 .build(),
             Product.builder()
                 .title(Title.create("프로덕트 No.4"))
@@ -67,6 +70,7 @@ public class ProductServiceFixtures {
                 .frontImage(ProductFrontImage.create("path", "url"))
                 .backImage(ProductBackImage.create("path", "url"))
                 .mobileImage(ProductMobileImage.create("path", "url"))
+                .mystery(false)
                 .build()
         );
         products.forEach(productRepository::save);
@@ -78,7 +82,8 @@ public class ProductServiceFixtures {
             .itemBio(ItemBio.create("소개글입니다~"))
             .limitType(LimitType.NORMAL)
             .build();
-        itemRepository.save(item);
         item.setProduct(products.get(0));
+
+        itemRepository.save(item);
     }
 }

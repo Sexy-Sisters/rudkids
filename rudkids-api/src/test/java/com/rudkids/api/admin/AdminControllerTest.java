@@ -189,7 +189,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("mobileImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("모바일 이미지 url")
+                            .description("모바일 이미지 url"),
+
+                        fieldWithPath("mystery")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("미스테리 프로덕트 여부")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -444,7 +448,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("videoUrl")
                             .type(JsonFieldType.STRING)
-                            .description("비디오 url")
+                            .description("비디오 url"),
+
+                        fieldWithPath("mysteryItemName")
+                            .type(JsonFieldType.STRING)
+                            .description("미스테리 아이템 이름")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -545,7 +553,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("videoUrl")
                             .type(JsonFieldType.STRING)
-                            .description("비디오 url")
+                            .description("비디오 url"),
+
+                        fieldWithPath("mysteryItemName")
+                            .type(JsonFieldType.STRING)
+                            .description("미스테리 아이템 이름")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -646,7 +658,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("videoUrl")
                             .type(JsonFieldType.STRING)
-                            .description("비디오 url")
+                            .description("비디오 url"),
+
+                        fieldWithPath("mysteryItemName")
+                            .type(JsonFieldType.STRING)
+                            .description("미스테리 아이템 이름")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -1037,7 +1053,6 @@ public class AdminControllerTest extends ControllerTest {
                 .willReturn(ORDER_전체_조회_응답());
 
             mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
-                        .queryParam("deliveryStatus", "READY")
                         .queryParam("orderStatus", "ORDER")
                         .queryParam("deliveryTrackingNumber", "12345-6789")
                         .queryParam("customerName", "남세원")
@@ -1116,10 +1131,6 @@ public class AdminControllerTest extends ControllerTest {
                         fieldWithPath("orderStatus")
                             .type(JsonFieldType.STRING)
                             .description("주문상태"),
-
-                        fieldWithPath("deliveryStatus")
-                            .type(JsonFieldType.STRING)
-                            .description("배송상태"),
 
                         fieldWithPath("deliveryTrackingNumber")
                             .type(JsonFieldType.STRING)

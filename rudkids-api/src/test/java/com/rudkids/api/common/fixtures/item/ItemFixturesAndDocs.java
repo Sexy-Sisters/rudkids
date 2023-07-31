@@ -57,7 +57,7 @@ public class ItemFixturesAndDocs {
 
     public static Page<ItemResponse.Main> ITEM_아이템_응답() {
         return new PageImpl<>(List.of(
-            new ItemResponse.Main(UUID.randomUUID(), "name", 1000, 아이템_여러_이미지, ItemStatus.SELLING))
+            new ItemResponse.Main(UUID.randomUUID(), "name", 1000, "url", ItemStatus.SELLING))
         );
     }
 
@@ -76,8 +76,8 @@ public class ItemFixturesAndDocs {
                     .type(JsonFieldType.NUMBER)
                     .description("상품 가격"),
 
-                fieldWithPath("content[]imageUrls")
-                    .type(JsonFieldType.ARRAY)
+                fieldWithPath("content[]imageUrl")
+                    .type(JsonFieldType.STRING)
                     .description("상품 이미지들"),
 
                 fieldWithPath("content[]itemStatus")

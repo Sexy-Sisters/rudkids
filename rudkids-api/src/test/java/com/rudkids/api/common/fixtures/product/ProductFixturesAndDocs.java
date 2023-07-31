@@ -82,7 +82,7 @@ public class ProductFixturesAndDocs {
             .itemId(UUID.randomUUID())
             .name("아이템")
             .price(1000)
-            .imageUrls(List.of("url1", "url2", "url3"))
+            .imageUrl("url")
             .itemStatus(ItemStatus.SELLING)
             .build();
     }

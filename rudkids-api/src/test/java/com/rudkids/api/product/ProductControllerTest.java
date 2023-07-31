@@ -48,10 +48,11 @@ class ProductControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(productService.get(any(), any()))
+            given(productService.get(any(), any(), any()))
                 .willReturn(PRODUCT_상세조회_INFO());
 
-            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디))
+            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("product/get",
                         preprocessRequest(prettyPrint()),
@@ -129,8 +130,8 @@ class ProductControllerTest extends ControllerTest {
                                 .type(JsonFieldType.NUMBER)
                                 .description("아이템 가격"),
 
-                            fieldWithPath("items.content[].imageUrls")
-                                .type(JsonFieldType.ARRAY)
+                            fieldWithPath("items.content[].imageUrl")
+                                .type(JsonFieldType.STRING)
                                 .description("여러 이미지 url"),
 
                             fieldWithPath("items.content[].itemStatus")
@@ -207,9 +208,10 @@ class ProductControllerTest extends ControllerTest {
         void fail() throws Exception {
             doThrow(new ProductNotFoundException())
                 .when(productService)
-                .get(any(), any());
+                .get(any(), any(), any());
 
-            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디))
+            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
                 .andDo(print())
                 .andDo(document("product/get/fail/notFound",
                         preprocessRequest(prettyPrint()),

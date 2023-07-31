@@ -208,10 +208,6 @@ public class OrderFixturesAndDocs {
                     .type(JsonFieldType.STRING)
                     .description("주문한 시간"),
 
-                fieldWithPath("content.[].deliveryStatus")
-                    .type(JsonFieldType.STRING)
-                    .description("주문 배송 상태"),
-
                 fieldWithPath("content.[].deliveryTrackingNumber")
                     .type(JsonFieldType.STRING)
                     .description("주문 배송 송장번호")
