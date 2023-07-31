@@ -21,7 +21,7 @@ public class ItemOptionGroup extends AbstractEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name = "item_option_group_id")
+    @Column(name = "item_option_group_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
