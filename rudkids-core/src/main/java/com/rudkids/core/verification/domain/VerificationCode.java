@@ -1,6 +1,6 @@
 package com.rudkids.core.verification.domain;
 
-import com.rudkids.core.verification.exception.NoSuchVerificationCodeException;
+import com.rudkids.core.verification.exception.InvalidVerificationCodeException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +18,9 @@ public class VerificationCode {
         return new VerificationCode(code);
     }
 
-    public void validateHasSameRefreshToken(String code) {
+    public void validateHasSameCode(String code) {
         if(!this.code.equals(code)) {
-            throw new NoSuchVerificationCodeException();
+            throw new InvalidVerificationCodeException();
         }
     }
 }

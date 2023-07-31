@@ -4,7 +4,6 @@ import com.rudkids.core.auth.domain.OAuthTokenRepository;
 import com.rudkids.core.auth.dto.AuthRequest;
 import com.rudkids.core.auth.dto.AuthResponse;
 import com.rudkids.core.auth.dto.AuthUser;
-import com.rudkids.core.user.domain.PhoneNumber;
 import com.rudkids.core.user.domain.UserRepository;
 import com.rudkids.core.user.exception.PhoneNumberEmptyException;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +35,6 @@ public class AuthService {
         String refreshToken = request.refreshToken();
         var authToken = tokenCreator.renewAuthToken(refreshToken);
         return new AuthResponse.AccessToken(authToken.getAccessToken());
-    }
-
-    @Transactional
-    public void saveAuthenticatedPhoneNumber(UUID userId, String authenticatedPhoneNumber) {
-        var user = userRepository.getUser(userId);
-        var phoneNumber = PhoneNumber.create(authenticatedPhoneNumber);
-        user.updatePhoneNumber(phoneNumber);
     }
 
     public UUID extractUserId(String accessToken) {

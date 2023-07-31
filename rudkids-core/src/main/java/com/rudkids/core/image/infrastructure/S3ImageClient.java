@@ -19,9 +19,6 @@ public class S3ImageClient implements ImageClient {
     @Value("${application.bucket.name}")
     private String bucket;
 
-    @Value("${application.sub-domain.url}")
-    private String imageDomainUrl;
-
     @Override
     public String upload(MultipartFile file, String fileName) {
         putImageFileToS3(file, fileName);
@@ -34,7 +31,8 @@ public class S3ImageClient implements ImageClient {
                 bucket,
                 fileName,
                 file.getInputStream(),
-                generateObjectMetadata(file)));
+                generateObjectMetadata(file))
+                .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new FileUploadFailException();
         }
@@ -48,7 +46,7 @@ public class S3ImageClient implements ImageClient {
     }
 
     private String createUploadUrl(String fileName) {
-        return imageDomainUrl + fileName;
+        return String.valueOf(amazonS3.getUrl(bucket, fileName));
     }
 
     @Override

@@ -55,6 +55,9 @@ public class Item extends AbstractEntity {
 
     private String videoUrl;
 
+    @Column(name = "mystery_item_name")
+    private String mysteryItemName;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
@@ -69,7 +72,8 @@ public class Item extends AbstractEntity {
                 Quantity quantity,
                 LimitType limitType,
                 GrayImage grayImage,
-                String videoUrl
+                String videoUrl,
+                String mysteryItemName
     ) {
         this.product = product;
         this.name = name;
@@ -80,6 +84,7 @@ public class Item extends AbstractEntity {
         this.itemStatus = ItemStatus.SELLING;
         this.grayImage = grayImage;
         this.videoUrl = videoUrl;
+        this.mysteryItemName = mysteryItemName;
     }
 
     public void update(Name name,
@@ -155,12 +160,6 @@ public class Item extends AbstractEntity {
             .toList();
     }
 
-    public List<String> getImageUrls() {
-        return images.stream()
-            .map(ItemImage::getUrl)
-            .toList();
-    }
-
     public String getFirstImageUrl() {
         return images.get(0).getUrl();
     }
@@ -181,5 +180,9 @@ public class Item extends AbstractEntity {
 
     public UUID getProductId() {
         return product.getId();
+    }
+
+    public boolean isSoldOut() {
+        return itemStatus == ItemStatus.SOLD_OUT;
     }
 }

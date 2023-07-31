@@ -1,6 +1,8 @@
 package com.rudkids.core.verification.service;
 
 import com.rudkids.core.common.RandomGeneratable;
+import com.rudkids.core.user.domain.UserRepository;
+import com.rudkids.core.user.exception.DuplicatePhoneNumberException;
 import com.rudkids.core.verification.domain.VerificationCode;
 import com.rudkids.core.verification.domain.VerificationCodeRepository;
 import com.rudkids.core.verification.dto.VerifyRequest;
@@ -16,6 +18,7 @@ public class VerificationServiceImpl implements VerificationService {
     private static final int VERIFY_CODE_LENGTH = 6;
 
     private final SmsMessenger smsMessenger;
+    private final UserRepository userRepository;
     private final RandomGeneratable randomGeneratable;
     private final VerificationCodeRepository verificationCodeRepository;
 
@@ -31,6 +34,10 @@ public class VerificationServiceImpl implements VerificationService {
         if(isEmptyPhoneNumber(request.phoneNumber())) {
             throw new PhoneNumberEmptyException();
         }
+
+        if(userRepository.existsByPhoneNumber(request.phoneNumber())) {
+            throw new DuplicatePhoneNumberException();
+        }
     }
 
     private boolean isEmptyPhoneNumber(String phoneNumber) {
@@ -41,7 +48,7 @@ public class VerificationServiceImpl implements VerificationService {
     public String check(VerifyRequest.Check request) {
         String foundCode = verificationCodeRepository.get(request.phoneNumber());
         var verificationCode = VerificationCode.create(foundCode);
-        verificationCode.validateHasSameRefreshToken(request.code());
+        verificationCode.validateHasSameCode(request.code());
         return request.phoneNumber();
     }
 }

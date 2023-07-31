@@ -15,6 +15,6 @@ public interface JpaItemRepository extends JpaRepository<Item, UUID> {
 
     Page<Item> findByProduct(Product product, Pageable pageable);
 
-    @Query("SELECT i FROM Item i ORDER BY CASE WHEN i.itemStatus = com.rudkids.core.item.domain.ItemStatus.SOLD_OUT THEN 1 ELSE 0 END, i.quantity.value ASC")
+    @Query("SELECT i FROM Item i WHERE i.mysteryItemName is not null ORDER BY CASE WHEN i.itemStatus = com.rudkids.core.item.domain.ItemStatus.SOLD_OUT THEN 1 ELSE 0 END, i.quantity.value ASC")
     Page<Item> findAllByOrderByStatusAndQuantityAsc(Pageable pageable);
 }

@@ -3,6 +3,7 @@ package com.rudkids.core.delivery.infrastructure;
 import com.rudkids.core.delivery.domain.Delivery;
 import com.rudkids.core.delivery.domain.DeliveryRepository;
 import com.rudkids.core.delivery.exception.DeliveryNotFoundException;
+import com.rudkids.core.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +32,8 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
     }
 
     @Override
-    public Delivery getBasic() {
-        return deliveryRepository.findByBasicTrue();
+    public Delivery getBasic(User user) {
+        return deliveryRepository.findByUserAndBasicTrue(user);
     }
 
     @Override

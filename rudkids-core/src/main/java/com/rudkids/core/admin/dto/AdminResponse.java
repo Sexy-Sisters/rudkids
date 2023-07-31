@@ -1,7 +1,6 @@
 package com.rudkids.core.admin.dto;
 
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderDelivery;
 import com.rudkids.core.order.dto.OrderItemResponse;
 import com.rudkids.core.user.domain.User;
 
@@ -35,8 +34,7 @@ public class AdminResponse {
         List<OrderItemResponse> orderItems,
         String orderStatus,
         String createdAt,
-        String deliveryTrackingNumber,
-        String deliveryStatus
+        String deliveryTrackingNumber
     ) {
         public OrderInfo(Order order) {
             this(
@@ -48,8 +46,7 @@ public class AdminResponse {
                     .toList(),
                 order.getOrderStatus(),
                 order.getCreatedAt(),
-                order.getDeliveryTrackingNumber(),
-                order.getDeliveryStatus()
+                order.getDeliveryTrackingNumber()
             );
         }
     }
@@ -59,7 +56,6 @@ public class AdminResponse {
         String receiverName,
         String receivedAddress,
         String orderStatus,
-        String deliveryStatus,
         String deliveryTrackingNumber
     ) {
         public OrderDetail(Order order) {
@@ -70,7 +66,6 @@ public class AdminResponse {
                 order.getDeliveryReceiverName(),
                 order.getDeliveryReceivedAddress(),
                 order.getOrderStatus(),
-                order.getDeliveryStatus(),
                 order.getDeliveryTrackingNumber()
             );
         }

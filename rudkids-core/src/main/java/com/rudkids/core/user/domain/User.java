@@ -2,14 +2,16 @@ package com.rudkids.core.user.domain;
 
 import com.rudkids.core.community.domain.Community;
 import com.rudkids.core.delivery.domain.Delivery;
+import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderDelivery;
+import com.rudkids.core.order.domain.OrderItem;
 import com.rudkids.core.user.exception.NotAdminRoleException;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,9 +76,17 @@ public class User {
 
     public int getDeliveringOrderCount() {
         return orders.stream()
-            .map(Order::getDelivery)
-            .filter(OrderDelivery::isDelivering)
+            .filter(Order::isDelivering)
             .toList().size();
+    }
+
+    public List<Item> getBoughtItems() {
+        return orders.stream()
+            .filter(Order::isDeliveryComp)
+            .map(Order::getOrderItems)
+            .flatMap(Collection::stream)
+            .map(OrderItem::getItem)
+            .toList();
     }
 
     public boolean hasPhoneNumber() {

@@ -23,11 +23,11 @@ public class ItemResponse {
         UUID itemId,
         String name,
         int price,
-        List<String> imageUrls,
+        String imageUrl,
         ItemStatus itemStatus
     ) {
         public Main(Item item) {
-            this(item.getId(), item.getEnName(), item.getPrice(), item.getImageUrls(), item.getItemStatus());
+            this(item.getId(), item.getEnName(), item.getPrice(), item.getFirstImageUrl(), item.getItemStatus());
         }
     }
 

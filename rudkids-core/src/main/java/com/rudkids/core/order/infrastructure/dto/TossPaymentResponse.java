@@ -19,7 +19,7 @@ public class TossPaymentResponse {
                     .customerName(account.customerName)
                     .dueDate(account.dueDate)
                     .build())
-                .orElse(VirtualAccount.createDefault());
+                .orElseGet(VirtualAccount::createDefault);
         }
     }
 

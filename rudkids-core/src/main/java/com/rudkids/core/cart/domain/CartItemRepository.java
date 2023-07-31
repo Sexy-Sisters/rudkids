@@ -11,5 +11,6 @@ public interface CartItemRepository {
     CartItem get(UUID id);
     void selects(List<UUID> ids);
     void deleteSelected();
+    void deleteSoldOutCartItems();
     void delete(CartItem cartItem);
 }

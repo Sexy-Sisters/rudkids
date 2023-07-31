@@ -10,6 +10,6 @@ public enum OAuthProviderType {
     private final String description;
 
     public boolean isSameDescription(String description) {
-        return this.description.equals(description);
+        return this.description.equalsIgnoreCase(description);
     }
 }

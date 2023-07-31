@@ -13,7 +13,10 @@ public enum OrderStatus {
     DEPOSIT_READY("입금대기중"),
     ORDER("주문완료"),
     CANCEL_READY("취소대기중"),
-    CANCEL("취소완료");
+    CANCEL("취소완료"),
+    DELIVERY_READY("배송준비"),
+    DELIVERY_ING("배송중"),
+    DELIVERY_COMP("배송완료");
 
     private final String description;
 

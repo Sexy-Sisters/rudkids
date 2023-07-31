@@ -157,13 +157,12 @@ public class AdminController {
      */
     @GetMapping("/order")
     public ResponseEntity getAllOrder(
-        @RequestParam("deliveryStatus") String deliveryStatus,
         @RequestParam("orderStatus") String orderStatus,
         @RequestParam("deliveryTrackingNumber") String deliveryTrackingNumber,
         @RequestParam("customerName") String customerName,
         @PageableDefault Pageable pageable
     ) {
-        var response = adminService.getAllOrder(deliveryStatus, orderStatus, deliveryTrackingNumber, customerName, pageable);
+        var response = adminService.getAllOrder(orderStatus, deliveryTrackingNumber, customerName, pageable);
         return ResponseEntity.ok(response);
     }
 

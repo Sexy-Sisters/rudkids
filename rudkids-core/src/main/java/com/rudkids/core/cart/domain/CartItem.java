@@ -71,8 +71,8 @@ public class CartItem {
         return name;
     }
 
-    public ItemStatus getItemStatus() {
-        return item.getItemStatus();
+    public boolean isSoldOut() {
+        return item.isSoldOut();
     }
 
     public void select() {

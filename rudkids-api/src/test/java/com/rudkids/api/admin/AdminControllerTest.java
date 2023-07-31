@@ -1033,7 +1033,7 @@ public class AdminControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(adminService.getAllOrder(any(), any(), any(), any(), any()))
+            given(adminService.getAllOrder(any(), any(), any(), any()))
                 .willReturn(ORDER_전체_조회_응답());
 
             mockMvc.perform(get(ADMIN_ORDER_DEFAULT_URL)
@@ -1048,9 +1048,6 @@ public class AdminControllerTest extends ControllerTest {
                     preprocessResponse(prettyPrint()),
                     requestHeaders(JWT_ACCESS_TOKEN()),
                     queryParameters(
-                        parameterWithName("deliveryStatus")
-                            .description("배송 상태"),
-
                         parameterWithName("orderStatus")
                             .description("주문 상태"),
 

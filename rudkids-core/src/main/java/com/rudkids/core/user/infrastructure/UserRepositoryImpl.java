@@ -43,4 +43,9 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getUsersByEmail(String email) {
         return userRepository.findByEmailContaining(email);
     }
+
+    @Override
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        return userRepository.existsByPhoneNumberValue(phoneNumber);
+    }
 }
