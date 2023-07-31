@@ -17,7 +17,7 @@ public class Video {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "video_id")
+    @Column(name = "video_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Embedded
