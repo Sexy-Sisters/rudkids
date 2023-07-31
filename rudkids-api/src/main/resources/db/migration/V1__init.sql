@@ -8,7 +8,7 @@ create table if not exists tbl_user
     path         varchar(255) null,
     url          varchar(255) null,
     role_type    varchar(255) null
-);
+    );
 
 create table if not exists tbl_product
 (
@@ -28,7 +28,7 @@ create table if not exists tbl_product
     title          varchar(255) null,
     constraint UK_cou7p71iu1bfkbxq7adatkhm7
     unique (title)
-);
+    );
 
 create table if not exists tbl_product_banner_image
 (
@@ -40,7 +40,7 @@ create table if not exists tbl_product_banner_image
     product_id                  binary(16)   null,
     constraint FKtnklxk23ndsqqpbsbx7b0cky6
     foreign key (product_id) references tbl_product (product_id)
-);
+    );
 
 create table if not exists tbl_item
 (
@@ -66,7 +66,7 @@ create table if not exists tbl_item
     unique (en_name),
     constraint FKsf84ufa6fltpskcbqft9e7nm3
     foreign key (product_id) references tbl_product (product_id)
-);
+    );
 
 create table if not exists tbl_item_option_group
 (
@@ -79,7 +79,7 @@ create table if not exists tbl_item_option_group
     item_id              binary(16)   null,
     constraint FKhlupffolfs7ctdeikvriveu0f
     foreign key (item_id) references tbl_item (item_id)
-);
+    );
 
 create table if not exists tbl_item_option
 (
@@ -93,7 +93,7 @@ create table if not exists tbl_item_option
     item_option_group_id binary(16)   null,
     constraint FK36xwufr7uhgrox1sv6o9k2kt4
     foreign key (item_option_group_id) references tbl_item_option_group (item_option_group_id)
-);
+    );
 
 create table if not exists tbl_item_image
 (
@@ -105,7 +105,7 @@ create table if not exists tbl_item_image
     item_id    binary(16)   null,
     constraint FKcu395ch9q5kde0eh66stykdaq
     foreign key (item_id) references tbl_item (item_id)
-);
+    );
 
 create table if not exists tbl_delivery
 (
@@ -121,12 +121,12 @@ create table if not exists tbl_delivery
     user_id        binary(16)   null,
     constraint FKns1imq6p94y1k30ea3ic1fhg
     foreign key (user_id) references tbl_user (user_id)
-);
+    );
 
 create table if not exists tbl_community
 (
     community_id   binary(16)   not null
-        primary key,
+    primary key,
     created_at     datetime(6)  null,
     updated_at     datetime(6)  null,
     path           varchar(255) null,
@@ -137,20 +137,20 @@ create table if not exists tbl_community
     view           bigint       null,
     user_id        binary(16)   null,
     constraint FK33bjjy7f3bktqbju3d9l0y4m5
-        foreign key (user_id) references tbl_user (user_id)
-);
+    foreign key (user_id) references tbl_user (user_id)
+    );
 
 create table if not exists tbl_community_like
 (
     community_like_id binary(16) not null
-        primary key,
+    primary key,
     community_id      binary(16) null,
     user_id           binary(16) null,
     constraint FKbmmscq4lstaw7caualaqpxo7
-        foreign key (community_id) references tbl_community (community_id),
+    foreign key (community_id) references tbl_community (community_id),
     constraint FKk85erur8eo2s7jdttqlqjhhk8
-        foreign key (user_id) references tbl_user (user_id)
-);
+    foreign key (user_id) references tbl_user (user_id)
+    );
 
 create table if not exists tbl_cart
 (
@@ -161,7 +161,7 @@ create table if not exists tbl_cart
     user_id    binary(16)  null,
     constraint FKhv6grtjnmtoylt2yyt4wmqtf3
     foreign key (user_id) references tbl_user (user_id)
-);
+    );
 
 create table if not exists tbl_cart_item
 (
@@ -178,17 +178,17 @@ create table if not exists tbl_cart_item
     foreign key (item_id) references tbl_item (item_id),
     constraint FKhaw0aw4g8s9icxekpl4oi715a
     foreign key (cart_id) references tbl_cart (cart_id)
-);
+    );
 
 create table if not exists tbl_oauth_token
 (
     oauth_token_id      binary(16)   not null
-        primary key,
+    primary key,
     kakao_refresh_token varchar(255) not null,
     user_id             binary(16)   null,
     constraint FKtepmen1lr6qg10ok0cgqtoxb6
-        foreign key (user_id) references tbl_user (user_id)
-);
+    foreign key (user_id) references tbl_user (user_id)
+    );
 
 create table if not exists tbl_order
 (
@@ -213,7 +213,7 @@ create table if not exists tbl_order
     user_id          binary(16)   null,
     constraint FKhyolniflkctr0p6bp4t8me9vj
     foreign key (user_id) references tbl_user (user_id)
-);
+    );
 
 create table if not exists tbl_order_item
 (
@@ -229,7 +229,7 @@ create table if not exists tbl_order_item
     foreign key (order_id) references tbl_order (order_id),
     constraint FKqrkrc5o23ar4cx1hiont8myy
     foreign key (item_id) references tbl_item (item_id)
-);
+    );
 
 create table if not exists tbl_video
 (
@@ -240,7 +240,7 @@ create table if not exists tbl_video
     item_name varchar(255) null,
     bio       varchar(255) null,
     video_url varchar(255) null
-);
+    );
 
 create table if not exists tbl_collection
 (
@@ -249,7 +249,7 @@ create table if not exists tbl_collection
     user_id       binary(16) null,
     constraint FKroh0s06dnxqg3e1qr49rj9rcw
     foreign key (user_id) references tbl_user (user_id)
-);
+    );
 
 create table if not exists tbl_collection_item
 (
@@ -262,4 +262,4 @@ create table if not exists tbl_collection_item
     foreign key (collection_id) references tbl_collection (collection_id),
     constraint FK89rqbuivn2crmiskxb1pas0qn
     foreign key (item_id) references tbl_item (item_id)
-);
+    );

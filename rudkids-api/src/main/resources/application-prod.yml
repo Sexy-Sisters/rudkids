@@ -1,13 +1,8 @@
 spring:
-  sql:
-    init:
-      mode: always
-      platform: hibernate.dialect.MySQLDialect
-      schema-locations: classpath:db/prod/schema.sql
-      data-locations: classpath:db/prod/data.sql
+  flyway:
+    enabled: true
 
   jpa:
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: validate
     properties:

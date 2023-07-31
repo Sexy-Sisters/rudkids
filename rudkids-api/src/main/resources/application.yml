@@ -58,10 +58,6 @@ delivery:
 application:
   bucket:
     name: rudkids-image
-  cloudfront:
-    url: https://duu9477ot0it6.cloudfront.net/
-  sub-domain:
-    url: https://dev-img.rudkids.com/
 
 cloud:
   aws:
