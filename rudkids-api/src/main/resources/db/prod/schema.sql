@@ -14,12 +14,15 @@ create table if not exists tbl_product
 (
     product_id     binary(16)   not null
     primary key,
+    created_at     datetime(6)  null,
+    updated_at     datetime(6)  null,
     back_path      varchar(255) null,
     back_url       varchar(255) null,
     front_path     varchar(255) null,
     front_url      varchar(255) null,
     mobile_path    varchar(255) null,
     mobile_url     varchar(255) null,
+    mystery        bit          not null,
     bio            varchar(255) null,
     product_status varchar(255) null,
     title          varchar(255) null,
@@ -41,21 +44,22 @@ create table if not exists tbl_product_banner_image
 
 create table if not exists tbl_item
 (
-    item_id         binary(16)   not null
+    item_id           binary(16)   not null
     primary key,
-    created_at      datetime(6)  null,
-    updated_at      datetime(6)  null,
-    gray_image_path varchar(255) null,
-    gray_image_url  varchar(255) null,
-    item_bio        varchar(255) null,
-    item_status     varchar(255) null,
-    limit_type      varchar(255) null,
-    en_name         varchar(255) null,
-    ko_name         varchar(255) null,
-    price           int          null,
-    quantity        int          null,
-    video_url       varchar(255) null,
-    product_id      binary(16)   null,
+    created_at        datetime(6)  null,
+    updated_at        datetime(6)  null,
+    gray_image_path   varchar(255) null,
+    gray_image_url    varchar(255) null,
+    item_bio          varchar(255) null,
+    item_status       varchar(255) null,
+    limit_type        varchar(255) null,
+    mystery_item_name varchar(255) null,
+    en_name           varchar(255) null,
+    ko_name           varchar(255) null,
+    price             int          null,
+    quantity          int          null,
+    video_url         varchar(255) null,
+    product_id        binary(16)   null,
     constraint UK_fwtb92bsdey9v6l7f21kpd4we
     unique (ko_name),
     constraint UK_ivjhccb30o5qqi4qff1y1ng3b
@@ -236,13 +240,6 @@ create table if not exists tbl_video
     item_name varchar(255) null,
     bio       varchar(255) null,
     video_url varchar(255) null
-);
-
-create table if not exists tbl_collection
-(
-    collection_id binary(16) not null primary key,
-    user_id binary(16) null,
-    constraint FKroh0s06dnxqg3e1qr49rj9rcw foreign key (user_id) references tbl_user (user_id)
 );
 
 create table if not exists tbl_collection

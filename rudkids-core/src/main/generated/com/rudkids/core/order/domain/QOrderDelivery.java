@@ -19,8 +19,6 @@ public class QOrderDelivery extends BeanPath<OrderDelivery> {
 
     public static final QOrderDelivery orderDelivery = new QOrderDelivery("orderDelivery");
 
-    public final EnumPath<OrderDeliveryStatus> deliveryStatus = createEnum("deliveryStatus", OrderDeliveryStatus.class);
-
     public final StringPath message = createString("message");
 
     public final StringPath receivedAddress = createString("receivedAddress");

@@ -5,7 +5,6 @@ import com.querydsl.core.util.StringUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.rudkids.core.admin.domain.OrderQuerydslRepository;
 import com.rudkids.core.order.domain.Order;
-import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,11 +20,10 @@ public class OrderQuerydslRepositoryImpl implements OrderQuerydslRepository {
     private final JPAQueryFactory factory;
 
     @Override
-    public Page<Order> getOrders(OrderDeliveryStatus deliveryStatus, OrderStatus orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
+    public Page<Order> getOrders(OrderStatus orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
         BooleanExpression conditions;
 
-        conditions = checkDeliveryStatus(deliveryStatus);
-        conditions = addCondition(conditions, checkOrderStatus(orderStatus));
+        conditions = checkOrderStatus(orderStatus);
         conditions = addCondition(conditions, checkDeliveryTrackingNumber(deliveryTrackingNumber));
         conditions = addCondition(conditions, checkCustomerName(customerName));
 
@@ -37,10 +35,6 @@ public class OrderQuerydslRepositoryImpl implements OrderQuerydslRepository {
                 .limit(pageable.getPageSize())
                 .fetch()
         );
-    }
-
-    private BooleanExpression checkDeliveryStatus(OrderDeliveryStatus deliveryStatus) {
-        return order.delivery.deliveryStatus.eq(deliveryStatus);
     }
 
     private BooleanExpression checkOrderStatus(OrderStatus orderStatus) {

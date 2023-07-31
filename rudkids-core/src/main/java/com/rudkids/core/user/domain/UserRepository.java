@@ -9,4 +9,5 @@ public interface UserRepository {
     User getUser(UUID id);
     User getUser(AuthUser.OAuth oauthUser);
     List<User> getUsersByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 }

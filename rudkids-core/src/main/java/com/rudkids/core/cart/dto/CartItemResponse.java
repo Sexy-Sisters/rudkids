@@ -12,8 +12,7 @@ public class CartItemResponse {
         String imageUrl,
         String name,
         int price,
-        int amount,
-        ItemStatus itemStatus
+        int amount
     ) {
         public Main(CartItem cartItem) {
             this(
@@ -21,8 +20,7 @@ public class CartItemResponse {
                 cartItem.getImageUrl(),
                 cartItem.getName(),
                 cartItem.getPrice(),
-                cartItem.getAmount(),
-                cartItem.getItemStatus()
+                cartItem.getAmount()
             );
         }
     }

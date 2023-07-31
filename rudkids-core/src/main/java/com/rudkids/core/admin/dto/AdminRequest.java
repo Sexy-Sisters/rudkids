@@ -19,7 +19,8 @@ public class AdminRequest {
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
         List<BannerImage> bannerImages,
-        ImageRequest.Create mobileImage
+        ImageRequest.Create mobileImage,
+        boolean mystery
     ) {}
 
     public record ChangeProductStatus(String status) {}
@@ -50,7 +51,8 @@ public class AdminRequest {
         List<Image> images,
         List<ItemOptionGroup> itemOptionGroupInfoList,
         ImageRequest.Create grayImage,
-        String videoUrl
+        String videoUrl,
+        String mysteryItemName
     ) {}
 
     @Builder

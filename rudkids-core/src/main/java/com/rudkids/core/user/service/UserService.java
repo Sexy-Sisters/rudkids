@@ -3,10 +3,7 @@ package com.rudkids.core.user.service;
 import com.rudkids.core.collection.domain.CollectionRepository;
 import com.rudkids.core.community.dto.CommunityResponse;
 import com.rudkids.core.image.service.ImageDeletedEvent;
-import com.rudkids.core.user.domain.ProfileImage;
-import com.rudkids.core.user.domain.User;
-import com.rudkids.core.user.domain.UserName;
-import com.rudkids.core.user.domain.UserRepository;
+import com.rudkids.core.user.domain.*;
 import com.rudkids.core.user.dto.UserRequest;
 import com.rudkids.core.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +30,12 @@ public class UserService {
         user.update(name, profileImage);
     }
 
+    public void updatePhoneNumber(UUID userId, String phoneNumber) {
+        var user = userRepository.getUser(userId);
+        var userPhoneNumber = PhoneNumber.create(phoneNumber);
+        user.updatePhoneNumber(userPhoneNumber);
+    }
+
     private void deleteImage(User user) {
         if(!user.isDefaultImage()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(user.getProfileImagePath()));
@@ -46,6 +49,7 @@ public class UserService {
         return new UserResponse.Info(user, collection.getCollectionItemSize());
     }
 
+    @Transactional(readOnly = true)
     public List<CommunityResponse.Main> getMyCommunities(UUID userId) {
         var user = userRepository.getUser(userId);
         return user.getCommunities().stream()

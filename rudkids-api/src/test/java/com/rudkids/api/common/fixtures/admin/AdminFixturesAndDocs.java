@@ -39,7 +39,8 @@ public class AdminFixturesAndDocs {
             List.of(
                 new AdminRequest.BannerImage("image", "image.jpg", 1)
             ),
-            new ImageRequest.Create("image", "image.jpg")
+            new ImageRequest.Create("image", "image.jpg"),
+            false
         );
     }
 
@@ -72,6 +73,7 @@ public class AdminFixturesAndDocs {
             .itemOptionGroupInfoList(List.of(itemOptionGroup_사이즈))
             .grayImage(new ImageRequest.Create("path", "url"))
             .videoUrl("videoUrl")
+            .mysteryItemName("mystery nothing")
             .build();
     }
 
@@ -125,8 +127,7 @@ public class AdminFixturesAndDocs {
                 List.of(new OrderItemResponse("imageUrl", "아이스크림", 1, 1000)),
                 "주문완료",
                 "2023.07.31",
-                "124124-4534",
-                "배송완료"
+                "124124-4534"
         )));
     }
 
@@ -136,7 +137,6 @@ public class AdminFixturesAndDocs {
             "받는사람",
             "받는 주소",
             "주문완료",
-            "배송완료",
             "12345-6789"
         );
     }

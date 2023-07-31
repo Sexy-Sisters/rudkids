@@ -30,6 +30,7 @@ public class ProductFactoryImpl implements ProductFactory {
             .frontImage(frontImage)
             .backImage(backImage)
             .mobileImage(mobileImage)
+            .mystery(request.mystery())
             .build();
     }
 

@@ -79,8 +79,12 @@ public class Order extends AbstractEntity {
         return payment.isVirtualAccount();
     }
 
+    public boolean isDeliveryComp() {
+        return orderStatus == OrderStatus.DELIVERY_COMP;
+    }
+
     public void cancel() {
-        if(!delivery.isReady()) {
+        if(orderStatus != OrderStatus.DELIVERY_READY) {
             throw new OrderDeliverNotReadyException();
         }
 
@@ -98,7 +102,7 @@ public class Order extends AbstractEntity {
     }
 
     public void changeDeliveryStatusComp() {
-        delivery.changeStatusToComp();
+        orderStatus = OrderStatus.DELIVERY_COMP;
     }
 
     public void checkVirtualAccountDepositDateExpired() {
@@ -117,14 +121,11 @@ public class Order extends AbstractEntity {
 
     public void registerDeliveryTrackingNumber(String deliveryTrackingNumber) {
         delivery.registerTrackingNumber(deliveryTrackingNumber);
+        orderStatus = OrderStatus.DELIVERY_ING;
     }
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
-    }
-
-    public void changeStatus(OrderStatus status) {
-        this.orderStatus = status;
     }
 
     public void order() {
@@ -141,8 +142,8 @@ public class Order extends AbstractEntity {
         }
     }
 
-    public String getDeliveryStatus() {
-        return delivery.getStatus();
+    public boolean isDelivering() {
+        return orderStatus == OrderStatus.DELIVERY_ING;
     }
 
     public boolean isCanceled() {

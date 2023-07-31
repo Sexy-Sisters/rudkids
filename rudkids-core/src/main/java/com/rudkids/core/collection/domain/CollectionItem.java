@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -34,6 +35,7 @@ public class CollectionItem {
 
     private CollectionItem(Collection collection, Item item) {
         this.collection = collection;
+        collection.addCollectionItem(this);
         this.item = item;
     }
 

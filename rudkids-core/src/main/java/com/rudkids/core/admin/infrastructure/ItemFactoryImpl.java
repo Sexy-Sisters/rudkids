@@ -41,6 +41,7 @@ public class ItemFactoryImpl implements ItemFactory {
             .limitType(limitType)
             .grayImage(grayImage)
             .videoUrl(request.videoUrl())
+            .mysteryItemName(request.mysteryItemName())
             .build();
     }
 

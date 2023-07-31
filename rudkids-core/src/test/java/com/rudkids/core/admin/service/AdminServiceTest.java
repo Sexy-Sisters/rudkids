@@ -79,7 +79,8 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 List.of(
                     new AdminRequest.BannerImage("image", "image.jpg", 1)
                 ),
-                new ImageRequest.Create("new path", "new url")
+                new ImageRequest.Create("new path", "new url"),
+                false
             );
 
             //when
@@ -152,7 +153,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
             int page = 0;
             int size = 4;
             Pageable pageable = PageRequest.of(page, size);
-            var foundProduct = productService.get(productId, pageable);
+            var foundProduct = productService.get(user.getId(), productId, pageable);
             assertAll(() -> {
                 assertThat(foundProduct.title()).isEqualTo("new title");
                 assertThat(foundProduct.bio()).isEqualTo("새로운 productBio");

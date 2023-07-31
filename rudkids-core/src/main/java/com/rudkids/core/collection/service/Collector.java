@@ -19,10 +19,8 @@ public class Collector {
         var orderItems = order.getOrderItems();
 
         for(OrderItem orderItem: orderItems) {
-            var collectionItem = collection.getCollectionItem(orderItem.getItem());
+            var collectionItem = collectionItemRepository.getOrCreate(collection, orderItem.getItem());
             collectionItem.bought();
-            collection.addCollectionItem(collectionItem);
-            collectionItemRepository.save(collectionItem);
         }
     }
 }

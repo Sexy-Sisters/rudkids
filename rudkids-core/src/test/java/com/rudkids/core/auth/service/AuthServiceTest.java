@@ -124,7 +124,7 @@ class AuthServiceTest extends AuthServiceFixtures {
 
             //when
             final String phoneNumber = "01012345678";
-            authService.saveAuthenticatedPhoneNumber(user.getId(), phoneNumber);
+            userService.updatePhoneNumber(user.getId(), phoneNumber);
 
             //then
             assertThat(user.getPhoneNumber()).isEqualTo("01012345678");
@@ -138,7 +138,7 @@ class AuthServiceTest extends AuthServiceFixtures {
             final String phoneNumber = "01012345678";
 
             //when, then
-            assertThatThrownBy(() -> authService.saveAuthenticatedPhoneNumber(invalidUserId, phoneNumber))
+            assertThatThrownBy(() -> userService.updatePhoneNumber(invalidUserId, phoneNumber))
                 .isInstanceOf(NotFoundUserException.class);
         }
 
@@ -157,7 +157,7 @@ class AuthServiceTest extends AuthServiceFixtures {
             userRepository.save(user);
 
             //when, then
-            assertThatThrownBy(() -> authService.saveAuthenticatedPhoneNumber(user.getId(), invalid))
+            assertThatThrownBy(() -> userService.updatePhoneNumber(user.getId(), invalid))
                 .isInstanceOf(InvalidPhoneNumberException.class);
         }
     }

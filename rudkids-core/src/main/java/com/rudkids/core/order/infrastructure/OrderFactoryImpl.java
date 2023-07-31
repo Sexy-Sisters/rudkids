@@ -21,7 +21,7 @@ public class OrderFactoryImpl implements OrderFactory {
 
     @Override
     public Order save(User user, OrderRequest.OrderAndPayment request) {
-        var delivery = deliveryRepository.getBasic();
+        var delivery = deliveryRepository.getBasic(user);
         var cart = cartRepository.get(user);
         var orderDelivery = generateOrderDelivery(delivery);
 

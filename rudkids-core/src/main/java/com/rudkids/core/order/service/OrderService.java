@@ -9,6 +9,7 @@ import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.dto.OrderResponse;
 import com.rudkids.core.order.infrastructure.OrderNameGenerator;
 import com.rudkids.core.order.infrastructure.dto.TossPaymentResponse;
+import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,11 @@ public class OrderService {
         order.validateAmount(request.amount());
 
         var paymentResponse = confirmPayment(order, request);
-        checkVirtualAccountPayment(order, paymentResponse);
+        var virtualAccount = paymentResponse.toEntity();
+        order.registerVirtualAccount(virtualAccount);
+        if(order.isVirtualAccount()) {
+            order.orderVirtualAccount();
+        }
 
         orderRepository.save(order);
         cartItemRepository.deleteSelected();
@@ -75,14 +80,6 @@ public class OrderService {
         return confirmResponse;
     }
 
-    private void checkVirtualAccountPayment(Order order, TossPaymentResponse.Info paymentResponse) {
-        if(order.isVirtualAccount()) {
-            var virtualAccount = paymentResponse.toEntity();
-            order.registerVirtualAccount(virtualAccount);
-            order.orderVirtualAccount();
-        }
-    }
-
     @Transactional(readOnly = true)
     public OrderResponse.Detail get(UUID orderId) {
         var order = orderRepository.get(orderId);
@@ -93,16 +90,22 @@ public class OrderService {
         var user = userRepository.getUser(userId);
         return orderRepository.getOrders(user).stream()
             .map(order -> {
-                if(deliveryTracker.isDeliveryCompleted(user, order)) {
-                    order.changeDeliveryStatusComp();
-                    collector.collect(user, order);
-                    notificationMessenger.sendDeliveryCompleted(user);
+                if (!order.isDeliveryComp()) {
+                    checkDeliveryTracking(user, order);
                 }
-
                 order.checkVirtualAccountDepositDateExpired();
                 return new OrderResponse.Main(order);
             })
             .toList();
+    }
+
+    private void checkDeliveryTracking(User user, Order order) {
+        if (deliveryTracker.isDeliveryCompleted(user, order)) {
+            order.changeDeliveryStatusComp();
+            collector.collect(user, order);
+
+            notificationMessenger.sendDeliveryCompleted(user);
+        }
     }
 
     public OrderResponse.Id cancel(UUID userId, UUID orderId, OrderRequest.PaymentCancel request) {
@@ -110,9 +113,8 @@ public class OrderService {
         var order = orderRepository.get(orderId);
         order.validateHasSameUser(user);
 
-        if(order.isVirtualAccount()) {
+        if (order.isVirtualAccount()) {
             paymentClient.cancelVirtualAccount(order.getPaymentKey(), request);
-
             order.cancel();
             return new OrderResponse.Id(orderId);
         }

@@ -3,6 +3,11 @@ package com.rudkids.core.admin.service;
 import com.rudkids.core.admin.domain.OrderQuerydslRepository;
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
+import com.rudkids.core.cart.domain.CartItemRepository;
+import com.rudkids.core.collection.domain.Collection;
+import com.rudkids.core.collection.domain.CollectionItem;
+import com.rudkids.core.collection.domain.CollectionItemRepository;
+import com.rudkids.core.collection.domain.CollectionRepository;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImageRepository;
@@ -10,7 +15,6 @@ import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.option.ItemOptionRepository;
 import com.rudkids.core.item.domain.optionGroup.ItemOptionGroupRepository;
-import com.rudkids.core.order.domain.OrderDeliveryStatus;
 import com.rudkids.core.order.domain.OrderRepository;
 import com.rudkids.core.order.domain.OrderStatus;
 import com.rudkids.core.order.service.DeliveryTracker;
@@ -45,6 +49,9 @@ public class AdminService {
     private final VideoRepository videoRepository;
     private final DeliveryTracker deliveryTracker;
     private final OrderQuerydslRepository orderQuerydslRepository;
+    private final CollectionRepository collectionRepository;
+    private final CollectionItemRepository collectionItemRepository;
+    private final CartItemRepository cartItemRepository;
     private final ProductFactory productFactory;
     private final ItemFactory itemFactory;
     private final ApplicationEventPublisher eventPublisher;
@@ -101,7 +108,17 @@ public class AdminService {
         var product = productRepository.get(productId);
         var item = itemFactory.create(product, request);
         itemRepository.save(item);
+
+        saveCollectionItem(item);
         return item.getEnName();
+    }
+
+    private void saveCollectionItem(Item item) {
+        var collections = collectionRepository.getAll();
+        for(Collection collection: collections) {
+            var collectionItem = CollectionItem.create(collection, item);
+            collectionItemRepository.save(collectionItem);
+        }
     }
 
     public void updateItem(String itemName, AdminRequest.UpdateItem request) {
@@ -119,6 +136,10 @@ public class AdminService {
         var item = itemRepository.getByEnNme(itemName);
         var status = ItemStatus.toEnum(request.itemStatus());
         item.changeStatus(status);
+
+        if(item.isSoldOut()) {
+            cartItemRepository.deleteSoldOutCartItems();
+        }
     }
 
     public void deleteItem(String name) {
@@ -152,9 +173,8 @@ public class AdminService {
         videoRepository.delete(video);
     }
 
-    public Page<AdminResponse.OrderInfo> getAllOrder(String deliveryStatus, String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
+    public Page<AdminResponse.OrderInfo> getAllOrder(String orderStatus, String deliveryTrackingNumber, String customerName, Pageable pageable) {
         return orderQuerydslRepository.getOrders(
-                OrderDeliveryStatus.toEnum(deliveryStatus),
                 OrderStatus.toEnum(orderStatus),
                 deliveryTrackingNumber,
                 customerName, pageable)
@@ -168,7 +188,7 @@ public class AdminService {
 
     public void registerDeliveryTrackingNumber(UUID orderId, AdminRequest.DeliveryTrackingNumber request) {
         var order = orderRepository.get(orderId);
-//        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());
+        deliveryTracker.validateHasDeliveryTrackingNumber(request.trackingNumber());
         order.registerDeliveryTrackingNumber(request.trackingNumber());
     }
 }

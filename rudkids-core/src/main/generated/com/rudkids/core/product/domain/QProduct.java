@@ -37,6 +37,8 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final QProductMobileImage mobileImage;
 
+    public final BooleanPath mystery = createBoolean("mystery");
+
     public final ListPath<ProductBannerImage, QProductBannerImage> productBannerImages = this.<ProductBannerImage, QProductBannerImage>createList("productBannerImages", ProductBannerImage.class, QProductBannerImage.class, PathInits.DIRECT2);
 
     public final QProductBio productBio;

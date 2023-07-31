@@ -69,7 +69,16 @@ public class CartItemRepositoryImpl implements CartItemRepository {
             .filter(CartItem::isSelected)
             .toList();
 
-        cartItemRepository.deleteAll(cartItems);
+        cartItemRepository.deleteAllInBatch(cartItems);
+    }
+
+    @Override
+    public void deleteSoldOutCartItems() {
+        var cartItems = cartItemRepository.findAll().stream()
+            .filter(CartItem::isSoldOut)
+            .toList();
+
+        cartItemRepository.deleteAllInBatch(cartItems);
     }
 
     @Override

@@ -19,8 +19,4 @@ public interface JpaCartItemRepository extends JpaRepository<CartItem, UUID> {
     @Modifying(clearAutomatically = true)
     @Query("UPDATE CartItem c SET c.selected = true WHERE c.id IN :ids")
     void updateSelects(@Param("ids") List<UUID> ids);
-
-    @Modifying(clearAutomatically = true)
-    @Query("DELETE FROM CartItem c WHERE c.selected = true")
-    void deleteSelected();
 }

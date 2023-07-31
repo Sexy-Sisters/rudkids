@@ -2,6 +2,7 @@ package com.rudkids.api.verification;
 
 import com.rudkids.api.auth.AuthorizationExtractor;
 import com.rudkids.core.auth.service.AuthService;
+import com.rudkids.core.user.service.UserService;
 import com.rudkids.core.verification.dto.VerifyRequest;
 import com.rudkids.core.verification.service.VerificationService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class VerificationController {
     private final VerificationService verificationService;
     private final AuthService authService;
+    private final UserService userService;
 
     @PostMapping("/send")
     public ResponseEntity<Void> send(@RequestBody VerifyRequest.Send request) {
@@ -33,7 +35,7 @@ public class VerificationController {
         var phoneNumber = verificationService.check(request);
         var accessToken = AuthorizationExtractor.extract(httpRequest);
         var userId = authService.extractUserId(accessToken);
-        authService.saveAuthenticatedPhoneNumber(userId, phoneNumber);
+        userService.updatePhoneNumber(userId, phoneNumber);
         return ResponseEntity.ok().build();
     }
 }

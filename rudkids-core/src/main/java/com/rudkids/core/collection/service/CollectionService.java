@@ -28,13 +28,21 @@ public class CollectionService {
         var user = userRepository.getUser(userId);
         var collection = collectionRepository.getOrCreate(user);
         var items = itemRepository.getAll();
+        var boughtItems = user.getBoughtItems().stream()
+            .map(Item::getEnName)
+            .toList();
 
         if (!collection.hasSameCollectionItemSize(items.size())) {
             saveCollectionItems(collection, items);
         }
 
         return collection.getCollectionItems().stream()
-            .map(CollectionItemResponse.Info::new)
+            .map(item -> {
+                if(boughtItems.contains(item.getName())) {
+                    return new CollectionItemResponse.Info(item);
+                }
+                return new CollectionItemResponse.Info("?", item.getImageUrl());
+            })
             .toList();
     }
 

@@ -49,18 +49,22 @@ public class Product extends AbstractEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ProductBannerImage> productBannerImages = new ArrayList<>();
 
+    boolean mystery;
+
     @Builder
     public Product(final Title title,
                    final ProductBio productBio,
                    final ProductFrontImage frontImage,
                    final ProductBackImage backImage,
-                   final ProductMobileImage mobileImage
+                   final ProductMobileImage mobileImage,
+                   boolean mystery
                    ) {
         this.title = title;
         this.productBio = productBio;
         this.frontImage = frontImage;
         this.backImage = backImage;
         this.mobileImage = mobileImage;
+        this.mystery = mystery;
     }
 
     public void update(final Title title,
