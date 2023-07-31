@@ -11,6 +11,8 @@ import static com.rudkids.api.common.fixtures.product.ProductFixturesAndDocs.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -57,6 +59,10 @@ class ProductControllerTest extends ControllerTest {
                 .andDo(document("product/get",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                            headerWithName("Authorization")
+                                .description("JWT Access Token")
+                        ),
                         pathParameters(
                             parameterWithName("id")
                                 .description("프로덕트 id")
@@ -216,6 +222,10 @@ class ProductControllerTest extends ControllerTest {
                 .andDo(document("product/get/fail/notFound",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                            headerWithName("Authorization")
+                                .description("JWT Access Token")
+                        ),
                         pathParameters(
                             parameterWithName("id")
                                 .description("존재하지 않는 프로덕트 id")
