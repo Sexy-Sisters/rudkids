@@ -42,4 +42,8 @@ public class ItemImage {
     public static ItemImage create(Item item, String path, String url, int ordering) {
         return new ItemImage(item, path, url, ordering);
     }
+
+    public boolean isFirstOrdering() {
+        return ordering == 1;
+    }
 }

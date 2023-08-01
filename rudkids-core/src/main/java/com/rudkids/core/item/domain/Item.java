@@ -161,7 +161,11 @@ public class Item extends AbstractEntity {
     }
 
     public String getFirstImageUrl() {
-        return images.get(0).getUrl();
+        return images.stream()
+            .filter(ItemImage::isFirstOrdering)
+            .findFirst()
+            .map(ItemImage::getUrl)
+            .orElse("");
     }
 
     public void removeQuantity(int quantity) {
