@@ -2,9 +2,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  h2:
-    console:
-      enabled: false
 
   datasource:
     url: jdbc:mysql://localhost:3306/rudkids?serverTimezone=UTC&characterEncoding=UTF-8
