@@ -58,6 +58,9 @@ public class Item extends AbstractEntity {
     @Column(name = "mystery_item_name")
     private String mysteryItemName;
 
+    @Column(name = "mystery")
+    private boolean mystery;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
@@ -73,7 +76,8 @@ public class Item extends AbstractEntity {
                 LimitType limitType,
                 GrayImage grayImage,
                 String videoUrl,
-                String mysteryItemName
+                String mysteryItemName,
+                boolean mystery
     ) {
         this.product = product;
         this.name = name;
@@ -85,6 +89,7 @@ public class Item extends AbstractEntity {
         this.grayImage = grayImage;
         this.videoUrl = videoUrl;
         this.mysteryItemName = mysteryItemName;
+        this.mystery = mystery;
     }
 
     public void update(Name name,

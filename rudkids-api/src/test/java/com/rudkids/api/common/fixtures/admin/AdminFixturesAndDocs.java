@@ -74,6 +74,7 @@ public class AdminFixturesAndDocs {
             .grayImage(new ImageRequest.Create("path", "url"))
             .videoUrl("videoUrl")
             .mysteryItemName("mystery nothing")
+            .mystery(false)
             .build();
     }
 

@@ -1,0 +1,1 @@
+alter table tbl_item add column mystery bit null

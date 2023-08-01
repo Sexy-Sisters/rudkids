@@ -52,7 +52,8 @@ public class AdminRequest {
         List<ItemOptionGroup> itemOptionGroupInfoList,
         ImageRequest.Create grayImage,
         String videoUrl,
-        String mysteryItemName
+        String mysteryItemName,
+        boolean mystery
     ) {}
 
     @Builder
