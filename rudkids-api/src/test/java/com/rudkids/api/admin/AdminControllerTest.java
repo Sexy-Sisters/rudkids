@@ -452,7 +452,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("mysteryItemName")
                             .type(JsonFieldType.STRING)
-                            .description("미스테리 아이템 이름")
+                            .description("미스테리 아이템 이름"),
+
+                        fieldWithPath("mystery")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("미스테리 여부")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -557,7 +561,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("mysteryItemName")
                             .type(JsonFieldType.STRING)
-                            .description("미스테리 아이템 이름")
+                            .description("미스테리 아이템 이름"),
+
+                        fieldWithPath("mystery")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("미스테리 여부")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -662,7 +670,11 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("mysteryItemName")
                             .type(JsonFieldType.STRING)
-                            .description("미스테리 아이템 이름")
+                            .description("미스테리 아이템 이름"),
+
+                        fieldWithPath("mystery")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("미스테리 여부")
                     )
                 ))
                 .andExpect(status().isNotFound());

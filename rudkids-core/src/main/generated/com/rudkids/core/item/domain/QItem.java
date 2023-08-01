@@ -41,6 +41,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final EnumPath<LimitType> limitType = createEnum("limitType", LimitType.class);
 
+    public final BooleanPath mystery = createBoolean("mystery");
+
     public final StringPath mysteryItemName = createString("mysteryItemName");
 
     public final QName name;
