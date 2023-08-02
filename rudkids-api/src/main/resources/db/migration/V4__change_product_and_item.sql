@@ -1,6 +1,3 @@
-alter table tbl_product add column banner_path varchar(255) null;
-alter table tbl_product add column banner_url varchar(255) null;
-
 alter table tbl_product change column mobile_path mobile_banner_path varchar(255) null;
 alter table tbl_product change column mobile_url mobile_banner_url varchar(255) null;
 
