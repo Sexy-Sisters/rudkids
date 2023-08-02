@@ -1,7 +1,5 @@
 package com.rudkids.api.product;
 
-import com.rudkids.api.auth.AuthenticationPrincipal;
-import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -25,11 +23,10 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(
-        @AuthenticationPrincipal AuthUser.Login loginUser,
         @PathVariable("id") UUID productId,
         @PageableDefault Pageable pageable
     ) {
-        var response = productService.get(loginUser.id(), productId, pageable);
+        var response = productService.get(productId, pageable);
         return ResponseEntity.ok(response);
     }
 }

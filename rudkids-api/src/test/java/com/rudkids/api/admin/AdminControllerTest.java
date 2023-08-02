@@ -167,21 +167,13 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("뒤 이미지 url"),
 
-                        fieldWithPath("bannerImages")
-                            .type(JsonFieldType.ARRAY)
-                            .description("배너 이미지들"),
-
-                        fieldWithPath("bannerImages[]path")
+                        fieldWithPath("bannerImage.path")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 주소"),
 
-                        fieldWithPath("bannerImages[]url")
+                        fieldWithPath("bannerImage.url")
                             .type(JsonFieldType.STRING)
                             .description("배너 이미지 url"),
-
-                        fieldWithPath("bannerImages[]ordering")
-                            .type(JsonFieldType.NUMBER)
-                            .description("배너 이미지 순서"),
 
                         fieldWithPath("mobileImage.path")
                             .type(JsonFieldType.STRING)
@@ -189,50 +181,7 @@ public class AdminControllerTest extends ControllerTest {
 
                         fieldWithPath("mobileImage.url")
                             .type(JsonFieldType.STRING)
-                            .description("모바일 이미지 url"),
-
-                        fieldWithPath("mystery")
-                            .type(JsonFieldType.BOOLEAN)
-                            .description("미스테리 프로덕트 여부")
-                    )
-                ))
-                .andExpect(status().isOk());
-        }
-    }
-
-    @Nested
-    @DisplayName("프로덕트의 상태를 변경한다")
-    class changeProductStatus {
-
-        @Test
-        @DisplayName("성공")
-        void success() throws Exception {
-            willDoNothing()
-                .given(adminService)
-                .changeProductStatus(any(), any());
-
-            mockMvc.perform(patch(ADMIN_PRODUCT_DEFAULT_URL + "/{id}", PRODUCT_ID)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(PRODUCT_상태_변경_요청()))
-                )
-                .andDo(print())
-                .andDo(document("admin/changeProductStatus",
-                    preprocessRequest(prettyPrint()),
-                    preprocessResponse(prettyPrint()),
-                    requestHeaders(
-                        headerWithName("Authorization")
-                            .description("JWT Access Token")
-                    ),
-                    pathParameters(
-                        parameterWithName("id")
-                            .description("프로덕트 id")
-                    ),
-                    requestFields(
-                        fieldWithPath("status")
-                            .type(JsonFieldType.STRING)
-                            .description("프로덕트 상태")
+                            .description("모바일 이미지 url")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -293,21 +242,13 @@ public class AdminControllerTest extends ControllerTest {
                                 .type(JsonFieldType.STRING)
                                 .description("뒤 이미지 url"),
 
-                            fieldWithPath("bannerImages")
-                                .type(JsonFieldType.ARRAY)
-                                .description("배너 이미지"),
-
-                            fieldWithPath("bannerImages[]path")
+                            fieldWithPath("bannerImage.path")
                                 .type(JsonFieldType.STRING)
                                 .description("배너 이미지 주소"),
 
-                            fieldWithPath("bannerImages[]url")
+                            fieldWithPath("bannerImage.url")
                                 .type(JsonFieldType.STRING)
                                 .description("배너 이미지 url"),
-
-                            fieldWithPath("bannerImages[]ordering")
-                                .type(JsonFieldType.NUMBER)
-                                .description("배너 이미지 순서"),
 
                             fieldWithPath("mobileImage.path")
                                 .type(JsonFieldType.STRING)

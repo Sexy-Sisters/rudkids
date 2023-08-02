@@ -1,6 +1,5 @@
 package com.rudkids.core.product.domain;
 
-import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,14 +14,14 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Table(name = "tbl_product")
+@Table(name = "tbl_mystery_product")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product extends AbstractEntity {
+public class MysteryProduct {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name = "product_id", columnDefinition = "BINARY(16)")
+    @Column(name = "mystery_product_id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Embedded
@@ -40,15 +39,15 @@ public class Product extends AbstractEntity {
     @Embedded
     private BannerImage bannerImage;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mysteryProduct", cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
     @Builder
-    public Product(final Title title,
-                   final Bio bio,
-                   final FrontImage frontImage,
-                   final BackImage backImage,
-                   final BannerImage bannerImage) {
+    public MysteryProduct(final Title title,
+                          final Bio bio,
+                          final FrontImage frontImage,
+                          final BackImage backImage,
+                          final BannerImage bannerImage) {
         this.title = title;
         this.bio = bio;
         this.frontImage = frontImage;
@@ -61,7 +60,7 @@ public class Product extends AbstractEntity {
                        final FrontImage frontImage,
                        final BackImage backImage,
                        final BannerImage bannerImage
-                       ) {
+    ) {
         this.title = title;
         this.bio = bio;
         this.frontImage = frontImage;

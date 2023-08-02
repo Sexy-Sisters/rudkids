@@ -7,22 +7,22 @@ import lombok.Getter;
 
 @Getter
 @Embeddable
-public class ProductBio {
+public class Bio {
     private static final int MAX_LENGTH = 1000;
 
     @Column(name = "bio")
     private String value;
 
-    protected ProductBio() {
+    protected Bio() {
     }
 
-    private ProductBio(String value) {
+    private Bio(String value) {
         this.value = value;
     }
 
-    public static ProductBio create(String value) {
+    public static Bio create(String value) {
         validate(value);
-        return new ProductBio(value);
+        return new Bio(value);
     }
 
     private static void validate(String value) {

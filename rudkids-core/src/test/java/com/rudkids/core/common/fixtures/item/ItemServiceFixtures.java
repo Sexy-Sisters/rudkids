@@ -3,8 +3,8 @@ package com.rudkids.core.common.fixtures.item;
 import com.rudkids.core.common.ServiceTest;
 import com.rudkids.core.item.domain.*;
 import com.rudkids.core.item.service.ItemService;
+import com.rudkids.core.product.domain.Bio;
 import com.rudkids.core.product.domain.Product;
-import com.rudkids.core.product.domain.ProductBio;
 import com.rudkids.core.product.domain.ProductRepository;
 import com.rudkids.core.product.domain.Title;
 import com.rudkids.core.user.domain.*;
@@ -46,7 +46,7 @@ public class ItemServiceFixtures {
 
         product = Product.builder()
             .title(Title.create("Strange Drugstore"))
-            .productBio(ProductBio.create("약국입니다~"))
+            .bio(Bio.create("약국입니다~"))
             .build();
         productRepository.save(product);
 

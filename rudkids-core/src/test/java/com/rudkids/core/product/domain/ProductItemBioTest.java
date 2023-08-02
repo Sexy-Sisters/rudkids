@@ -15,7 +15,7 @@ class ProductItemBioTest {
     @Test
     void create_Exception_ContentLength() {
         String invalid = "a".repeat(1001);
-        assertThatThrownBy(() -> ProductBio.create(invalid))
+        assertThatThrownBy(() -> Bio.create(invalid))
             .isInstanceOf(InvalidBioException.class);
     }
 
@@ -24,7 +24,7 @@ class ProductItemBioTest {
     @ValueSource(strings = {"", " "})
     @NullSource
     void create_Exception_NoContent(String invalid) {
-        assertThatThrownBy(() -> ProductBio.create(invalid))
+        assertThatThrownBy(() -> Bio.create(invalid))
             .isInstanceOf(InvalidBioException.class);
     }
 

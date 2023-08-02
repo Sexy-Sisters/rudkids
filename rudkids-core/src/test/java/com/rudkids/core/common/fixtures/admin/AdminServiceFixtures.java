@@ -85,12 +85,11 @@ public class AdminServiceFixtures {
 
         product = Product.builder()
             .title(Title.create("Strange Drugstore"))
-            .productBio(ProductBio.create("약국입니다~"))
-            .frontImage(ProductFrontImage.create("path", "url"))
-            .backImage(ProductBackImage.create("path", "url"))
+            .bio(Bio.create("약국입니다~"))
+            .frontImage(FrontImage.create("path", "url"))
+            .backImage(BackImage.create("path", "url"))
+            .bannerImage(BannerImage.create("path", "url", "path", "url"))
             .build();
-        var productBannerImage = ProductBannerImage.create(product, "path", "url", 1);
-        product.addBannerImage(productBannerImage);
         productRepository.save(product);
 
         var grayImage = GrayImage.create("path", "url");

@@ -48,7 +48,7 @@ class ProductServiceTest extends ProductServiceFixtures {
             int page = 0;
             int size = 1;
             Pageable pageable = PageRequest.of(page, size);
-            var productDetailInfo = productService.get(user.getId(), product.getId(), pageable);
+            var productDetailInfo = productService.get(product.getId(), pageable);
 
             //then
             assertAll(

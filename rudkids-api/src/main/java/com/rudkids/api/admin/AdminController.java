@@ -48,18 +48,6 @@ public class AdminController {
     }
 
     /*
-    프로덕트의 상태를 변경한다
-     */
-    @PatchMapping("/product/{id}")
-    public ResponseEntity<Void> changeStatus(
-        @PathVariable(name = "id") UUID productId,
-        @RequestBody AdminRequest.ChangeProductStatus request
-    ) {
-        adminService.changeProductStatus(productId, request);
-        return ResponseEntity.ok().build();
-    }
-
-    /*
     프로덕트의 정보를 수정한다
      */
     @PutMapping("/product/{id}")
@@ -81,6 +69,36 @@ public class AdminController {
     }
 
     /*
+    미스테리 프로덕트를 생성한다
+     */
+    @PostMapping("/product/mystery")
+    public ResponseEntity<Void> createMysteryProduct(@RequestBody AdminRequest.CreateProduct request) {
+        adminService.createMysteryProduct(request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    미스테리 프로덕트를 수정한다
+     */
+    @PutMapping("/product/mystery/{id}")
+    public ResponseEntity<Void> updateMysteryProduct(
+        @PathVariable(name = "id") UUID mysteryProductId,
+        @RequestBody AdminRequest.UpdateProduct request
+    ) {
+        adminService.updateMysteryProduct(mysteryProductId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    미스테리 프로덕트를 삭제한다
+     */
+    @DeleteMapping("/product/mystery/{id}")
+    public ResponseEntity<Void> deleteMysteryProduct(@PathVariable(name = "id") UUID mysteryProductId) {
+        adminService.deleteMysteryProduct(mysteryProductId);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
     아이템을 생성한다
      */
     @PostMapping("/item/{id}")
@@ -89,6 +107,18 @@ public class AdminController {
         @RequestBody AdminRequest.CreateItem request
     ) {
         adminService.createItem(productId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    /*
+    미스테리 아이템을 생성한다
+     */
+    @PostMapping("/item/mystery/{id}")
+    public ResponseEntity<Void> createMysteryItem(
+        @PathVariable(name = "id") UUID mysteryProductId,
+        @RequestBody AdminRequest.CreateItem request
+    ) {
+        adminService.createMysteryItem(mysteryProductId, request);
         return ResponseEntity.ok().build();
     }
 

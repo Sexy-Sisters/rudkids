@@ -11,27 +11,22 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QProduct is a Querydsl query type for Product
+ * QMysteryProduct is a Querydsl query type for MysteryProduct
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QProduct extends EntityPathBase<Product> {
+public class QMysteryProduct extends EntityPathBase<MysteryProduct> {
 
-    private static final long serialVersionUID = 473428038L;
+    private static final long serialVersionUID = -1708024967L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QProduct product = new QProduct("product");
-
-    public final com.rudkids.core.common.domain.QAbstractEntity _super = new com.rudkids.core.common.domain.QAbstractEntity(this);
+    public static final QMysteryProduct mysteryProduct = new QMysteryProduct("mysteryProduct");
 
     public final QBackImage backImage;
 
     public final QBannerImage bannerImage;
 
     public final QBio bio;
-
-    //inherited
-    public final DateTimePath<java.time.ZonedDateTime> createdAt = _super.createdAt;
 
     public final QFrontImage frontImage;
 
@@ -41,26 +36,23 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final QTitle title;
 
-    //inherited
-    public final DateTimePath<java.time.ZonedDateTime> updatedAt = _super.updatedAt;
-
-    public QProduct(String variable) {
-        this(Product.class, forVariable(variable), INITS);
+    public QMysteryProduct(String variable) {
+        this(MysteryProduct.class, forVariable(variable), INITS);
     }
 
-    public QProduct(Path<? extends Product> path) {
+    public QMysteryProduct(Path<? extends MysteryProduct> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QProduct(PathMetadata metadata) {
+    public QMysteryProduct(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QProduct(PathMetadata metadata, PathInits inits) {
-        this(Product.class, metadata, inits);
+    public QMysteryProduct(PathMetadata metadata, PathInits inits) {
+        this(MysteryProduct.class, metadata, inits);
     }
 
-    public QProduct(Class<? extends Product> type, PathMetadata metadata, PathInits inits) {
+    public QMysteryProduct(Class<? extends MysteryProduct> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.backImage = inits.isInitialized("backImage") ? new QBackImage(forProperty("backImage")) : null;
         this.bannerImage = inits.isInitialized("bannerImage") ? new QBannerImage(forProperty("bannerImage")) : null;

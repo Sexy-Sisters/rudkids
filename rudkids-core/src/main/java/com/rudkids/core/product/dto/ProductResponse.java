@@ -2,14 +2,11 @@ package com.rudkids.core.product.dto;
 
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.dto.ItemResponse;
+import com.rudkids.core.product.domain.MysteryProduct;
 import com.rudkids.core.product.domain.Product;
-import com.rudkids.core.product.domain.ProductBannerImage;
-import com.rudkids.core.product.domain.ProductStatus;
 import lombok.Builder;
 import org.springframework.data.domain.Page;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 public class ProductResponse {
@@ -18,17 +15,14 @@ public class ProductResponse {
         UUID productId,
         String title,
         String frontImageUrl,
-        String backImageUrl,
-        ProductStatus status
+        String backImageUrl
     ) {
         public Main(Product product) {
-            this(
-                product.getId(),
-                product.getTitle(),
-                product.getFrontImageUrl(),
-                product.getBackImageUrl(),
-                product.getProductStatus()
-            );
+            this(product.getId(), product.getTitle(), product.getFrontImageUrl(), product.getBackImageUrl());
+        }
+
+        public Main(MysteryProduct product) {
+            this(product.getId(), product.getTitle(), product.getFrontImageUrl(), product.getBackImageUrl());
         }
     }
 
@@ -38,38 +32,32 @@ public class ProductResponse {
         String bio,
         ImageResponse.Info frontImage,
         ImageResponse.Info backImage,
-        List<DetailBannerImage> bannerImages,
+        ImageResponse.Info bannerImage,
         Page<ItemResponse.Main> items,
         ImageResponse.Info mobileImage
     ) {
         public Detail(Product product, Page<ItemResponse.Main> items) {
             this(
                 product.getTitle(),
-                product.getProductBio(),
+                product.getBio(),
                 new ImageResponse.Info(product.getFrontImagePath(), product.getFrontImageUrl()),
                 new ImageResponse.Info(product.getBackImagePath(), product.getBackImageUrl()),
-                to(product),
+                new ImageResponse.Info(product.getBannerImagePath(), product.getBannerImageUrl()),
                 items,
-                new ImageResponse.Info(product.getMobileImagePath(), product.getMobileImageUrl())
+                new ImageResponse.Info(product.getMobileBannerImagePath(), product.getMobileBannerImageUrl())
             );
         }
 
-        private static List<DetailBannerImage> to(Product product) {
-            return product.getProductBannerImages().stream()
-                .sorted(Comparator.comparing(ProductBannerImage::getOrdering))
-                .map(ProductResponse.DetailBannerImage::new)
-                .toList();
-        }
-    }
-
-    public record DetailBannerImage(
-        UUID id,
-        String path,
-        String url,
-        int ordering
-    ) {
-        public DetailBannerImage(ProductBannerImage image) {
-            this(image.getId(), image.getPath(), image.getUrl(), image.getOrdering());
+        public Detail(MysteryProduct product, Page<ItemResponse.Main> items) {
+            this(
+                product.getTitle(),
+                product.getBio(),
+                new ImageResponse.Info(product.getFrontImagePath(), product.getFrontImageUrl()),
+                new ImageResponse.Info(product.getBackImagePath(), product.getBackImageUrl()),
+                new ImageResponse.Info(product.getBannerImagePath(), product.getBannerImageUrl()),
+                items,
+                new ImageResponse.Info(product.getMobileBannerImagePath(), product.getMobileBannerImageUrl())
+            );
         }
     }
 }

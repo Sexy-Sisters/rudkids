@@ -40,7 +40,6 @@ import java.util.UUID;
 public class AdminService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final ProductBannerImageRepository productBannerImageRepository;
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
     private final ItemOptionGroupRepository itemOptionGroupRepository;
@@ -53,6 +52,8 @@ public class AdminService {
     private final CollectionItemRepository collectionItemRepository;
     private final CartItemRepository cartItemRepository;
     private final ProductFactory productFactory;
+    private final MysteryProductFactory mysteryProductFactory;
+    private final MysteryProductRepository mysteryProductRepository;
     private final ItemFactory itemFactory;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -75,42 +76,82 @@ public class AdminService {
         return product.getId();
     }
 
-    public void changeProductStatus(UUID productId, AdminRequest.ChangeProductStatus request) {
-        var product = productRepository.get(productId);
-        var productStatus = ProductStatus.toEnum(request.status());
-        product.changeStatus(productStatus);
-    }
-
     public void updateProduct(UUID productId, AdminRequest.UpdateProduct request) {
         var product = productRepository.get(productId);
-        deleteProductImage(product);
-        productBannerImageRepository.deletes(product.getProductBannerImages());
+        deleteProductImage(
+            product.getFrontImagePath(),
+            product.getBackImagePath(),
+            product.getBannerImagePath(),
+            product.getMobileBannerImagePath()
+        );
         productFactory.update(product, request);
     }
 
     public void deleteProduct(UUID productId) {
         var product = productRepository.get(productId);
-        deleteProductImage(product);
+        deleteProductImage(
+            product.getFrontImagePath(),
+            product.getBackImagePath(),
+            product.getBannerImagePath(),
+            product.getMobileBannerImagePath()
+        );
         productRepository.delete(product);
     }
 
-    private void deleteProductImage(Product product) {
-        eventPublisher.publishEvent(new ImageDeletedEvent(product.getFrontImagePath()));
-        eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
-        eventPublisher.publishEvent(new ImageDeletedEvent(product.getBackImagePath()));
+    public void createMysteryProduct(AdminRequest.CreateProduct request) {
+        var mysteryProduct = mysteryProductFactory.create(request);
+        mysteryProductRepository.save(mysteryProduct);
+    }
 
-        for (String path : product.getBannerPaths()) {
-            eventPublisher.publishEvent(new ImageDeletedEvent(path));
-        }
+    public void updateMysteryProduct(UUID mysteryProductId, AdminRequest.UpdateProduct request) {
+        var mysteryProduct = mysteryProductRepository.get(mysteryProductId);
+        deleteProductImage(
+            mysteryProduct.getFrontImagePath(),
+            mysteryProduct.getBackImagePath(),
+            mysteryProduct.getBannerImagePath(),
+            mysteryProduct.getMobileBannerImagePath()
+        );
+        mysteryProductFactory.update(mysteryProduct, request);
+    }
+
+    public void deleteMysteryProduct(UUID mysteryProductId) {
+        var mysteryProduct = mysteryProductRepository.get(mysteryProductId);
+        deleteProductImage(
+            mysteryProduct.getFrontImagePath(),
+            mysteryProduct.getBackImagePath(),
+            mysteryProduct.getBannerImagePath(),
+            mysteryProduct.getMobileBannerImagePath()
+        );
+        mysteryProductRepository.delete(mysteryProduct);
+    }
+
+    private void deleteProductImage(String frontImagePath,
+                                    String backImagePath,
+                                    String bannerImagePath,
+                                    String mobileImagePath) {
+        eventPublisher.publishEvent(new ImageDeletedEvent(frontImagePath));
+        eventPublisher.publishEvent(new ImageDeletedEvent(backImagePath));
+        eventPublisher.publishEvent(new ImageDeletedEvent(bannerImagePath));
+        eventPublisher.publishEvent(new ImageDeletedEvent(mobileImagePath));
     }
 
     public String createItem(UUID productId, AdminRequest.CreateItem request) {
         var product = productRepository.get(productId);
-        var item = itemFactory.create(product, request);
+        var item = itemFactory.create(request);
+        item.setProduct(product);
         itemRepository.save(item);
 
         saveCollectionItem(item);
         return item.getEnName();
+    }
+
+    public void createMysteryItem(UUID mysteryProductId, AdminRequest.CreateItem request) {
+        var mysteryProduct = mysteryProductRepository.get(mysteryProductId);
+        var item = itemFactory.create(request);
+        item.setMysteryProduct(mysteryProduct);
+        itemRepository.save(item);
+
+        saveCollectionItem(item);
     }
 
     private void saveCollectionItem(Item item) {

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Embeddable
-public class ProductFrontImage {
+public class FrontImage {
 
     @Column(name = "front_path")
     private String path;
@@ -14,15 +14,15 @@ public class ProductFrontImage {
     @Column(name = "front_url")
     private String url;
 
-    protected ProductFrontImage() {
+    protected FrontImage() {
     }
 
-    private ProductFrontImage(String path, String url) {
+    private FrontImage(String path, String url) {
         this.path = path;
         this.url = url;
     }
 
-    public static ProductFrontImage create(String path, String url) {
-        return new ProductFrontImage(path, url);
+    public static FrontImage create(String path, String url) {
+        return new FrontImage(path, url);
     }
 }

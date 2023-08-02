@@ -5,6 +5,6 @@ import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.product.domain.Product;
 
 public interface ItemFactory {
-    Item create(Product product, AdminRequest.CreateItem request);
+    Item create(AdminRequest.CreateItem request);
     void update(Item item, AdminRequest.UpdateItem request);
 }
