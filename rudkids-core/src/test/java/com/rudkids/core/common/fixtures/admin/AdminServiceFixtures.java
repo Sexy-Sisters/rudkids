@@ -115,6 +115,7 @@ public class AdminServiceFixtures {
             .price(1_000_000)
             .quantity(1)
             .itemBio("소개글입니다~")
+            .status("SELLING")
             .limitType(LimitType.LIMITED)
             .images(List.of(
                     new AdminRequest.Image("path", "url", 1),

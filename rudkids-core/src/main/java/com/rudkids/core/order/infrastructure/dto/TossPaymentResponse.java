@@ -18,7 +18,11 @@ public class TossPaymentResponse {
                     .bankCode(BankCode.toEnumByCode(account.bankCode))
                     .customerName(account.customerName)
                     .dueDate(account.dueDate)
-                    .build())
+                    .refundBankCode(account.refundReceiveAccount.bankCode)
+                    .refundAccountName(account.refundReceiveAccount.accountNumber)
+                    .refundHolderName(account.refundReceiveAccount.holderName)
+                    .build()
+                )
                 .orElseGet(VirtualAccount::createDefault);
         }
     }
@@ -27,6 +31,13 @@ public class TossPaymentResponse {
         String accountNumber,
         String bankCode,
         String customerName,
-        String dueDate
+        String dueDate,
+        RefundReceiveAccountInfo refundReceiveAccount
+    ) {}
+
+    public record RefundReceiveAccountInfo(
+        String bankCode,
+        String accountNumber,
+        String holderName
     ) {}
 }

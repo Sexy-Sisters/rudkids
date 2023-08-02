@@ -2,6 +2,7 @@ package com.rudkids.core.cart.infrastructure;
 
 import com.rudkids.core.cart.domain.*;
 import com.rudkids.core.cart.dto.CartRequest;
+import com.rudkids.core.cart.exception.CannotAddComingSoonItemException;
 import com.rudkids.core.cart.exception.CartItemNotFoundException;
 import com.rudkids.core.item.domain.Item;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
 
     @Override
     public CartItem getOrCreate(Cart cart, Item item, CartRequest.AddCartItem request) {
+        validateComingSoonItem(item);
         String name = cartItemNameGenerator.generate(item.getEnName(), request);
 
         return cartItemRepository.findByCartAndItem(cart, item)
@@ -28,6 +30,12 @@ public class CartItemRepositoryImpl implements CartItemRepository {
                 return cartItem;
             })
             .orElseGet(() -> createCartItem(cart, item, name, request));
+    }
+
+    private void validateComingSoonItem(Item item) {
+        if(item.isComingSoon()) {
+            throw new CannotAddComingSoonItemException();
+        }
     }
 
     private CartItem createCartItem(Cart cart, Item item, String name, CartRequest.AddCartItem request) {

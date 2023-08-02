@@ -71,6 +71,7 @@ public class Item extends AbstractEntity {
     public Item(Product product,
                 Name name,
                 ItemBio itemBio,
+                ItemStatus itemStatus,
                 Price price,
                 Quantity quantity,
                 LimitType limitType,
@@ -82,10 +83,10 @@ public class Item extends AbstractEntity {
         this.product = product;
         this.name = name;
         this.itemBio = itemBio;
+        this.itemStatus = itemStatus;
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
-        this.itemStatus = ItemStatus.SELLING;
         this.grayImage = grayImage;
         this.videoUrl = videoUrl;
         this.mysteryItemName = mysteryItemName;
@@ -129,6 +130,10 @@ public class Item extends AbstractEntity {
     public void setProduct(Product product) {
         this.product = product;
         product.addItem(this);
+    }
+
+    public boolean isComingSoon() {
+        return itemStatus == ItemStatus.PREPARING;
     }
 
     public String getEnName() {

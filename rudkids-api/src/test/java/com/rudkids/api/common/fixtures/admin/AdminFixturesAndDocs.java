@@ -66,6 +66,7 @@ public class AdminFixturesAndDocs {
             .enName("enName")
             .koName("koName")
             .itemBio("bio")
+            .status("SELLING")
             .price(9000)
             .quantity(800)
             .limitType(LimitType.NORMAL)

@@ -30,7 +30,7 @@ public class OrderFixturesAndDocs {
     }
 
     public static OrderRequest.PaymentCancel ORDER_취소_요청() {
-        return new OrderRequest.PaymentCancel("취소하는 이유", "12445", "한국은행", "남세원");
+        return new OrderRequest.PaymentCancel("취소하는 이유");
     }
 
     public static OrderResponse.Id ORDER_ID_응답() {

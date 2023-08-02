@@ -390,6 +390,10 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("소개글"),
 
+                        fieldWithPath("status")
+                            .type(JsonFieldType.STRING)
+                            .description("상태"),
+
                         fieldWithPath("price")
                             .type(JsonFieldType.NUMBER)
                             .description("가격"),
@@ -499,6 +503,10 @@ public class AdminControllerTest extends ControllerTest {
                             .type(JsonFieldType.STRING)
                             .description("소개글"),
 
+                        fieldWithPath("status")
+                            .type(JsonFieldType.STRING)
+                            .description("상태"),
+
                         fieldWithPath("price")
                             .type(JsonFieldType.NUMBER)
                             .description("가격"),
@@ -607,6 +615,10 @@ public class AdminControllerTest extends ControllerTest {
                         fieldWithPath("itemBio")
                             .type(JsonFieldType.STRING)
                             .description("소개글"),
+
+                        fieldWithPath("status")
+                            .type(JsonFieldType.STRING)
+                            .description("상태"),
 
                         fieldWithPath("price")
                             .type(JsonFieldType.NUMBER)

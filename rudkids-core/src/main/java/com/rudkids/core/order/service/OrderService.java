@@ -93,7 +93,10 @@ public class OrderService {
                 if (!order.isDeliveryComp()) {
                     checkDeliveryTracking(user, order);
                 }
-                order.checkVirtualAccountDepositDateExpired();
+
+                if(order.isVirtualAccountDepositDateExpired()) {
+                    paymentClient.cancelVirtualAccount(order, order.getVirtualAccountCancelReason());
+                }
                 return new OrderResponse.Main(order);
             })
             .toList();
@@ -114,7 +117,7 @@ public class OrderService {
         order.validateHasSameUser(user);
 
         if (order.isVirtualAccount()) {
-            paymentClient.cancelVirtualAccount(order.getPaymentKey(), request);
+            paymentClient.cancelVirtualAccount(order, request.cancelReason());
             order.cancel();
             return new OrderResponse.Id(orderId);
         }

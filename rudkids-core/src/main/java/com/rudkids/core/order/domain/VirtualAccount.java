@@ -25,19 +25,35 @@ public class VirtualAccount {
     @Column(name = "due_date")
     private String dueDate;
 
+    @Column(name = "refund_bank_code")
+    private String refundBankCode;
+
+    @Column(name = "refund_account_name")
+    private String refundAccountName;
+
+    @Column(name = "refund_holder_name")
+    private String refundHolderName;
+
     @Builder
     private VirtualAccount(String accountNumber,
                           BankCode bankCode,
                           String customerName,
-                          String dueDate) {
+                          String dueDate,
+                           String refundBankCode,
+                           String refundAccountName,
+                           String refundHolderName
+    ) {
         this.accountNumber = accountNumber;
         this.bankCode = bankCode;
         this.customerName = customerName;
         this.dueDate = dueDate;
+        this.refundBankCode = refundBankCode;
+        this.refundAccountName = refundAccountName;
+        this.refundHolderName = refundHolderName;
     }
 
     public static VirtualAccount createDefault() {
-        return new VirtualAccount("", BankCode.EMPTY, "", "");
+        return new VirtualAccount("", BankCode.EMPTY, "", "", "", "", "");
     }
 
     public String getBankName() {

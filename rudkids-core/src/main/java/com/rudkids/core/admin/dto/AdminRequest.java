@@ -45,6 +45,7 @@ public class AdminRequest {
         String enName,
         String koName,
         String itemBio,
+        String status,
         int price,
         int quantity,
         LimitType limitType,

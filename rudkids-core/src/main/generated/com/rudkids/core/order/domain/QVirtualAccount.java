@@ -27,6 +27,12 @@ public class QVirtualAccount extends BeanPath<VirtualAccount> {
 
     public final StringPath dueDate = createString("dueDate");
 
+    public final StringPath refundAccountName = createString("refundAccountName");
+
+    public final StringPath refundBankCode = createString("refundBankCode");
+
+    public final StringPath refundHolderName = createString("refundHolderName");
+
     public QVirtualAccount(String variable) {
         super(VirtualAccount.class, forVariable(variable));
     }
