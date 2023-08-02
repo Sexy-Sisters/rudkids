@@ -50,19 +50,14 @@ class ProductControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(productService.get(any(), any(), any()))
+            given(productService.get(any(), any()))
                 .willReturn(PRODUCT_상세조회_INFO());
 
-            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디))
                 .andDo(print())
                 .andDo(document("product/get",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestHeaders(
-                            headerWithName("Authorization")
-                                .description("JWT Access Token")
-                        ),
                         pathParameters(
                             parameterWithName("id")
                                 .description("프로덕트 id")
@@ -100,25 +95,13 @@ class ProductControllerTest extends ControllerTest {
                                 .type(JsonFieldType.STRING)
                                 .description("프로덕트 뒤 이미지 url"),
 
-                            fieldWithPath("bannerImages")
-                                .type(JsonFieldType.ARRAY)
-                                .description("프로덕트 배너 이미지들"),
-
-                            fieldWithPath("bannerImages[]id")
+                            fieldWithPath("bannerImage.path")
                                 .type(JsonFieldType.STRING)
-                                .description("프로덕트 배너 이미지 id"),
+                                .description("배너 이미지 주소"),
 
-                            fieldWithPath("bannerImages[]path")
+                            fieldWithPath("bannerImage.url")
                                 .type(JsonFieldType.STRING)
-                                .description("프로덕트 배너 이미지 path"),
-
-                            fieldWithPath("bannerImages[]url")
-                                .type(JsonFieldType.STRING)
-                                .description("프로덕트 배너 이미지 url"),
-
-                            fieldWithPath("bannerImages[]ordering")
-                                .type(JsonFieldType.NUMBER)
-                                .description("프로덕트 배너 이미지 순서"),
+                                .description("배너 이미지 url"),
 
                             fieldWithPath("items.content")
                                 .type(JsonFieldType.ARRAY)
@@ -214,18 +197,13 @@ class ProductControllerTest extends ControllerTest {
         void fail() throws Exception {
             doThrow(new ProductNotFoundException())
                 .when(productService)
-                .get(any(), any(), any());
+                .get(any(), any());
 
-            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디)
-                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE))
+            mockMvc.perform(get(PRODUCT_DEFAULT_URL + "/{id}", 프로덕트_아이디))
                 .andDo(print())
                 .andDo(document("product/get/fail/notFound",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestHeaders(
-                            headerWithName("Authorization")
-                                .description("JWT Access Token")
-                        ),
                         pathParameters(
                             parameterWithName("id")
                                 .description("존재하지 않는 프로덕트 id")

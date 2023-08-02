@@ -3,7 +3,6 @@ package com.rudkids.api.common.fixtures.product;
 import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.dto.ItemResponse;
-import com.rudkids.core.product.domain.ProductStatus;
 import com.rudkids.core.product.dto.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,8 +25,7 @@ public class ProductFixturesAndDocs {
             프로덕트_아이디,
             "프로덕트 제목",
             "https://~",
-            "https://~",
-            ProductStatus.OPEN
+            "https://~"
         );
     }
 
@@ -52,11 +50,7 @@ public class ProductFixturesAndDocs {
 
                 fieldWithPath("content[].backImageUrl")
                     .type(JsonFieldType.STRING)
-                    .description("프로덕트 뒤 이미지"),
-
-                fieldWithPath("content[].status")
-                    .type(JsonFieldType.STRING)
-                    .description("프로덕트 상태")
+                    .description("프로덕트 뒤 이미지")
             )
         );
     }
@@ -67,7 +61,7 @@ public class ProductFixturesAndDocs {
             .bio("설명")
             .frontImage(new ImageResponse.Info("https://~", "https://~"))
             .backImage(new ImageResponse.Info("https://~", "https://~"))
-            .bannerImages(List.of(new ProductResponse.DetailBannerImage(UUID.randomUUID(), "https://~", "https://~", 1)))
+            .bannerImage(new ImageResponse.Info("https://~", "https://~"))
             .items(
                 new PageImpl<>(List.of(
                     ITEM_리스트_조회_INFO()

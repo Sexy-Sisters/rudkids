@@ -8,7 +8,6 @@ import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.exception.ItemNotFoundException;
 import com.rudkids.core.product.domain.Product;
-import com.rudkids.core.product.domain.ProductStatus;
 import com.rudkids.core.product.exception.ProductNotFoundException;
 import com.rudkids.core.user.domain.RoleType;
 import org.assertj.core.api.AssertionsForClassTypes;
@@ -76,11 +75,8 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 "약쟁이가 약팝니다~~~~",
                 new ImageRequest.Create("image", "image.jpg"),
                 new ImageRequest.Create("image", "image.jpg"),
-                List.of(
-                    new AdminRequest.BannerImage("image", "image.jpg", 1)
-                ),
-                new ImageRequest.Create("new path", "new url"),
-                false
+                new ImageRequest.Create("image", "image.jpg"),
+                new ImageRequest.Create("new path", "new url")
             );
 
             //when
@@ -90,37 +86,8 @@ public class AdminServiceTest extends AdminServiceFixtures {
             Product findProduct = productRepository.get(productId);
             assertAll(
                 () -> assertThat(findProduct.getTitle()).isEqualTo("Strange Drugstore222"),
-                () -> assertThat(findProduct.getProductBio()).isEqualTo("약쟁이가 약팝니다~~~~")
+                () -> assertThat(findProduct.getBio()).isEqualTo("약쟁이가 약팝니다~~~~")
             );
-        }
-    }
-
-    @Nested
-    @DisplayName("프로덕트의 상태를 변경한다")
-    class changeProductStatus {
-
-        @Test
-        @DisplayName("성공")
-        void success() {
-            //given
-
-            //when
-            AdminRequest.ChangeProductStatus request = new AdminRequest.ChangeProductStatus("OPEN");
-            adminService.changeProductStatus(product.getId(), request);
-
-            //then
-            assertThat(product.getProductStatus()).isEqualTo(ProductStatus.OPEN);
-        }
-
-        @Test
-        @DisplayName("실패: 존재하지 않는 프로덕트")
-        void fail() {
-            //given
-            var productId = UUID.randomUUID();
-
-            //when, then
-            assertThatThrownBy(() -> adminService.changeProductStatus(productId, new AdminRequest.ChangeProductStatus("OPEN")))
-                .isInstanceOf(ProductNotFoundException.class);
         }
     }
 
@@ -138,10 +105,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
                 "새로운 productBio",
                 new ImageRequest.Create("new path", "new url"),
                 new ImageRequest.Create("new path", "new url"),
-                List.of(
-                    new AdminRequest.BannerImage("new path", "new url", 1),
-                    new AdminRequest.BannerImage("new path", "new url", 2)
-                ),
+                new ImageRequest.Create("new path", "new url"),
                 new ImageRequest.Create("new path", "new url")
             );
 
@@ -153,7 +117,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
             int page = 0;
             int size = 4;
             Pageable pageable = PageRequest.of(page, size);
-            var foundProduct = productService.get(user.getId(), productId, pageable);
+            var foundProduct = productService.get(productId, pageable);
             assertAll(() -> {
                 assertThat(foundProduct.title()).isEqualTo("new title");
                 assertThat(foundProduct.bio()).isEqualTo("새로운 productBio");

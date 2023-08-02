@@ -17,14 +17,14 @@ import java.util.List;
 public class ItemFactoryImpl implements ItemFactory {
 
     @Override
-    public Item create(Product product, AdminRequest.CreateItem request) {
-        var item = generateItem(product, request);
+    public Item create(AdminRequest.CreateItem request) {
+        var item = generateItem(request);
         saveItemImages(item, request.images());
         saveChildEntities(item, request.itemOptionGroupInfoList());
         return item;
     }
 
-    private Item generateItem(Product product, AdminRequest.CreateItem request) {
+    private Item generateItem(AdminRequest.CreateItem request) {
         var name = Name.create(request.enName(), request.koName());
         var itemBio = ItemBio.create(request.itemBio());
         var price = Price.create(request.price());
@@ -33,7 +33,6 @@ public class ItemFactoryImpl implements ItemFactory {
         var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
         return Item.builder()
-            .product(product)
             .name(name)
             .itemBio(itemBio)
             .itemStatus(ItemStatus.toEnum(request.status()))
@@ -43,7 +42,6 @@ public class ItemFactoryImpl implements ItemFactory {
             .grayImage(grayImage)
             .videoUrl(request.videoUrl())
             .mysteryItemName(request.mysteryItemName())
-            .mystery(request.mystery())
             .build();
     }
 

@@ -1,7 +1,6 @@
 package com.rudkids.core.image.dto;
 
 import com.rudkids.core.item.domain.ItemImage;
-import com.rudkids.core.product.domain.ProductBannerImage;
 
 public class ImageResponse {
 

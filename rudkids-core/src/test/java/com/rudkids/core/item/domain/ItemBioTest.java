@@ -1,6 +1,6 @@
 package com.rudkids.core.item.domain;
 
-import com.rudkids.core.product.domain.ProductBio;
+import com.rudkids.core.product.domain.Bio;
 import com.rudkids.core.product.exception.InvalidBioException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ class ItemBioTest {
     @Test
     void create_Exception_ContentLength() {
         String invalid = "a".repeat(1001);
-        assertThatThrownBy(() -> ProductBio.create(invalid))
+        assertThatThrownBy(() -> Bio.create(invalid))
             .isInstanceOf(InvalidBioException.class);
     }
 
@@ -25,7 +25,7 @@ class ItemBioTest {
     @ValueSource(strings = {"", " "})
     @NullSource
     void create_Exception_NoContent(String invalid) {
-        assertThatThrownBy(() -> ProductBio.create(invalid))
+        assertThatThrownBy(() -> Bio.create(invalid))
             .isInstanceOf(InvalidBioException.class);
     }
 

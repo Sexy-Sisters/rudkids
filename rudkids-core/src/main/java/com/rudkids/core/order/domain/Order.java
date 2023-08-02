@@ -1,7 +1,7 @@
 package com.rudkids.core.order.domain;
 
 import com.rudkids.core.common.domain.AbstractEntity;
-import com.rudkids.core.order.exception.OrderDeliverNotReadyException;
+import com.rudkids.core.order.exception.OrderNotCancelException;
 import com.rudkids.core.order.exception.InvalidAmountException;
 import com.rudkids.core.user.domain.User;
 import com.rudkids.core.user.exception.DifferentUserException;
@@ -85,8 +85,8 @@ public class Order extends AbstractEntity {
     }
 
     public void cancel() {
-        if(orderStatus != OrderStatus.DELIVERY_READY) {
-            throw new OrderDeliverNotReadyException();
+        if(!orderStatus.canCancel()) {
+            throw new OrderNotCancelException();
         }
 
         orderStatus = OrderStatus.CANCEL;

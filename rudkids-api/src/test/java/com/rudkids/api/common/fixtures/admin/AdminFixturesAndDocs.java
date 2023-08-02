@@ -36,11 +36,8 @@ public class AdminFixturesAndDocs {
             "설명",
             new ImageRequest.Create("image", "image.jpg"),
             new ImageRequest.Create("image", "image.jpg"),
-            List.of(
-                new AdminRequest.BannerImage("image", "image.jpg", 1)
-            ),
             new ImageRequest.Create("image", "image.jpg"),
-            false
+            new ImageRequest.Create("image", "image.jpg")
         );
     }
 
@@ -54,9 +51,7 @@ public class AdminFixturesAndDocs {
             "설명",
             new ImageRequest.Create("image", "image.jpg"),
             new ImageRequest.Create("image", "image.jpg"),
-            List.of(
-                new AdminRequest.BannerImage("image", "image.jpg", 1)
-            ),
+            new ImageRequest.Create("image", "image.jpg"),
             new ImageRequest.Create("image", "image.jpg")
         );
     }

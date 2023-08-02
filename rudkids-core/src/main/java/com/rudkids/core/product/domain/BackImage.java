@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProductBackImage {
+public class BackImage {
 
     @Column(name = "back_path")
     private String path;
@@ -17,12 +17,12 @@ public class ProductBackImage {
     @Column(name = "back_url")
     private String url;
 
-    private ProductBackImage(String path, String url) {
+    private BackImage(String path, String url) {
         this.path = path;
         this.url = url;
     }
 
-    public static ProductBackImage create(String path, String url) {
-        return new ProductBackImage(path, url);
+    public static BackImage create(String path, String url) {
+        return new BackImage(path, url);
     }
 }

@@ -12,7 +12,6 @@ public enum OrderStatus {
 
     DEPOSIT_READY("입금대기중"),
     ORDER("주문완료"),
-    CANCEL_READY("취소대기중"),
     CANCEL("취소완료"),
     DELIVERY_READY("배송준비"),
     DELIVERY_ING("배송중"),
@@ -29,5 +28,9 @@ public enum OrderStatus {
 
     private boolean isSameDescription(String description) {
         return this.name().equals(description);
+    }
+
+    public boolean canCancel() {
+        return this == DEPOSIT_READY || this == ORDER || this == DELIVERY_READY;
     }
 }

@@ -18,9 +18,8 @@ public class AdminRequest {
         String productBio,
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
-        List<BannerImage> bannerImages,
-        ImageRequest.Create mobileImage,
-        boolean mystery
+        ImageRequest.Create bannerImage,
+        ImageRequest.Create mobileImage
     ) {}
 
     public record ChangeProductStatus(String status) {}
@@ -30,7 +29,7 @@ public class AdminRequest {
         String productBio,
         ImageRequest.Create frontImage,
         ImageRequest.Create backImage,
-        List<BannerImage> bannerImages,
+        ImageRequest.Create bannerImage,
         ImageRequest.Create mobileImage
     ) {}
 

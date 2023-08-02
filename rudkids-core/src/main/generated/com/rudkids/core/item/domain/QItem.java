@@ -41,9 +41,9 @@ public class QItem extends EntityPathBase<Item> {
 
     public final EnumPath<LimitType> limitType = createEnum("limitType", LimitType.class);
 
-    public final BooleanPath mystery = createBoolean("mystery");
-
     public final StringPath mysteryItemName = createString("mysteryItemName");
+
+    public final com.rudkids.core.product.domain.QMysteryProduct mysteryProduct;
 
     public final QName name;
 
@@ -78,6 +78,7 @@ public class QItem extends EntityPathBase<Item> {
         super(type, metadata, inits);
         this.grayImage = inits.isInitialized("grayImage") ? new QGrayImage(forProperty("grayImage")) : null;
         this.itemBio = inits.isInitialized("itemBio") ? new QItemBio(forProperty("itemBio")) : null;
+        this.mysteryProduct = inits.isInitialized("mysteryProduct") ? new com.rudkids.core.product.domain.QMysteryProduct(forProperty("mysteryProduct"), inits.get("mysteryProduct")) : null;
         this.name = inits.isInitialized("name") ? new QName(forProperty("name")) : null;
         this.price = inits.isInitialized("price") ? new QPrice(forProperty("price")) : null;
         this.product = inits.isInitialized("product") ? new com.rudkids.core.product.domain.QProduct(forProperty("product"), inits.get("product")) : null;

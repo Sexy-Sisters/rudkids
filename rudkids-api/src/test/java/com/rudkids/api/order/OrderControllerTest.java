@@ -1,7 +1,7 @@
 package com.rudkids.api.order;
 
 import com.rudkids.api.common.ControllerTest;
-import com.rudkids.core.order.exception.OrderDeliverNotReadyException;
+import com.rudkids.core.order.exception.OrderNotCancelException;
 import com.rudkids.core.order.exception.*;
 import com.rudkids.core.order.exception.PaymentCancelFailException;
 import com.rudkids.core.user.exception.DifferentUserException;
@@ -287,7 +287,7 @@ class OrderControllerTest extends ControllerTest {
         @Test
         @DisplayName("실패: 이미 배송완료된 주문내역")
         void fail3() throws Exception {
-            doThrow(new OrderDeliverNotReadyException())
+            doThrow(new OrderNotCancelException())
                 .when(orderService)
                 .cancel(any(), any(), any());
 

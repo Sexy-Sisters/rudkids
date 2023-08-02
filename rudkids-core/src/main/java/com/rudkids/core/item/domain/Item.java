@@ -4,6 +4,7 @@ import com.rudkids.core.common.domain.AbstractEntity;
 import com.rudkids.core.item.domain.option.ItemOption;
 import com.rudkids.core.item.domain.optionGroup.ItemOptionGroup;
 import com.rudkids.core.item.exception.QuantityDepletedException;
+import com.rudkids.core.product.domain.MysteryProduct;
 import com.rudkids.core.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,6 +33,10 @@ public class Item extends AbstractEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mystery_product_id")
+    private MysteryProduct mysteryProduct;
+
     @Embedded
     private Name name;
 
@@ -58,9 +63,6 @@ public class Item extends AbstractEntity {
     @Column(name = "mystery_item_name")
     private String mysteryItemName;
 
-    @Column(name = "mystery")
-    private boolean mystery;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private final List<ItemOptionGroup> itemOptionGroups = new ArrayList<>();
 
@@ -77,8 +79,7 @@ public class Item extends AbstractEntity {
                 LimitType limitType,
                 GrayImage grayImage,
                 String videoUrl,
-                String mysteryItemName,
-                boolean mystery
+                String mysteryItemName
     ) {
         this.product = product;
         this.name = name;
@@ -90,7 +91,6 @@ public class Item extends AbstractEntity {
         this.grayImage = grayImage;
         this.videoUrl = videoUrl;
         this.mysteryItemName = mysteryItemName;
-        this.mystery = mystery;
     }
 
     public void update(Name name,
@@ -130,6 +130,11 @@ public class Item extends AbstractEntity {
     public void setProduct(Product product) {
         this.product = product;
         product.addItem(this);
+    }
+
+    public void setMysteryProduct(MysteryProduct mysteryProduct) {
+        this.mysteryProduct = mysteryProduct;
+        mysteryProduct.addItem(this);
     }
 
     public boolean isComingSoon() {
