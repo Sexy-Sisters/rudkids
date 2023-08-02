@@ -266,14 +266,15 @@ public class AdminServiceTest extends AdminServiceFixtures {
         void success() {
             //given
             var itemName = item.getEnName();
-            var itemStatus = "SOLD_OUT";
+
+            var itemStatus = "SELLING";
 
             //when
             AdminRequest.ChangeItemStatus statusRequest = new AdminRequest.ChangeItemStatus(itemStatus);
             adminService.changeItemStatus(itemName, statusRequest);
 
             //then
-            assertThat(item.getItemStatus()).isEqualTo(ItemStatus.SOLD_OUT);
+            assertThat(item.getItemStatus()).isEqualTo(ItemStatus.SELLING);
         }
 
         @Test
@@ -281,7 +282,7 @@ public class AdminServiceTest extends AdminServiceFixtures {
         void fail() {
             //given
             var invalidItemName = "invalid";
-            var status = "SOLD_OUT";
+            var status = "SELLING";
 
             //when, then
             AdminRequest.ChangeItemStatus statusRequest = new AdminRequest.ChangeItemStatus(status);

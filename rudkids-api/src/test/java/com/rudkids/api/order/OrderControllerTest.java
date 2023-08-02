@@ -212,19 +212,7 @@ class OrderControllerTest extends ControllerTest {
                     requestFields(
                         fieldWithPath("cancelReason")
                             .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불계좌 번호"),
-
-                        fieldWithPath("bankName")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 이름"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불 예금주명")
+                            .description("취소하는 이유")
                     )
                 ))
                 .andExpect(status().isOk());
@@ -257,19 +245,7 @@ class OrderControllerTest extends ControllerTest {
                     requestFields(
                         fieldWithPath("cancelReason")
                             .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불계좌 번호"),
-
-                        fieldWithPath("bankName")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 이름"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불 예금주명")
+                            .description("취소하는 이유")
                     )
                 ))
                 .andExpect(status().isNotFound());
@@ -302,19 +278,7 @@ class OrderControllerTest extends ControllerTest {
                     requestFields(
                         fieldWithPath("cancelReason")
                             .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불계좌 번호"),
-
-                        fieldWithPath("bankName")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 이름"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불 예금주명")
+                            .description("취소하는 이유")
                     )
                 ))
                 .andExpect(status().isForbidden());
@@ -347,19 +311,7 @@ class OrderControllerTest extends ControllerTest {
                     requestFields(
                         fieldWithPath("cancelReason")
                             .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불계좌 번호"),
-
-                        fieldWithPath("bankName")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 이름"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불 예금주명")
+                            .description("취소하는 이유")
                     )
                 ))
                 .andExpect(status().isConflict());
@@ -392,19 +344,7 @@ class OrderControllerTest extends ControllerTest {
                     requestFields(
                         fieldWithPath("cancelReason")
                             .type(JsonFieldType.STRING)
-                            .description("취소하는 이유"),
-
-                        fieldWithPath("refundAccountNumber")
-                            .type(JsonFieldType.STRING)
-                            .description("환불계좌 번호"),
-
-                        fieldWithPath("bankName")
-                            .type(JsonFieldType.STRING)
-                            .description("은행 이름"),
-
-                        fieldWithPath("refundAccountHolderName")
-                            .type(JsonFieldType.STRING)
-                            .description("환불 예금주명")
+                            .description("취소하는 이유")
                     )
                 ))
                 .andExpect(status().isInternalServerError());

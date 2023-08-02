@@ -21,6 +21,7 @@ import java.util.UUID;
 @Table(name = "tbl_order")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends AbstractEntity {
+    private static final String VIRTUAL_ACCOUNT_CANCEL_REASON = "단순변심";
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -105,10 +106,8 @@ public class Order extends AbstractEntity {
         orderStatus = OrderStatus.DELIVERY_COMP;
     }
 
-    public void checkVirtualAccountDepositDateExpired() {
-        if(payment.isVirtualAccount() && virtualAccount.isExpireDueDate()) {
-            orderStatus = OrderStatus.DEPOSIT_READY;
-        }
+    public boolean isVirtualAccountDepositDateExpired() {
+        return payment.isVirtualAccount() && virtualAccount.isExpireDueDate();
     }
 
     public String getCustomerName() {
@@ -166,15 +165,31 @@ public class Order extends AbstractEntity {
         return payment.getMethod();
     }
 
-    public String getBankName() {
+    public String getVirtualBankName() {
         return virtualAccount.getBankName();
     }
 
-    public String getRefundAccountNumber() {
+    public String getVirtualAccountNumber() {
         return virtualAccount.getAccountNumber();
     }
 
-    public String getRefundAccountHolderName() {
+    public String getVirtualAccountHolderName() {
         return virtualAccount.getCustomerName();
+    }
+
+    public String getRefundBankName() {
+        return virtualAccount.getRefundBankCode();
+    }
+
+    public String getRefundAccountNumber() {
+        return virtualAccount.getRefundAccountName();
+    }
+
+    public String getRefundHolderName() {
+        return virtualAccount.getRefundHolderName();
+    }
+
+    public String getVirtualAccountCancelReason() {
+        return VIRTUAL_ACCOUNT_CANCEL_REASON;
     }
 }

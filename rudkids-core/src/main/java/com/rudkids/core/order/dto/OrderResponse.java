@@ -61,9 +61,9 @@ public class OrderResponse {
                     .toList(),
                 new DetailDelivery(order.getDelivery()),
                 order.getPaymentMethod(),
-                order.getBankName(),
-                order.getRefundAccountNumber(),
-                order.getRefundAccountHolderName()
+                order.getVirtualBankName(),
+                order.getVirtualAccountNumber(),
+                order.getVirtualAccountHolderName()
             );
         }
     }

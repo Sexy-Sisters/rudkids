@@ -36,6 +36,7 @@ public class ItemFactoryImpl implements ItemFactory {
             .product(product)
             .name(name)
             .itemBio(itemBio)
+            .itemStatus(ItemStatus.toEnum(request.status()))
             .price(price)
             .quantity(quantity)
             .limitType(limitType)

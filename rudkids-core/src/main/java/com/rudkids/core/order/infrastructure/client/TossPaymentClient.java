@@ -1,6 +1,7 @@
 package com.rudkids.core.order.infrastructure.client;
 
 import com.rudkids.core.order.domain.BankCode;
+import com.rudkids.core.order.domain.Order;
 import com.rudkids.core.order.dto.OrderRequest;
 import com.rudkids.core.order.infrastructure.dto.TossPaymentRequest;
 import com.rudkids.core.order.infrastructure.dto.TossPaymentResponse;
@@ -36,25 +37,25 @@ public class TossPaymentClient implements PaymentClient {
     }
 
     @Override
-    public void cancelVirtualAccount(String paymentKey, OrderRequest.PaymentCancel request) {
+    public void cancelVirtualAccount(Order order, String cancelReason) {
         var cancelRequest = TossPaymentRequest.CancelVirtualAccount.builder()
-            .cancelReason(request.cancelReason())
-            .refundReceiveAccount(generateRefundAccount(request))
+            .cancelReason(cancelReason)
+            .refundReceiveAccount(generateRefundAccount(order))
             .build();
 
         try {
-            tossPaymentCancelClient.cancelVirtualAccount(paymentKey, cancelRequest);
+            tossPaymentCancelClient.cancelVirtualAccount(order.getPaymentKey(), cancelRequest);
         } catch (FeignException e) {
             throw new PaymentCancelFailException();
         }
     }
 
-    private TossPaymentRequest.RefundReceiveAccount generateRefundAccount(OrderRequest.PaymentCancel request) {
-        var bankCode = BankCode.toEnumByName(request.bankName());
+    private TossPaymentRequest.RefundReceiveAccount generateRefundAccount(Order order) {
+        var bankCode = BankCode.toEnumByName(order.getRefundBankName());
         return TossPaymentRequest.RefundReceiveAccount.builder()
             .bank(bankCode.getCode())
-            .accountNumber(request.refundAccountNumber())
-            .holderName(request.refundAccountHolderName())
+            .accountNumber(order.getRefundAccountNumber())
+            .holderName(order.getRefundHolderName())
             .build();
     }
 
