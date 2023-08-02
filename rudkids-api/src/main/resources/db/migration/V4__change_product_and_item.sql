@@ -1,5 +1,3 @@
-drop table tbl_product_banner_image;
-
 alter table tbl_product add column banner_path varchar(255) null;
 alter table tbl_product add column banner_url varchar(255) null;
 
