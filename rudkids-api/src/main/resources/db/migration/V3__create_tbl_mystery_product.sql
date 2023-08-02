@@ -1,4 +1,4 @@
-create table if not exists tbl_mystery_product
+create table tbl_mystery_product
 (
     mystery_product_id binary(16)   not null
         primary key,
