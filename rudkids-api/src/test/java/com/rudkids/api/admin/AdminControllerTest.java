@@ -296,6 +296,183 @@ public class AdminControllerTest extends ControllerTest {
     }
 
     @Nested
+    @DisplayName("미스테리 프로덕트를 생성한다")
+    class createMysteryProduct {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(adminService.createMysteryProduct(any()))
+                .willReturn(MYSTERY_PRODUCT_ID);
+
+            mockMvc.perform(post(ADMIN_MYSTERY_PRODUCT_DEFAULT_URL)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(프로덕트_생성_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/createMysteryProduct",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("title")
+                            .type(JsonFieldType.STRING)
+                            .description("제목"),
+
+                        fieldWithPath("productBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("frontImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("앞 이미지 path"),
+
+                        fieldWithPath("frontImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("앞 이미지 url"),
+
+                        fieldWithPath("backImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("뒤 이미지 path"),
+
+                        fieldWithPath("backImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("뒤 이미지 url"),
+
+                        fieldWithPath("bannerImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("배너 이미지 주소"),
+
+                        fieldWithPath("bannerImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("배너 이미지 url"),
+
+                        fieldWithPath("mobileImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("모바일 이미지 path"),
+
+                        fieldWithPath("mobileImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("모바일 이미지 url")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
+    @DisplayName("미스테리 프로덕트를 수정한다")
+    class updateMysteryProduct {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(adminService)
+                .updateMysteryProduct(any(), any());
+
+            mockMvc.perform(put(ADMIN_MYSTERY_PRODUCT_DEFAULT_URL + "/{id}", MYSTERY_PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(PRODUCT_수정_요청()))
+                )
+                .andDo(print())
+                .andDo(document("admin/updateMysteryProduct",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                            headerWithName("Authorization")
+                                .description("JWT Access Token")
+                        ),
+                        pathParameters(
+                            parameterWithName("id")
+                                .description("미스테리 프로덕트 id")
+                        ),
+                        requestFields(
+                            fieldWithPath("title")
+                                .type(JsonFieldType.STRING)
+                                .description("제목"),
+
+                            fieldWithPath("productBio")
+                                .type(JsonFieldType.STRING)
+                                .description("소개글"),
+
+                            fieldWithPath("frontImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("앞 이미지 path"),
+
+                            fieldWithPath("frontImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("앞 이미지 url"),
+
+                            fieldWithPath("backImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("뒤 이미지 path"),
+
+                            fieldWithPath("backImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("뒤 이미지 url"),
+
+                            fieldWithPath("bannerImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("배너 이미지 주소"),
+
+                            fieldWithPath("bannerImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("배너 이미지 url"),
+
+                            fieldWithPath("mobileImage.path")
+                                .type(JsonFieldType.STRING)
+                                .description("모바일 이미지 path"),
+
+                            fieldWithPath("mobileImage.url")
+                                .type(JsonFieldType.STRING)
+                                .description("모바일 이미지 url")
+                        )
+                    )
+                )
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
+    @DisplayName("미스테리 프로덕트를 삭제한다")
+    class deleteMysteryProduct {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            willDoNothing()
+                .given(adminService)
+                .deleteMysteryProduct(any());
+
+            mockMvc.perform(delete(ADMIN_MYSTERY_PRODUCT_DEFAULT_URL + "/{id}", MYSTERY_PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                )
+                .andDo(print())
+                .andDo(document("admin/deleteMysteryProduct",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    pathParameters(
+                        parameterWithName("id")
+                            .description("미스테리 프로덕트 id")
+                    )
+                ))
+                .andExpect(status().isOk());
+        }
+    }
+
+    @Nested
     @DisplayName("아이템을 생성한다")
     class create {
 
@@ -631,6 +808,119 @@ public class AdminControllerTest extends ControllerTest {
                     )
                 ))
                 .andExpect(status().isNotFound());
+        }
+    }
+
+    @Nested
+    @DisplayName("미스테리 아이템을 생성한다")
+    class createMysteryItem {
+
+        @Test
+        @DisplayName("성공")
+        void success() throws Exception {
+            given(adminService.createItem(any(), any()))
+                .willReturn(아이템_영어_이름);
+
+            mockMvc.perform(post(ADMIN_ITEM_DEFAULT_URL + "/mystery/{productId}", MYSTERY_PRODUCT_ID)
+                    .header(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_HEADER_VALUE)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(ITEM_등록_요청()))
+                ).andDo(print())
+                .andDo(document("admin/createMysteryItem",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
+                    requestHeaders(
+                        headerWithName("Authorization")
+                            .description("JWT Access Token")
+                    ),
+                    requestFields(
+                        fieldWithPath("enName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 영어 이름"),
+
+                        fieldWithPath("koName")
+                            .type(JsonFieldType.STRING)
+                            .description("상품 한국 이름"),
+
+                        fieldWithPath("itemBio")
+                            .type(JsonFieldType.STRING)
+                            .description("소개글"),
+
+                        fieldWithPath("status")
+                            .type(JsonFieldType.STRING)
+                            .description("상태"),
+
+                        fieldWithPath("price")
+                            .type(JsonFieldType.NUMBER)
+                            .description("가격"),
+
+                        fieldWithPath("quantity")
+                            .type(JsonFieldType.NUMBER)
+                            .description("수량"),
+
+                        fieldWithPath("limitType")
+                            .type(JsonFieldType.STRING)
+                            .description("수량 한정 여부"),
+
+                        fieldWithPath("images")
+                            .type(JsonFieldType.ARRAY)
+                            .description("여러 아이템 이미지"),
+
+                        fieldWithPath("images[]path")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 주소"),
+
+                        fieldWithPath("images[]url")
+                            .type(JsonFieldType.STRING)
+                            .description("아이템 이미지 url"),
+
+                        fieldWithPath("images[]ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("아이템 이미지 순서"),
+
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionGroupName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 그룹 이름"),
+
+                        fieldWithPath("itemOptionGroupInfoList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 그룹 순서"),
+
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionName")
+                            .type(JsonFieldType.STRING)
+                            .description("옵션 이름"),
+
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].itemOptionPrice")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 가격"),
+
+                        fieldWithPath("itemOptionGroupInfoList[].itemOptionInfoList[].ordering")
+                            .type(JsonFieldType.NUMBER)
+                            .description("옵션 순서"),
+
+                        fieldWithPath("grayImage.path")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 주소"),
+
+                        fieldWithPath("grayImage.url")
+                            .type(JsonFieldType.STRING)
+                            .description("흑백사진 url"),
+
+                        fieldWithPath("videoUrl")
+                            .type(JsonFieldType.STRING)
+                            .description("비디오 url"),
+
+                        fieldWithPath("mysteryItemName")
+                            .type(JsonFieldType.STRING)
+                            .description("미스테리 아이템 이름"),
+
+                        fieldWithPath("mystery")
+                            .type(JsonFieldType.BOOLEAN)
+                            .description("미스테리 여부")
+                    )
+                ))
+                .andExpect(status().isOk());
         }
     }
 

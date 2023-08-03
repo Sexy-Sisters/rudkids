@@ -19,7 +19,7 @@ public class MysteryProductController {
     private final MysteryProductService mysteryProductService;
 
     @GetMapping("/{id}")
-    public ResponseEntity get(@PathVariable("id")UUID mysteryProductId) {
+    public ResponseEntity get(@PathVariable("id") UUID mysteryProductId) {
         var response = mysteryProductService.get(mysteryProductId);
         return ResponseEntity.ok(response);
     }

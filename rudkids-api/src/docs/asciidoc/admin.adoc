@@ -44,20 +44,6 @@ include::{snippets}/admin/createProduct/request-headers.adoc[]
 Request Fields
 include::{snippets}/admin/createProduct/request-fields.adoc[]
 
-=== 프로덕트 상태변경
-
-HTTP Request
-include::{snippets}/admin/changeProductStatus/http-request.adoc[]
-
-Request Header
-include::{snippets}/admin/changeProductStatus/request-headers.adoc[]
-
-Path Parameters
-include::{snippets}/admin/changeProductStatus/path-parameters.adoc[]
-
-Request Fields
-include::{snippets}/admin/changeProductStatus/request-fields.adoc[]
-
 === 프로덕트 수정
 
 HTTP Request
@@ -83,7 +69,57 @@ include::{snippets}/admin/deleteProduct/request-headers.adoc[]
 Path Parameters
 include::{snippets}/admin/deleteProduct/path-parameters.adoc[]
 
+=== 미스테리 프로덕트 생성
+
+HTTP Request
+include::{snippets}/admin/createProduct/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/createProduct/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/admin/createProduct/request-fields.adoc[]
+
+=== 미스테리 프로덕트 수정
+
+HTTP Request
+include::{snippets}/admin/updateProduct/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/updateProduct/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/updateProduct/path-parameters.adoc[]
+
+Request Fields
+include::{snippets}/admin/updateProduct/request-fields.adoc[]
+
+=== 미스테리 프로덕트 삭제
+
+HTTP Request
+include::{snippets}/admin/deleteProduct/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/deleteProduct/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/admin/deleteProduct/path-parameters.adoc[]
+
 === 아이템 생성
+
+HTTP Request
+include::{snippets}/admin/createItem/http-request.adoc[]
+
+Request Header
+include::{snippets}/admin/createItem/request-headers.adoc[]
+
+Request Fields
+include::{snippets}/admin/createItem/request-fields.adoc[]
+
+HTTP Response
+include::{snippets}/admin/createItem/http-response.adoc[]
+
+=== 미스테리 아이템 생성
 
 HTTP Request
 include::{snippets}/admin/createItem/http-request.adoc[]
