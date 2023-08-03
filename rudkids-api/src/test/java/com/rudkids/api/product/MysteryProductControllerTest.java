@@ -31,18 +31,14 @@ public class MysteryProductControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(mysteryProductService.get(any()))
+            given(mysteryProductService.get())
                 .willReturn(미스테리_프로덕트_응답());
 
-            mockMvc.perform(get(MYSTERY_PRODUCT_DEFAULT_URL + "/{id}", 미스테리_프로덕트_아이디))
+            mockMvc.perform(get(MYSTERY_PRODUCT_DEFAULT_URL))
                 .andDo(print())
                 .andDo(document("product/mystery/get",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
-                    pathParameters(
-                        parameterWithName("id")
-                            .description("미스테리 프로덕트 id")
-                    ),
                     responseFields(
                         fieldWithPath("productId")
                             .type(JsonFieldType.STRING)
@@ -71,7 +67,7 @@ public class MysteryProductControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            given(mysteryProductService.getDetail(any(), any()))
+            given(mysteryProductService.getDetail(any(), any(), any()))
                 .willReturn(미스테리_프로덕트_상세_응답());
 
             mockMvc.perform(get(MYSTERY_PRODUCT_DEFAULT_URL + "/detail/{id}", 미스테리_프로덕트_아이디)

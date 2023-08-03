@@ -125,14 +125,6 @@ class ItemControllerTest extends ControllerTest {
                             .type(JsonFieldType.NUMBER)
                             .description("옵션 순서"),
 
-                        fieldWithPath("grayImage.path")
-                            .type(JsonFieldType.STRING)
-                            .description("흑백사진 주소"),
-
-                        fieldWithPath("grayImage.url")
-                            .type(JsonFieldType.STRING)
-                            .description("흑백사진 url"),
-
                         fieldWithPath("videoUrl")
                             .type(JsonFieldType.STRING)
                             .description("비디오 url"),

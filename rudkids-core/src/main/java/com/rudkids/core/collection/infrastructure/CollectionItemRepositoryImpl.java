@@ -1,11 +1,12 @@
 package com.rudkids.core.collection.infrastructure;
 
-import com.rudkids.core.collection.domain.Collection;
 import com.rudkids.core.collection.domain.CollectionItem;
+import com.rudkids.core.collection.domain.CollectionItemCategory;
 import com.rudkids.core.collection.domain.CollectionItemRepository;
-import com.rudkids.core.item.domain.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -18,13 +19,7 @@ public class CollectionItemRepositoryImpl implements CollectionItemRepository {
     }
 
     @Override
-    public CollectionItem getOrCreate(Collection collection, Item item) {
-        return collectionItemRepository.findByItem(item)
-            .orElseGet(() -> saveCollectionItem(collection, item));
-    }
-
-    private CollectionItem saveCollectionItem(Collection collection, Item item) {
-        var collectionItem = CollectionItem.create(collection, item);
-        return collectionItemRepository.save(collectionItem);
+    public List<CollectionItem> getByCategory(CollectionItemCategory category) {
+        return collectionItemRepository.findByCategory(category);
     }
 }

@@ -1,13 +1,12 @@
 package com.rudkids.core.collection.domain;
 
-import com.rudkids.core.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -26,43 +25,31 @@ public class CollectionItem {
     @JoinColumn(name = "collection_id")
     private Collection collection;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @Column(name = "item_image_url")
+    private String itemImageUrl;
 
+    @Column(name = "item_gray_image_url")
+    private String itemGrayImageUrl;
+
+    @Column(name = "item_en_name")
+    private String itemEnName;
+
+    @Column(name = "category")
     @Enumerated(EnumType.STRING)
-    private CollectionItemStatus status = CollectionItemStatus.PRIVATE;
+    private CollectionItemCategory category;
 
-    private CollectionItem(Collection collection, Item item) {
+    @Builder
+    public CollectionItem(Collection collection,
+                          String itemImageUrl,
+                          String itemGrayImageUrl,
+                          String itemEnName,
+                          CollectionItemCategory category
+                          ) {
         this.collection = collection;
         collection.addCollectionItem(this);
-        this.item = item;
-    }
-
-    public static CollectionItem create(Collection collection, Item item) {
-        return new CollectionItem(collection, item);
-    }
-
-    public String getName() {
-        return item.getEnName();
-    }
-
-    public void bought() {
-        status = CollectionItemStatus.PUBLIC;
-    }
-
-    public boolean isSameItem(Item item) {
-        return this.item.equals(item);
-    }
-
-    public String getImageUrl() {
-        if(status == CollectionItemStatus.PUBLIC) {
-            return item.getFirstImageUrl();
-        }
-        return item.getGrayImageUrl();
-    }
-
-    public boolean isBought() {
-        return status == CollectionItemStatus.PUBLIC;
+        this.itemImageUrl = itemImageUrl;
+        this.itemGrayImageUrl = itemGrayImageUrl;
+        this.itemEnName = itemEnName;
+        this.category = category;
     }
 }

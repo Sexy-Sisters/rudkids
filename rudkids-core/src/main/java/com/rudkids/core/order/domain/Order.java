@@ -90,7 +90,9 @@ public class Order extends AbstractEntity {
         }
 
         orderStatus = OrderStatus.CANCEL;
+    }
 
+    public void addItemQuantity() {
         for(OrderItem orderItem: orderItems) {
             orderItem.cancel();
         }

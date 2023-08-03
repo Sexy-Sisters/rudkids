@@ -2,7 +2,6 @@ package com.rudkids.core.order.service;
 
 import com.rudkids.core.cart.domain.CartItemRepository;
 import com.rudkids.core.cart.domain.CartRepository;
-import com.rudkids.core.collection.service.Collector;
 import com.rudkids.core.common.RandomGeneratable;
 import com.rudkids.core.order.domain.*;
 import com.rudkids.core.order.dto.OrderRequest;
@@ -33,8 +32,6 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final PaymentClient paymentClient;
     private final DeliveryTracker deliveryTracker;
-    private final Collector collector;
-    private final NotificationMessenger notificationMessenger;
 
     @Transactional(readOnly = true)
     public OrderResponse.PaymentWidgetInfo getPaymentWidgetInfo(UUID userId) {
@@ -95,7 +92,9 @@ public class OrderService {
                 }
 
                 if(order.isVirtualAccountDepositDateExpired()) {
+                    order.cancel();
                     paymentClient.cancelVirtualAccount(order, order.getVirtualAccountCancelReason());
+                    order.addItemQuantity();
                 }
                 return new OrderResponse.Main(order);
             })
@@ -105,7 +104,6 @@ public class OrderService {
     private void checkDeliveryTracking(User user, Order order) {
         if (deliveryTracker.isDeliveryCompleted(user, order)) {
             order.changeDeliveryStatusComp();
-            collector.collect(user, order);
 
             /*
             알림톡 보류
@@ -120,8 +118,9 @@ public class OrderService {
         order.validateHasSameUser(user);
 
         if (order.isVirtualAccount()) {
-            paymentClient.cancelVirtualAccount(order, request.cancelReason());
             order.cancel();
+            paymentClient.cancelVirtualAccount(order, request.cancelReason());
+            order.addItemQuantity();
             return new OrderResponse.Id(orderId);
         }
 

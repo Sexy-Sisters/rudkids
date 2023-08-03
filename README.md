@@ -1,4 +1,4 @@
-# <img src="https://dev-img.rudkids.com/rudkids-rogo.png" align="right" width="100">Rudkids
+# <img src="https://rudkids-image.s3.ap-northeast-2.amazonaws.com/893beb37-0f2a-49e5-b89e-bf8428191ff4.png" align="right" width="100">Rudkids
 
 This repository is the backend of Rudkids
 

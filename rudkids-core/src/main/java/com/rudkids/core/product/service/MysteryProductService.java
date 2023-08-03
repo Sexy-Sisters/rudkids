@@ -1,6 +1,7 @@
 package com.rudkids.core.product.service;
 
 import com.rudkids.core.item.domain.Item;
+import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.dto.ItemResponse;
 import com.rudkids.core.product.domain.MysteryProduct;
 import com.rudkids.core.product.domain.MysteryProductRepository;
@@ -10,6 +11,7 @@ import com.rudkids.core.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,22 +26,23 @@ import static java.util.stream.Collectors.toList;
 public class MysteryProductService {
     private final UserRepository userRepository;
     private final MysteryProductRepository mysteryProductRepository;
+    private final ItemRepository itemRepository;
 
-    public ProductResponse.Main get(UUID mysteryProductId) {
-        var mysteryProduct = mysteryProductRepository.get(mysteryProductId);
+    public ProductResponse.Main get() {
+        var mysteryProduct = mysteryProductRepository.get();
         return new ProductResponse.Main(mysteryProduct);
     }
 
-    public ProductResponse.Detail getDetail(UUID userId, UUID mysteryProductId) {
+    public ProductResponse.Detail getDetail(UUID userId, UUID mysteryProductId, Pageable pageable) {
         var mysteryProduct = mysteryProductRepository.get(mysteryProductId);
         var user = userRepository.getUser(userId);
 
-        var items = getItems(mysteryProduct, user);
+        var items = getItems(mysteryProduct, user, pageable);
         return new ProductResponse.Detail(mysteryProduct, items);
     }
 
-    private Page<ItemResponse.Main> getItems(MysteryProduct mysteryProduct, User user) {
-        return mysteryProduct.getItems().stream()
+    private Page<ItemResponse.Main> getItems(MysteryProduct mysteryProduct, User user, Pageable pageable) {
+        return itemRepository.getByMysteryProduct(mysteryProduct, pageable).stream()
             .map(item -> getItem(user, item))
             .collect(collectingAndThen(toList(), PageImpl::new));
     }

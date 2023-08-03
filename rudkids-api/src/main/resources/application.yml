@@ -23,9 +23,9 @@ security:
     token:
       secret-key: ${JWT_SECRET_KEY}
       access:
-        expire-length: 3600000 #1시간
+        expire-length: 1210000000 #24시간
       refresh:
-        expire-length: 1210000000 #14일
+        expire-length: 2592000000 #30일
 
 oauth:
   google:

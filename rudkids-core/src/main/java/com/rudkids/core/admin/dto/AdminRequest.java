@@ -54,7 +54,8 @@ public class AdminRequest {
         String videoUrl,
         String mysteryItemName,
         boolean mystery
-    ) {}
+    ) {
+    }
 
     @Builder
     public record UpdateItem(

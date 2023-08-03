@@ -3,6 +3,7 @@ package com.rudkids.core.item.infrastructure;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemRepository;
 import com.rudkids.core.item.exception.ItemNotFoundException;
+import com.rudkids.core.product.domain.MysteryProduct;
 import com.rudkids.core.product.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Page<Item> getPopularItems(Pageable pageable) {
         return itemRepository.findAllByOrderByStatusAndQuantityAsc(pageable);
+    }
+
+    @Override
+    public Page<Item> getByMysteryProduct(MysteryProduct mysteryProduct, Pageable pageable) {
+        return itemRepository.findByMysteryProduct(mysteryProduct, pageable);
     }
 
     @Override
