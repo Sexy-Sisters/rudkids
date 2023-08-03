@@ -45,7 +45,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponse.Info get(UUID userId) {
         var user = userRepository.getUser(userId);
-        var collection = collectionRepository.getOrCreate(user);
+        var collection = collectionRepository.getOrCreate();
         return new UserResponse.Info(user, collection.getCollectionItemSize());
     }
 

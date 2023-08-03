@@ -4,10 +4,7 @@ import com.rudkids.core.admin.domain.OrderQuerydslRepository;
 import com.rudkids.core.admin.dto.AdminRequest;
 import com.rudkids.core.admin.dto.AdminResponse;
 import com.rudkids.core.cart.domain.CartItemRepository;
-import com.rudkids.core.collection.domain.Collection;
-import com.rudkids.core.collection.domain.CollectionItem;
-import com.rudkids.core.collection.domain.CollectionItemRepository;
-import com.rudkids.core.collection.domain.CollectionRepository;
+import com.rudkids.core.collection.domain.*;
 import com.rudkids.core.image.service.ImageDeletedEvent;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImageRepository;
@@ -142,7 +139,7 @@ public class AdminService {
         item.setProduct(product);
         itemRepository.save(item);
 
-        saveCollectionItem(item);
+        saveCollectionItem(request.images().get(0).url(), request.grayImage().url(), request.enName(), product.getTitle());
         return item.getEnName();
     }
 
@@ -152,15 +149,19 @@ public class AdminService {
         item.setMysteryProduct(mysteryProduct);
         itemRepository.save(item);
 
-        saveCollectionItem(item);
+        saveCollectionItem(request.images().get(0).url(), request.grayImage().url(), request.enName(), mysteryProduct.getTitle());
     }
 
-    private void saveCollectionItem(Item item) {
-        var collections = collectionRepository.getAll();
-        for(Collection collection: collections) {
-            var collectionItem = CollectionItem.create(collection, item);
-            collectionItemRepository.save(collectionItem);
-        }
+    private void saveCollectionItem(String itemImageUrl, String itemGrayImageUrl, String itemEnName, String category) {
+        var collection = collectionRepository.getOrCreate();
+        var collectionItem = CollectionItem.builder()
+            .collection(collection)
+            .itemImageUrl(itemImageUrl)
+            .itemGrayImageUrl(itemGrayImageUrl)
+            .itemEnName(itemEnName)
+            .category(CollectionItemCategory.toEnum(category))
+            .build();
+        collectionItemRepository.save(collectionItem);
     }
 
     public void updateItem(String itemName, AdminRequest.UpdateItem request) {
@@ -191,8 +192,6 @@ public class AdminService {
     }
 
     private void deleteItemImage(Item item) {
-        eventPublisher.publishEvent(new ImageDeletedEvent(item.getGrayImagePath()));
-
         for (String path : item.getImagePaths()) {
             eventPublisher.publishEvent(new ImageDeletedEvent(path));
         }

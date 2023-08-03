@@ -1,6 +1,5 @@
 package com.rudkids.core.item.dto;
 
-import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.Item;
 import com.rudkids.core.item.domain.ItemImage;
 import com.rudkids.core.item.domain.ItemStatus;
@@ -42,7 +41,6 @@ public class ItemResponse {
         List<DetailImage> images,
         ItemStatus itemStatus,
         List<DetailOptionGroup> itemOptionGroupInfoList,
-        ImageResponse.Info grayImage,
         String videoUrl,
         UUID productId
     ) {
@@ -60,7 +58,6 @@ public class ItemResponse {
                     .toList(),
                 item.getItemStatus(),
                 getOptionGroup(item),
-                new ImageResponse.Info(item.getGrayImagePath(), item.getGrayImageUrl()),
                 item.getVideoUrl(),
                 item.getProductId()
             );

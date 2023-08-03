@@ -1,8 +1,8 @@
 package com.rudkids.core.collection.domain;
 
-import com.rudkids.core.item.domain.Item;
+import java.util.List;
 
 public interface CollectionItemRepository {
     void save(CollectionItem collectionItem);
-    CollectionItem getOrCreate(Collection collection, Item item);
+    List<CollectionItem> getByCategory(CollectionItemCategory category);
 }

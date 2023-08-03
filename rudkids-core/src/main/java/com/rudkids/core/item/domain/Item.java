@@ -49,9 +49,6 @@ public class Item extends AbstractEntity {
     @Embedded
     private Quantity quantity;
 
-    @Embedded
-    private GrayImage grayImage;
-
     @Enumerated(EnumType.STRING)
     private LimitType limitType;
 
@@ -77,7 +74,6 @@ public class Item extends AbstractEntity {
                 Price price,
                 Quantity quantity,
                 LimitType limitType,
-                GrayImage grayImage,
                 String videoUrl,
                 String mysteryItemName
     ) {
@@ -88,7 +84,6 @@ public class Item extends AbstractEntity {
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
-        this.grayImage = grayImage;
         this.videoUrl = videoUrl;
         this.mysteryItemName = mysteryItemName;
     }
@@ -98,14 +93,12 @@ public class Item extends AbstractEntity {
                        Price price,
                        Quantity quantity,
                        LimitType limitType,
-                       GrayImage grayImage,
                        String videoUrl) {
         this.name = name;
         this.itemBio = itemBio;
         this.price = price;
         this.quantity = quantity;
         this.limitType = limitType;
-        this.grayImage = grayImage;
         this.videoUrl = videoUrl;
     }
 
@@ -159,14 +152,6 @@ public class Item extends AbstractEntity {
 
     public String getItemBio() {
         return itemBio.getValue();
-    }
-
-    public String getGrayImageUrl() {
-        return grayImage.getUrl();
-    }
-
-    public String getGrayImagePath() {
-        return grayImage.getPath();
     }
 
     public List<String> getImagePaths() {

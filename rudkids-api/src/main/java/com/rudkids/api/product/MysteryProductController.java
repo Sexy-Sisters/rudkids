@@ -4,6 +4,8 @@ import com.rudkids.api.auth.AuthenticationPrincipal;
 import com.rudkids.core.auth.dto.AuthUser;
 import com.rudkids.core.product.service.MysteryProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,18 +20,19 @@ import java.util.UUID;
 public class MysteryProductController {
     private final MysteryProductService mysteryProductService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity get(@PathVariable("id") UUID mysteryProductId) {
-        var response = mysteryProductService.get(mysteryProductId);
+    @GetMapping
+    public ResponseEntity get() {
+        var response = mysteryProductService.get();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/detail/{id}")
     public ResponseEntity getDetail(
         @AuthenticationPrincipal AuthUser.Login loginUser,
-        @PathVariable("id")UUID mysteryProductId
+        @PathVariable("id") UUID mysteryProductId,
+        @PageableDefault Pageable pageable
     ) {
-        var response = mysteryProductService.getDetail(loginUser.id(), mysteryProductId);
+        var response = mysteryProductService.getDetail(loginUser.id(), mysteryProductId, pageable);
         return ResponseEntity.ok(response);
     }
 }

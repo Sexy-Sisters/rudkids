@@ -22,13 +22,17 @@ public class QCollectionItem extends EntityPathBase<CollectionItem> {
 
     public static final QCollectionItem collectionItem = new QCollectionItem("collectionItem");
 
+    public final EnumPath<CollectionItemCategory> category = createEnum("category", CollectionItemCategory.class);
+
     public final QCollection collection;
 
     public final ComparablePath<java.util.UUID> id = createComparable("id", java.util.UUID.class);
 
-    public final com.rudkids.core.item.domain.QItem item;
+    public final StringPath itemEnName = createString("itemEnName");
 
-    public final EnumPath<CollectionItemStatus> status = createEnum("status", CollectionItemStatus.class);
+    public final StringPath itemGrayImageUrl = createString("itemGrayImageUrl");
+
+    public final StringPath itemImageUrl = createString("itemImageUrl");
 
     public QCollectionItem(String variable) {
         this(CollectionItem.class, forVariable(variable), INITS);
@@ -48,8 +52,7 @@ public class QCollectionItem extends EntityPathBase<CollectionItem> {
 
     public QCollectionItem(Class<? extends CollectionItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.collection = inits.isInitialized("collection") ? new QCollection(forProperty("collection"), inits.get("collection")) : null;
-        this.item = inits.isInitialized("item") ? new com.rudkids.core.item.domain.QItem(forProperty("item"), inits.get("item")) : null;
+        this.collection = inits.isInitialized("collection") ? new QCollection(forProperty("collection")) : null;
     }
 
 }

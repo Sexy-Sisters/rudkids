@@ -1,6 +1,5 @@
 package com.rudkids.api.common.fixtures.item;
 
-import com.rudkids.core.image.dto.ImageResponse;
 import com.rudkids.core.item.domain.ItemStatus;
 import com.rudkids.core.item.domain.LimitType;
 import com.rudkids.core.item.dto.ItemResponse;
@@ -25,7 +24,6 @@ public class ItemFixturesAndDocs {
     public static final int 아이템_가격 = 10_000;
     public static final int 아이템_수량 = 100;
     public static final LimitType 아이템_수량_한정_여부 = LimitType.LIMITED;
-    public static final List<String> 아이템_여러_이미지 = List.of("url1", "url2");
 
     public static ItemResponse.Detail ITEM_상세정보_조회_응답() {
         return ItemResponse.Detail.builder()
@@ -38,7 +36,6 @@ public class ItemFixturesAndDocs {
             .images(List.of(new ItemResponse.DetailImage(UUID.randomUUID(), "path", "url", 1)))
             .itemStatus(ItemStatus.SELLING)
             .itemOptionGroupInfoList(ITEM_OPTION_GROUP())
-            .grayImage(new ImageResponse.Info("path", "url"))
             .videoUrl("videoUrl")
             .productId(UUID.randomUUID())
             .build();

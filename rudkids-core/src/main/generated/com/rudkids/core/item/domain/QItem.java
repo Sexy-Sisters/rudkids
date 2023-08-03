@@ -27,8 +27,6 @@ public class QItem extends EntityPathBase<Item> {
     //inherited
     public final DateTimePath<java.time.ZonedDateTime> createdAt = _super.createdAt;
 
-    public final QGrayImage grayImage;
-
     public final ComparablePath<java.util.UUID> id = createComparable("id", java.util.UUID.class);
 
     public final ListPath<ItemImage, QItemImage> images = this.<ItemImage, QItemImage>createList("images", ItemImage.class, QItemImage.class, PathInits.DIRECT2);
@@ -76,7 +74,6 @@ public class QItem extends EntityPathBase<Item> {
 
     public QItem(Class<? extends Item> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.grayImage = inits.isInitialized("grayImage") ? new QGrayImage(forProperty("grayImage")) : null;
         this.itemBio = inits.isInitialized("itemBio") ? new QItemBio(forProperty("itemBio")) : null;
         this.mysteryProduct = inits.isInitialized("mysteryProduct") ? new com.rudkids.core.product.domain.QMysteryProduct(forProperty("mysteryProduct"), inits.get("mysteryProduct")) : null;
         this.name = inits.isInitialized("name") ? new QName(forProperty("name")) : null;

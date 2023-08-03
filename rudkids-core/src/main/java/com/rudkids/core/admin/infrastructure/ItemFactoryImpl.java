@@ -30,7 +30,6 @@ public class ItemFactoryImpl implements ItemFactory {
         var price = Price.create(request.price());
         var quantity = Quantity.create(request.quantity());
         var limitType = request.limitType();
-        var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
         return Item.builder()
             .name(name)
@@ -39,7 +38,6 @@ public class ItemFactoryImpl implements ItemFactory {
             .price(price)
             .quantity(quantity)
             .limitType(limitType)
-            .grayImage(grayImage)
             .videoUrl(request.videoUrl())
             .mysteryItemName(request.mysteryItemName())
             .build();
@@ -52,9 +50,8 @@ public class ItemFactoryImpl implements ItemFactory {
         var price = Price.create(request.price());
         var quantity = Quantity.create(request.quantity());
         var limitType = request.limitType();
-        var grayImage = GrayImage.create(request.grayImage().path(), request.grayImage().url());
 
-        item.update(name, itemBio, price, quantity, limitType, grayImage, request.videoUrl());
+        item.update(name, itemBio, price, quantity, limitType, request.videoUrl());
         saveItemImages(item, request.images());
         saveChildEntities(item, request.itemOptionGroupInfoList());
     }

@@ -19,6 +19,15 @@ public class MysteryProductRepositoryImpl implements MysteryProductRepository {
     }
 
     @Override
+    public MysteryProduct get() {
+        var mysteryProducts = mysteryProductRepository.findAll();
+        if(mysteryProducts.isEmpty()) {
+            throw new MysteryProductNotFoundException();
+        }
+        return mysteryProductRepository.findAll().get(0);
+    }
+
+    @Override
     public MysteryProduct get(UUID mysteryProductId) {
         return mysteryProductRepository.findById(mysteryProductId)
             .orElseThrow(MysteryProductNotFoundException::new);
