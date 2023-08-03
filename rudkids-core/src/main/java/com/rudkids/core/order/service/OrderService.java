@@ -107,7 +107,10 @@ public class OrderService {
             order.changeDeliveryStatusComp();
             collector.collect(user, order);
 
+            /*
+            알림톡 보류
             notificationMessenger.sendDeliveryCompleted(user);
+             */
         }
     }
 

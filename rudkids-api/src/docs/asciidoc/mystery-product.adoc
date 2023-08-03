@@ -1,0 +1,34 @@
+[[Mystery-Product-API]]
+== Mystery Product API
+:hardbreaks:
+
+=== 미스테리 프로덕트 조회
+
+HTTP Request
+include::{snippets}/product/mystery/get/http-request.adoc[]
+
+Path Parameters
+include::{snippets}/product/mystery/get/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/product/mystery/get/http-response.adoc[]
+
+Response Fields
+include::{snippets}/product/mystery/get/response-fields.adoc[]
+
+== 미스테리 프로덕트 상세조회
+
+HTTP Request
+include::{snippets}/product/mystery/getDetail/http-request.adoc[]
+
+Request Header
+include::{snippets}/product/mystery/getDetail/request-headers.adoc[]
+
+Path Parameters
+include::{snippets}/product/mystery/getDetail/path-parameters.adoc[]
+
+HTTP Response
+include::{snippets}/product/mystery/getDetail/http-response.adoc[]
+
+Response Fields
+include::{snippets}/product/mystery/getDetail/response-fields.adoc[]

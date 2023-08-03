@@ -13,6 +13,8 @@ include::user.adoc[]
 
 include::product.adoc[]
 
+include::mystery-product.adoc[]
+
 include::item.adoc[]
 
 include::admin.adoc[]

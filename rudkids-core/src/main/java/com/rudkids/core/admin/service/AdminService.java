@@ -98,9 +98,10 @@ public class AdminService {
         productRepository.delete(product);
     }
 
-    public void createMysteryProduct(AdminRequest.CreateProduct request) {
+    public UUID createMysteryProduct(AdminRequest.CreateProduct request) {
         var mysteryProduct = mysteryProductFactory.create(request);
         mysteryProductRepository.save(mysteryProduct);
+        return mysteryProduct.getId();
     }
 
     public void updateMysteryProduct(UUID mysteryProductId, AdminRequest.UpdateProduct request) {
