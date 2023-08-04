@@ -20,6 +20,9 @@ public class CollectionItemRepositoryImpl implements CollectionItemRepository {
 
     @Override
     public List<CollectionItem> getByCategory(CollectionItemCategory category) {
+        if(category.isAll()) {
+            return collectionItemRepository.findAll();
+        }
         return collectionItemRepository.findByCategory(category);
     }
 }

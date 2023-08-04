@@ -22,8 +22,9 @@ public class CollectionService {
 
     public List<CollectionItemResponse.Info> getAll(UUID userId, String category) {
         var user = userRepository.getUser(userId);
+        var collectionItems = collectionItemRepository.getByCategory(CollectionItemCategory.toEnum(category));
 
-        return collectionItemRepository.getByCategory(CollectionItemCategory.toEnum(category)).stream()
+        return collectionItems.stream()
             .map(item -> {
                 if(isBoughtItem(user, item.getItemEnName())) {
                     return new CollectionItemResponse.Info(item.getItemEnName(), item.getItemImageUrl());
