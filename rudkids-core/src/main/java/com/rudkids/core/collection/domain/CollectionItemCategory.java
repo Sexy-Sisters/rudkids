@@ -13,4 +13,8 @@ public enum CollectionItemCategory {
             .findFirst()
             .orElseThrow(CollectionItemCategoryNotFoundException::new);
     }
+
+    public boolean isAll() {
+        return this == ALL;
+    }
 }
